@@ -1,0 +1,481 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb,amsmath}
+\usepackage[sort, round]{natbib}
+%\usepackage{epstopdf}
+\usepackage{gn-logic14}
+%\usepackage{rotating}
+\usepackage{MnSymbol}
+\usepackage[geometry]{ifsym}
+
+\usepackage{enumitem}
+
+\newlist{legal}{enumerate}{10} 
+\setlist[legal]{label*=\arabic*., topsep=0.0in, parsep=0.1in}
+
+\newlist{mynum}{enumerate}{10} 
+\setlist[mynum]{label=(\emph{\arabic*}), topsep=0.0in, parsep=0.1in}
+
+\newlist{myRoman}{enumerate}{10} 
+\setlist[myRoman]{label=\Roman*., topsep=0.0in, parsep=0.1in}
+
+\newlist{myroman}{enumerate}{10} 
+\setlist[myroman]{label=(\emph{\roman*}), topsep=0.0in, parsep=0.1in}
+
+\newlist{empt}{itemize}{10} 
+\setlist[empt]{label*=, topsep=0.1in, parsep=0.1in}
+
+\newlist{bul}{itemize}{10} 
+\setlist[bul]{label=$\bullet$, topsep=0.0in,parsep=0.1in,}
+\setlist[bul,2]{label=$\circ$, topsep=0.0in,parsep=0.1in,}
+\setlist[bul,3]{label=$\diamond$, topsep=0.0in,parsep=0.1in,}
+
+\newlist{myalpha}{enumerate}{10} 
+\setlist[myalpha]{label=(\emph{\alph*}), topsep=0.1in, parsep=0.1in}
+
+\newlist{peano}{enumerate}{10} 
+\setlist[peano,1]{label*=\arabic*, topsep=0.0in, parsep=0.075in}
+\setlist[peano]{label*=.\arabic*, topsep=0.0in, parsep=0.075in}
+
+\textwidth = 6.5 in
+\textheight = 8.5 in
+\oddsidemargin = 0.0 in
+\evensidemargin = 0.0 in
+\topmargin = 0.0 in
+\headheight = 0.0 in
+\headsep = 0.0 in
+\parskip = 0.1in
+\parindent = 0.0in
+
+%%%%%%%%%%%%%
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{mydef}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\renewcommand{\qedsymbol}{\small QED}
+
+\newcommand{\bs}{\ensuremath{\backslash}}
+\newcommand{\ra}{\rangle}
+\newcommand{\la}{\langle}
+\newcommand{\BB}{\boxbox}
+\newcommand{\DD}{\diamonddiamond}
+\newcommand{\PB}{\diamonddiamond}
+\newcommand{\Nec}{\Box}
+\newcommand{\Pos}{\Diamond}
+\newcommand{\BD}{\boxdot}
+\newcommand{\BM}{\boxminus}
+\newcommand{\DM}{\diamondminus}
+\newcommand{\PD}{\diamonddot}
+\newcommand{\BP}{\boxplus}
+\newcommand{\NM}{\boxminus}
+\newcommand{\PP}{\diamondplus}
+\newcommand{\DP}{\diamondplus}
+\newcommand{\PM}{\diamondminus}
+\newcommand{\falsum}{\bot}
+\newcommand{\FB}{\filledmedsquare}
+\newcommand{\BlackBox}{\filledmedsquare}
+\newcommand{\NT}{\boxtimes}
+\newcommand{\PT}{\diamondtimes}
+\newcommand{\IPP}{\diamondplus^{-1}}
+\newcommand{\IPM}{\diamondminus^{-1}}
+\newcommand{\INP}{\boxplus^{-1}}
+\newcommand{\INM}{\boxminus^{-1}}
+\newcommand{\mo}[2]{\ensuremath{\bbM,\langle #1, #2 \rangle}}
+\newcommand{\pr}[2]{\ensuremath{\langle #1, #2 \rangle}}
+\newcommand{\rel}[1]{\ensuremath{R_{#1}}}
+\newcommand{\lc}{\ullcorner}
+\newcommand{\rc}{\ulrcorner}
+
+\title{Evidentialist Logic}
+
+\author{Matthew P. Wampler-Doty}
+\date{}                                           % Activate to display a given date or no date
+\begin{document}
+\maketitle
+\begin{abstract} In this paper we present a novel epistemic logic, which we shall call \emph{Evidentialist Logic} or \textsf{EviL} for brevity.  The logic is found to be non-compact, and sound and complete for a Hilbert style proof system.  The logic is further shown to be a conservative extension of basic modal logic, and to embed intuitionistic logic; subsequently the decision problem is observed to be \textsf{PSPACE} hard.  
+% based on principles from evidentialist epistemology. 
+% We consider the elementary case of a single agent in a static environment.  The aim of this logic is to give an account of how an agent may ignore or entertain evidence in their deductions; hence we refer to our logic as \emph{Evidentialist Logic}, abbreviated \textsf{EviL}.\end{abstract}
+
+\section{Introduction}
+
+In \cite{hintikka1962kab}, Hintikka originally imagined Epistemic logic as system for reasoning about the knowledge of a single agent in a static environment.  His original analysis was to consider what an agent would \emph{eventually} conclude, given enough time to reach every derivable logical conclusion.  While his original work has been widely celebrated, it lacked an element fundamental to 20th century epistemology - the notion of \emph{justification}.
+
+In \cite{artemov2005iji}, an answer was given to this problem with the development of \emph{justifcation logic}, which took inspiration from the \emph{logic of proofs} \citep{artemov1994lp}.  The fundamental innovation behind this approach is to introduce new \emph{syntax}, namely formulae of the form $t: \phi$, which are intended to mean ``$t$ is evidence for $\phi$.''
+
+In this paper we offer an approach in the same spirit, however the developments we make are essentially \emph{semantic}.  We consider beliefs to be formed of a deductive process, but consider them to be conclusions drawn from a body of \emph{premises}, which the agent has acquired through their senses.  Throughout this essay, we shall consider these premises as evidence, and use these terms interchangeably.  Our chosen reading of $\Nec \phi$ is now ``The agent has an argument for $\phi$, based on their current premises and background information.''  We also offer 3 novel modalities:
+\begin{bul}
+\item $\BB \phi$ -- which we read ``for some accessible restriction of the agent's current premises, $\phi$ holds'' where $\phi$ is some formula representing an epistemic statement
+\item $\BB^{-1} \phi$ -- which we read ``for some accessible extension of the agent's premises, $\phi$ holds''
+\item $\oplus$ -- which we read ``the agent's current premises are sound''
+\end{bul}
+
+To further motivate the intuition behind these semantics, we imagine that agents can choose to ignore premises in order to compose stronger deductions, in the spirit of Ren\'{e} Descarte's Meditation's II \citep{descartes1993mfp}:
+\begin{quote}
+I will, nevertheless, make an effort, and try anew the same path on which I had entered yesterday, that is, proceed by casting aside all that admits of the slightest doubt, not less than if I had discovered it to be absolutely false; and I will continue always in this track until I shall find something that is certain, or at least, if I can do nothing more, until I shall know with certainty that there is nothing certain.\end{quote}
+
+ We shall also consider the \emph{dual} of this behavior, where the agent entertains premises beyond what they currently posses. In both of these operations, we will assume that the state of affairs outside of the agent's psychology remains fixed, and only the premises undergo reconsideration.
+ 
+ We now turn to giving formal semantics which we hope reflect these ideas.
+
+\section{Grammar \& Semantics}
+
+Let $\Phi$ be an infinite set of sentence letters.  The grammar of $\mathsf{EviL}$ is given by the following Backus-Naur form context free grammar:
+\[ \phi ::= p \in \Phi\ |\ \phi \vee \psi\ |\ \neg \phi\ |\ \Pos \phi \ | \ \DD \phi \ | \ \DD^{-1} \phi \ | \ \oplus \]
+
+\ldots we shall refer to this language as $\mathcal{L}(\Phi)$.  We follow the usual abbreviations for other connectives and modalities.
+
+Next, we shall define recursively the Tarski truth predicate $\models$.  For an arbitrary $\Omega \subseteq (\powerset \Phi) \times (\powerset \mathcal{L}(\Phi))$ and $(a,A) \in \Omega$ we write:
+\begin{peano}
+	\item $\Omega, (a,A) \models p \iff p \in a$
+	\item $\Omega, (a,A) \models \phi \vee \psi \iff$ either $\Omega, (a,A) \models \phi$ or $\Omega, (a,A) \models \psi$
+	\item $\Omega, (a,A) \models \neg \phi  \iff \Omega, (a,A) \not\models \phi$
+	\item $\Omega, (a,A) \models \Pos \phi  \iff $ there is some $(b,B) \in \Omega$ where
+		\begin{peano}
+			\item $\Omega, (b,B) \models A$
+			\item $\Omega, (b,B) \models \phi$
+		\end{peano}
+	\item $\Omega, (a,A) \models \DD \phi  \iff $ there is some $(b,B) \in \Omega$ where 
+	\begin{peano}
+		\item $B \subseteq A$
+		\item $a = b$ 
+		\item $\Omega, (b,B) \models \phi$
+	\end{peano}
+	\item $\Omega, (a,A) \models \DD^{-1} \phi  \iff $ there is some $(b,B) \in \Omega$ where
+	\begin{peano}
+		\item $A \subseteq B$
+		\item $a = b$
+		\item $\Omega, (b,B) \models \phi$
+	\end{peano}
+	\item $\Omega, (a,A) \models \oplus  \iff \Omega, (a,A) \models A$ 
+\end{peano}
+
+%This definition may be thought to give rise to a recursively defined function, with the following type: $$(\models) :: (\powerset ((\powerset \Phi) \times (\powerset \mathcal{L}(\Phi)))) \times ((\powerset \Phi) \times (\powerset \mathcal{L}(\Phi))) \to \mathcal{L}(\Phi) \to \mathsf{Bool}$$
+ Consider as a recursive function, $(\models)$ is not \emph{total}; there are inputs for which it does not terminate.  For instance, if one lets $\Omega := \{(\varnothing,S)\}$, where $S := \{ \Nec \bot \}$ and $\bot := p \wedge \neg p$ for some $p \in \Phi$, then $\Omega, (\varnothing,S) \models \Nec \bot$ is undecidable.
+
+We shall focus on semantics known to have decidable truth conditions.  Let $\mathcal{L}(\Phi)|_{\mathsf{Prop}}$ be the restriction of  $\mathcal{L}(\Phi)$ to propositional formula.  For clarification, we may observe that the BNF grammar of $\mathcal{L}(\Phi)|_{\mathsf{Prop}}$ is:
+$$\phi_{\mathsf{Prop}} ::= p \in \Phi \ |\ \phi_{\mathsf{Prop}} \vee \psi_{\mathsf{Prop}} \ | \ \neg \phi_{\mathsf{Prop}}$$
+
+Next let $\powerset_\omega X$ denote the finite subsets of $X$, and $X \subseteq_\omega Y$ express 
+that $X$ is a finite subset of $Y$.  One may then show by induction that if 
+$\Omega \subseteq_\omega (\powerset \Phi) \times (\powerset_\omega \mathcal{L}(\Phi)|_{\mathsf{Prop}})$, 
+then $\Omega,(a,A) \models \phi$ is decidable in finite time for all 
+$\phi \in \mathcal{L}(\Phi)$ and for all $(a,A) \in \Omega$.  Throughout the rest of this essay, we shall adhere to this restriction.
+
+\section{Axioms and Completeness}
+
+We now turn to proving completeness for this logic.  This proof is technically challenging, in light of the fact that this logic is not compact, and our semantics are somewhat unusual.  Our strategy can be understood as essentially involving two steps; (\emph{i}) first show weak completeness for a class of models with desirable properties in conventional modal logic and (\emph{ii})  provide a translation from modal logic semantics to \textsf{EviL} semantics.
+
+\subsection{Weak Completeness in Modal Logic}
+
+\subsubsection{Model and Axiom System Definitions}
+
+We first define the class of \textsf{EviL} $\Phi$-Kripke models:
+
+\begin{mydef}[\textsf{EviL} Properties]\label{EviLPs}
+Let $\mathfrak{M} = \la W, V, P_\oplus, R_{\DD}, R_{\Pos}\ra$ be a $\Phi$-Kripke model. We say that $\mathfrak{M}$ is an \textsf{EviL} $\Phi$-Kripke model if and only if
+\emph{
+\begin{myroman}
+\item\label{evil1} \emph{if $W$ is finite}
+\end{myroman}}
+\ldots and for all $w,v,u \in W$:
+\emph{
+\begin{myroman}[start=2]
+\item\label{evil2} \emph{$w R_\DD w$}
+\item\label{evil3} \emph{If $w R_\DD v$ and $v R_\DD u$ then $w R_\DD u$}
+ \item\label{evil4} \emph{If $w R_\DD v$ then $w \in V(p) \iff v \in V(p)$ for all $p \in \Phi$}
+ \item\label{evil5} \emph{If $w R_\DD v$ and $w R_\Pos u$ then $v R_\Pos u$}
+  \item\label{evil6} \emph{If $w R_\DD v$ and $u R_\Pos w$ then $u R_\Pos v$}
+    \item\label{evil7} \emph{If $w R_\DD v$ and $u R_\Pos v$ then $u R_\Pos w$}
+  \item\label{evil8} \emph{If $P_\oplus(w)$ then $w R_\Pos w$}
+  \item\label{evil9} \emph{If $w R_\Pos w$ then $P_\oplus(w)$}
+\end{myroman}}
+\end{mydef}
+
+Reflective of this definition, we shall present the axioms of \textsf{EviL}, which are relativized to a set of sentence letters $\Psi \subseteq \Phi$.  All of the axioms lie in the \emph{Salhqvist fragment}.  %It is important to note that an axiom reflecting \ref{evil9} is omitted, as this property is not modally definable.  Furthermore, 
+It is critical to note that this axiom system is not normal; so each axiom is given as a scheme for all $\phi \in \mathcal{L}(\Psi)$ and all $p \in \Psi$, where appropriate:
+\begin{mydef}[\textsf{EviL} Axioms]\label{EviLAxs}
+Let $\mathsf{EviL}(\Psi)$ denote the smallest set satisfying each of the following axioms, for all $\phi,\psi \in \mathcal{L}(\Psi)$ and all $p \in \Psi$; note that property \emph{\ref{evil1}} is not modally definable, however we employ in its place a standard ``axiom'' of modal logic:
+\emph{
+\begin{myroman}
+\item\label{evila1} All propositional tautologies
+\item\label{evila2} $\BB \phi \IMPL \phi$
+\item\label{evila3} $\BB \phi \IMPL \BB\BB\phi$ 
+\item\label{evila4} $p \IFF \BB p$ and $p \IFF \BB^{-1} p$
+\item\label{evila5} $\Pos \phi \IMPL \BB\Pos\phi$
+\item\label{evila6} $\Box \phi \IMPL \Box\BB\phi$
+\item\label{evila7} $\Box \phi \IMPL \Box\BB^{-1}\phi$
+\item\label{evila8} $\oplus \IMPL \Box \phi \IMPL \phi$
+\end{myroman}
+}
+Property \emph{\ref{evil9}} in Def. \ref{EviLPs} is not modally definable, due to bisimulation invariance; however we shall offer another axiom, which we shall employ in Lemma \ref{bisprops} (which will allow us to achieve property \emph{\ref{evil9}} through bisimulation):
+\emph{\begin{myroman}[start=9]
+\item\label{evila9} $\oplus \IMPL \BB \oplus$ 
+\end{myroman}}
+These axioms do not reflect properties in Def. \ref{EviLPs}, but are used to establish Lemma \ref{ddrev}:
+\emph{\begin{myroman}[start=10]
+\item\label{evila10} $\phi \IMPL \BB\DD^{-1} \phi$
+\item\label{evila11} $\phi \IMPL \BB^{-1}\DD \phi$
+\end{myroman}}
+The next three axioms are standard to modal logic:
+\emph{\begin{myroman}[start=12]
+\item\label{evila12} $\Nec(\phi \IMPL \psi) \IMPL \Nec \phi \IMPL \Nec \psi$
+\item\label{evila13} $\BB(\phi \IMPL \psi) \IMPL \BB \phi \IMPL \BB \psi$
+\item\label{evila14} $\BB^{-1}(\phi \IMPL \psi) \IMPL \BB^{-1} \phi \IMPL \BB^{-1} \psi$
+\end{myroman}}
+Finally, $\mathsf{EviL}(\Psi)$ is closed under necessitation for $\Nec,\BB,\BB^{-1}$, and \textbf{modus ponens}.
+\end{mydef}
+
+As per convention, we shall write $\vdash \phi$ to means that $\phi \in \mathsf{EviL}(\Psi)$.
+
+\subsubsection{Elementary Results in Proof Theory}
+It will be helpful to prove a few theorems in \textsf{EviL}($\Psi$) before we proceed:
+
+\begin{lemma}
+	If $\vdash \phi \IFF \psi$, then $\vdash \chi \IFF \chi[\phi/\psi]$, where $\chi$ is the same as $\chi[\phi/\psi]$ but $\phi$ has been replaced by $\psi$ in $\chi[\phi/\psi]$
+\end{lemma}
+\begin{peano}
+	\item The proof proceeds by induction on $\chi$.  If $\chi$ is a proposition letter, then if $\chi = \chi[\phi/\psi]$ unless $\phi = \chi$.  But then we know that $\chi[\phi/\psi] = \psi$ in that case, and we have by hypothesis that $\vdash \phi \IFF \psi$ already
+	\item Suppose that $\chi = \theta \vee \kappa$.  Evidently we have by the inductive step that $\vdash \theta \IFF \theta[\phi/\psi]$ and $\vdash \kappa \IFF \kappa[\phi/\psi]$, hence by classical logic we have $\theta \vee \kappa \IFF \theta[\phi/\psi] \vee \kappa[\phi/\psi]$.  But if $\chi = \theta \vee \kappa$ then $\chi[\phi/\psi] = \theta[\phi/\psi] \vee \kappa[\phi/\psi]$
+	\item Suppose that $\chi = \neg \theta$; then we know that $\chi[\phi/\psi] = \neg \theta[\phi/\psi]$, and since we have $\vdash \theta \IFF \theta[\phi/\psi]$ by the inductive step, then we have $\vdash \neg \theta \IFF \neg \theta[\phi/\psi]$ by classical logic
+	\item Suppose that $\chi = \BlackBox \theta$ where $\BlackBox$ is one of $\Box, \BB, \BB^{-1}$.  Then know that $\theta \IMPL \theta[\phi/\psi]$ and likewise $\theta[\phi/\psi] \IMPL \theta$, so by necessitation, axiom $K$ and modus ponens we have $\BlackBox\theta \IMPL \BlackBox\theta[\phi/\psi]$ and $\BlackBox\theta[\phi/\psi] \IMPL \BlackBox\theta$, and this suffices.
+\end{peano}
+
+The above lemma provides us with a powerful rule for rewriting formulae.  We will make immediate use of it in the following lemma
+
+\begin{lemma}
+\[ \vdash \BB^{-1} \phi \IMPL \BB^{-1}\BB^{-1}\phi \]
+\end{lemma}
+\begin{proof}
+	\item First observe that it suffices to show that $\vdash\DD^{-1}\DD^{-1}\neg\phi \IMPL \DD^{-1}\neg\phi$, since this is shorthand for $\vdash\neg\BB^{-1}\neg\neg\BB^{-1}\neg\neg\phi \IMPL \neg\BB^{-1}\neg\neg\phi$.  Since $\phi \IFF \neg\neg\phi$ in classical logic, we have
+	\begin{align*} \vdash & \neg\BB^{-1}\neg\neg\BB^{-1}\neg\neg\phi \IMPL \neg\BB^{-1}\neg\neg\phi \\
+			& \IFF \neg\BB^{-1}\neg\neg\BB^{-1}\phi \IMPL \neg\BB^{-1}\phi\\
+			& \IFF \neg\BB^{-1}\BB^{-1}\phi \IMPL \neg\BB^{-1}\phi \end{align*}
+			\ldots by the previous lemma.  We can then see that by contraposition this is equivalent to what we want to show.
+			
+	So first observe that by \ref{evila10} we have $\vdash \neg \phi \IMPL \BB\DD^{-1} \neg \phi$, and by contraposition, axiom $K$, and modus ponens, and contraposition again we have $\vdash \DD^{-1} \neg \phi \IMPL \DD^{-1}\BB\DD^{-1} \neg \phi$.  We can do this trick again to get $\vdash \DD^{-1} \DD^{-1} \neg \phi \IMPL \DD^{-1} \DD^{-1}\BB\DD^{-1} \neg \phi$.
+	
+	Next observe that $\vdash \BB\DD^{-1}\neg \phi \IFF \BB \BB\DD^{-1}\neg \phi$ by axioms \ref{evila2} and \ref{evila3}.  Then by the previous lemma we have $\vdash \DD^{-1} \DD^{-1} \neg \phi \IMPL \DD^{-1} \DD^{-1}\BB\BB\DD^{-1} \neg \phi$.
+	
+	We can see by axiom \ref{evila11} and the previous replacement lemma that $\vdash \DD^{-1} \BB \psi \IMPL \psi$.  We can see further that $\vdash \DD^{-1} \DD^{-1} \BB \psi \IMPL \DD^{-1} \psi$.  Applying this observation twice, and employing the rule twice, by classical logic we can see $\vdash \DD^{-1} \DD^{-1}\BB\BB\DD^{-1} \neg \phi \IMPL \DD^{-1}\neg \phi$, which means by the hypothetical syllogism that $\vdash \DD^{-1} \DD^{-1} \neg \phi \IMPL \DD^{-1}\neg\phi$ as desired.
+\end{proof}
+
+\subsubsection{Canonical Models}
+
+Next, we turn to presenting model theory for \textsf{EviL}.  Let $\neg FL(\Sigma)$ be the usual \emph{Fischer-Ladner Closure}.  That is, $\neg FL(\Sigma)$ is the smallest set such that
+\begin{myroman}
+\item  $\Sigma \subseteq \neg FL(\Sigma)$
+\item If $\phi \in \neg FL(\Sigma)$ and $\psi$ is a subformula of $\phi$, then $\psi \in \neg FL(\Sigma)$, \item If $\phi \in \neg FL(\Sigma)$ then if there is no $\psi$ such that $\phi = \neg \psi$, then $\neg \phi \in \neg FL(\Sigma)$
+\end{myroman}
+
+Assume that $\Sigma \subseteq \mathcal{L}(\Psi)$ and let $\Psi^\Sigma = \neg FL(\Sigma) \cap \Phi$; we have evidently that $\neg FL(\Sigma) \subseteq \mathcal{L}(\Psi^\Sigma)$.  Note as usual that if $\Sigma$ is finite then $\neg FL(\Sigma)$ is finite; let $At(\Sigma)$ be the atoms over $\neg FL(\Sigma)$ which are maximally $\mathsf{EviL}(\Psi^\Sigma)$ consistent.  We turn to proving the \emph{Truth Lemma} for the canonical model formed of these atoms:
+
+\begin{mydef}
+Let $\mathfrak{M}^\Sigma := \la At(\Sigma), R_\Pos^{\Sigma}, R_\DD^\Sigma, R_{\DD^{-1}}^\Sigma, P_\oplus^\Sigma, V^\Sigma \ra$ be the $\neg FL(\Sigma)$-\textbf{canonical model}, where for all $\Gamma,\Delta \in At(\Sigma)$
+\emph{\begin{myalpha}
+	\item \emph{$V^\Sigma(p) = \{\Gamma \in At(\Sigma) \ | \ p \in \Gamma\}$}
+	\item \emph{$P_{\oplus}^{\Sigma} \Delta$ if and only if $\oplus \in \Delta$}
+	\item\label{partb} \emph{$\Gamma R_\Pos^{\Sigma} \Delta$ if and only if $\{\phi \ |\  \Box \phi \in \Gamma\} \subseteq  \Delta$}
+	\item\label{rdd1} \emph{$\Gamma R_\DD^{\Sigma} \Delta$ if and only if 
+	\emph{\begin{mynum}
+	\item $\{\phi \ |\  \BB \phi \in \Gamma\} \subseteq  \Delta$,
+	\item $p \in \Gamma \iff p \in \Delta$ for all $p \in \Phi^\Sigma$
+	%\item $\{\BB \phi \ |\  \BB \phi \in \Gamma\} \subseteq  \Delta$\emph{ and }
+	\item $\{\phi \ |\  \BB^{-1} \phi \in \Delta\} \subseteq  \Gamma$
+	\end{mynum}}}
+	\item\label{rdd2} \emph{$\Gamma R_{\DD^{-1}}^{\Sigma} \Delta$ if and only if 
+	\emph{\begin{mynum}
+	\item $\{\phi \ |\  \BB \phi \in \Delta\} \subseteq  \Gamma$
+	\item $p \in \Gamma \iff p \in \Delta$ for all $p \in \Phi^\Sigma$
+	%\item $\{\BB \phi \ |\  \BB \phi \in \Delta\} \subseteq  \Gamma$\emph{ and }
+	\item $\{\phi \ |\  \BB^{-1} \phi \in \Gamma\} \subseteq  \Delta$
+	\end{mynum}}
+	}
+\end{myalpha}}
+\end{mydef}
+We can immediately observe the \emph{Truth Lemma} of this canonical model:
+\begin{lemma}[Truth Lemma]\label{truthlemma}
+For all $\phi \in \neg FL(\Sigma)$ and $\Gamma \in At(\Sigma)$:
+\[ \phi \in \Gamma \iff \mathfrak{M}^\Sigma,\Gamma\Vdash \phi \]
+\end{lemma}
+\begin{proof}
+	The proof proceeds by induction; in every case the right to left direction follows from the fact that $\Gamma$ is maximally consistent with respect $\neg FL(\Sigma)$.
+\end{proof}
+
+We next show that we may drop $R_{\DD^{-1}}$ and simply employ $R_\DD$.
+\begin{lemma}
+In the canonical model $\mathfrak{M}^\Sigma$, for all $\Gamma,\Delta \in At(\Sigma)$, we have $\Gamma R_\DD \Delta$ if and only if $\Delta R_{\DD^{-1}} \Gamma$
+\end{lemma}
+\begin{proof}
+This follows immediately from \ref{rdd1} and \ref{rdd2} in the definition of $\mathfrak{M}^\Sigma$.
+\end{proof}
+
+From this point forward, we shall omit reference to $R_{\DD^{-1}}$. Next, we prove the fundamental result of our efforts: %critical result that $\mathfrak{M}^\Sigma$ is indeed an \textsf{EviL}-$\Psi$ Kripke model, by showing that it makes true all of the properties of Def. \ref{EviLPs}:
+\begin{lemma}\label{ddrev}
+If $\Sigma$ is finite, then $\mathfrak{M}^\Sigma$ makes true properties \emph{\ref{evil1}} through \emph{\ref{evil9}} of Def. \ref{EviLPs}.
+\end{lemma}
+\begin{proof} We show each property, one at a time:
+\begin{myroman}
+	\item Provided that $\Sigma$ is finite, then we know that $\neg FL(\Sigma)$ is finite, so $At(\Sigma)$ is finite.
+	\item By part \ref{partb} of the definition of $\mathfrak{M}^\Sigma$, it suffices to show three things:
+	\begin{mynum}
+	         \item  $\{\phi \ |\  \BB \phi \in \Gamma\} \subseteq  \Gamma$:  Suppose there was some $\phi$ such that $\BB \phi \in \Gamma$ and $\phi \nin \Gamma$, then $\Gamma \Vdash \BB\phi \wedge \neg \phi$, but this contradicts that $\Gamma$ is consistent with  \textsf{EviL} axiom \ref{evila2}.
+	         \item $p \in \Gamma \iff p \in \Gamma$ for all $p \in \Phi^\Sigma$:  This is true trivially
+	         \item  $\{\phi \ |\  \BB^{-1} \phi \in \Gamma\} \subseteq  \Gamma$:  This is similar to what we have already shown -- from axioms \ref{evila2} and \ref{evila3} and classical logic we can see that $\vdash \BB^{-1} \phi \IMPL \phi$.
+	\end{mynum}
+	\item Suppose that $w R_\DD v$ and $v R_\DD u$ but not $w R_\DD u$.  This means by 
+\end{myroman}
+\end{proof}
+
+%1. p -> [P]<F> p
+%2. p -> [F]<P> p
+%[F] p -> [F][F] p
+%-------------------
+%[P] p -> [P][P] p
+
+%Suffices to show:
+%<P><P> p -> <P> p
+
+%
+%-----------
+%<P>[F] p -> p
+%<F>[P] p -> p
+%<F><F> p -> <F> p
+
+%<P><P> p -> <P> <P> [F] <P> p
+%(since [P][P](p -> [F]<P> p))
+%Hence
+%<P><P> p -> <P> <P> [F] [F] <P> p
+%But then
+% <P> <P> [F] [F] <P> p -> <P> [F] <P> p
+% and 
+% <P> [F] <P> p -> <P> p
+
+%QED!!! (FINALLY!!)
+
+\subsection{Bisimulation}
+
+\begin{lemma}\label{bisprops}
+\end{lemma}
+
+\subsection{Translation Theorem}
+
+Before we continue, we define the notion of a \emph{column} in $\mathfrak{M}$, and prove a lemma we shall appeal to regarding these structures.
+
+\begin{mydef}\label{EviLMod}
+Let $\mathfrak{M} = \la W, V, P_\oplus, R_{\DD}, R_{\Pos}\ra$ be an \textsf{EviL} $\Phi$-Kripke model, and let $w \in W$.  Define $\lc w\rc$ to be the \textbf{column generated by $w$} where
+\[ \lc w \rc := \{ v \in W\ |\ w (R_\DD \cup R_\DD^{-1})^\ast v \} \]
+%We say that $C$ is a \emph{column in $\mathfrak{M}$} if there is some $w \in W$ such that $C = \lc w \rc$.
+\end{mydef}
+We now turn to proving the following lemma:
+\begin{lemma}[Column Lemma]
+Let $\mathfrak{M} = \la W, V, P_\oplus, R_{\DD}, R_{\Pos}\ra$ be an \textsf{EviL} $\Phi$-Kripke model. We have the following two properties, for all $w,u,v\in W$:
+\emph{
+\begin{myroman}
+	\item\label{col1} \emph{$u \in \lc v \rc$ if and only if $\lc u \rc = \lc v \rc$}
+	\item\label{col2} \emph{if $u \in \lc v \rc$, then $u \in V(p)$ if and only if $v \in V(p)$ for all $p \in \Phi$}
+	\item\label{col3} \emph{if $u \in \lc v \rc$, then $w R_\Pos u$ if and only if $w R_\Pos v$}
+%	\item \label{collemmaiii} \emph{For all $w \in C$, for all $v \in W$, we have $v R_\Pos w$ if and only if $v R_\Pos C$\footnote{This is a minor abuse of notation; we mean here that $v R_\Pos u$ for all $u \in C$.}}
+\end{myroman}}
+\end{lemma}
+%\begin{proof}
+%We shall proceed by proving each of the three claims; in each case the converse direction is omitted, as it is relatively simple. Moreover, as the pattern of argument for each of the three claims is similar, we shall only prove for (\emph{i}).
+
+%Suppose that $w \in C$ and $p \in \Phi$.   We must show that $v \in V(p)$ for each $v \in C$.  Since $C$ is a partition, it must be that $[w] = C$, so if $v \in C$ there must be some $(R_\DD \cup R_\DD^{-1})$-path from $w$ to $v$; so it suffices to prove by induction on the length of $(R_\DD \cup R_\DD^{-1})$-path.  The base case is immediate as it would entail $w = v$.  On the other hand, if we could establish that if $u \in V(p)$ and $u (R_\DD \cup R_\DD^{-1}) v$ then $v \in V(p)$, we would be done by the inductive step.  But this follows immediately from the fact that $\mathfrak{M}$ is \textsf{EviL} and hence makes true property \ref{evil4} from Def. \ref{EviLMod}.
+%\end{proof}
+ 
+From the above it is not difficult to see that columns in $W$ form a partition. With this, we now turn to proving our main result of this section.
+ 
+ \begin{theorem}[Translation Theorem]
+ Let $\mathfrak{M} = \la W, V, P_\oplus, R_{\DD}, R_{\Pos} \ra$ be an \textsf{EviL} $\Phi$-Kripke model
+ for all $w,v,u \in W$.  Let $\Psi \subseteq_\omega \Phi$, and let $\rho : \powerset_\omega W \hookrightarrow \Phi \bs \Psi$.  Define $tr_{\Psi}^\mathfrak{M}: W \to (\powerset_\omega \Phi) \times (\powerset_\omega \mathcal{L}(\Phi)|_{\mathsf{Prop}})$ as follows:
+ \[ tr_{\Psi}^\mathfrak{M}(w) =  \la  a_w \cup a'_w, A_w \cup A'_w \ra\]
+\ldots where \ldots
+ \begin{eqnarray*}
+ a_w & = & \{ p \in \Psi \ |\  w \in V(p) \}\\
+ a'_w & = & \{ \rho(\lc w\rc) \} \\
+ A_w & = & \{ \neg \rho(\lc v\rc) \ | \ v \in W \wedge \neg w R_\Pos v \}\\
+ A'_w & = & \{ \bot \IMPL \rho(\{v\})\ | \ v \in W \wedge w R_\DD v \}
+\end{eqnarray*}
+
+We shall refer to $tr_{\Psi}^\mathfrak{M}[W]$ as $\Omega_{\Psi}^\mathfrak{M}$.  We have the following correspondence:
+ \[ \mathfrak{M},w \Vdash \psi \iff \Omega_{\Psi}^\mathfrak{M},tr_{\Psi}^\mathfrak{M}(w) \models \psi \] 
+\ldots for all $\psi \in \mathcal{L}(\Psi)$ and $w \in W$.
+ \end{theorem}
+ \begin{proof}
+ We proceed by induction on $\psi$:
+ \begin{peano}
+ \item $p \in \Psi$
+ \begin{peano}
+ 	\item $\Rightarrow$ Assume that $\mathfrak{M},w \Vdash p$. Then $p \in V(w)$.  But then we know that $p \in a_w$ by definition, and hence $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models p$.
+	\item $\Leftarrow$ Assume that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models p$; then we have $p \in a_w \cup a'_w$.  But since $p \in \Psi$ and $A'_w \cap \Psi = \varnothing$ by construction, it must be that $p \in A_w$.  But this just means that $p \in V(w)$, so $\mathfrak{M},w \Vdash p$ as desired.
+ \end{peano}
+ \item $\phi \vee \psi$:  Assume that $\mathfrak{M},w \Vdash \phi \vee \psi$.  Without loss of generality, we have that $\mathfrak{M},w \Vdash \phi$, hence $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \phi$ by the inductive step, and thus $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \phi \vee \psi$.  The other direction follows similarly.
+ \item $\neg \psi$: Simply check that: \begin{align*}
+ & \mathfrak{M},w \Vdash \neg\psi\\
+ \iff\ \ \ & \mathfrak{M},w \nVdash \psi \\
+  \iff\ \ \  & \Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \nmodels \psi \\
+  \iff\ \ \  & \Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \neg \psi
+ \end{align*}
+ \item $\Pos \psi$: 
+ \begin{peano}
+	\item $\Rightarrow$ Assume that $\mathfrak{M},w \Vdash \Pos \psi$.  Then there is some $v \in W$ such that $w R_\Pos v$ and $\mathfrak{M}, v \Vdash \psi$.  We have by the inductive step that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \psi$, hence to show that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \Pos \psi$ it suffices to show that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models A_w \cup A_w'$.
+	
+	Suppose towards a contradiction that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \nmodels A_w \cup A_w'$.  then there is some $\phi \in A_w \cup A_w'$ such that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \nmodels \phi$.  However, if $\phi \in A_w'$, then $\phi = \bot \IMPL \rho(\{u\})$ for some $u \in W$, and thus $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \bot \IMPL \rho(\{u\})$ vacuously.  Hence it must be that $\phi \in A_w$, which means that $\phi = \neg\rho(\lc u \rc)$ for some $u \in W$ such that $\neg w R_\Pos u$.  But then this means that $\rho(\lc u \rc) \in a_v \cup a'_v$.  However, since $a_v \subseteq \Psi$ and $\rho(\lc u \rc) \nin \Psi$ by construction of $\rho$, we have that $\rho(\lc u \rc) \in a'_v$.  By construction of $tr^\mathfrak{M}_\Psi$ we then have that $ \rho(\lc u \rc) = \rho(\lc v \rc)$, and since $\rho$ is injective we have that $\lc u \rc = \lc v \rc$.  However, by the Column Lemma, parts \ref{col1} and \ref{col2}, it follows from $\neg w R_\Pos u$ and $v \in \lc u \rc$ that $\neg w R_\Pos v$. $\lightning$
+	
+	\item $\Leftarrow$ Assume $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \Pos \psi$, then there is some  $tr_{\Psi}^\mathfrak{M}(v) \in \Omega_{\Psi}^\mathfrak{M}$ such that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \psi$ and $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models A_w \cup A'_w$.  We have by the inductive hypothesis that $\mathfrak{M}, v \models \psi$; so to show $\mathfrak{M}, w \Vdash \psi$, it suffices to show $w R_\Pos v$.
+	
+	Suppose towards a contradiction that $\neg w R_\Pos v$.  Then $\neg \rho(\lc v \rc) \in A_w$, and thus $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \neg \rho(\lc v \rc)$.  Thus $\rho(\lc v \rc) \nin a_v \cup a'_v$.  However, we know that $a'_v = \{ \rho(\lc v \rc) \}$, thus $\rho(\lc v \rc) \in a_v \cup a'_v$. $\lightning$
+ \end{peano}
+ \item $\DD \psi$:
+ \begin{peano}
+ 	\item $\Rightarrow$ Assume $\mathfrak{M},w \Vdash \DD \psi$; then there is some $v \in W$ such that $\mathfrak{M},v \Vdash \psi$ and $w R_\DD v$.  We know from the inductive step that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \psi$, to it suffices to show that $a_w \cup a'_w = a_v \cup a_v'$ and $A_v \cup A_v' \subseteq A_w \cup A_w'$.
+	
+	Observe that $v \in \lc w \rc$, so $v \in V(p)$ if and only if $w \in V(p)$ for all $p \in \Phi$ by the Column Lemma part \ref{col2}.  This just means that $a_v = a_w$.  Furthermore, we have that $\lc v \rc = \lc w \rc$ by the Column Lemma part \ref{col1}, whence $\{ \rho(\lc v \rc) \} = \{ \rho(\lc w \rc) \}$, which just means that $a'_v = a'_w$.  Together, $a_v = a_w$ and $a'_v = a'_w$ suffice to prove $a_v \cup a'_v = a_w \cup a'_w$.
+	
+	Furthermore, we have that $A_v \subseteq A_w$.  For let $\neg \rho(\lc u\rc) \in  A_v$; then evidently $\neg v R_\Pos u$.  Since $w R_\DD v$ by hypothesis, we have that $\neg w R_\Pos u$ by \ref{evil5} of Def. \ref{EviLPs}.  Hence $\neg \rho(\lc u\rc) \in A_w$, which suffices.
+	
+	On the other hand, we have $A'_v \subseteq A_w'$. For let $\bot \IMPL \rho(\{ u \}) \in A'_v$, then $v R_\DD u$.  However, since $w R_\DD v$, we have $w R_\DD u$ by transitivity, that is to say by \ref{evil3} of Def. \ref{EviLPs}.  This just means that $\bot \IMPL \rho(\{ u \}) \in A'_w$, hence the claim.
+	
+	With $A_v \subseteq A_w$ and $A'_v \subseteq A_w'$, we have $A_v \cup A'_v \subseteq A_w \cup A_w'$, which is as desired.
+	
+	\item $\Leftarrow$  Assume $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \DD\psi$, then there is some $tr_{\Psi}^\mathfrak{M}(v) \in \Omega_{\Psi}^\mathfrak{M}$ where $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \psi$ and $A_v \cup A'_v \subseteq A_w \cup A_w'$.  By the inductive step we have that $\mathfrak{M},v \Vdash \psi$, so it suffices to establish that $w R_\DD v$.  But note that it follows from \ref{evil2} of Def. \ref{EviLPs} that $\bot \IMPL \rho(\{v\}) \in A'_v$, and since $A'_v \subseteq A_w \cup A_w'$, evidently $\bot \IMPL \rho(\{v\}) \in A_w \cup A_w'$.  Since $\bot \IMPL \rho(\{v\})$ is not of the form $\neg \phi$, it cannot be that $\bot \IMPL \rho(\{v\})\in A_w$.  Hence it must be that $\bot \IMPL \rho(\{v\}) \in A'_w$.  From this it then follows that $w R_\DD v$.
+ \end{peano}
+ \item $\DD^{-1} \psi$: These arguments are similar to the case for $\DD \psi$
+ \begin{peano}
+ 	\item $\Rightarrow$ Assume $\mathfrak{M},w \Vdash \DD^{-1} \psi$; then we have some $v \in W$ such that $\mathfrak{M},v \Vdash \psi$ and $w R_\DD^{-1} v$.  Similar to before, it suffices to show $a_v \cup a'_v = a_w \cup a_w'$ and $A_w \cup A_w' \subseteq A_v \cup A_v'$.  As a consequence of the Column Lemma (namely parts \ref{col1} and \ref{col2}), we have $a_v \cup a'_v = a_w \cup a'_w$.
+	
+%	Observe that $v \in \lc w \rc$, so $v \in V(p)$ if and only if $w \in V(p)$ for all $p \in \Phi$ by the Column Lemma.  This just means that $a_v = a_w$.  Furthermore, we have that $\lc v \rc = \lc w \rc$ by the Column Lemma, whence $\{ \rho(\lc v \rc) \} = \{ \rho(\lc w \rc) \}$, which just means that $a'_v = a'_w$.  Together, $a_v = a_w$ and $a'_v = a'_w$ suffice to prove .
+	
+	So observe that $A_w \subseteq A_v$.  For let $\neg \rho(\lc u\rc) \in  A_w$; then evidently $\neg w R_\Pos u$.  Since $w R_\DD^{-1} v$ by hypothesis, we have $v R_\DD w$, and moreover $\neg v R_\Pos u$ by \ref{evil5} of Def. \ref{EviLPs}, just as before.  Hence $\neg \rho(\lc u\rc) \in A_v$, which suffices.
+	
+	We next show $A'_w \subseteq A_v'$. For let $\bot \IMPL \rho(\{ u \}) \in A'_w$, then $w R_\DD u$.  However, since $v R_\DD w$, we have $v R_\DD u$ by transitivity.  This just means that $\bot \IMPL \rho(\{ u \}) \in A'_w$, hence we may conclude the argument in an analogous manner to above.
+	
+	With $A_v \subseteq A_w$ and $A'_v \subseteq A_w'$, we have $A_v \cup A'_v \subseteq A_w \cup A_w'$, which is as desired.
+	
+	\item $\Leftarrow$  Assume $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \DD\psi$, then there is some $tr_{\Psi}^\mathfrak{M}(v) \in \Omega_{\Psi}^\mathfrak{M}$ where $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(v) \models \psi$ and $A_v \cup A'_v \subseteq A_w \cup A_w'$.  By the inductive step we have that $\mathfrak{M},v \Vdash \psi$, so it suffices to establish that $w R_\DD v$.  But note that it follows from \ref{evil2} of \ref{EviLPs} that $\bot \IMPL \rho(\{v\}) \in A'_v$, and since $A'_v \subseteq A_w \cup A_w'$, evidently $\bot \IMPL \rho(\{v\}) \in A_w \cup A_w'$.  Since $\bot \IMPL \rho(\{v\})$ is not of the form $\neg \phi$, it cannot be that $\bot \IMPL \rho(\{v\})\in A_w$.  Hence it must be that $\bot \IMPL \rho(\{v\}) \in A'_w$.  From this it then follows that $w R_\DD v$.
+ \end{peano}
+ \item $\oplus$:
+ \begin{peano}
+ 	\item $\Rightarrow$ Assume $\mathfrak{M},w \Vdash \oplus$.  It suffices to that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models A_w \cup A'_w$.  However, we may observe that if $\phi \in A'_w$, then $\phi = \bot \IMPL \chi$ for some $\chi$, hence $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \phi$ vacuously.  Thus it remains to show that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \neg \rho(\lc v \rc)$ for each $v \in W$ where $\neg w R_\Pos v$.
+ 
+Take any $v \in W$ where $\neg w R_\Pos v$, and suppose towards a contradiction that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \rho(\lc v \rc)$.  It must then be that $\rho(\lc v \rc) \in a_w \cup a'_w$, and since $a_w \subseteq \Psi$ and $\rho(\lc v \rc) \nin \Psi$, it must be that $\rho(\lc v \rc) \in a'_w$.  This just means that $\lc v \rc = \lc w \rc$.  We have that $w R_\DD w$ by Def. \ref{EviLPs} part \ref{evil2}, and since $\mathfrak{M},w \Vdash \oplus$ by hypothesis we have that $P_\oplus(w)$, hence we have $w R_\Pos w$ by  Def. \ref{EviLPs} part \ref{evil8}.  Since $\lc w \rc = \lc v \rc$, it follows from the Column Lemma (namely from parts \ref{col1} and \ref{col3}), that $w R_\Pos v$. $\lightning$
+
+ 	\item $\Leftarrow$ It suffices to prove the contrapositive. So assume that $\mathfrak{M},w \nVdash \oplus$, then by Def. \ref{EviLPs} part \ref{evil9} we have $\neg w R_\Pos w$.  Thus $\neg \rho(\lc w \rc) \in A_w$.  However, since $\rho(\lc w \rc) \in \{ \rho(\lc w \rc) \}$, then $\rho(\lc w \rc) \in a'_w$ and thus $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \models \rho(\lc w \rc)$.  But then $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \nmodels A_w$, and thus $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \nmodels A_w \cup A'_w$, which means that $\Omega_{\Psi}^\mathfrak{M}, tr_{\Psi}^\mathfrak{M}(w) \nmodels \oplus$.
+ \end{peano}
+ \end{peano}
+ \end{proof}
+ %$\sqcup$
+%This amounts to showing that the restricted semantics:
+%$$(\models) :: (\powerset_\omega ((\powerset \Phi) \times (\powerset_\omega \mathcal{L}(\Phi)|_{\mathsf{Prop}}))) \times ((\powerset \Phi) \times (\powerset_\omega \mathcal{L}(\Phi)|_{\mathsf{Prop}})) \to \mathcal{L}(\Phi) \to \mathsf{Bool}$$
+%\ldots decidable.
+\pagebreak
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{abbrvnat}
+\bibliography{bib}
+
+\end{document}  

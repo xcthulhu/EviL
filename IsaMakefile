@@ -1,0 +1,31 @@
+
+## targets
+
+default: EviL
+images: 
+test: EviL
+
+all: images test
+
+
+## global settings
+
+SRC = $(ISABELLE_HOME)/src
+OUT = $(ISABELLE_OUTPUT)
+LOG = $(OUT)/log
+
+USEDIR = $(ISABELLE_TOOL) usedir -v true -i true -d pdf  ## -D generated
+
+
+## EviL
+
+EviL: $(LOG)/HOL-EviL.gz
+
+$(LOG)/HOL-EviL.gz: EviL/ROOT.ML EviL/document/root.tex EviL/*.thy
+	@$(USEDIR) HOL EviL
+
+
+## clean
+
+clean:
+	@rm -f $(LOG)/HOL-EviL.gz

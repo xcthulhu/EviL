@@ -1,0 +1,29 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Artemov(1994)]{artemov1994lp}
+S.~Artemov.
+\newblock {Logic of proofs}.
+\newblock \emph{Annals of Pure and Applied Logic}, 67\penalty0 (1):\penalty0
+  29--60, 1994.
+
+\bibitem[Artemov and Nogina(2005)]{artemov2005iji}
+S.~Artemov and E.~Nogina.
+\newblock {Introducing justification into epistemic logic}, 2005.
+
+\bibitem[Descartes and Tweyman(1993)]{descartes1993mfp}
+R.~Descartes and S.~Tweyman.
+\newblock \emph{{Meditations on first philosophy in focus}}.
+\newblock Routledge, 1993.
+
+\bibitem[Hintikka(1962)]{hintikka1962kab}
+J.~Hintikka.
+\newblock \emph{{Knowledge and belief: an introduction to the logic of the two
+  notions}}.
+\newblock Cornell University Press, 1962.
+
+\end{thebibliography}

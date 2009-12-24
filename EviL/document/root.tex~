@@ -1,0 +1,27 @@
+
+% $Id$
+
+\documentclass[11pt]{article}
+\usepackage{isabelle,isabellesym}
+\usepackage{MnSymbol}
+
+% this should be the last package used
+\usepackage{pdfsetup}
+
+% urls in roman style, theory text in math-similar italics
+\urlstyle{rm}
+\isabellestyle{it}
+
+\begin{document}
+
+\title{EviL Isabelle/HOL Sessions}
+\author{Matthew P. Wampler-Doty}
+\maketitle
+
+%\tableofcontents
+
+\parindent 0pt\parskip 0.5ex
+
+\input{session}
+
+\end{document}
