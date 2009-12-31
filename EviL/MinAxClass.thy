@@ -396,7 +396,8 @@ proof(induct \<Delta>, simp)
   hence d: "\<Gamma> :\<turnstile> a" by fastsimp
   have "set \<Gamma> \<subseteq> set (\<Delta> @ \<Gamma>)"
     by (induct \<Delta>) fastsimp+
-  with d lift_mono have e: "\<Delta> @ \<Gamma> :\<turnstile> a" 
+  with d lift_mono [where \<Psi>="\<Delta> @ \<Gamma>" and \<Gamma>="\<Gamma>"]
+  have e: "\<Delta> @ \<Gamma> :\<turnstile> a"
     by simp
   have "(a # \<Delta>) @ \<Gamma> = a # \<Delta> @ \<Gamma>"
     by (induct \<Delta>) simp_all

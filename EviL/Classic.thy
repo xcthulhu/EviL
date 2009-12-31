@@ -72,7 +72,7 @@ text
    completeness.  We first show that our logic is an instance
    of ClassAx: *} 
 
-interpretation cl_form_ClassAx: ClassAx "op \<rightarrow>" "cl_vdash" "\<bottom>"
+interpretation cl_ClassAx: ClassAx "op \<rightarrow>" "cl_vdash" "\<bottom>"
 proof qed (fastsimp intro: CL.intros)+
 
 text
@@ -122,9 +122,9 @@ abbreviation cl_pneg :: "'a cl_form \<Rightarrow> 'a cl_form" ("\<sim>' _" [40] 
              else \<not> \<phi>)"
 
 notation
-Classic.cl_form_ClassAx.pneg ("\<sim> _" [40] 40)
+Classic.cl_ClassAx.pneg ("\<sim> _" [40] 40)
 
-lemmas pneg_def = Classic.cl_form_ClassAx.pneg_def
+lemmas pneg_def = Classic.cl_ClassAx.pneg_def
 
 lemma cl_pneg_eq: "(\<sim>' \<phi>) = (\<sim> \<phi>)"
 proof cases
@@ -179,8 +179,8 @@ text
    local names for class theorems, and so on). *}
 
 notation
-Classic.cl_form_ClassAx.Atom ("At") and
-Classic.cl_form_ClassAx.lift_imp (infix ":\<rightarrow>" 24)
+Classic.cl_ClassAx.Atom ("At") and
+Classic.cl_ClassAx.lift_imp (infix ":\<rightarrow>" 24)
 
 abbreviation cl_lift_vdash :: "'a cl_form list \<Rightarrow> 'a cl_form \<Rightarrow> bool" (infix ":\<turnstile>" 10) where
   "(\<Gamma> :\<turnstile> \<phi>) \<equiv> (\<turnstile> \<Gamma> :\<rightarrow> \<phi>)"
@@ -189,13 +189,13 @@ abbreviation cl_mod :: "'a cl_form set \<Rightarrow> 'a set" ("\<dagger>_") wher
   "\<dagger>\<Gamma> \<equiv> {p. (P# p) \<in> \<Gamma>}"
 
 lemmas
-Atom_def = Classic.cl_form_ClassAx.Atom_def and
-coincidence = Classic.cl_form_ClassAx.coincidence and
-lift = Classic.cl_form_ClassAx.lift and
-lift_mp = Classic.cl_form_ClassAx.lift_mp and
-lift_weaken = Classic.cl_form_ClassAx.lift_weaken and
-pneg_negimpII = Classic.cl_form_ClassAx.pneg_negimpII and
-neg_elim = Classic.cl_form_ClassAx.neg_elim
+Atom_def = Classic.cl_ClassAx.Atom_def and
+coincidence = Classic.cl_ClassAx.coincidence and
+lift = Classic.cl_ClassAx.lift and
+lift_mp = Classic.cl_ClassAx.lift_mp and
+lift_weaken = Classic.cl_ClassAx.lift_weaken and
+pneg_negimpII = Classic.cl_ClassAx.pneg_negimpII and
+neg_elim = Classic.cl_ClassAx.neg_elim
 
 lemma henkin_truth:
 assumes A: "\<Gamma> \<in> At (FL \<psi>)"
@@ -300,7 +300,7 @@ text
 {* We now turn to our completeness theorem for classical logic *}
 
 lemmas 
-little_lindy = Classic.cl_form_ClassAx.little_lindy
+little_lindy = Classic.cl_ClassAx.little_lindy
 
 lemma cl_completeness:
   assumes dnp: "~ (\<turnstile> \<psi>)"
@@ -365,10 +365,10 @@ text
 
 no_notation
   cl_vdash ("\<turnstile> _" [20] 20) and
-  Classic.cl_form_ClassAx.Atom ("At") and
-  Classic.cl_form_ClassAx.lift_imp (infix ":\<rightarrow>" 24) and
+  Classic.cl_ClassAx.Atom ("At") and
+  Classic.cl_ClassAx.lift_imp (infix ":\<rightarrow>" 24) and
   cl_lift_vdash (infix ":\<turnstile>" 10) and
-  Classic.cl_form_ClassAx.pneg ("\<sim> _" [40] 40) and
+  Classic.cl_ClassAx.pneg ("\<sim> _" [40] 40) and
   cl_pneg ("\<sim>' _" [40] 40) and
   cl_mod ("\<dagger>_")
 

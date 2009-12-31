@@ -29,14 +29,14 @@ text
    BNF grammar (with some Isabelle style type annotations):
    \[ \phi\ ::=\ \alpha\ |\ \bot\ |\ \phi \rightarrow \psi\ 
       | \Box_X \phi \ |\ \odot_X\  
-      |\ \boxbox_X \phi\ |\ \boxbox^{-1}_X \phi \] *}
+      |\ \boxbox_X \phi\ |\ \boxboxI_X \phi \] *}
 
 datatype ('a,'b) evil_form = 
     E_P 'a                                         ("P# _")
   | E_Bot                                          ("\<bottom>")
+  | E_PP 'b                                        ("\<odot>")
   | E_Imp "('a,'b) evil_form" "('a,'b) evil_form"  (infixr "\<rightarrow>" 25)
   | E_B 'b "('a,'b) evil_form"                     ("\<box>")
-  | E_PP 'b                                        ("\<odot>")
   | E_BB 'b "('a,'b) evil_form"                    ("[-]")
   | E_BBI 'b "('a,'b) evil_form"                   ("[+]")
 

@@ -28,6 +28,7 @@ locale translate_EviL = completely_EviL +
   fixes Ws :: "'w set set"
   assumes infi_L: "infinite L"
       and models: "M,w ||\<turnstile> \<phi>"
+      and mem_WM: "w \<in> W(M)"
       and Ws_def: "Ws = Pow (W(M))"
 
 text
@@ -264,7 +265,7 @@ definition
 declare
   pretty_finite_def [simp]
 
-lemma (in translate_EviL) finite_letts:
+lemma (in translate_EviL) pretty_finite_\<Omega>:
 "pretty_finite \<Omega>"
 proof -
   { fix w;
@@ -417,4 +418,13 @@ qed
 lemma (in translate_EviL) EviL_translation_lemma:
 shows "\<exists> \<Omega> a A. (pretty_finite \<Omega>) \<and> (\<Omega>,(a,A) ||\<Turnstile> \<phi>)"
 proof -
-  have "\<phi> \<in> \<down>\<phi>" 
+  have "\<phi> \<in> \<down>\<phi>" by (induct \<phi>, simp_all)
+  with models 
+       translate_EviL_lemma [where \<psi>="\<phi>"] 
+       mem_WM
+  have "\<Omega>,\<xi> w ||\<Turnstile> \<phi>" by fast
+  with pretty_finite_\<Omega>  
+  show ?thesis by (simp only: \<xi>_def, fast)
+qed
+
+end
