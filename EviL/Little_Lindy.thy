@@ -262,7 +262,7 @@ text
    @{term "(\<phi> \<notin> \<Gamma>) = (\<sim> \<phi> \<in> \<Gamma>)"} *}
 
 definition (in ClassAx) 
-Atom :: "'a set \<Rightarrow> 'a set \<Rightarrow> bool" ("At") where
+Atoms :: "'a set \<Rightarrow> 'a set \<Rightarrow> bool" ("At") where
 "At \<Phi> \<Gamma> \<equiv>   \<Gamma> \<subseteq> \<Phi>
             \<and> (\<forall>\<phi> \<in> \<Phi>. \<phi> \<in> \<Gamma> \<or> (\<sim> \<phi>) \<in> \<Gamma>)
             \<and> ~(list \<Gamma> :\<turnstile> \<bottom>)"
@@ -280,8 +280,8 @@ proof -
   from A B C
        mem_def [where x="\<Gamma>"
                   and S="At(\<Phi>)"]
-       Atom_def [where \<Gamma>="\<Gamma>" 
-                   and \<Phi>="\<Phi>"]
+       Atoms_def [where \<Gamma>="\<Gamma>" 
+                    and \<Phi>="\<Phi>"]
   have "\<Gamma> \<subseteq> \<Phi>" 
    and E: "\<phi> \<in> \<Gamma> \<or> (\<sim> \<phi>) \<in> \<Gamma>"
    and F: "~(list \<Gamma> :\<turnstile> \<bottom>)"
@@ -349,27 +349,27 @@ qed
 text
 {* We finally turn to presenting the finitary Lindenbaum Lemma. 
    It is in terms of 
-   atoms that we shall phrase the primary result of this file: *}
+   atoms that we shall phrase the primary result we have been leading up to: *}
 
 lemma (in ClassAx) little_lindy:
   assumes A: "finite \<Phi>"
       and B: "\<forall>\<phi> \<in> \<Phi>. (\<sim> \<phi>) \<in> \<Phi>"
       and C: "\<Gamma> \<subseteq> \<Phi>"
       and D: "~(list \<Gamma> :\<turnstile> \<psi>)" 
-    shows "\<exists> \<Gamma>'.   Atom \<Phi> \<Gamma>'
+    shows "\<exists> \<Gamma>'. At \<Phi> \<Gamma>'
                  \<and> \<Gamma> \<subseteq> \<Gamma>'
                  \<and> ~(list \<Gamma>' :\<turnstile> \<psi>)"
 using A B C D
 proof -
   from A C finite_subset have 
-     "finite \<Gamma>" by fast
+     "finite \<Gamma>" by fastsimp
   with set_list [where A="\<Gamma>"] have
      E: "\<Gamma> = set (list \<Gamma>)" by auto
   from A set_list [where A="\<Phi>"] have
      F: "\<Phi> = set (list \<Phi>)" by auto
   let ?lindy = "set (lind \<psi> (list \<Gamma>) (list \<Phi>))" 
   from set_of_list_is_finite have
-     "finite ?lindy" by auto
+     "finite ?lindy" by fastsimp
   with set_list [where A="?lindy"] have
      G: "?lindy = set (list ?lindy)" by auto
 
@@ -404,9 +404,9 @@ proof -
     by blast
 
   from I II IV 
-       Atom_def [where \<Phi>="\<Phi>"
+       Atoms_def [where \<Phi>="\<Phi>"
                    and \<Gamma>="?lindy"]
-  have VI: "Atom \<Phi> ?lindy" by fastsimp
+  have VI: "At \<Phi> ?lindy" by fastsimp
 
   from III V VI show ?thesis by fastsimp
 qed

@@ -16,10 +16,12 @@ no_notation
   imp (infixr "\<rightarrow>" 25)  and
   vdash ("\<turnstile> _" [20] 20) and
   lift_vdash (infix ":\<turnstile>" 10) and
+  lift_imp (infix ":\<rightarrow>" 24) and
   Not  ("\<not> _" [40] 40) and
   neg ("\<not> _" [40] 40) and
   Classic.cl_neg ("\<not> _" [40] 40) and
   pneg ("\<sim> _" [40] 40) and
+  cl_pneg ("\<sim>' _" [40] 40) and
   CL_P ("P#") and
   CL_Bot ("\<bottom>") and
   CL_Imp (infixr "\<rightarrow>" 25)
@@ -71,11 +73,11 @@ inductive_set EviL :: "('a,'b) evil_form set" where
   evil_ax6: "(P# p \<rightarrow> [+] X (P# p)) \<in> EviL" |
   evil_ax7: "(P# p \<rightarrow> [-] X (P# p)) \<in> EviL" |
 
-  --{* If $X$ can imagine @{term "\<phi>"} being under some evidence she is considering, *}
-  --{* then less evidence wouldn't make @{term "\<phi>"} any less conceivable for her. *}
-  evil_ax8: "((\<diamond> X \<phi>) \<rightarrow> [-] X (\<diamond> A \<phi>)) \<in> EviL" |
+  --{* The more evidence $X$ discards,*}
+  --{* the freer her imagination becomes. *}
+  evil_ax8: "((\<diamond> X \<phi>) \<rightarrow> [-] X (\<diamond> X \<phi>)) \<in> EviL" |
 
-  --{* If $X$ believes @{term "\<phi>"},  *}
+  --{* If $X$ believes @{term "\<phi>"}, *}
   --{* she believes it despite what anyone thinks *}
   evil_ax9: "((\<box> X \<phi>) \<rightarrow> \<box> X ([+] Y \<phi>)) \<in> EviL" |
   evil_ax10: "((\<box> X \<phi>) \<rightarrow> \<box> X ([-] Y \<phi>)) \<in> EviL" |
@@ -130,6 +132,20 @@ inductive_set EviL :: "('a,'b) evil_form set" where
 abbreviation evil_vdash :: "('a,'b) evil_form \<Rightarrow> bool" ("\<turnstile> _" [20] 20) where
 "(\<turnstile> \<phi>) \<equiv> \<phi> \<in> EviL"
 
+text {* It's natural to want to prove soundness after introducing all of these axioms.
+        The proof is completely mechanical: *}
+
+theorem evil_soundness: "\<turnstile> \<phi> \<Longrightarrow> \<forall> (a,A) \<in> \<Omega>. \<Omega>,(a,A) |\<Turnstile> \<phi>"
+  by (induct set: EviL, (simp add: Ball_def|blast)+)
+
+theorem evil_consistency: "~ (\<turnstile> \<bottom>)"
+proof -
+  let ?\<Omega>="{({},(%b \<phi>. False))}"
+  have "~(\<forall> (a,A) \<in> ?\<Omega>. ?\<Omega>,(a,A) |\<Turnstile> \<bottom>)" by simp
+  with evil_soundness [where \<Omega>="?\<Omega>" and \<phi>="\<bottom>"] 
+  show ?thesis by fastsimp
+qed
+
 text {* We now turn to developing some basic proof theory for EviL.  We start
 by showing that it is an extesion of classical logic; it is in fact a conservative
 extension (we assert this without proof).  So we shall establish that it is an 
@@ -161,7 +177,7 @@ primrec evil_sub ::
    | "(\<delta> \<rightarrow> \<kappa>)[\<phi>/\<psi>] = (if ((\<delta> \<rightarrow> \<kappa>) = \<phi>) then \<psi> 
                         else (\<delta>[\<phi>/\<psi>] \<rightarrow> \<kappa>[\<phi>/\<psi>]))"
    | "(\<box> X \<kappa>)[\<phi>/\<psi>] = (if ((\<box> X \<kappa>) = \<phi>) then \<psi>
-                        else (\<box> X (\<kappa>[\<phi>/\<psi>])))"
+                      else (\<box> X (\<kappa>[\<phi>/\<psi>])))"
    | "([-] X \<kappa>)[\<phi>/\<psi>] = (if (([-] X \<kappa>) = \<phi>) then \<psi> 
                         else ([-] X (\<kappa>[\<phi>/\<psi>])))"
    | "([+] X \<kappa>)[\<phi>/\<psi>] = (if (([+] X \<kappa>) = \<phi>) then \<psi> 
@@ -189,7 +205,7 @@ proof -
   show ?thesis by simp
 qed
 
-lemma evil_eq_symm: "\<turnstile> \<phi> \<leftrightarrow> \<psi> \<Longrightarrow> \<turnstile> \<psi> \<leftrightarrow> \<phi>"
+lemma evil_eq_symm [sym]: "\<turnstile> \<phi> \<leftrightarrow> \<psi> \<Longrightarrow> \<turnstile> \<psi> \<leftrightarrow> \<phi>"
 proof -
   assume eq: "\<turnstile> \<phi> \<leftrightarrow> \<psi>"
   let ?\<theta> = "((P#\<^bsub>CL\<^esub> \<phi>) \<leftrightarrow>\<^bsub>CL\<^esub> (P#\<^bsub>CL\<^esub> \<psi>)) 
@@ -262,12 +278,70 @@ proof -
   ultimately show ?thesis by blast
 qed
 
+notation
+  evil_ClassAx.lift_imp (infix ":\<rightarrow>" 24)
+
+abbreviation evil_lift_vdash :: 
+   "('a,'b) evil_form list 
+    \<Rightarrow> ('a,'b) evil_form \<Rightarrow> bool" (infix ":\<turnstile>" 10) where
+  "(\<Gamma> :\<turnstile> \<phi>) \<equiv> (\<turnstile> \<Gamma> :\<rightarrow> \<phi>)"
+
 lemma evil_B_map: "\<turnstile> \<phi> \<rightarrow> \<psi> \<Longrightarrow> \<turnstile> \<box> X \<phi> \<rightarrow> \<box> X \<psi>"
 proof -
   assume "\<turnstile> \<phi> \<rightarrow> \<psi>"
   with evil_B_nec have "\<turnstile> \<box> X (\<phi> \<rightarrow> \<psi>)" by fast
   with evil_ax15 [where X="X" and \<phi>="\<phi>" and \<psi>="\<psi>"]
        evil_mp show ?thesis by fast
+qed
+
+lemma evil_lift_ax15: 
+   assumes notnil: "\<phi>s \<noteq> []"
+     shows "\<turnstile> \<box> X (\<phi>s :\<rightarrow> \<psi>) 
+              \<rightarrow> ((map (\<lambda> \<phi>. \<box> X \<phi>) \<phi>s) :\<rightarrow> \<box> X \<psi>)"
+using notnil
+proof (induct \<phi>s)
+ case Nil thus ?case by fast
+ next case (Cons \<phi> \<phi>s)
+  note ind_hyp = this
+  show ?case
+  proof cases
+    assume "\<phi>s = []"
+      with evil_ax15 [where X="X"]
+        show ?case by simp
+    next 
+    let ?A = "\<box> X ((\<phi> # \<phi>s) :\<rightarrow> \<psi>)"
+    and ?B = "\<box> X \<phi>"
+    and ?C = "\<box> X (\<phi>s :\<rightarrow> \<psi>)"
+    and ?D = "((map (\<lambda> \<phi>. \<box> X \<phi>) \<phi>s) :\<rightarrow> \<box> X \<psi>)"
+    assume notnil: "\<phi>s \<noteq> []"
+      with ind_hyp
+           evil_ClassAx.lift [where \<Gamma>="[?A]"]
+        have map: "[?A] :\<turnstile> ?C \<rightarrow> ?D" by fast
+      from evil_ax15 [where X="X"]
+        have "[?A] :\<turnstile> ?B \<rightarrow> ?C" by simp
+      with map
+           evil_ClassAx.lift_hs [where \<Gamma>="[?A]"
+                                   and \<phi>="?B"
+                                   and \<psi>="?C"
+                                   and \<chi>="?D"]
+        show ?case by simp
+  qed
+qed
+
+lemma evil_B_lift_map:
+ assumes seq: "\<phi>s :\<turnstile> \<psi>"
+   shows "(map (\<lambda> \<phi>. \<box> X \<phi>) \<phi>s) :\<turnstile> \<box> X \<psi>"
+using seq
+proof (induct \<phi>s)
+  case Nil with evil_B_nec [where X="X"]
+    show ?case by simp
+  next case (Cons \<phi> \<phi>s)
+    with evil_B_nec [where X="X" and \<phi>="(\<phi> # \<phi>s) :\<rightarrow> \<psi>"]
+         evil_mp
+         evil_lift_ax15 [where X="X"
+                           and \<phi>s="\<phi> # \<phi>s"
+                           and \<psi>="\<psi>"]
+    show ?case by simp
 qed
 
 lemma evil_DB_map: "\<turnstile> \<phi> \<rightarrow> \<psi> \<Longrightarrow> \<turnstile> \<diamond> X \<phi> \<rightarrow> \<diamond> X \<psi>"
@@ -286,6 +360,56 @@ proof -
        evil_mp show ?thesis by fast
 qed
 
+lemma evil_lift_ax16: 
+   assumes notnil: "\<phi>s \<noteq> []"
+     shows "\<turnstile> [-] X (\<phi>s :\<rightarrow> \<psi>) 
+              \<rightarrow> ((map (\<lambda> \<phi>. [-] X \<phi>) \<phi>s) :\<rightarrow> [-] X \<psi>)"
+using notnil
+proof (induct \<phi>s)
+ case Nil thus ?case by fast
+ next case (Cons \<phi> \<phi>s)
+  note ind_hyp = this
+  show ?case
+  proof cases
+    assume "\<phi>s = []"
+      with evil_ax16 [where X="X"]
+        show ?case by simp
+    next 
+    let ?A = "[-] X ((\<phi> # \<phi>s) :\<rightarrow> \<psi>)"
+    and ?B = "[-] X \<phi>"
+    and ?C = "[-] X (\<phi>s :\<rightarrow> \<psi>)"
+    and ?D = "((map (\<lambda> \<phi>. [-] X \<phi>) \<phi>s) :\<rightarrow> [-] X \<psi>)"
+    assume notnil: "\<phi>s \<noteq> []"
+      with ind_hyp
+           evil_ClassAx.lift [where \<Gamma>="[?A]"]
+        have map: "[?A] :\<turnstile> ?C \<rightarrow> ?D" by fast
+      from evil_ax16 [where X="X"]
+        have "[?A] :\<turnstile> ?B \<rightarrow> ?C" by simp
+      with map
+           evil_ClassAx.lift_hs [where \<Gamma>="[?A]"
+                                   and \<phi>="?B"
+                                   and \<psi>="?C"
+                                   and \<chi>="?D"]
+        show ?case by simp
+  qed
+qed
+
+lemma evil_BB_lift_map:
+ assumes seq: "\<phi>s :\<turnstile> \<psi>"
+   shows "(map (\<lambda> \<phi>. [-] X \<phi>) \<phi>s) :\<turnstile> [-] X \<psi>"
+using seq
+proof (induct \<phi>s)
+  case Nil with evil_BB_nec [where X="X"]
+    show ?case by simp
+  next case (Cons \<phi> \<phi>s)
+    with evil_BB_nec [where X="X" and \<phi>="(\<phi> # \<phi>s) :\<rightarrow> \<psi>"]
+         evil_mp
+         evil_lift_ax16 [where X="X"
+                           and \<phi>s="\<phi> # \<phi>s"
+                           and \<psi>="\<psi>"]
+    show ?case by simp
+qed
+
 lemma evil_DBB_map: "\<turnstile> \<phi> \<rightarrow> \<psi> \<Longrightarrow> \<turnstile> \<langle>-\<rangle> X \<phi> \<rightarrow> \<langle>-\<rangle> X \<psi>"
 proof -
   assume "\<turnstile> \<phi> \<rightarrow> \<psi>"
@@ -302,6 +426,56 @@ proof -
        evil_mp show ?thesis by fast
 qed
 
+lemma evil_lift_ax17: 
+   assumes notnil: "\<phi>s \<noteq> []"
+     shows "\<turnstile> [+] X (\<phi>s :\<rightarrow> \<psi>) 
+              \<rightarrow> ((map (\<lambda> \<phi>. [+] X \<phi>) \<phi>s) :\<rightarrow> [+] X \<psi>)"
+using notnil
+proof (induct \<phi>s)
+ case Nil thus ?case by fast
+ next case (Cons \<phi> \<phi>s)
+  note ind_hyp = this
+  show ?case
+  proof cases
+    assume "\<phi>s = []"
+      with evil_ax17 [where X="X"]
+        show ?case by simp
+    next 
+    let ?A = "[+] X ((\<phi> # \<phi>s) :\<rightarrow> \<psi>)"
+    and ?B = "[+] X \<phi>"
+    and ?C = "[+] X (\<phi>s :\<rightarrow> \<psi>)"
+    and ?D = "((map (\<lambda> \<phi>. [+] X \<phi>) \<phi>s) :\<rightarrow> [+] X \<psi>)"
+    assume notnil: "\<phi>s \<noteq> []"
+      with ind_hyp
+           evil_ClassAx.lift [where \<Gamma>="[?A]"]
+        have map: "[?A] :\<turnstile> ?C \<rightarrow> ?D" by fast
+      from evil_ax17 [where X="X"]
+        have "[?A] :\<turnstile> ?B \<rightarrow> ?C" by simp
+      with map
+           evil_ClassAx.lift_hs [where \<Gamma>="[?A]"
+                                   and \<phi>="?B"
+                                   and \<psi>="?C"
+                                   and \<chi>="?D"]
+        show ?case by simp
+  qed
+qed
+
+lemma evil_BBI_lift_map:
+ assumes seq: "\<phi>s :\<turnstile> \<psi>"
+   shows "(map (\<lambda> \<phi>. [+] X \<phi>) \<phi>s) :\<turnstile> [+] X \<psi>"
+using seq
+proof (induct \<phi>s)
+  case Nil with evil_BBI_nec [where X="X"]
+    show ?case by simp
+  next case (Cons \<phi> \<phi>s)
+    with evil_BBI_nec [where X="X" and \<phi>="(\<phi> # \<phi>s) :\<rightarrow> \<psi>"]
+         evil_mp
+         evil_lift_ax17 [where X="X"
+                           and \<phi>s="\<phi> # \<phi>s"
+                           and \<psi>="\<psi>"]
+    show ?case by simp
+qed
+
 lemma evil_DBBI_map: "\<turnstile> \<phi> \<rightarrow> \<psi> \<Longrightarrow> \<turnstile> \<langle>+\<rangle> X \<phi> \<rightarrow> \<langle>+\<rangle> X \<psi>"
 proof -
   assume "\<turnstile> \<phi> \<rightarrow> \<psi>"
@@ -315,7 +489,7 @@ lemma evil_sub:
   shows "\<turnstile> \<chi> \<leftrightarrow> \<chi>[\<phi>/\<psi>]"
 using eq
 proof (induct \<chi>, (fastsimp intro: evil_eq_refl)+)
-  --"Most base cases are delt with automatically;"
+  --"Most cases are delt with automatically;"
   --"we are left with implication and the three boxes"
   case (E_Imp \<delta> \<kappa>)
     hence A: "(\<turnstile> \<delta> \<leftrightarrow> \<delta>[\<phi>/\<psi>])" 
@@ -364,11 +538,13 @@ proof (induct \<chi>, (fastsimp intro: evil_eq_refl)+)
     with eq show ?case by fastsimp
 qed
 
-text {* We now turn to showing an analogues of axioms 4 and 5 for @{term "[-]"};
-        we shall expedite our proofs by employing rewriting now that we have it our
-        disposal.
-
-We shall first prove several theorems about inequalities, subformulae and substitutions. *}
+text {* The substitution theorem above, while popular in the literature, is not rigorous.
+        Since it relies on pattern matching, authors play faster and looser with it than
+        other tasks.
+        
+        However, we can show that substitution never changes proper subformulae of the thing
+        being substituted.  In every instance of substitution we shall employ, this fact is
+        what suffices to make substitution really applicable. *}
 
 --"A little function which gives the proper subforumulae"
 primrec evil_psubforms 
@@ -474,9 +650,6 @@ proof (induct \<psi>)
    ultimately show ?case by (simp, blast)
 qed
 
-text {* After showing all of the above, we have what we need to
-  formalize our reasoning about EviL. *}
-
 lemma evil_dneg_eq: "\<turnstile> \<not> (\<not> \<phi>) \<leftrightarrow> \<phi>"
 proof -
   let ?\<theta> = "(\<not>\<^bsub>CL\<^esub> (\<not>\<^bsub>CL\<^esub> (P#\<^bsub>CL\<^esub> \<phi>)) \<leftrightarrow>\<^bsub>CL\<^esub> P#\<^bsub>CL\<^esub> \<phi>)" 
@@ -485,30 +658,37 @@ proof -
   show ?thesis by simp
 qed
 
-lemma "\<turnstile> [-] X \<phi> \<rightarrow> \<phi>"
---{* If @{term "\<phi>"} holds no matter what $X$ tries to forget, *}
---{* then it must be that @{term "\<phi>"} holds simpliciter *}
+text {* After showing all of the above, we have what we need to
+  formalize our reasoning about EviL; specifically, we prove versions
+  of axioms 13 and 14, an analogue of axiom 8 for @{term "[+] X"},
+  and analogues of axioms 4 and 5 for @{term "[-] X"}.  *}
+
+lemma evil_dax13: "\<turnstile> \<langle>+\<rangle> X ([-] X \<phi>) \<rightarrow> \<phi>"
 proof -
-  from evil_ax13 evil_ax4 evil_ClassAx.hs
-    have \<heartsuit>: "\<turnstile> (\<not> \<phi>) \<rightarrow> \<langle>-\<rangle> X (\<not> \<phi>)" by fast
-  moreover have "\<phi> \<in> \<Down> (\<not> \<not> \<phi>)" by simp
-    with sub_nosub have "\<phi>[\<not> \<not> \<phi>/ \<phi>] = \<phi>" by blast
+  from evil_ax13 [where \<phi>="\<not> \<phi>" and X="X"]
+  moreover have "(\<not> \<phi>) \<in> \<Down> (\<not> \<not> \<phi>)" by simp
+    with sub_nosub have "(\<not> \<phi>)[\<not> \<not> \<phi>/ \<phi>] = (\<not> \<phi>)" by blast
   moreover have "\<bottom> \<in> \<Down> (\<not> \<not> \<phi>)" by simp
     with sub_nosub have "\<bottom>[\<not> \<not> \<phi>/ \<phi>] = \<bottom>" by blast
   moreover note
     evil_sub [where \<phi>="\<not> \<not> \<phi>"
                 and \<psi>="\<phi>"
-                and \<chi>="(\<not> \<phi>) \<rightarrow> \<langle>-\<rangle> X (\<not> \<phi>)"]
+                and \<chi>="\<not> \<phi> \<rightarrow> [+] X (\<langle>-\<rangle> X (\<not> \<phi>))"]
     evil_not_neq [where \<phi>="\<phi>"]
     evil_dneg_eq [where \<phi>="\<phi>"]
     evil_eq_mp
-  ultimately have
-    "\<turnstile> \<not> \<phi> \<rightarrow> \<not> [-] X \<phi>" by auto
-  with evil_ax3 evil_mp
-    show ?thesis by blast
+  ultimately
+    have "\<turnstile> \<not> \<phi> \<rightarrow> [+] X (\<not> [-] X \<phi>)" by auto
+  moreover 
+    let ?\<theta>="(\<not>\<^bsub>CL\<^esub> (P#\<^bsub>CL\<^esub> \<phi>) \<rightarrow>\<^bsub>CL\<^esub> P#\<^bsub>CL\<^esub> ([+] X (\<not> [-] X \<phi>)))
+            \<rightarrow>\<^bsub>CL\<^esub> (\<not>\<^bsub>CL\<^esub> (P#\<^bsub>CL\<^esub> ([+] X (\<not> [-] X \<phi>))) \<rightarrow>\<^bsub>CL\<^esub> P#\<^bsub>CL\<^esub> \<phi>)"
+    have "?\<theta> \<in> CL" by fastsimp
+  moreover note evil_ClassAx.cl_translate [where \<phi>="?\<theta>"]
+                evil_mp
+  ultimately show ?thesis by fastsimp
 qed
 
-lemma evil_dax13: "\<turnstile> \<langle>-\<rangle> X ([+] X \<phi>) \<rightarrow> \<phi>"
+lemma evil_dax14: "\<turnstile> \<langle>-\<rangle> X ([+] X \<phi>) \<rightarrow> \<phi>"
 proof -
   from evil_ax14 [where \<phi>="\<not> \<phi>" and X="X"]
   moreover have "(\<not> \<phi>) \<in> \<Down> (\<not> \<not> \<phi>)" by simp
@@ -533,28 +713,93 @@ proof -
   ultimately show ?thesis by fastsimp
 qed
 
-lemma evil_BB_ax5: "\<turnstile> [-] X \<phi> \<rightarrow> [-] X ([-] X \<phi>)"
+lemma evil_BBIax8: "\<turnstile> (\<box> X \<phi>) \<rightarrow> [+] X (\<box> X \<phi>)"
+proof -
+   from evil_ax8 have "\<turnstile> \<diamond> X (\<not> \<phi>) \<rightarrow> [-] X (\<diamond> X (\<not> \<phi>))" .
+   with evil_DBBI_map 
+     have "\<turnstile> \<langle>+\<rangle> X (\<diamond> X (\<not> \<phi>)) \<rightarrow> \<langle>+\<rangle> X ([-] X (\<diamond> X (\<not> \<phi>)))" .
+   with evil_ClassAx.hs evil_dax13 [where X="X" 
+                                      and \<phi>="\<diamond> X (\<not> \<phi>)"] 
+     have "\<turnstile> \<langle>+\<rangle> X (\<diamond> X (\<not> \<phi>)) \<rightarrow> \<diamond> X (\<not> \<phi>)" by blast
+   with evil_mp evil_ax3 [where \<phi>="[+] X (\<not> (\<diamond> X (\<not> \<phi>)))"
+                            and \<psi>="\<box> X (\<not> \<not> \<phi>)"]
+     have "\<turnstile> \<box> X (\<not> \<not> \<phi>) \<rightarrow> [+] X (\<not> \<diamond> X (\<not> \<phi>))" by blast
+   moreover have "\<box> X (\<not> \<not> \<phi>) \<in> \<Down> (\<not> \<diamond> X (\<not> \<phi>))" by simp
+       with sub_nosub have 
+        "\<box> X (\<not> \<not> \<phi>)[\<not> \<diamond> X (\<not> \<phi>)/\<box> X (\<not> \<not> \<phi>)] = \<box> X (\<not> \<not> \<phi>)"
+          by blast
+   moreover note
+     evil_sub [where \<phi>="\<not> \<diamond> X (\<not> \<phi>)"
+                 and \<psi>="\<box> X (\<not> \<not> \<phi>)"
+                 and \<chi>="\<box> X (\<not> \<not> \<phi>) \<rightarrow> [+] X (\<not> \<diamond> X (\<not> \<phi>))"]
+     evil_dneg_eq [where \<phi>="\<box> X (\<not> \<not> \<phi>)"]
+     evil_eq_mp
+  ultimately have "\<turnstile> \<box> X (\<not> \<not> \<phi>) \<rightarrow> [+] X (\<box> X (\<not> \<not> \<phi>))"
+    by fastsimp
+  with
+    evil_sub [where \<phi>="\<not> \<not> \<phi>"
+                and \<psi>="\<phi>"
+                and \<chi>="\<box> X (\<not> \<not> \<phi>) \<rightarrow> [+] X (\<box> X (\<not> \<not> \<phi>))"]
+    evil_dneg_eq [where \<phi>="\<phi>"]
+    evil_eq_mp
+  show ?thesis
+    by fastsimp
+qed
+
+lemma evil_BBax4: "\<turnstile> [-] X \<phi> \<rightarrow> \<phi>"
+--{* If @{term "\<phi>"} holds no matter what $X$ tries to forget, *}
+--{* then it must be that @{term "\<phi>"} holds simpliciter *}
+proof -
+  from evil_ax13 evil_ax4 evil_ClassAx.hs
+    have "\<turnstile> (\<not> \<phi>) \<rightarrow> \<langle>-\<rangle> X (\<not> \<phi>)" by fast
+  moreover have "\<phi> \<in> \<Down> (\<not> \<not> \<phi>)" by simp
+    with sub_nosub have "\<phi>[\<not> \<not> \<phi>/ \<phi>] = \<phi>" by blast
+  moreover have "\<bottom> \<in> \<Down> (\<not> \<not> \<phi>)" by simp
+    with sub_nosub have "\<bottom>[\<not> \<not> \<phi>/ \<phi>] = \<bottom>" by blast
+  moreover note
+    evil_sub [where \<phi>="\<not> \<not> \<phi>"
+                and \<psi>="\<phi>"
+                and \<chi>="(\<not> \<phi>) \<rightarrow> \<langle>-\<rangle> X (\<not> \<phi>)"]
+    evil_not_neq [where \<phi>="\<phi>"]
+    evil_dneg_eq [where \<phi>="\<phi>"]
+    evil_eq_mp
+  ultimately have
+    "\<turnstile> \<not> \<phi> \<rightarrow> \<not> [-] X \<phi>" by auto
+  with evil_ax3 evil_mp
+    show ?thesis by blast
+qed
+
+lemma evil_BBdax5: "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X \<phi>) \<rightarrow> \<langle>-\<rangle> X \<phi>"
 --{* If @{term "\<phi>"} is true no matter what $X$ *}
 --{* tries to forget, then it's true no matter *}
 --{* what further evidence she disregards *}
 proof -
-  from EviL.intros have "\<turnstile> \<not> \<phi> \<rightarrow> [+] X (\<langle>-\<rangle> X (\<not> \<phi>))" by fast
+  from EviL.intros have "\<turnstile> \<phi> \<rightarrow> [+] X (\<langle>-\<rangle> X \<phi>)" by fast
   with evil_ax5 [where X="X"]
        evil_ClassAx.hs 
-    have "\<turnstile> \<not> \<phi> \<rightarrow> [+] X ([+] X (\<langle>-\<rangle> X (\<not> \<phi>)))" by blast
+    have "\<turnstile> \<phi> \<rightarrow> [+] X ([+] X (\<langle>-\<rangle> X \<phi>))" by blast
   with evil_DBB_map [where X="X"] have 
-   "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X (\<not> \<phi>)) 
-      \<rightarrow> \<langle>-\<rangle> X (\<langle>-\<rangle> X ([+] X ([+] X (\<langle>-\<rangle> X (\<not> \<phi>)))))" by blast
-  with evil_dax13 [where X="X"
-                     and \<phi>="[+] X (\<langle>-\<rangle> X (\<not> \<phi>))"]
+   "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X \<phi>) 
+      \<rightarrow> \<langle>-\<rangle> X (\<langle>-\<rangle> X ([+] X ([+] X (\<langle>-\<rangle> X \<phi>))))" by blast
+  with evil_dax14 [where X="X"
+                     and \<phi>="[+] X (\<langle>-\<rangle> X \<phi>)"]
        evil_DBB_map [where X="X"]
        evil_ClassAx.hs
-  have "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X (\<not> \<phi>)) \<rightarrow> \<langle>-\<rangle> X ([+] X (\<langle>-\<rangle> X (\<not> \<phi>)))" by blast
-  with evil_dax13 [where X="X"
-                     and \<phi>="\<langle>-\<rangle> X (\<not> \<phi>)"]
+  have "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X \<phi>) \<rightarrow> \<langle>-\<rangle> X ([+] X (\<langle>-\<rangle> X \<phi>))" by blast
+  with evil_dax14 [where X="X"
+                     and \<phi>="\<langle>-\<rangle> X \<phi>"]
        evil_DBB_map [where X="X"]
        evil_ClassAx.hs
-  have "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X (\<not> \<phi>)) \<rightarrow> \<langle>-\<rangle> X (\<not> \<phi>)" by blast
+  show ?thesis by blast
+qed
+
+lemma evil_BBax5: "\<turnstile> [-] X \<phi> \<rightarrow> [-] X ([-] X \<phi>)"
+--{* If @{term "\<phi>"} is true no matter what $X$ *}
+--{* tries to forget, then it's true no matter *}
+--{* what further evidence she disregards *}
+proof -
+  from evil_BBdax5
+  have "\<turnstile> \<langle>-\<rangle> X (\<langle>-\<rangle> X (\<not> \<phi>)) \<rightarrow> \<langle>-\<rangle> X (\<not> \<phi>)" .
   moreover have "\<bottom> \<in> \<Down> (\<not> \<not> \<phi>)" by simp
     hence "\<bottom>[\<not> \<not> \<phi>/ \<phi>] = \<bottom>" by fast
   moreover have "\<phi> \<in> \<Down> ([-] X (\<not> \<not> \<phi>))" by simp
@@ -582,3 +827,5 @@ proof -
     by fastsimp 
   with evil_ax3 evil_mp show ?thesis by blast
 qed
+
+end

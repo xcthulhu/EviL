@@ -53,7 +53,7 @@ proof
     show  "finite A" by simp
 qed
 
-lemma empty_set_list: "[] = list {}"
+lemma empty_set_list[simp]: "list {} = []"
 proof -
   { fix ls
     have "~(ls = []) \<longrightarrow> ~(set ls = {})" 
@@ -137,7 +137,7 @@ proof -
   where "inj_on (g::'a \<Rightarrow> nat) (f ` {i. i < n})" by blast
   ultimately have "inj_on g A" by fastsimp
   note \<heartsuit> = this
-  from infi_B infinite_countable_subset
+  from infi_B infinite_countable_subset [where S="B"]
   obtain h where "inj (h::nat \<Rightarrow> 'b) \<and> range h \<subseteq> B"
     by fastsimp
   note \<spadesuit> = this

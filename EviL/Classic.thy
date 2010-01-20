@@ -179,7 +179,7 @@ text
    local names for class theorems, and so on). *}
 
 notation
-Classic.cl_ClassAx.Atom ("At") and
+Classic.cl_ClassAx.Atoms ("At") and
 Classic.cl_ClassAx.lift_imp (infix ":\<rightarrow>" 24)
 
 abbreviation cl_lift_vdash :: "'a cl_form list \<Rightarrow> 'a cl_form \<Rightarrow> bool" (infix ":\<turnstile>" 10) where
@@ -189,7 +189,7 @@ abbreviation cl_mod :: "'a cl_form set \<Rightarrow> 'a set" ("\<dagger>_") wher
   "\<dagger>\<Gamma> \<equiv> {p. (P# p) \<in> \<Gamma>}"
 
 lemmas
-Atom_def = Classic.cl_ClassAx.Atom_def and
+Atoms_def = Classic.cl_ClassAx.Atoms_def and
 coincidence = Classic.cl_ClassAx.coincidence and
 lift = Classic.cl_ClassAx.lift and
 lift_mp = Classic.cl_ClassAx.lift_mp and
@@ -227,7 +227,7 @@ proof(induct \<phi>)
    and \<clubsuit>: "(\<dagger>\<Gamma> \<Turnstile> \<bottom>) = (list \<Gamma> :\<turnstile> \<bottom>) 
              \<Longrightarrow> (\<dagger>\<Gamma> \<Turnstile> \<sim> \<bottom>) = (list \<Gamma> :\<turnstile> \<sim> \<bottom>)"
    by blast+
-  with A Atom_def [where \<Phi>="FL \<psi>"] 
+  with A Atoms_def [where \<Phi>="FL \<psi>"] 
   show "(\<dagger>\<Gamma> \<Turnstile> \<bottom>) = (list \<Gamma> :\<turnstile> \<bottom>)"
     by (simp add: mem_def)
   with \<clubsuit> show "(\<dagger>\<Gamma> \<Turnstile> \<sim> \<bottom>) = (list \<Gamma> :\<turnstile> \<sim> \<bottom>)"
@@ -365,7 +365,7 @@ text
 
 no_notation
   cl_vdash ("\<turnstile> _" [20] 20) and
-  Classic.cl_ClassAx.Atom ("At") and
+  Classic.cl_ClassAx.Atoms ("At") and
   Classic.cl_ClassAx.lift_imp (infix ":\<rightarrow>" 24) and
   cl_lift_vdash (infix ":\<turnstile>" 10) and
   Classic.cl_ClassAx.pneg ("\<sim> _" [40] 40) and

@@ -22,7 +22,7 @@ locale partly_EviL =
       and prop4: "RBBI(M)(X) = (RBB(M)(X))^-1"
       and prop5: "(w,v) \<in> RBB(M)(X) \<Longrightarrow> V(M)(w) = V(M)(v)" 
       and prop6: "\<lbrakk>(w,v) \<in> RBB(M)(X); (w,u) \<in> RB(M)(X)\<rbrakk>
-                     \<Longrightarrow> (v,u) \<in> RB(M)(X)"
+                    \<Longrightarrow> (v,u) \<in> RB(M)(X)"
       and prop7: "(w,v) \<in> RBB(M)(X) 
                     \<Longrightarrow> ((u,w) \<in> RB(M)(Y)) = ((u,v) \<in> RB(M)(Y))"
       and prop8: "w \<in> PP(M)(X) \<Longrightarrow> (w,w) \<in> RB(M)(X)"
