@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory Set_to_List (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory Set_to_List</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">Set_to_List</span><br/>
+<span class="keyword">imports</span> <a href="Infinite_Set.html"><span class="name">Infinite_Set</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span> <span class="verbatim">{* A Theory for Manipulating Finite and Infinite Sets, Lists *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">Set_to_List</span>
+<span class="keyword">imports</span> <span class="ident">Main</span> <span class="ident">Infinite_Set</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* This file sets forward two main results.  The first is an elementary theory 
+   regarding the translation between sets and finite lists.  The second is the
+   embedding, via (relatively) injective functions, from finite lists to
+   infinite lists.
+
+   We shall begin by giving our theory for converting finite sets to
+   lists via a choice function. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">finite_set_list_ex</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">fin</span><span class="keyword">:</span> <span class="string">"finite (A::'a set)"</span>
+    <span class="keyword">shows</span> <span class="string">&quot;&exist;ls. set ls = A&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">using</span> <span class="ident">fin</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">induct</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span>
+   <span class="keyword">--</span> <span class="string">"We only have to show for one case"</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">case</span> <span class="keyword">(</span><span class="ident">insert</span> <span class="ident">a</span> <span class="ident">A</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&exist; ls . insert a A = set (a # ls)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">thus</span> <span class="var">?case</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">set_of_list_is_finite</span><span class="keyword">:</span>
+  <span class="string">&quot;finite (set &Gamma;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&Gamma;</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">,</span> <span class="ident">clarify</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now give the definition of the our function which converts
+   sets into lists.  We should note that since it is a choice function,
+   it is only meaningful in cases in which a list exists. In fact, we 
+   will see that our function is meaningful in exactly those cases where 
+   our original set is finite. We end with noting that, despite being
+   based on a choice function, it has a definite value for the empty
+   set. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span> <span class="ident">list</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a set =&gt; &apos;a list&quot;</span> <span class="keyword">where</span>
+<span class="string">"list A = (SOME ls. set ls = A)"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">set_list</span><span class="keyword">:</span> <span class="string">&quot;finite A &lt;-&gt; (set (list A) = A)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">"finite A"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">finite_set_list_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">"A"</span><span class="keyword">]</span>
+         <span class="ident">some_eq_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">"% ls. set ls = A"</span><span class="keyword">]</span></span><span class="ignored_span">        
+    </span><span class="command_span"><span class="command">show</span> <span class="string">"set (list A) = A"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span><span class="keyword">,</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">list_def</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">"set (list A) = A"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">set_of_list_is_finite</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">"list A"</span><span class="keyword">]</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span>  <span class="string">"finite A"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">empty_set_list</span><span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">"list {} = []"</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">ls</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;~(ls = []) --&gt; ~(set ls = {})&quot;</span></span><span class="ignored_span"> 
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">ls</span><span class="keyword">,</span> <span class="ident">fastsimp</span><span class="keyword">,</span> <span class="ident">auto</span><span class="keyword">)</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;&exist;! ls. set ls = {}&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span><span class="keyword">+</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">some1_equality</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">a</span><span class="keyword">=</span><span class="string">"[]"</span>
+                         <span class="keyword">and</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">"% ls. set ls = {}"</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">list_def</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to showing that if @{term [show_types] &quot;A::&apos;a set&quot;} is finite
+   and @{term [show_types] &quot;B::&apos;b set&quot;} is infinite, then there exists 
+   a function @{term [show_types] &quot;f::&apos;a =&gt; &apos;b&quot;} which is injective on 
+   @{term &quot;A::&apos;a set&quot;} and has its range in @{term &quot;B::&apos;b set&quot;} 
+
+   Rather than prove this from scratch, we will use some library theorems
+   to assist us, namely @{thm [source] &quot;finite_imp_nat_seg_image_inj_on&quot;}
+   and @{thm [source] &quot;infinite_countable_subset&quot;}.
+   
+   However, we evidently need to prove an elementary lemma regarding
+   the relative inverses of functions that are injective on some range. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">inj_on_inj_off</span><span class="keyword">:</span>
+   <span class="keyword">assumes</span> <span class="ident">one_one</span><span class="keyword">:</span> <span class="string">"inj_on f A"</span>
+     <span class="keyword">shows</span> <span class="string">&quot;&exist;g. inj_on g (f ` A) 
+                &and; (&forall; x &isin; A. x = (g o f) x)
+                &and; (&forall; y &isin; (f ` A). (f o g) y = y)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">one_one</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">b</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">one_one</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;b &isin; (f ` A) = (EX! x. x &isin; A &and; b = f x)&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">inj_on_def</span><span class="keyword">,</span> <span class="ident">unfold</span> <span class="ident">image_def</span><span class="keyword">,</span> <span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">note</span> <span class="ident">&hearts;</span> <span class="keyword">=</span> <span class="ident">this</span>
+  <span class="keyword">--</span> <span class="string">"We now turn to crafting our choice function"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">let</span> <span class="var">?g</span> <span class="keyword">=</span> <span class="string">&quot;% b. SOME x. x &isin; A &and; b = f x&quot;</span>
+  <span class="keyword">--</span> <span class="string">"We'll prove that it's one-one now"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">b</span> <span class="ident">c</span><span class="keyword">;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">assume</span> <span class="ident">I</span><span class="keyword">:</span>  <span class="string">&quot;b &isin; (f ` A)&quot;</span> 
+       <span class="keyword">and</span> <span class="ident">II</span><span class="keyword">:</span> <span class="string">&quot;c &isin; (f ` A)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">"(b = c) = (?g b = ?g c)"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">auto</span><span class="keyword">)</span>
+      <span class="keyword">--</span><span class="string">"We shall only show right to left"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">assume</span> <span class="string">"?g b = ?g c"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">&hearts;</span> <span class="ident">I</span> <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% x. x &isin; A &and; b = f x&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+         </span><span class="command_span"><span class="command">have</span> <span class="ident">A</span><span class="keyword">:</span> <span class="string">"b = f (?g b)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">&hearts;</span> <span class="ident">II</span> <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% x. x &isin; A &and; c = f x&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+         </span><span class="command_span"><span class="command">have</span> <span class="ident">B</span><span class="keyword">:</span> <span class="string">"c = f (?g c)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">"b = c"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">inj_on_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"inj_on ?g (f ` A)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span> 
+  <span class="keyword">--</span><span class="verbatim">{*Evidently @{term "?g"} is a left-inverse of @{term "f"}*}</span> 
+  <span class="keyword">--</span><span class="verbatim">{*relative to @{term "A"}*}</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">x</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;x &isin; A&quot;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span> <span class="ident">one_one</span> 
+         <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% y. y &isin; A &and; f x = f y&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">"x = (?g o f) x"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">inj_on_def</span><span class="keyword">,</span> <span class="ident">unfold</span> <span class="ident">comp_def</span><span class="keyword">,</span> <span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span> 
+  <span class="keyword">--</span><span class="verbatim">{*@{term "?g"} is also a right-inverse of @{term "f"}*}</span> 
+  <span class="keyword">--</span><span class="verbatim">{*relative to @{term "f ` A"}*}</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">y</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="ident">A</span><span class="keyword">:</span> <span class="string">&quot;y &isin; f ` A&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span> <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% x. x &isin; A &and; y = f x&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">"(f o ?g) y = y"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">comp_def</span><span class="keyword">,</span> <span class="ident">fastsimp</span><span class="keyword">)</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule_tac</span> <span class="ident">x</span><span class="keyword">=</span><span class="string">"?g"</span> <span class="keyword">in</span> <span class="ident">exI</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">fin_inj_on_infi</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">fin_A</span><span class="keyword">:</span> <span class="string">"finite (A ::'a set)"</span>
+      <span class="keyword">and</span> <span class="ident">infi_B</span><span class="keyword">:</span> <span class="string">"infinite (B :: 'b set)"</span>
+  <span class="keyword">shows</span> <span class="string">&quot;&exist;g::&apos;a =&gt; &apos;b. inj_on g A &and; range g &sube; B&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">fin_A</span> <span class="ident">infi_B</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">fin_A</span> 
+       <span class="ident">finite_imp_nat_seg_image_inj_on</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">obtain</span> <span class="ident">n</span> <span class="ident">f</span> 
+  <span class="keyword">where</span> <span class="string">&quot;A = (f::nat =&gt; &apos;a) ` {i. i &lt; (n::nat)} &and; inj_on f {i. i &lt; n}&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">with</span> <span class="ident">inj_on_inj_off</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">g</span>
+  <span class="keyword">where</span> <span class="string">&quot;inj_on (g::&apos;a =&gt; nat) (f ` {i. i &lt; n})&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"inj_on g A"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">note</span> <span class="ident">&hearts;</span> <span class="keyword">=</span> <span class="ident">this</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">infi_B</span> <span class="ident">infinite_countable_subset</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">S</span><span class="keyword">=</span><span class="string">"B"</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">obtain</span> <span class="ident">h</span> <span class="keyword">where</span> <span class="string">&quot;inj (h::nat =&gt; &apos;b) &and; range h &sube; B&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">note</span> <span class="ident">&spades;</span> <span class="keyword">=</span> <span class="ident">this</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">hence</span> <span class="string">"inj_on h (g ` A)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">inj_on_def</span><span class="keyword">,</span><span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span> <span class="ident">comp_inj_on</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">have</span> <span class="string">"inj_on (h o g) A"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">g</span> <span class="ident">h</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;range (h o g) &sube; range h&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">comp_def</span><span class="keyword">,</span> <span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">&spades;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;range (h o g) &sube; B&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span><span class="ignored_span">
+</span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

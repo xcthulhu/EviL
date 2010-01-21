@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory Little_Lindy (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory Little_Lindy</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">Little_Lindy</span><br/>
+<span class="keyword">imports</span> <a href="ClassAxClass.html"><span class="name">ClassAxClass</span></a> <a href="Set_to_List.html"><span class="name">Set_to_List</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span><span class="verbatim">{* Finitary Lindenbaum Constructions *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">Little_Lindy</span>
+<span class="keyword">imports</span> <span class="ident">ClassAxClass</span> <span class="ident">Set_to_List</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">no_notation</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span>
+<span class="string">"op |"</span>  <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;&or;&quot;</span> <span class="ident">30</span><span class="keyword">)</span> <span class="keyword">and</span>
+<span class="ident">Not</span>  <span class="keyword">(</span><span class="string">&quot;&not; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We first define \emph{pseudo-negation}, which
+   is essential to the finite Lindenbaum construction. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">pneg</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a =&gt; &apos;a&quot;</span> <span class="keyword">(</span><span class="string">&quot;&sim; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span> <span class="keyword">where</span>
+<span class="string">&quot;(&sim; &phi;) = (if (&exist; &psi;. (&not; &psi;) = &phi;) then (SOME &psi;. (&not; &psi;) = &phi;) else &not; &phi;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to proving \emph{tertium non datur} for pseudo
+   negation, as well as logical equivalence with negation. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">pneg_tnd</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &sim; &phi; &or; &phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">cases</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&exist; &psi;. (&not; &psi;) = &phi;&quot;</span>
+  <span class="keyword">--</span> <span class="string">"For clarification, the @{thm [source] someI_ex} states: @{thm someI_ex}"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% &psi; . (&not; &psi;) = &phi;&quot;</span><span class="keyword">]</span> 
+       <span class="ident">pneg_def</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+     </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&not; &sim; &phi;) = &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">dblneg1</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &sim; &phi; &or; &sim; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">disj_comm</span> <span class="ident">mp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &sim; &phi; &or; &not; &sim; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;~ (&exist;&psi;. (&not; &psi;) = &phi;)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">pneg_def</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+     </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&sim; &phi;) = (&not; &phi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">dblneg1</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &phi; &or; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span"> 
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">pneg_negimpI</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &phi; -&gt; &sim; &phi;&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">pneg_tnd</span> <span class="ident">disj_comm</span> <span class="ident">mp</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">pneg_negimpII</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &sim; &phi; -&gt; &not; &phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">cases</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="ident">a</span><span class="keyword">:</span> <span class="string">&quot;&exist;&psi;. (&not; &psi;) = &phi;&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&sim; &phi;) = (SOME &psi;. (&not; &psi;) = &phi;)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">pneg_def</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">a</span> 
+       <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% &psi;. (&not; &psi;) = &phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&not; (&sim; &phi;)) = &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">dblneg1</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &not; &phi; -&gt; &not; &sim; &phi;&quot;</span></span><span class="ignored_span"> 
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">ax3</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&not; &phi;&quot;</span>
+              <span class="keyword">and</span> <span class="ident">&psi;</span><span class="keyword">=</span><span class="string">&quot;&sim; &phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">mp</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="ident">b</span><span class="keyword">:</span> <span class="string">&quot;~ (&exist;&psi;. (&not; &psi;) = &phi;)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&sim; &phi;) = (&not; &phi;)&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">pneg_def</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span>  <span class="ident">refl</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* The following lemma is critical to the
+   consistency proof of the Lindenbaum construction. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">cnst</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">&hearts;</span><span class="keyword">:</span> <span class="string">&quot;~ (&Gamma; :\&lt;turnstile&gt; &psi;)&quot;</span>
+  <span class="keyword">shows</span> <span class="string">&quot;~ (&phi; # &Gamma; :\&lt;turnstile&gt; &psi;) &or; ~ ((&sim; &phi;) # &Gamma; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">using</span> <span class="ident">&hearts;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="ident">a</span><span class="keyword">:</span> <span class="string">&quot;&phi; # &Gamma; :\&lt;turnstile&gt; &psi;&quot;</span> 
+       <span class="keyword">and</span> <span class="ident">b</span><span class="keyword">:</span> <span class="string">&quot;(&sim; &phi;) # &Gamma; :\&lt;turnstile&gt; &psi;&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">a</span> <span class="ident">undisch</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &phi; -&gt; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+   
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">b</span> <span class="ident">undisch</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &sim; &phi; -&gt; &psi;&quot;</span></span><span class="ignored_span"> 
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+   
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">pneg_tnd</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; (&sim; &phi;) &or; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; (&sim; &phi;) &or; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+   
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">cdil</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+   
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to giving a general, finitistic Lindenbaum construction.
+   The basis for our method is the following observation: finite sets
+   always correspond to some list.  Wielding the axiom of choice, we choose
+   a suitable representative list.  We then define a primitive recursive
+   function, named {} with type @{typ &quot;&apos;a =&gt; &apos;a list =&gt; &apos;a list =&gt; &apos;a list&quot;}, which 
+   first takes a formula @{term [show_types] &quot;&psi;::&apos;a&quot;}. It then
+   takes a @{term [show_types] &quot;&phi;::&apos;a&quot;} off the top of the second argument 
+   @{term [show_types] &quot;&Phi;::&apos;a list&quot;} and adds it to the consistently first 
+   argument @{term [show_types] &quot;&Gamma;:: &apos;a list&quot;} if it may be consistently added 
+   without proving @{term &quot;&psi;&quot;}, and adds @{term &quot;&sim; &phi;&quot;} otherwise.  
+   The procedure then recurses. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">primrec</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">lind</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a =&gt; &apos;a list =&gt; &apos;a list =&gt; &apos;a list&quot;</span> <span class="keyword">where</span>
+   <span class="string">&quot;lind &psi; &Gamma; [] = &Gamma;&quot;</span>
+ <span class="keyword">|</span> <span class="string">&quot;lind &psi; &Gamma; (&phi; # &Phi;) = (let &phi;&apos; = if ~(&phi; # &Gamma; :\&lt;turnstile&gt; &psi;) 
+                                     then &phi;
+                                     else &sim; &phi; 
+                         in (lind &psi; (&phi;&apos; # &Gamma;) &Phi;))&quot;</span></span><span class="ignored_span"> 
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We will show the two crucial properties of this construction: 
+   (1) either @{term &quot;&phi;&quot;} or @{term &quot;&sim; &phi;&quot;} are present in the final list 
+   for all @{term &quot;&phi; &isin; &Phi;&quot;} and (2) if @{term &quot;&Gamma;&quot;} is does not prove @{term &quot;&psi;&quot;}, 
+   then the resulting construction does not prove @{term &quot;&psi;&quot;}.
+
+   We start by proving several basic lemmas, which help us understand
+   the results of a lindenbaum construction. As usual, we frequently
+   use universal quantification in the statement of lemmas
+   to strengthen inductive hypotheses. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">lind_is_mono</span><span class="keyword">:</span>
+<span class="string">&quot;&forall;&Gamma;. set &Gamma; &sube; set (lind &psi; &Gamma; &Phi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&Phi;</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span>
+  <span class="keyword">--</span> <span class="string">"The base case is trivial, so we only show the inductive step"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">fix</span> <span class="ident">&phi;</span> <span class="keyword">::</span> <span class="string">"'a"</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Phi;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="ident">indh</span><span class="keyword">:</span> <span class="string">&quot;&forall;&Gamma;. set &Gamma; &sube; set (lind &psi; &Gamma; &Phi;)&quot;</span>
+  <span class="keyword">--</span> <span class="string">"From this assumption, we will show the consequent,"</span>
+  <span class="keyword">--</span><span class="verbatim">{*where @{term &quot;&Gamma;&quot;} is arbitrary *}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Gamma;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">let</span> <span class="var">?if</span> <span class="keyword">=</span> <span class="string">&quot;if ~(&phi; # &Gamma; :\&lt;turnstile&gt; &psi;) 
+                  then &phi;
+                  else (&sim; &phi;)&quot;</span>
+    <span class="keyword">--</span> <span class="string">"Next, observe these two facts:"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="ident">a</span><span class="keyword">:</span> <span class="string">&quot;set &Gamma; &sube; set (?if # &Gamma;)&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;lind &psi; &Gamma; (&phi; # &Phi;) = lind &psi; (?if # &Gamma;) &Phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">indh</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="ident">b</span><span class="keyword">:</span> <span class="string">&quot;set (?if # &Gamma;) &sube; set (lind &psi; &Gamma; (&phi; # &Phi;))&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span>
+    <span class="keyword">--</span><span class="verbatim">{*With these two facts, we can show, for any @{term "x"},*}</span>
+    <span class="keyword">--</span><span class="verbatim">{*that @{term &quot;x &isin; set (lind &psi; &Gamma; (&phi; # &Phi;))&quot;} *}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">x</span> <span class="keyword">::</span> <span class="string">"'a"</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;x &isin; set &Gamma;&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">a</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;x &isin; set (?if # &Gamma;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">b</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;x &isin; set (lind &psi; &Gamma; (&phi; # &Phi;))&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;set &Gamma; &sube; set (lind &psi; &Gamma; (&phi; # &Phi;))&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span>
+  <span class="keyword">--</span> <span class="string">"This suffices to prove the theorem"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">thus</span> <span class="string">&quot;&forall;&Gamma;. set &Gamma; &sube; set (lind &psi; &Gamma; (&phi; # &Phi;))&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">lind_is_max</span><span class="keyword">:</span>
+<span class="string">&quot;&forall;&Gamma;. &forall;&phi; &isin; set &Phi;. &phi; &isin; set (lind &psi; &Gamma; &Phi;) &or; (&sim; &phi;) &isin; set (lind &psi; &Gamma; &Phi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&Phi;</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span>
+  <span class="keyword">--</span> <span class="string">"We shall only prove the inductive step"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">fix</span> <span class="ident">&chi;</span> <span class="keyword">::</span> <span class="string">"'a"</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Phi;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="ident">ind_hyp</span><span class="keyword">:</span> <span class="string">&quot;&forall; &Gamma;. &forall;&phi;&isin;set &Phi;. &phi; &isin; set (lind &psi; &Gamma; &Phi;) 
+                                   &or; (&sim; &phi;) &isin; set (lind &psi; &Gamma; &Phi;)&quot;</span>
+  <span class="keyword">--</span> <span class="verbatim">{* First, let @{term &quot;&Gamma;&quot;} and @{term &quot;&phi;&quot;} be arbitrary *}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Gamma;</span> <span class="keyword">::</span> <span class="string">"'a list"</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&phi;</span> <span class="keyword">::</span> <span class="string">"'a"</span>
+    <span class="keyword">--</span> <span class="verbatim">{* Next, let we'll use our previous abbreviation *}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">let</span> <span class="var">?if</span> <span class="keyword">=</span> <span class="string">&quot;if ~(&chi; # &Gamma; :\&lt;turnstile&gt; &psi;) 
+                   then &chi;
+                   else (&sim; &chi;)&quot;</span>
+    <span class="keyword">--</span><span class="verbatim">{*The following identity will turn out to be crucial *}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="ident">&hearts;</span><span class="keyword">:</span> 
+       <span class="string">&quot;lind &psi; (?if # &Gamma;) &Phi; = lind &psi; &Gamma; (&chi; # &Phi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span>  
+    <span class="keyword">--</span><span class="verbatim">{*Next, assume the proper domain conditions for @{term &quot;&phi;&quot;} *}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="ident">&diams;</span><span class="keyword">:</span> <span class="string">&quot;&phi; &isin; set (&chi; # &Phi;)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&phi; &isin; set (lind &psi; &Gamma; (&chi; # &Phi;)) 
+          &or; (&sim; &phi;) &isin; set (lind &psi; &Gamma; (&chi; # &Phi;))&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="ident">cases</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&phi; &isin; set &Phi;&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">ind_hyp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+        <span class="string">&quot;&phi; &isin; set (lind &psi; (?if # &Gamma;) &Phi;) 
+         &or; (&sim; &phi;) &isin; set (lind &psi; (?if # &Gamma;) &Phi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span"> 
+       </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&phi; &notin; set &Phi;&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">&diams;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&phi; = &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&Phi;</span><span class="keyword">,</span> <span class="ident">fastsimp</span><span class="keyword">+</span><span class="keyword">)</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;&phi; = ?if &or; (&sim; &phi;) = ?if&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?if &isin; set (?if # &Gamma;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span> <span class="ident">lind_is_mono</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">&quot;?if &isin; set (lind &psi; &Gamma; (&chi; # &Phi;))&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">thus</span> 
+  <span class="string">&quot;&forall;&Gamma;. &forall;&phi;&isin;set (&chi; # &Phi;). &phi; &isin; set (lind &psi; &Gamma; (&chi; # &Phi;)) 
+                        &or; (&sim; &phi;) &isin; set (lind &psi; &Gamma; (&chi; # &Phi;))&quot;</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">lind_is_bounded</span><span class="keyword">:</span>   
+  <span class="keyword">assumes</span> <span class="ident">pneg_closed</span><span class="keyword">:</span> <span class="string">&quot;(&forall; &phi; &isin; set &Phi;. (&sim; &phi;) &isin; set &Phi;)&quot;</span>
+    <span class="keyword">shows</span> <span class="string">&quot;&forall; &Gamma;. set (lind &psi; &Gamma; &Phi;) &sube; set &Gamma; &cup; set &Phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">pneg_closed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span>
+    <span class="keyword">--</span> <span class="string">"We cannot see how to perform this proof through direct"</span>
+    <span class="keyword">--</span> <span class="string">"induction, so we shall prove it a little, more obliquely."</span> 
+    <span class="keyword">--</span> <span class="string">"Observe the following statement:"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">let</span> <span class="var">?pnegset</span> <span class="keyword">=</span> <span class="string">&quot;% &Phi; . {&phi;. &exist; &psi; . &phi; = (&sim; &psi;) &and; &psi; &isin; set &Phi;}&quot;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">pneg_closed</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?pnegset &Phi; &sube; set &Phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span>
+    <span class="keyword">--</span> <span class="string">"This inspires an inductive proof which may be performed"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall; &Gamma;. set (lind &psi; &Gamma; &Phi;) &sube; set &Gamma; &cup; set &Phi; &cup; ?pnegset &Phi;&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&Phi;</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">fix</span> <span class="ident">&chi;</span> <span class="keyword">::</span> <span class="string">"'a"</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Phi;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">assume</span> <span class="ident">ind_hyp</span><span class="keyword">:</span> 
+          <span class="string">&quot;&forall;&Gamma;. set (lind &psi; &Gamma; &Phi;) &sube; set &Gamma; &cup; set &Phi; &cup; ?pnegset &Phi;&quot;</span>
+        <span class="keyword">--</span><span class="verbatim">{*As usual, we will show for @{term &quot;&Gamma;&quot;} arbitrary*}</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Gamma;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">from</span> <span class="ident">ind_hyp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+          <span class="string">&quot;set (lind &psi; &Gamma; (&chi; # &Phi;)) &sube; 
+                set &Gamma; &cup; set (&chi; # &Phi;) &cup; ?pnegset (&chi; # &Phi;)&quot;</span></span><span class="ignored_span">
+            </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+
+        </span><span class="command_span"><span class="command">thus</span> 
+         <span class="string">&quot;&forall;&Gamma;. set (lind &psi; &Gamma; (&chi; # &Phi;)) &sube; 
+               set &Gamma; &cup; set (&chi; # &Phi;) &cup; ?pnegset (&chi; # &Phi;)&quot;</span></span><span class="ignored_span">
+           </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to perhaps the key lemma regarding
+   Lindenbaum constructions: they preserve consistency! *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">lind_is_cnst</span><span class="keyword">:</span>
+  <span class="string">&quot;&forall;&Gamma;. ~ (&Gamma; :\&lt;turnstile&gt; &psi;) --&gt; ~ (lind &psi; &Gamma; &Phi; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&Phi;</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span>
+   <span class="keyword">--</span> <span class="string">"As expected, all we prove is the inductive step."</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">fix</span> <span class="ident">&psi;</span> <span class="ident">&chi;</span> <span class="keyword">::</span> <span class="string">"'a"</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Phi;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">assume</span> <span class="ident">ind_hyp</span><span class="keyword">:</span> <span class="string">&quot;&forall;&Gamma;. ~ (&Gamma; :\&lt;turnstile&gt; &psi;) --&gt; ~ (lind &psi; &Gamma; &Phi; :\&lt;turnstile&gt; &psi;)&quot;</span>
+   <span class="keyword">--</span><span class="verbatim">{* We shall show the statement of the theorem where @{term &quot;&Gamma;&quot;} is free *}</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">&Gamma;</span> <span class="keyword">::</span> <span class="string">"'a list"</span></span><span class="ignored_span">
+     </span><span class="command_span"><span class="command">let</span> <span class="var">?if</span> <span class="keyword">=</span> <span class="string">&quot;if ~(&chi; # &Gamma; :\&lt;turnstile&gt; &psi;) 
+                   then &chi;
+                   else (&sim; &chi;)&quot;</span>
+     <span class="keyword">--</span> <span class="string">"We will need this key fact"</span></span><span class="ignored_span">
+     </span><span class="command_span"><span class="command">have</span> <span class="ident">key</span><span class="keyword">:</span> <span class="string">&quot;lind &psi; &Gamma; (&chi; # &Phi;) = lind &psi; (?if # &Gamma;) &Phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span>
+     <span class="keyword">--</span> <span class="verbatim">{* From this, we turn to completing the proof *}</span></span><span class="ignored_span">
+     </span><span class="command_span"><span class="command">assume</span> <span class="ident">&hearts;</span><span class="keyword">:</span> <span class="string">&quot;~ (&Gamma; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span"> 
+     </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;~ (lind &psi; &Gamma; (&chi; # &Phi;) :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span">
+     </span><span class="command_span"><span class="command">proof</span> <span class="ident">cases</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">assume</span> <span class="ident">a</span><span class="keyword">:</span> <span class="string">&quot;&chi; # &Gamma; :\&lt;turnstile&gt; &psi;&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span> <span class="ident">cnst</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+         <span class="string">&quot;~ ((&sim; &chi;) # &Gamma; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">ind_hyp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+         <span class="string">&quot;~ (lind &psi; ((&sim; &chi;) # &Gamma;) &Phi; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">a</span> <span class="ident">key</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span"> 
+       </span><span class="command_span"><span class="command">assume</span> <span class="ident">b</span><span class="keyword">:</span> <span class="string">&quot;~(&chi; # &Gamma; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">ind_hyp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+         <span class="string">&quot;~ (lind &psi; (&chi; # &Gamma;) &Phi; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">b</span> <span class="ident">key</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">thus</span> <span class="string">&quot; &forall;&Gamma;. ~ (&Gamma; :\&lt;turnstile&gt; &psi;) --&gt; ~ (lind &psi; &Gamma; (&chi; # &Phi;) :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now give a predicate for atoms, which are maximally 
+   consistent sets relative to a finite set @{term &quot;&Phi;&quot;}.  We 
+   shall prove that they contain a formula @{term &quot;&phi; &isin; &Phi;&quot;}
+   if and only if they deduce that formula. While we are at it,
+   we shall prove that in the same context, 
+   @{term &quot;(&phi; &notin; &Gamma;) = (&sim; &phi; &isin; &Gamma;)&quot;} *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> 
+<span class="ident">Atoms</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a set =&gt; &apos;a set =&gt; bool&quot;</span> <span class="keyword">(</span><span class="string">"At"</span><span class="keyword">)</span> <span class="keyword">where</span>
+<span class="string">&quot;At &Phi; &Gamma; &equiv;   &Gamma; &sube; &Phi;
+            &and; (&forall;&phi; &isin; &Phi;. &phi; &isin; &Gamma; &or; (&sim; &phi;) &isin; &Gamma;)
+            &and; ~(list &Gamma; :\&lt;turnstile&gt; &perp;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">coincidence</span><span class="keyword">:</span>
+<span class="keyword">assumes</span> <span class="ident">A</span><span class="keyword">:</span> <span class="string">&quot;finite &Phi;&quot;</span>
+    <span class="keyword">and</span> <span class="ident">B</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; &isin; At(&Phi;)&quot;</span>
+    <span class="keyword">and</span> <span class="ident">C</span><span class="keyword">:</span> <span class="string">&quot;&phi; &isin; &Phi;&quot;</span>
+    <span class="keyword">and</span> <span class="ident">D</span><span class="keyword">:</span> <span class="string">&quot;P (&sim; &phi;) = (~ P &phi;)&quot;</span>
+<span class="keyword">shows</span> <span class="string">&quot;(&phi; &isin; &Gamma;) = (list &Gamma; :\&lt;turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">and</span> <span class="string">&quot;P &phi; = (list &Gamma; :\&lt;turnstile&gt; &phi;) ==&gt; P (&sim; &phi;) = (list &Gamma; :\&lt;turnstile&gt; &sim; &phi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">A</span> <span class="ident">B</span> <span class="ident">C</span> <span class="ident">D</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span>
+  <span class="keyword">--</span><span class="string">"We shall first make some observations:"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">A</span> <span class="ident">B</span> <span class="ident">C</span>
+       <span class="ident">mem_def</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">x</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span>
+                  <span class="keyword">and</span> <span class="ident">S</span><span class="keyword">=</span><span class="string">&quot;At(&Phi;)&quot;</span><span class="keyword">]</span>
+       <span class="ident">Atoms_def</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span> 
+                    <span class="keyword">and</span> <span class="ident">&Phi;</span><span class="keyword">=</span><span class="string">&quot;&Phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; &sube; &Phi;&quot;</span> 
+   <span class="keyword">and</span> <span class="ident">E</span><span class="keyword">:</span> <span class="string">&quot;&phi; &isin; &Gamma; &or; (&sim; &phi;) &isin; &Gamma;&quot;</span>
+   <span class="keyword">and</span> <span class="ident">F</span><span class="keyword">:</span> <span class="string">&quot;~(list &Gamma; :\&lt;turnstile&gt; &perp;)&quot;</span></span><span class="ignored_span">
+         </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span><span class="keyword">+</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">A</span> <span class="ident">finite_subset</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span>
+                          <span class="keyword">and</span> <span class="ident">B</span><span class="keyword">=</span><span class="string">&quot;&Phi;&quot;</span><span class="keyword">]</span>
+       <span class="ident">set_list</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">G</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; = set (list &Gamma;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span>
+ 
+ <span class="keyword">--</span><span class="string">"Our coincidence lemma has two statements; here is the first:"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="ident">H</span><span class="keyword">:</span> <span class="string">&quot;(&phi; &isin; &Gamma;) = (list &Gamma; :\&lt;turnstile&gt; &phi;)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span>
+    <span class="keyword">--</span><span class="string">"The first direction in this case is trivial"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">G</span> <span class="ident">lift_elm</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&phi; &isin; &Gamma; ==&gt; list &Gamma; :\&lt;turnstile&gt; &phi;&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span>
+    <span class="keyword">--</span><span class="string">"The other direction is evidently more challenging"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="ident">&hearts;</span><span class="keyword">:</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &phi;&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&phi; &isin; &Gamma;&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span>
+        <span class="keyword">--</span><span class="string">"The proof proceeds by contradiction:"</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&phi; &notin; &Gamma;&quot;</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">with</span> <span class="ident">E</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&sim; &phi;) &isin; &Gamma;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">with</span> <span class="ident">G</span> <span class="ident">lift_elm</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &sim; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">with</span> <span class="ident">pneg_negimpII</span>
+               <span class="ident">lift</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;list &Gamma;&quot;</span><span class="keyword">]</span>
+               <span class="ident">lift_mp</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;list &Gamma;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &not; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">with</span> <span class="ident">&hearts;</span> <span class="ident">lift_mp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &perp;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+          </span><span class="command_span"><span class="command">with</span> <span class="ident">F</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"False"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">thus</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span>
+
+  <span class="keyword">--</span><span class="string">"We now turn to the second statement; but we shall first"</span>
+  <span class="keyword">--</span><span class="string">"make a critical observation:"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">I</span><span class="keyword">:</span> <span class="string">&quot;&phi; &notin; &Gamma; = (list &Gamma; :\&lt;turnstile&gt; &sim; &phi;)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span>
+  <span class="keyword">--</span><span class="string">"Left to right:"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&phi; &notin; &Gamma;&quot;</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">with</span> <span class="ident">E</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&sim; &phi;) &isin; &Gamma;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">with</span> <span class="ident">G</span> <span class="ident">lift_elm</span></span><span class="ignored_span">
+              </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &sim; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span>
+  <span class="keyword">--</span><span class="string">"Right to left:"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&phi; &isin; &Gamma;&quot;</span>
+         <span class="keyword">and</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &sim; &phi;&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">with</span> <span class="ident">G</span> <span class="ident">lift_elm</span></span><span class="ignored_span"> 
+               </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;list &Gamma; :\&lt;turnstile&gt; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">F</span>
+           <span class="ident">pneg_negimpII</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi;&quot;</span><span class="keyword">]</span>
+           <span class="ident">lift</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;list &Gamma;&quot;</span><span class="keyword">]</span>
+           <span class="ident">lift_mp</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;list &Gamma;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"False"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span>
+
+  <span class="keyword">--</span><span class="string">"This is enough to finally show the second statement:"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;P &phi; = (list &Gamma; :\&lt;turnstile&gt; &phi;)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">D</span> <span class="ident">H</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;P (&sim; &phi;) = (&phi; &notin; &Gamma;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">I</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;P (&sim; &phi;) = (list &Gamma; :\&lt;turnstile&gt; (&sim; &phi;))&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We finally turn to presenting the finitary Lindenbaum Lemma. 
+   It is in terms of 
+   atoms that we shall phrase the primary result we have been leading up to: *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">little_lindy</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">A</span><span class="keyword">:</span> <span class="string">&quot;finite &Phi;&quot;</span>
+      <span class="keyword">and</span> <span class="ident">B</span><span class="keyword">:</span> <span class="string">&quot;&forall;&phi; &isin; &Phi;. (&sim; &phi;) &isin; &Phi;&quot;</span>
+      <span class="keyword">and</span> <span class="ident">C</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; &sube; &Phi;&quot;</span>
+      <span class="keyword">and</span> <span class="ident">D</span><span class="keyword">:</span> <span class="string">&quot;~(list &Gamma; :\&lt;turnstile&gt; &psi;)&quot;</span> 
+    <span class="keyword">shows</span> <span class="string">&quot;&exist; &Gamma;&apos;. At &Phi; &Gamma;&apos;
+                 &and; &Gamma; &sube; &Gamma;&apos;
+                 &and; ~(list &Gamma;&apos; :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">A</span> <span class="ident">B</span> <span class="ident">C</span> <span class="ident">D</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">A</span> <span class="ident">C</span> <span class="ident">finite_subset</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+     <span class="string">&quot;finite &Gamma;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">set_list</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+     <span class="ident">E</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; = set (list &Gamma;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">A</span> <span class="ident">set_list</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">&quot;&Phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+     <span class="ident">F</span><span class="keyword">:</span> <span class="string">&quot;&Phi; = set (list &Phi;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">let</span> <span class="var">?lindy</span> <span class="keyword">=</span> <span class="string">&quot;set (lind &psi; (list &Gamma;) (list &Phi;))&quot;</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">set_of_list_is_finite</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+     <span class="string">"finite ?lindy"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">set_list</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">"?lindy"</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+     <span class="ident">G</span><span class="keyword">:</span> <span class="string">"?lindy = set (list ?lindy)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span>
+
+  <span class="keyword">--</span> <span class="verbatim">{* We have many things to prove: *}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">B</span> <span class="ident">C</span> <span class="ident">E</span> <span class="ident">F</span> 
+       <span class="ident">lind_is_bounded</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Phi;</span><span class="keyword">=</span><span class="string">&quot;list &Phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">I</span><span class="keyword">:</span> <span class="string">&quot;?lindy &sube; &Phi;&quot;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">F</span> <span class="ident">lind_is_max</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">II</span><span class="keyword">:</span> <span class="string">&quot;&forall;&phi; &isin; &Phi;. &phi; &isin; ?lindy &or; (&sim; &phi;) &isin; ?lindy&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">D</span> <span class="ident">G</span>
+       <span class="ident">lind_is_cnst</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Phi;</span><span class="keyword">=</span><span class="string">&quot;list &Phi;&quot;</span><span class="keyword">]</span>
+       <span class="ident">lift_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;lind &psi; (list &Gamma;) (list &Phi;)&quot;</span> 
+                  <span class="keyword">and</span> <span class="ident">&Psi;</span><span class="keyword">=</span><span class="string">"list ?lindy"</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">III</span><span class="keyword">:</span> <span class="string">&quot;~ (list ?lindy :\&lt;turnstile&gt; &psi;)&quot;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">III</span>
+       <span class="ident">expls</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&psi;&quot;</span><span class="keyword">]</span>
+       <span class="ident">lift</span>  <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">"list ?lindy"</span><span class="keyword">]</span>
+       <span class="ident">lift_mp</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">"list ?lindy"</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">IV</span><span class="keyword">:</span> <span class="string">&quot;~ (list ?lindy :\&lt;turnstile&gt; &perp;)&quot;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">E</span>
+       <span class="ident">lind_is_mono</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&psi;</span><span class="keyword">=</span><span class="string">&quot;&psi;&quot;</span>
+                       <span class="keyword">and</span> <span class="ident">&Phi;</span><span class="keyword">=</span><span class="string">&quot;list &Phi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">V</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; &sube; ?lindy&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">I</span> <span class="ident">II</span> <span class="ident">IV</span> 
+       <span class="ident">Atoms_def</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Phi;</span><span class="keyword">=</span><span class="string">&quot;&Phi;&quot;</span>
+                   <span class="keyword">and</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">"?lindy"</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">VI</span><span class="keyword">:</span> <span class="string">&quot;At &Phi; ?lindy&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">III</span> <span class="ident">V</span> <span class="ident">VI</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

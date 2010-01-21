@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory LaTeXsugar (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory LaTeXsugar</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">LaTeXsugar</span><br/>
+<span class="keyword">imports</span> <a href="../Main.html"><span class="name">Main</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="ignored_span"><span class="comment">(*  Title:      HOL/Library/LaTeXsugar.thy
+    Author:     Gerwin Klain, Tobias Nipkow, Norbert Schirmer
+    Copyright   2005 NICTA and TUM
+*)</span>
+
+<span class="comment">(*&lt;*)</span>
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">LaTeXsugar</span>
+<span class="keyword">imports</span> <span class="ident">Main</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+<span class="comment">(* LOGIC *)</span>
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">latex</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="ident">If</span>  <span class="keyword">(</span><span class="string">&quot;(\textsf{if} (_)/ \textsf{then} (_)/ \textsf{else} (_))&quot;</span> <span class="ident">10</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">latex</span> <span class="keyword">output</span><span class="keyword">)</span>
+
+  <span class="string">"_Let"</span>        <span class="keyword">::</span> <span class="string">&quot;[letbinds, &apos;a] =&gt; &apos;a&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;(\textsf{let} (_)/ \textsf{in} (_))&quot;</span> <span class="ident">10</span><span class="keyword">)</span>
+
+  <span class="string">"_case_syntax"</span><span class="keyword">::</span> <span class="string">&quot;[&apos;a, cases_syn] =&gt; &apos;b&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;(\textsf{case} _ \textsf{of}/ _)&quot;</span> <span class="ident">10</span><span class="keyword">)</span></span><span class="ignored_span">
+
+<span class="comment">(* should become standard syntax once x-symbols supports it *)</span>
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">latex</span><span class="keyword">)</span>
+  <span class="ident">nexists</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;a =&gt; bool) =&gt; bool&quot;</span>           <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">&quot;\&lt;nexists&gt;&quot;</span> <span class="ident">10</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">translations</span>
+  <span class="string">&quot;\&lt;nexists&gt;x. P&quot;</span> <span class="keyword">&lt;=</span> <span class="string">&quot;&not;(&exist;x. P)&quot;</span></span><span class="ignored_span">
+
+<span class="comment">(* SETS *)</span>
+
+<span class="comment">(* empty set *)</span>
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">latex</span><span class="keyword">)</span>
+  <span class="string">"Set.empty"</span> <span class="keyword">(</span><span class="string">&quot;&empty;&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+
+<span class="comment">(* insert *)</span>
+</span><span class="command_span"><span class="command">translations</span> 
+  <span class="string">&quot;{x} &cup; A&quot;</span> <span class="keyword">&lt;=</span> <span class="string">"CONST insert x A"</span>
+  <span class="string">"{x,y}"</span> <span class="keyword">&lt;=</span> <span class="string">&quot;{x} &cup; {y}&quot;</span>
+  <span class="string">&quot;{x,y} &cup; A&quot;</span> <span class="keyword">&lt;=</span> <span class="string">&quot;{x} &cup; ({y} &cup; A)&quot;</span>
+  <span class="string">"{x}"</span> <span class="keyword">&lt;=</span> <span class="string">&quot;{x} &cup; &empty;&quot;</span></span><span class="ignored_span">
+
+<span class="comment">(* set comprehension *)</span>
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">latex</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="string">"_Collect"</span> <span class="keyword">::</span> <span class="string">&quot;pttrn =&gt; bool =&gt; &apos;a set&quot;</span>              <span class="keyword">(</span><span class="string">"(1{_ | _})"</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">translations</span>
+  <span class="string">"_Collect p P"</span>      <span class="keyword">&lt;=</span> <span class="string">"{p. P}"</span>
+  <span class="string">"_Collect p P"</span>      <span class="keyword">&lt;=</span> <span class="string">"{p|xs. P}"</span></span><span class="ignored_span">
+
+<span class="comment">(* LISTS *)</span>
+
+<span class="comment">(* Cons *)</span>
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">latex</span><span class="keyword">)</span>
+  <span class="ident">Cons</span>  <span class="keyword">(</span><span class="string">&quot;_&middot;/_&quot;</span> <span class="keyword">[</span><span class="ident">66</span><span class="keyword">,</span><span class="ident">65</span><span class="keyword">]</span> <span class="ident">65</span><span class="keyword">)</span></span><span class="ignored_span">
+
+<span class="comment">(* length *)</span>
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">latex</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="ident">length</span>  <span class="keyword">(</span><span class="string">"|_|"</span><span class="keyword">)</span></span><span class="ignored_span">
+
+<span class="comment">(* nth *)</span>
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">latex</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="ident">nth</span>  <span class="keyword">(</span><span class="string">&quot;_\ensuremath{_{[\mathit{_}]}}&quot;</span> <span class="keyword">[</span><span class="ident">1000</span><span class="keyword">,</span><span class="ident">0</span><span class="keyword">]</span> <span class="ident">1000</span><span class="keyword">)</span></span><span class="ignored_span">
+
+<span class="comment">(* DUMMY *)</span>
+</span><span class="command_span"><span class="command">consts</span> <span class="ident">DUMMY</span> <span class="keyword">::</span> <span class="tfree">'a</span> <span class="keyword">(</span><span class="string">&quot;\_&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+
+<span class="comment">(* THEOREMS *)</span>
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">Rule</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="string">&quot;==&gt;&quot;</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; prop =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;\mbox{}\inferrule{\mbox{_}}{\mbox{_}}&quot;</span><span class="keyword">)</span>
+
+  <span class="string">"_bigimpl"</span> <span class="keyword">::</span> <span class="string">&quot;asms =&gt; prop =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;\mbox{}\inferrule{_}{\mbox{_}}&quot;</span><span class="keyword">)</span>
+
+  <span class="string">"_asms"</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; asms =&gt; asms&quot;</span> 
+  <span class="keyword">(</span><span class="string">&quot;\mbox{_}\\/ _&quot;</span><span class="keyword">)</span>
+
+  <span class="string">"_asm"</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; asms&quot;</span> <span class="keyword">(</span><span class="string">&quot;\mbox{_}&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">Axiom</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="string">"Trueprop"</span> <span class="keyword">::</span> <span class="string">&quot;bool =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;\mbox{}\inferrule{\mbox{}}{\mbox{_}}&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">IfThen</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="string">&quot;==&gt;&quot;</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; prop =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;{\normalsize{}If\,} _/ {\normalsize \,then\,}/ _.&quot;</span><span class="keyword">)</span>
+  <span class="string">"_bigimpl"</span> <span class="keyword">::</span> <span class="string">&quot;asms =&gt; prop =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;{\normalsize{}If\,} _ /{\normalsize \,then\,}/ _.&quot;</span><span class="keyword">)</span>
+  <span class="string">"_asms"</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; asms =&gt; asms&quot;</span> <span class="keyword">(</span><span class="string">&quot;\mbox{_} /{\normalsize \,and\,}/ _&quot;</span><span class="keyword">)</span>
+  <span class="string">"_asm"</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; asms&quot;</span> <span class="keyword">(</span><span class="string">&quot;\mbox{_}&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">syntax</span> <span class="keyword">(</span><span class="ident">IfThenNoBox</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="string">&quot;==&gt;&quot;</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; prop =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;{\normalsize{}If\,} _/ {\normalsize \,then\,}/ _.&quot;</span><span class="keyword">)</span>
+  <span class="string">"_bigimpl"</span> <span class="keyword">::</span> <span class="string">&quot;asms =&gt; prop =&gt; prop&quot;</span>
+  <span class="keyword">(</span><span class="string">&quot;{\normalsize{}If\,} _ /{\normalsize \,then\,}/ _.&quot;</span><span class="keyword">)</span>
+  <span class="string">"_asms"</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; asms =&gt; asms&quot;</span> <span class="keyword">(</span><span class="string">&quot;_ /{\normalsize \,and\,}/ _&quot;</span><span class="keyword">)</span>
+  <span class="string">"_asm"</span> <span class="keyword">::</span> <span class="string">&quot;prop =&gt; asms&quot;</span> <span class="keyword">(</span><span class="string">"_"</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span><span class="ignored_span">
+<span class="comment">(*&gt;*)</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

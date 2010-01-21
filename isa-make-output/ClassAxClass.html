@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory ClassAxClass (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory ClassAxClass</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">ClassAxClass</span><br/>
+<span class="keyword">imports</span> <a href="MinAxClass.html"><span class="name">MinAxClass</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span><span class="verbatim">{* A Classical Logic Axiom Class *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">ClassAxClass</span>
+<span class="keyword">imports</span> <span class="ident">MinAxClass</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">class</span> <span class="ident">ClassAx</span> <span class="keyword">=</span> <span class="ident">MinAx</span> <span class="keyword">+</span>
+  <span class="keyword">fixes</span> <span class="ident">bot</span> <span class="keyword">::</span> <span class="string">"'a"</span>     <span class="keyword">(</span><span class="string">&quot;&perp;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">assumes</span> <span class="ident">ax3</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; ((&phi; -&gt; &perp;) -&gt; (&psi; -&gt; &perp;)) -&gt; &psi; -&gt; &phi;&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">instantiation</span> <span class="ident">bool</span> <span class="keyword">::</span> <span class="ident">ClassAx</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">definition</span> <span class="ident">bot_bool_def</span><span class="keyword">[</span><span class="ident">iff</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;&perp; = False&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">instance</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span> <span class="keyword">(</span><span class="ident">fastsimp</span><span class="keyword">+</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">end</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">no_notation</span>
+<span class="ident">Not</span>  <span class="keyword">(</span><span class="string">&quot;&not; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">abbreviation</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> 
+<span class="ident">neg</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a =&gt; &apos;a&quot;</span> <span class="keyword">(</span><span class="string">&quot;&not; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span> <span class="keyword">where</span>
+<span class="string">&quot;&not; &phi; &equiv; (&phi; -&gt; &perp;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* The following rule is sometimes called \emph{negation elimination}
+   in natural deduction\ldots this is a good name, so we&apos;ll name this lemma
+   after that rule. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">neg_elim</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &phi; -&gt; &phi; -&gt; &psi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">ax1</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &phi; -&gt; &not; &psi; -&gt; &not; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">ax3</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; (&not; &psi; -&gt; &not; &phi;) -&gt; &phi; -&gt; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">hs</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We next turn to proving two forms of double negation; 
+   the latter is evidently intuitionistically valid while 
+   the former is a favorite of classical logicians. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">dblneg1</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &not; &phi; -&gt; &phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">neg_elim</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &not; &phi; -&gt; &not; &phi; -&gt; &not; &not; &not; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">ax3</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; (&not; &phi; -&gt; &not; &not; &not; &phi;) -&gt; &not; &not; &phi; -&gt; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &not; &phi; -&gt; &not; &not; &phi; -&gt; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">hs</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">thus</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">imp_remove</span> <span class="ident">mp</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">dblneg2</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &phi; -&gt; &not; &not; &phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">dblneg1</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &not; &not; &not; &phi; -&gt; &not; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">ax3</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; (&not; &not; &not; &phi; -&gt; &not; &phi;) -&gt; &phi; -&gt; &not; &not; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">mp</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Finally, we prove a form of Hilbert&apos;s explosion principle,
+   also known as \emph{ex falso quodlibet} *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">expls</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &perp; -&gt; &phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">refl</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; &perp; -&gt; &perp;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">weaken</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;\&lt;turnstile&gt; (&phi; -&gt; &perp;) -&gt; (&perp; -&gt; &perp;)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">mp</span> <span class="ident">ax3</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi;&quot;</span> <span class="keyword">and</span> <span class="ident">&psi;</span><span class="keyword">=</span><span class="string">&quot;&perp;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to introducing the shorthand for disjunction 
+   and conjunction: *}</span></span><span class="ignored_span"> 
+
+</span><span class="command_span"><span class="command">no_notation</span>
+<span class="string">"op |"</span>  <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;&or;&quot;</span> <span class="ident">30</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">abbreviation</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> 
+<span class="ident">disj</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a =&gt; &apos;a =&gt; &apos;a&quot;</span> <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;&or;&quot;</span> <span class="ident">30</span><span class="keyword">)</span> <span class="keyword">where</span>
+<span class="string">&quot;&phi; &or; &psi; &equiv; &not; &phi; -&gt; &psi;&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* For the time being, we don&apos;t care really about conjunction or
+   bi-implication.
+   We already have effectively proven @{term &quot;&not; &phi; &or; &phi;&quot;}; we
+   now turn to proving commutativity. 
+
+   For our own sense of clarity, within the proof we shall use the
+   unabbreviated notation. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">disj_comm</span><span class="keyword">:</span> <span class="string">&quot;\&lt;turnstile&gt; &phi; &or; &psi; -&gt; &psi; &or; &phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">from</span> <span class="ident">refl</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;[&not; &phi; -&gt; &psi;] :\&lt;turnstile&gt; &not; &phi; -&gt; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">dblneg2</span> <span class="ident">lift</span></span><span class="ignored_span"> 
+            </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;[&not; &phi; -&gt; &psi;] :\&lt;turnstile&gt; &psi; -&gt; &not; &not; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">lift_hs</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;[&not; &phi; -&gt; &psi;] :\&lt;turnstile&gt; &not; &phi; -&gt; &not; &not; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">ax3</span> <span class="ident">lift</span></span><span class="ignored_span"> 
+     </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;[&not; &phi; -&gt; &psi;] :\&lt;turnstile&gt; (&not; &phi; -&gt; &not; &not; &psi;) -&gt; &not; &psi; -&gt; &phi;&quot;</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">lift_mp</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;[&not; &phi; -&gt; &psi;] :\&lt;turnstile&gt; &not; &psi; -&gt; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">thus</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We get to perhaps the most important result of this file now,
+   \emph{disjunction elimination}, which is sometimes known as the
+   \emph{constructive dilemma}.  *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">disjE</span><span class="keyword">:</span> 
+ <span class="string">&quot;\&lt;turnstile&gt; &phi; &or; &psi; -&gt; (&phi; -&gt; &chi;) -&gt; (&psi; -&gt; &chi;) -&gt; &chi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">let</span> <span class="var">?&Gamma;</span> <span class="keyword">=</span> <span class="string">&quot;[&phi; &or; &psi;, &phi; -&gt; &chi;, &psi; -&gt; &chi;]&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &phi; &or; &chi;&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&phi; &or; &psi;) &isin; set ?&Gamma;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">lift_elm</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &phi; &or; &psi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&psi; -&gt; &chi;) &isin; set ?&Gamma;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">lift_elm</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &psi; -&gt; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">lift_hs</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span> <span class="ident">disj_comm</span> <span class="ident">lift_mp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &chi; &or; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span> <span class="ident">lift_hs</span> <span class="ident">dblneg2</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &chi; &or; &not; &not; &phi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span> <span class="ident">ax2</span> <span class="ident">lift_mp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; (&not; &chi; -&gt; &not; &phi;) -&gt; &not; &not; &chi;&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &not; &chi; -&gt; &not; &phi;&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(&phi; -&gt; &chi;) &isin; set ?&Gamma;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">lift_elm</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &phi; -&gt; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span> <span class="ident">dblneg1</span> <span class="ident">lift_hs</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &not; &not; &phi; -&gt; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span> <span class="ident">disj_comm</span> <span class="ident">lift_mp</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">note</span> <span class="ident">lift_mp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &not; &not; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">best</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">lift</span> <span class="ident">lift_mp</span> <span class="ident">dblneg1</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&chi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;?&Gamma; :\&lt;turnstile&gt; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">thus</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+      
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">ClassAx</span><span class="keyword">)</span> <span class="ident">cdil</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">a</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &phi; &or; &psi;&quot;</span>
+      <span class="keyword">and</span> <span class="ident">b</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &phi; -&gt; &chi;&quot;</span>
+      <span class="keyword">and</span> <span class="ident">c</span><span class="keyword">:</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &psi; -&gt; &chi;&quot;</span>
+    <span class="keyword">shows</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; &chi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">a</span> <span class="ident">b</span> <span class="ident">c</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">let</span> <span class="var">?&alpha;</span><span class="keyword">=</span><span class="string">&quot;&phi; &or; &psi; -&gt; (&phi; -&gt; &chi;) -&gt; (&psi; -&gt; &chi;) -&gt; &chi;&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">disjE</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi;&quot;</span> <span class="keyword">and</span> <span class="ident">&psi;</span><span class="keyword">=</span><span class="string">&quot;&psi;&quot;</span> <span class="keyword">and</span> <span class="ident">&chi;</span><span class="keyword">=</span><span class="string">&quot;&chi;&quot;</span><span class="keyword">]</span>
+       <span class="ident">lift</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span> <span class="keyword">and</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;?&alpha;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; ?&alpha;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">a</span> <span class="ident">lift_mp</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span> <span class="keyword">and</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi; &or; &psi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; (&phi; -&gt; &chi;) -&gt; (&psi; -&gt; &chi;) -&gt; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">b</span> <span class="ident">lift_mp</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span> <span class="keyword">and</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&phi; -&gt; &chi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&Gamma; :\&lt;turnstile&gt; (&psi; -&gt; &chi;) -&gt; &chi;&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">c</span> <span class="ident">lift_mp</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">&Gamma;</span><span class="keyword">=</span><span class="string">&quot;&Gamma;&quot;</span> <span class="keyword">and</span> <span class="ident">&phi;</span><span class="keyword">=</span><span class="string">&quot;&psi; -&gt; &chi;&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

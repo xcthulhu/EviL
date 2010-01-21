@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory EviL_Properties (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory EviL_Properties</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">EviL_Properties</span><br/>
+<span class="keyword">imports</span> <a href="EviL_Semantics.html"><span class="name">EviL_Semantics</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span> <span class="verbatim">{* Locales for EviL Properties *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">EviL_Properties</span>
+<span class="keyword">imports</span> <span class="ident">EviL_Semantics</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* In this file we define two locales on EviL Kripke models, 
+   which we will be critical for proving the \emph{column lemmas} 
+   and ultimately the \emph{translation lemma}.
+
+   The first locale will assume properties which we 
+   shall prove our Lindenbaum construction satisfies.  
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">locale</span> <span class="ident">partly_EviL</span> <span class="keyword">=</span>
+  <span class="keyword">fixes</span> <span class="ident">M</span> <span class="keyword">::</span> <span class="string">"('w,'a,'b) evil_kripke"</span>
+  <span class="keyword">assumes</span> <span class="ident">prop0</span><span class="keyword">:</span> <span class="string">&quot;RBB(M)(X) &sube; (W(M) &lt;*&gt; W(M))&quot;</span>
+      <span class="keyword">and</span> <span class="ident">prop1</span><span class="keyword">:</span> <span class="string">"finite (W(M))"</span>
+      <span class="keyword">and</span> <span class="ident">prop2</span><span class="keyword">:</span> <span class="string">"refl_on (W(M)) (RBB(M)(X))"</span>
+      <span class="keyword">and</span> <span class="ident">prop3</span><span class="keyword">:</span> <span class="string">"trans (RBB(M)(X))"</span>
+      <span class="keyword">and</span> <span class="ident">prop4</span><span class="keyword">:</span> <span class="string">"RBBI(M)(X) = (RBB(M)(X))^-1"</span>
+      <span class="keyword">and</span> <span class="ident">prop5</span><span class="keyword">:</span> <span class="string">&quot;(w,v) &isin; RBB(M)(X) ==&gt; V(M)(w) = V(M)(v)&quot;</span> 
+      <span class="keyword">and</span> <span class="ident">prop6</span><span class="keyword">:</span> <span class="string">&quot;[|(w,v) &isin; RBB(M)(X); (w,u) &isin; RB(M)(X)|]
+                    ==&gt; (v,u) &isin; RB(M)(X)&quot;</span>
+      <span class="keyword">and</span> <span class="ident">prop7</span><span class="keyword">:</span> <span class="string">&quot;(w,v) &isin; RBB(M)(X) 
+                    ==&gt; ((u,w) &isin; RB(M)(Y)) = ((u,v) &isin; RB(M)(Y))&quot;</span>
+      <span class="keyword">and</span> <span class="ident">prop8</span><span class="keyword">:</span> <span class="string">&quot;w &isin; PP(M)(X) ==&gt; (w,w) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Our second locale strengthens the final 8th property of the
+   first locale to a full biconditional; the \emph{EviL
+   bisimulation lemma} will establish that any \emph{partly EviL}
+   Kripke model is bisimular to a \emph{completely EviL}
+   Kripke model. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">locale</span> <span class="ident">completely_EviL</span> <span class="keyword">=</span> <span class="ident">partly_EviL</span> <span class="keyword">+</span>
+  <span class="keyword">assumes</span> <span class="ident">prop9</span><span class="keyword">:</span> <span class="string">&quot;(w &isin; PP(M)(X)) = ((w,w) &isin; RB(M)(X))&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

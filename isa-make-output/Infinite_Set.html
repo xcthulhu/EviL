@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory Infinite_Set (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory Infinite_Set</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">Infinite_Set</span><br/>
+<span class="keyword">imports</span> <a href="../Main.html"><span class="name">Main</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="ignored_span"><span class="comment">(*  Title:      HOL/Library/Infinite_Set.thy
+    Author:     Stephan Merz
+*)</span>
+
+</span><span class="command_span"><span class="command">header</span> <span class="verbatim">{* Infinite Sets and Related Concepts *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">Infinite_Set</span>
+<span class="keyword">imports</span> <span class="ident">Main</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">subsection</span> <span class="string">"Infinite Sets"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  Some elementary facts about infinite sets, mostly by Stefan Merz.
+  Beware! Because "infinite" merely abbreviates a negation, these
+  lemmas may not work well with @{text "blast"}.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">abbreviation</span>
+  <span class="ident">infinite</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a set =&gt; bool&quot;</span> <span class="keyword">where</span>
+  <span class="string">&quot;infinite S == &not; finite S&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  Infinite sets are non-empty, and if we remove some elements from an
+  infinite set, the result is still infinite.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_imp_nonempty</span><span class="keyword">:</span> <span class="string">&quot;infinite S ==&gt; S &ne; {}&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_remove</span><span class="keyword">:</span>
+  <span class="string">&quot;infinite S ==&gt; infinite (S - {a})&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">Diff_infinite_finite</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">T</span><span class="keyword">:</span> <span class="string">"finite T"</span> <span class="keyword">and</span> <span class="ident">S</span><span class="keyword">:</span> <span class="string">"infinite S"</span>
+  <span class="keyword">shows</span> <span class="string">"infinite (S - T)"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">using</span> <span class="ident">T</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">induct</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">S</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="string">"infinite (S - {})"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">fix</span> <span class="ident">T</span> <span class="ident">x</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="ident">ih</span><span class="keyword">:</span> <span class="string">"infinite (S - T)"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">"S - (insert x T) = (S - T) - {x}"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">Diff_insert</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">ih</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="string">"infinite (S - (insert x T))"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_remove</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">Un_infinite</span><span class="keyword">:</span> <span class="string">&quot;infinite S ==&gt; infinite (S &cup; T)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_super</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">T</span><span class="keyword">:</span> <span class="string">&quot;S &sube; T&quot;</span> <span class="keyword">and</span> <span class="ident">S</span><span class="keyword">:</span> <span class="string">"infinite S"</span>
+  <span class="keyword">shows</span> <span class="string">"infinite T"</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">"finite T"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">T</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"finite S"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">finite_subset</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">S</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  As a concrete example, we prove that the set of natural numbers is
+  infinite.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">finite_nat_bounded</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">S</span><span class="keyword">:</span> <span class="string">"finite (S::nat set)"</span>
+  <span class="keyword">shows</span> <span class="string">&quot;&exist;k. S &sube; {..&lt;k}&quot;</span>  <span class="keyword">(</span><span class="keyword">is</span> <span class="string">&quot;&exist;k. ?bounded S k&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">S</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">induct</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">"?bounded {} 0"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;&exist;k. ?bounded {} k&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">fix</span> <span class="ident">S</span> <span class="ident">x</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&exist;k. ?bounded S k&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">k</span> <span class="keyword">where</span> <span class="ident">k</span><span class="keyword">:</span> <span class="string">"?bounded S k"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;&exist;k. ?bounded (insert x S) k&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">cases</span> <span class="string">&quot;x &lt; k&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">case</span> <span class="ident">True</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">k</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">case</span> <span class="ident">False</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">k</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"?bounded S (Suc x)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">finite_nat_iff_bounded</span><span class="keyword">:</span>
+  <span class="string">&quot;finite (S::nat set) = (&exist;k. S &sube; {..&lt;k})&quot;</span>  <span class="keyword">(</span><span class="keyword">is</span> <span class="string">"?lhs = ?rhs"</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?lhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?rhs</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">finite_nat_bounded</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?rhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">k</span> <span class="keyword">where</span> <span class="string">&quot;S &sube; {..&lt;k}&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">"finite S"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">finite_subset</span><span class="keyword">)</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">finite_nat_iff_bounded_le</span><span class="keyword">:</span>
+  <span class="string">&quot;finite (S::nat set) = (&exist;k. S &sube; {..k})&quot;</span>  <span class="keyword">(</span><span class="keyword">is</span> <span class="string">"?lhs = ?rhs"</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?lhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">k</span> <span class="keyword">where</span> <span class="string">&quot;S &sube; {..&lt;k}&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">dest</span><span class="keyword">:</span> <span class="ident">finite_nat_bounded</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;S &sube; {..k}&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?rhs</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?rhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">k</span> <span class="keyword">where</span> <span class="string">&quot;S &sube; {..k}&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">"finite S"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">finite_subset</span><span class="keyword">)</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_nat_iff_unbounded</span><span class="keyword">:</span>
+  <span class="string">&quot;infinite (S::nat set) = (&forall;m. &exist;n. m&lt;n &and; n&isin;S)&quot;</span>
+  <span class="keyword">(</span><span class="keyword">is</span> <span class="string">"?lhs = ?rhs"</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?lhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?rhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">ccontr</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&not; ?rhs&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">m</span> <span class="keyword">where</span> <span class="ident">m</span><span class="keyword">:</span> <span class="string">&quot;&forall;n. m&lt;n --&gt; n&notin;S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;S &sube; {..m}&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">sym</span> <span class="keyword">[</span><span class="ident">OF</span> <span class="ident">linorder_not_less</span><span class="keyword">]</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="altstring">`?lhs`</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">finite_nat_iff_bounded_le</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?rhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?lhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">"finite S"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">m</span> <span class="keyword">where</span> <span class="string">&quot;S &sube; {..m}&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">finite_nat_iff_bounded_le</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;n. m&lt;n --&gt; n&notin;S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="altstring">`?rhs`</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_nat_iff_unbounded_le</span><span class="keyword">:</span>
+  <span class="string">&quot;infinite (S::nat set) = (&forall;m. &exist;n. m&le;n &and; n&isin;S)&quot;</span>
+  <span class="keyword">(</span><span class="keyword">is</span> <span class="string">"?lhs = ?rhs"</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?lhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?rhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">m</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="altstring">`?lhs`</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">n</span> <span class="keyword">where</span> <span class="string">&quot;m&lt;n &and; n&isin;S&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_nat_iff_unbounded</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;m&le;n &and; n&isin;S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;&exist;n. m &le; n &and; n &isin; S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="var">?rhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?lhs</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_nat_iff_unbounded</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">m</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="altstring">`?rhs`</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">n</span> <span class="keyword">where</span> <span class="string">&quot;Suc m &le; n &and; n&isin;S&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;m&lt;n &and; n&isin;S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;&exist;n. m &lt; n &and; n &isin; S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  For a set of natural numbers to be infinite, it is enough to know
+  that for any number larger than some @{text k}, there is some larger
+  number that is an element of the set.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">unbounded_k_infinite</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">k</span><span class="keyword">:</span> <span class="string">&quot;&forall;m. k&lt;m --&gt; (&exist;n. m&lt;n &and; n&isin;S)&quot;</span>
+  <span class="keyword">shows</span> <span class="string">"infinite (S::nat set)"</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">m</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&exist;n. m&lt;n &and; n&isin;S&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">cases</span> <span class="string">&quot;k&lt;m&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">case</span> <span class="ident">True</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">k</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">case</span> <span class="ident">False</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">from</span> <span class="ident">k</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">n</span> <span class="keyword">where</span> <span class="string">&quot;Suc k &lt; n &and; n&isin;S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;m&lt;n &and; n&isin;S&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_nat_iff_unbounded</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">nat_infinite</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">"infinite (UNIV :: nat set)"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_nat_iff_unbounded</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">nat_not_finite</span> <span class="keyword">[</span><span class="ident">elim</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;finite (UNIV::nat set) ==&gt; R&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  Every infinite set contains a countable subset. More precisely we
+  show that a set @{text S} is infinite if and only if there exists an
+  injective function from the naturals into @{text S}.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">range_inj_infinite</span><span class="keyword">:</span>
+  <span class="string">&quot;inj (f::nat =&gt; &apos;a) ==&gt; infinite (range f)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">"finite (range f)"</span> <span class="keyword">and</span> <span class="string">"inj f"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"finite (UNIV::nat set)"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">finite_imageD</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">int_infinite</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span>
+  <span class="keyword">shows</span> <span class="string">"infinite (UNIV::int set)"</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">inj_int</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"infinite (range int)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">range_inj_infinite</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;range int &sube; (UNIV::int set)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">"infinite (UNIV::int set)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_super</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  The ``only if'' direction is harder because it requires the
+  construction of a sequence of pairwise different elements of an
+  infinite set @{text S}. The idea is to construct a sequence of
+  non-empty and infinite subsets of @{text S} obtained by successively
+  removing elements of @{text S}.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">linorder_injI</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">hyp</span><span class="keyword">:</span> <span class="string">&quot;!!x y. x &lt; (y::&apos;a::linorder) ==&gt; f x &ne; f y&quot;</span>
+  <span class="keyword">shows</span> <span class="string">"inj f"</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">inj_onI</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">fix</span> <span class="ident">x</span> <span class="ident">y</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="ident">f_eq</span><span class="keyword">:</span> <span class="string">"f x = f y"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="string">"x = y"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">linorder_cases</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;x &lt; y&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">hyp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;f x &ne; f y&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">f_eq</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">"x = y"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;y &lt; x&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">hyp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;f y &ne; f x&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">f_eq</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_countable_subset</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">inf</span><span class="keyword">:</span> <span class="string">"infinite (S::'a set)"</span>
+  <span class="keyword">shows</span> <span class="string">&quot;&exist;f. inj (f::nat =&gt; &apos;a) &and; range f &sube; S&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">def</span> <span class="ident">Sseq</span> <span class="keyword">&equiv;</span> <span class="string">&quot;nat_rec S (&lambda;n T. T - {SOME e. e &isin; T})&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">def</span> <span class="ident">pick</span> <span class="keyword">&equiv;</span> <span class="string">&quot;&lambda;n. (SOME e. e &isin; Sseq n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">Sseq_inf</span><span class="keyword">:</span> <span class="string">&quot;!!n. infinite (Sseq n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">n</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span> <span class="string">"infinite (Sseq n)"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">n</span><span class="keyword">)</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">from</span> <span class="ident">inf</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">"infinite (Sseq 0)"</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Sseq_def</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">fix</span> <span class="ident">n</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">assume</span> <span class="string">"infinite (Sseq n)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">"infinite (Sseq (Suc n))"</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Sseq_def</span> <span class="ident">infinite_remove</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">Sseq_S</span><span class="keyword">:</span> <span class="string">&quot;!!n. Sseq n &sube; S&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">n</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;Sseq n &sube; S&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">n</span><span class="keyword">)</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Sseq_def</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">Sseq_pick</span><span class="keyword">:</span> <span class="string">&quot;!!n. pick n &isin; Sseq n&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">n</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;pick n &isin; Sseq n&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">pick_def</span><span class="keyword">,</span> <span class="ident">rule</span> <span class="ident">someI_ex</span><span class="keyword">)</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">from</span> <span class="ident">Sseq_inf</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"infinite (Sseq n)"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;Sseq n &ne; {}&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;&exist;x. x &isin; Sseq n&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">Sseq_S</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="ident">rng</span><span class="keyword">:</span> <span class="string">&quot;range pick &sube; S&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">pick_Sseq_gt</span><span class="keyword">:</span> <span class="string">&quot;!!n m. pick n &notin; Sseq (n + Suc m)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">n</span> <span class="ident">m</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;pick n &notin; Sseq (n + Suc m)&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">m</span><span class="keyword">)</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Sseq_def</span> <span class="ident">pick_def</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">pick_pick</span><span class="keyword">:</span> <span class="string">&quot;!!n m. pick n &ne; pick (n + Suc m)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">n</span> <span class="ident">m</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">Sseq_pick</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;pick (n + Suc m) &isin; Sseq (n + Suc m)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">pick_Sseq_gt</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;pick n &notin; Sseq (n + Suc m)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;pick n &ne; pick (n + Suc m)&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="ident">inj</span><span class="keyword">:</span> <span class="string">"inj pick"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">linorder_injI</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">i</span> <span class="ident">j</span> <span class="keyword">::</span> <span class="ident">nat</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;i &lt; j&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;pick i &ne; pick j&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">assume</span> <span class="ident">eq</span><span class="keyword">:</span> <span class="string">"pick i = pick j"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">from</span> <span class="altstring">`i &lt; j`</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">k</span> <span class="keyword">where</span> <span class="string">"j = i + Suc k"</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">less_iff_Suc_add</span><span class="keyword">)</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">pick_pick</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;pick i &ne; pick j&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">with</span> <span class="ident">eq</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">rng</span> <span class="ident">inj</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">infinite_iff_countable_subset</span><span class="keyword">:</span>
+    <span class="string">&quot;infinite S = (&exist;f. inj (f::nat =&gt; &apos;a) &and; range f &sube; S)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_countable_subset</span> <span class="ident">range_inj_infinite</span> <span class="ident">infinite_super</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  For any function with infinite domain and finite range there is some
+  element that is the image of infinitely many domain elements.  In
+  particular, any infinite sequence of elements from a finite set
+  contains some element that occurs infinitely often.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">inf_img_fin_dom</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">img</span><span class="keyword">:</span> <span class="string">"finite (f`A)"</span> <span class="keyword">and</span> <span class="ident">dom</span><span class="keyword">:</span> <span class="string">"infinite A"</span>
+  <span class="keyword">shows</span> <span class="string">&quot;&exist;y &isin; f`A. infinite (f -` {y})&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">ccontr</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&not; ?thesis&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">img</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"finite (UN y:f`A. f -` {y})"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">finite_UN_I</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;A &sube; (UN y:f`A. f -` {y})&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">dom</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">infinite_super</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">inf_img_fin_domE</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="string">"finite (f`A)"</span> <span class="keyword">and</span> <span class="string">"infinite A"</span>
+  <span class="keyword">obtains</span> <span class="ident">y</span> <span class="keyword">where</span> <span class="string">&quot;y &isin; f`A&quot;</span> <span class="keyword">and</span> <span class="string">"infinite (f -` {y})"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">using</span> <span class="ident">assms</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">dest</span><span class="keyword">:</span> <span class="ident">inf_img_fin_dom</span><span class="keyword">)</span></span><span class="ignored_span">
+
+
+</span><span class="command_span"><span class="command">subsection</span> <span class="string">"Infinitely Many and Almost All"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  We often need to reason about the existence of infinitely many
+  (resp., all but finitely many) objects satisfying some predicate, so
+  we introduce corresponding binders and their proof rules.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span>
+  <span class="ident">Inf_many</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;a =&gt; bool) =&gt; bool&quot;</span>  <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">"INFM "</span> <span class="ident">10</span><span class="keyword">)</span> <span class="keyword">where</span>
+  <span class="string">"Inf_many P = infinite {x. P x}"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span>
+  <span class="ident">Alm_all</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;a =&gt; bool) =&gt; bool&quot;</span>  <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">"MOST "</span> <span class="ident">10</span><span class="keyword">)</span> <span class="keyword">where</span>
+  <span class="string">&quot;Alm_all P = (&not; (INFM x. &not; P x))&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">xsymbols</span><span class="keyword">)</span>
+  <span class="ident">Inf_many</span>  <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">&quot;&exist;<sub>&infin;</sub>&quot;</span> <span class="ident">10</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">Alm_all</span>  <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">&quot;&forall;<sub>&infin;</sub>&quot;</span> <span class="ident">10</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">notation</span> <span class="keyword">(</span><span class="ident">HTML</span> <span class="keyword">output</span><span class="keyword">)</span>
+  <span class="ident">Inf_many</span>  <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">&quot;&exist;<sub>&infin;</sub>&quot;</span> <span class="ident">10</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">Alm_all</span>  <span class="keyword">(</span><span class="keyword">binder</span> <span class="string">&quot;&forall;<sub>&infin;</sub>&quot;</span> <span class="ident">10</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">INFM_EX</span><span class="keyword">:</span>
+  <span class="string">&quot;(&exist;<sub>&infin;</sub>x. P x) ==&gt; (&exist;x. P x)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Inf_many_def</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">ccontr</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="ident">inf</span><span class="keyword">:</span> <span class="string">"infinite {x. P x}"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&not; ?thesis&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"{x. P x} = {}"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">then</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"finite {x. P x}"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">inf</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="ident">False</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_iff_finiteNeg</span><span class="keyword">:</span> <span class="string">&quot;(&forall;<sub>&infin;</sub>x. P x) = finite {x. &not; P x}&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Alm_all_def</span> <span class="ident">Inf_many_def</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">ALL_MOST</span><span class="keyword">:</span> <span class="string">&quot;&forall;x. P x ==&gt; &forall;<sub>&infin;</sub>x. P x&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">MOST_iff_finiteNeg</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">INFM_mono</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="ident">inf</span><span class="keyword">:</span> <span class="string">&quot;&exist;<sub>&infin;</sub>x. P x&quot;</span> <span class="keyword">and</span> <span class="ident">q</span><span class="keyword">:</span> <span class="string">&quot;!!x. P x ==&gt; Q x&quot;</span>
+  <span class="keyword">shows</span> <span class="string">&quot;&exist;<sub>&infin;</sub>x. Q x&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">inf</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">"infinite {x. P x}"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Inf_many_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">q</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;{x. P x} &sube; {x. Q x}&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Inf_many_def</span> <span class="ident">infinite_super</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_mono</span><span class="keyword">:</span> <span class="string">&quot;&forall;<sub>&infin;</sub>x. P x ==&gt; (!!x. P x ==&gt; Q x) ==&gt; &forall;<sub>&infin;</sub>x. Q x&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Alm_all_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">INFM_mono</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">INFM_disj_distrib</span><span class="keyword">:</span>
+  <span class="string">&quot;(&exist;<sub>&infin;</sub>x. P x &or; Q x) &lt;-&gt; (&exist;<sub>&infin;</sub>x. P x) &or; (&exist;<sub>&infin;</sub>x. Q x)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Inf_many_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Collect_disj_eq</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_conj_distrib</span><span class="keyword">:</span>
+  <span class="string">&quot;(&forall;<sub>&infin;</sub>x. P x &and; Q x) &lt;-&gt; (&forall;<sub>&infin;</sub>x. P x) &and; (&forall;<sub>&infin;</sub>x. Q x)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Alm_all_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">INFM_disj_distrib</span> <span class="ident">del</span><span class="keyword">:</span> <span class="ident">disj_not1</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_rev_mp</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="string">&quot;&forall;<sub>&infin;</sub>x. P x&quot;</span> <span class="keyword">and</span> <span class="string">&quot;&forall;<sub>&infin;</sub>x. P x --&gt; Q x&quot;</span>
+  <span class="keyword">shows</span> <span class="string">&quot;&forall;<sub>&infin;</sub>x. Q x&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;<sub>&infin;</sub>x. P x &and; (P x --&gt; Q x)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">using</span> <span class="ident">prems</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">MOST_conj_distrib</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">thus</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">MOST_mono</span><span class="keyword">)</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">not_INFM</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;&not; (INFM x. P x) &lt;-&gt; (MOST x. &not; P x)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Alm_all_def</span> <span class="ident">not_not</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">not_MOST</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;&not; (MOST x. P x) &lt;-&gt; (INFM x. &not; P x)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Alm_all_def</span> <span class="ident">not_not</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">..</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">INFM_const</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;(INFM x::&apos;a. P) &lt;-&gt; P &and; infinite (UNIV::&apos;a set)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Inf_many_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_const</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;(MOST x::&apos;a. P) &lt;-&gt; P &or; finite (UNIV::&apos;a set)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">unfolding</span> <span class="ident">Alm_all_def</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">INFM_nat</span><span class="keyword">:</span> <span class="string">&quot;(&exist;<sub>&infin;</sub>n. P (n::nat)) = (&forall;m. &exist;n. m&lt;n &and; P n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Inf_many_def</span> <span class="ident">infinite_nat_iff_unbounded</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">INFM_nat_le</span><span class="keyword">:</span> <span class="string">&quot;(&exist;<sub>&infin;</sub>n. P (n::nat)) = (&forall;m. &exist;n. m&le;n &and; P n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Inf_many_def</span> <span class="ident">infinite_nat_iff_unbounded_le</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_nat</span><span class="keyword">:</span> <span class="string">&quot;(&forall;<sub>&infin;</sub>n. P (n::nat)) = (&exist;m. &forall;n. m&lt;n --&gt; P n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Alm_all_def</span> <span class="ident">INFM_nat</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">MOST_nat_le</span><span class="keyword">:</span> <span class="string">&quot;(&forall;<sub>&infin;</sub>n. P (n::nat)) = (&exist;m. &forall;n. m&le;n --&gt; P n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">Alm_all_def</span> <span class="ident">INFM_nat_le</span><span class="keyword">)</span></span><span class="ignored_span">
+
+
+</span><span class="command_span"><span class="command">subsection</span> <span class="string">"Enumeration of an Infinite Set"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  The set's element type must be wellordered (e.g. the natural numbers).
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">consts</span>
+  <span class="ident">enumerate</span>   <span class="keyword">::</span> <span class="string">&quot;&apos;a::wellorder set =&gt; (nat =&gt; &apos;a::wellorder)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">primrec</span>
+  <span class="ident">enumerate_0</span><span class="keyword">:</span>   <span class="string">&quot;enumerate S 0       = (LEAST n. n &isin; S)&quot;</span>
+  <span class="ident">enumerate_Suc</span><span class="keyword">:</span> <span class="string">&quot;enumerate S (Suc n) = enumerate (S - {LEAST n. n &isin; S}) n&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">enumerate_Suc'</span><span class="keyword">:</span>
+    <span class="string">"enumerate S (Suc n) = enumerate (S - {enumerate S 0}) n"</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">enumerate_in_set</span><span class="keyword">:</span> <span class="string">&quot;infinite S ==&gt; enumerate S n : S&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">n</span> <span class="ident">arbitrary</span><span class="keyword">:</span> <span class="ident">S</span><span class="keyword">)</span></span><span class="ignored_span">
+ </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">fastsimp</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">LeastI</span> <span class="ident">dest</span><span class="keyword">!</span><span class="keyword">:</span> <span class="ident">infinite_imp_nonempty</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">apply</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">metis</span> <span class="ident">Collect_def</span> <span class="ident">Collect_mem_eq</span> <span class="ident">DiffE</span> <span class="ident">infinite_remove</span><span class="keyword">)</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">done</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">declare</span> <span class="ident">enumerate_0</span> <span class="keyword">[</span><span class="ident">simp</span> <span class="ident">del</span><span class="keyword">]</span> <span class="ident">enumerate_Suc</span> <span class="keyword">[</span><span class="ident">simp</span> <span class="ident">del</span><span class="keyword">]</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">enumerate_step</span><span class="keyword">:</span> <span class="string">&quot;infinite S ==&gt; enumerate S n &lt; enumerate S (Suc n)&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">n</span> <span class="ident">arbitrary</span><span class="keyword">:</span> <span class="ident">S</span><span class="keyword">)</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">order_le_neq_trans</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">enumerate_0</span> <span class="ident">Least_le</span> <span class="ident">enumerate_in_set</span><span class="keyword">)</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">only</span><span class="keyword">:</span> <span class="ident">enumerate_Suc'</span><span class="keyword">)</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">subgoal_tac</span> <span class="string">"enumerate (S - {enumerate S 0}) 0 : S - {enumerate S 0}"</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">blast</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">sym</span><span class="keyword">)</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">enumerate_in_set</span> <span class="ident">del</span><span class="keyword">:</span> <span class="ident">Diff_iff</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">enumerate_Suc'</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">done</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">enumerate_mono</span><span class="keyword">:</span> <span class="string">&quot;m&lt;n ==&gt; infinite S ==&gt; enumerate S m &lt; enumerate S n&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">erule</span> <span class="ident">less_Suc_induct</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">apply</span> <span class="keyword">(</span><span class="ident">auto</span> <span class="ident">intro</span><span class="keyword">:</span> <span class="ident">enumerate_step</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">done</span></span><span class="ignored_span">
+
+
+</span><span class="command_span"><span class="command">subsection</span> <span class="string">"Miscellaneous"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span> <span class="verbatim">{*
+  A few trivial lemmas about sets that contain at most one element.
+  These simplify the reasoning about deterministic automata.
+*}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span>
+  <span class="ident">atmost_one</span> <span class="keyword">::</span> <span class="string">&quot;&apos;a set =&gt; bool&quot;</span> <span class="keyword">where</span>
+  <span class="string">&quot;atmost_one S = (&forall;x y. x&isin;S &and; y&isin;S --&gt; x=y)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">atmost_one_empty</span><span class="keyword">:</span> <span class="string">&quot;S = {} ==&gt; atmost_one S&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">atmost_one_def</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">atmost_one_singleton</span><span class="keyword">:</span> <span class="string">&quot;S = {x} ==&gt; atmost_one S&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">atmost_one_def</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">atmost_one_unique</span> <span class="keyword">[</span><span class="ident">elim</span><span class="keyword">]</span><span class="keyword">:</span> <span class="string">&quot;atmost_one S ==&gt; x &isin; S ==&gt; y &isin; S ==&gt; y = x&quot;</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">atmost_one_def</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span><span class="ignored_span">
+</span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

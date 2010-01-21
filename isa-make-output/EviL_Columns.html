@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory EviL_Columns (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory EviL_Columns</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">EviL_Columns</span><br/>
+<span class="keyword">imports</span> <a href="EviL_Properties.html"><span class="name">EviL_Properties</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span><span class="verbatim">{* EviL Column Lemmas *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">EviL_Columns</span>
+<span class="keyword">imports</span> <span class="ident">EviL_Semantics</span> <span class="ident">EviL_Properties</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to formalizing the concept of a \emph{column} in the Kripke 
+   models we have been investigating, and show that \emph{partly EviL} 
+   models make true certain lemmas regarding columns, which shall be key in 
+   the subsequent model theory that we shall develop. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span> 
+  <span class="ident">col</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;w,&apos;a,&apos;b) evil_kripke =&gt; &apos;w =&gt; &apos;w set&quot;</span> <span class="keyword">where</span>
+  <span class="string">&quot;col M w == 
+    ((\&lt;Union&gt;X. RBB(M)(X) &cup; (RBB(M)(X))^-1)^*) `` {w}&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We admit that the above definition is somewhat challenging, 
+   but it can be understood by observing the following elementary 
+   fact about relations. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">crazy_Un_equiv</span><span class="keyword">:</span>
+  <span class="string">&quot;equiv UNIV ((\&lt;Union&gt;i&isin;S. (r i) &cup; (r i)^-1)^*)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">sym_Un_converse</span>
+      <span class="ident">sym_UNION</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">&quot;% i. (r i) &cup; (r i)^-1&quot;</span><span class="keyword">]</span>
+      <span class="ident">refl_rtrancl</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">&quot;\&lt;Union&gt;i&isin;S. (r i) &cup; (r i)^-1&quot;</span><span class="keyword">]</span> 
+      <span class="ident">sym_rtrancl</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">&quot;\&lt;Union&gt;i&isin;S. (r i) &cup; (r i)^-1&quot;</span><span class="keyword">]</span>
+      <span class="ident">trans_rtrancl</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">&quot;\&lt;Union&gt;i&isin;S. (r i) &cup; (r i)^-1&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">equiv_def</span><span class="keyword">,</span> <span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* This means evidently that @{term &quot;col M w&quot;} is an
+   \emph{equivalence class}, and by the properties of
+   our definition it is a parition on the 
+   \emph{universe} of possible worlds, regardless of 
+   whether they happen to be in the scope of whatever 
+   Kripke model we are worried about.  Intuitively,
+   we can think of the above definition as breaking
+   up the universe into \emph{connected components} of
+   the graph that @{term &quot;RBB(M)&quot;} induces. 
+   This has several immediate consequences: *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">col_refl</span><span class="keyword">:</span>
+  <span class="string">&quot;w &isin; col M w&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">crazy_Un_equiv</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">S</span><span class="keyword">=</span><span class="string">"UNIV"</span> <span class="keyword">and</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">"RBB(M)"</span><span class="keyword">]</span>
+  <span class="keyword">and</span> <span class="ident">equiv_class_self</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">"UNIV"</span> 
+                          <span class="keyword">and</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">&quot;\&lt;Union&gt;X. RBB(M)(X) &cup; (RBB(M)(X))^-1&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">col_def</span><span class="keyword">,</span><span class="ident">simp</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">col_mem_eq</span><span class="keyword">:</span>
+  <span class="string">&quot;(v &isin; col M w) = (col M v = col M w)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">let</span> <span class="var">?R</span> <span class="keyword">=</span> <span class="string">&quot;(\&lt;Union&gt;X. RBB(M)(X) &cup; (RBB(M)(X))^-1)^*&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;v &isin; col M w&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">crazy_Un_equiv</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">S</span><span class="keyword">=</span><span class="string">"UNIV"</span> <span class="keyword">and</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">"RBB(M)"</span><span class="keyword">]</span>
+         <span class="ident">eq_equiv_class_iff</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">A</span><span class="keyword">=</span><span class="string">"UNIV"</span>
+                             <span class="keyword">and</span> <span class="ident">r</span><span class="keyword">=</span><span class="string">"?R"</span><span class="keyword">]</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">show</span> <span class="string">"col M v = col M w"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">col_def</span><span class="keyword">,</span> <span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">"col M v = col M w"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">col_refl</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;v &isin; col M w&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* The previous lemma weakens to the following equality: *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">weak_col_mem_eq</span><span class="keyword">:</span>
+  <span class="string">&quot;(v &isin; col M w) = (w &isin; col M v)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_mem_eq</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(v &isin; col M w) = (col M v = col M w)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">col_mem_eq</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(w &isin; col M v) = (col M w = col M v)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">.</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Next, we show, for partly EviL Kripke models, if
+   @{term &quot;w &isin; W(M)&quot;} then @{term &quot;col M w &sube; W(M)&quot;} *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">mem_col_subseteq</span><span class="keyword">:</span>
+  <span class="string">&quot;(w &isin; W(M)) =  (col M w &sube; W(M))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_refl</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+    <span class="string">&quot;col M w &sube; W(M) ==&gt; w &isin; W(M)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="ident">&hearts;</span><span class="keyword">:</span> <span class="string">&quot;w &isin; W(M)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">fix</span> <span class="ident">p</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">let</span> <span class="var">?R</span> <span class="keyword">=</span> <span class="string">&quot;\&lt;Union&gt;X. RBB(M)(X) &cup; (RBB(M)(X))^-1&quot;</span>
+    <span class="keyword">--</span><span class="string">"The idea is to pick an arbitrary element of the column"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;p &isin; col M w&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;(w,p) &isin; (?R)^*&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">simp</span> <span class="ident">add</span><span class="keyword">:</span> <span class="ident">col_def</span><span class="keyword">)</span>
+    <span class="keyword">--</span><span class="string">"And show set membership:"</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;p &isin; W(M)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span><span class="keyword">(</span><span class="ident">induct</span> <span class="ident">rule</span><span class="keyword">:</span> <span class="ident">rtrancl_induct</span><span class="keyword">)</span>
+    <span class="keyword">--</span><span class="verbatim">{*We proceed by induction\ldots*}</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">case</span> <span class="ident">base</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">from</span> <span class="ident">&hearts;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?case</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">next</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">case</span> <span class="keyword">(</span><span class="ident">step</span> <span class="ident">p</span> <span class="ident">z</span><span class="keyword">)</span></span><span class="ignored_span">
+       </span><span class="command_span"><span class="command">with</span> <span class="ident">prop0</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;z &isin; W(M)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to proving a central equality regarding
+   valuation functions for partly EviL Kripke models
+   over columns, and give a equivalent
+   formulation that is our preference. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_V_eqp</span><span class="keyword">:</span>
+  <span class="keyword">shows</span> <span class="string">&quot;V(M)(w) = \&lt;Union&gt; V(M) `(col M w)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_refl</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;V(M)(w) &sube; \&lt;Union&gt; V(M) `(col M w)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">p</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;p &isin; \&lt;Union&gt; V(M) `(col M w)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;p &isin; V(M)(w)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span><span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">col_def</span><span class="keyword">,</span><span class="ident">unfold</span> <span class="ident">Image_def</span><span class="keyword">,</span><span class="ident">clarify</span><span class="keyword">)</span>
+      <span class="keyword">--</span><span class="string">"After clarification, this is what we need to prove:"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">let</span> <span class="var">?R</span> <span class="keyword">=</span> <span class="string">&quot;\&lt;Union&gt;X. RBB(M)(X) &cup; (RBB(M)(X))^-1&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">fix</span> <span class="ident">v</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;(w,v) &isin; ?R^*&quot;</span> <span class="keyword">and</span> <span class="string">&quot;p &isin; V(M)(v)&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">thus</span> <span class="string">&quot;p &isin; V(M)(w)&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">converse_rtrancl_induct</span><span class="keyword">)</span>
+        <span class="keyword">--</span><span class="verbatim">{*The trick here is to use \emph{converse} induction*}</span>
+        <span class="keyword">--</span><span class="verbatim">{*@{thm [source] converse_rtrancl_induct} states:*}</span>
+        <span class="keyword">--</span><span class="verbatim">{*@{thm converse_rtrancl_induct}*}</span>
+        <span class="keyword">--</span><span class="string">"we shall focus on the inductive step"</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">fix</span> <span class="ident">y</span> <span class="ident">z</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;p &isin; V(M)(z)&quot;</span> 
+                    <span class="keyword">and</span> <span class="string">&quot;(y,z) &isin; ?R&quot;</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">prop5</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+        <span class="string">&quot;&forall; X. (y,z) &isin; (RBB(M)(X))^-1
+                --&gt; V(M)(z) = V(M)(y)&quot;</span>
+        <span class="keyword">and</span>
+        <span class="string">&quot;&forall; X. (y,z) &isin; (RBB(M)(X))
+                --&gt; V(M)(z) = V(M)(y)&quot;</span></span><span class="ignored_span"> 
+        </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">blast</span><span class="keyword">)</span><span class="keyword">+</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;p &isin; V(M)(y)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_V_eq</span><span class="keyword">:</span>
+  <span class="keyword">assumes</span> <span class="string">&quot;v &isin; col M w&quot;</span>
+  <span class="keyword">shows</span> <span class="string">"V(M)(w) = V(M)(v)"</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">assms</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">assms</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">M</span><span class="keyword">=</span><span class="string">"M"</span><span class="keyword">]</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">"col M v = col M w"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">col_V_eqp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;V(M)(w) = \&lt;Union&gt; V(M) `(col M w)&quot;</span> 
+   <span class="keyword">and</span> <span class="string">&quot;V(M)(v) = \&lt;Union&gt; V(M) `(col M v)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span><span class="keyword">+</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Finally, the other main lemma we present here regards visibility with
+   @{term "RB(M)(X)"} and columns. We also give two equivalent
+   formulations; once again we prefer the second formulation.  *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_RB_eqp</span><span class="keyword">:</span>
+  <span class="string">&quot;(w,v) &isin; RB(M)(X) = (&forall;u &isin; col M v. (w,u) &isin; RB(M)(X))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_refl</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;u &isin; col M v. (w,u) &isin; RB(M)(X) ==&gt; (w,v) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">fix</span> <span class="ident">u</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">let</span> <span class="var">?R</span> <span class="keyword">=</span> <span class="string">&quot;\&lt;Union&gt;X. RBB(M)(X) &cup; (RBB(M)(X))^-1&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;u &isin; (col M v)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">hence</span> <span class="string">&quot;(v,u) &isin; ?R^*&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">unfold</span> <span class="ident">col_def</span><span class="keyword">,</span> <span class="ident">simp</span><span class="keyword">)</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;(w,v) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(w,u) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">proof</span> <span class="keyword">(</span><span class="ident">rule</span> <span class="ident">rtrancl_induct</span><span class="keyword">)</span>
+      <span class="keyword">--</span><span class="string">"This time, the proof proceeds by ordinary induction"</span>
+      <span class="keyword">--</span><span class="string">"As usual, we focus on the inductive step"</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">fix</span> <span class="ident">y</span> <span class="ident">z</span><span class="keyword">;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;(w,y) &isin; RB(M)(X)&quot;</span> <span class="keyword">and</span> <span class="string">&quot;(y,z) &isin; ?R&quot;</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">with</span> <span class="ident">prop7</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+        <span class="string">&quot;&forall;Y. (y,z) &isin; (RBB(M)(Y))^-1
+                --&gt; ((w,z) &isin; RB(M)(X))&quot;</span>
+        <span class="keyword">and</span>
+        <span class="string">&quot;&forall;Y. (y,z) &isin; (RBB(M)(Y))
+                --&gt; ((w,z) &isin; RB(M)(X))&quot;</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span><span class="keyword">+</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="string">&quot;(w,z) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_RB_eq</span><span class="keyword">:</span>
+<span class="keyword">assumes</span> <span class="string">&quot;v &isin; col M u&quot;</span>
+  <span class="keyword">shows</span> <span class="string">&quot;(w,v) &isin; RB(M)(X) = ((w,u) &isin; RB(M)(X))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">assms</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">assms</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">M</span><span class="keyword">=</span><span class="string">"M"</span><span class="keyword">]</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">have</span> <span class="string">"col M v = col M u"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_RB_eqp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;(w,v) &isin; RB(M)(X) 
+          = (&forall;u &isin; col M v. (w,u) &isin; RB(M)(X))&quot;</span> 
+   <span class="keyword">and</span> <span class="string">&quot;(w,u) &isin; RB(M)(X) 
+          = (&forall;v &isin; col M u. (w,v) &isin; RB(M)(X))&quot;</span></span><span class="ignored_span"> 
+   </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span><span class="keyword">+</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">simp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* All of the above results suggest that columns are
+   irreducible in at least three different ways.  The
+   following lemmas express this: *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_W_irr</span><span class="keyword">:</span>
+  <span class="keyword">shows</span> <span class="string">&quot;(&exist;u &isin; col M v. u &isin; W(M))
+       = (&forall;u &isin; col M v. u &isin; W(M))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_refl</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;u &isin; col M v. u &isin; W(M)
+    ==&gt; &exist;u &isin; col M v. u &isin; W(M)&quot;</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&exist;u &isin; col M v. u &isin; W(M)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">this</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">u</span> <span class="keyword">where</span>
+        <span class="string">&quot;u &isin; col M v&quot;</span> <span class="keyword">and</span> <span class="ident">&hearts;</span><span class="keyword">:</span> <span class="string">&quot;u &isin; W(M)&quot;</span></span><span class="ignored_span"> 
+          </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">w</span><span class="keyword">=</span><span class="string">"v"</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">"col M u = col M v"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">w</span><span class="keyword">=</span><span class="string">"u"</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">&quot;&forall;t &isin; col M u. col M t = col M u&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">&quot;&forall;t &isin; col M v. col M t = col M u&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">&hearts;</span> <span class="ident">mem_col_subseteq</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> 
+         <span class="string">&quot;col M u &sube; W(M)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">col_refl</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;t &isin; col M v. t &isin; W(M)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_V_irr</span><span class="keyword">:</span>
+  <span class="keyword">shows</span> <span class="string">&quot;(&exist;u &isin; col M v. V(M)(u)(p))
+       = (&forall;u &isin; col M v. V(M)(u)(p))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_refl</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;u &isin; col M v. V(M)(u)(p)
+    ==&gt; &exist;u &isin; col M v. V(M)(u)(p)&quot;</span></span><span class="ignored_span"> 
+     </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&exist;u &isin; col M v. V(M)(u)(p)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">this</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">u</span> <span class="keyword">where</span>
+        <span class="string">&quot;u &isin; col M v&quot;</span> <span class="keyword">and</span> <span class="ident">&hearts;</span><span class="keyword">:</span> <span class="string">"V(M)(u)(p)"</span></span><span class="ignored_span"> 
+          </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">w</span><span class="keyword">=</span><span class="string">"v"</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">"col M u = col M v"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">w</span><span class="keyword">=</span><span class="string">"u"</span><span class="keyword">]</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">&quot;&forall;t &isin; col M u. col M t = col M u&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">auto</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">&quot;&forall;t &isin; col M v. col M t = col M u&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">from</span> <span class="ident">col_V_eqp</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span>
+        <span class="string">&quot;&forall;t &isin; col M v. V(M)(t) = \&lt;Union&gt;V(M) ` col M t&quot;</span>
+    <span class="keyword">and</span> <span class="string">&quot;V(M)(u) = \&lt;Union&gt;V(M) ` col(M)(u)&quot;</span></span><span class="ignored_span">
+        </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span><span class="keyword">+</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">note</span> <span class="ident">&hearts;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;t &isin; col M v. V(M)(t)(p)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">partly_EviL</span><span class="keyword">)</span> <span class="ident">col_RB_irr</span><span class="keyword">:</span>
+  <span class="keyword">shows</span> <span class="string">&quot;(&exist;u &isin; col M v. (w,u) &isin; RB(M)(X)) 
+       = (&forall;u &isin; col M v. (w,u) &isin; RB(M)(X))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">from</span> <span class="ident">col_refl</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;u &isin; col M v. (w,u) &isin; RB(M)(X) 
+    ==&gt; &exist;u &isin; col M v. (w,u) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">{</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">assume</span> <span class="string">&quot;&exist;u &isin; col M v. (w,u) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">this</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">obtain</span> <span class="ident">u</span> <span class="keyword">where</span> 
+      <span class="string">&quot;u &isin; col M v&quot;</span> <span class="keyword">and</span> <span class="ident">&hearts;</span><span class="keyword">:</span><span class="string">&quot;(w,u) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span"> 
+        </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">with</span> <span class="ident">col_mem_eq</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">M</span><span class="keyword">=</span><span class="string">"M"</span><span class="keyword">]</span></span><span class="ignored_span">
+      </span><span class="command_span"><span class="command">have</span> <span class="string">"col M v = col M u"</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">moreover</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">from</span> <span class="ident">&hearts;</span> <span class="ident">col_RB_eqp</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;v &isin; col M u. (w, v) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> 
+    </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&forall;u &isin; col M v. (w, u) &isin; RB(M)(X)&quot;</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">}</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">ultimately</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fast</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

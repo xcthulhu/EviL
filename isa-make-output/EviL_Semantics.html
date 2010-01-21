@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory EviL_Semantics (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory EviL_Semantics</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">EviL_Semantics</span><br/>
+<span class="keyword">imports</span> <a href="Classic.html"><span class="name">Classic</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span><span class="verbatim">{* EviL Grammar and Semantics *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">EviL_Semantics</span>
+<span class="keyword">imports</span> <span class="ident">Classic</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now give the grammar and semantics for EviL.
+   We shall be employing two different kinds of semantics
+   for EviL - EviL world sets / EviL world pairs and
+   also conventional Kripke semantics. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">no_notation</span>
+  <span class="ident">bot</span> <span class="keyword">(</span><span class="string">&quot;&perp;&quot;</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">imp</span> <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;-&gt;&quot;</span> <span class="ident">25</span><span class="keyword">)</span>  <span class="keyword">and</span>
+  <span class="ident">vdash</span> <span class="keyword">(</span><span class="string">&quot;\&lt;turnstile&gt; _&quot;</span> <span class="keyword">[</span><span class="ident">20</span><span class="keyword">]</span> <span class="ident">20</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">lift_vdash</span> <span class="keyword">(</span><span class="keyword">infix</span> <span class="string">&quot;:\&lt;turnstile&gt;&quot;</span> <span class="ident">10</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">Not</span>  <span class="keyword">(</span><span class="string">&quot;&not; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">neg</span> <span class="keyword">(</span><span class="string">&quot;&not; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">pneg</span> <span class="keyword">(</span><span class="string">&quot;&sim; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">CL_P</span> <span class="keyword">(</span><span class="string">"P#"</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">CL_Bot</span> <span class="keyword">(</span><span class="string">&quot;&perp;&quot;</span><span class="keyword">)</span> <span class="keyword">and</span>
+  <span class="ident">CL_Imp</span> <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;-&gt;&quot;</span> <span class="ident">25</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* The datatype below defines a language of a modal logic with
+   a possibly infinite number of agents, which we represent with a
+   @{typ &quot;&apos;b&quot;}.  Informally, we might write this using the following
+   BNF grammar (with some Isabelle style type annotations):
+   \[ \phi\ ::=\ \alpha\ |\ \bot\ |\ \phi \rightarrow \psi\ 
+      | \Box_X \phi \ |\ \odot_X\  
+      |\ \boxbox_X \phi\ |\ \boxboxI_X \phi \] *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">datatype</span> <span class="keyword">(</span><span class="tfree">'a</span><span class="keyword">,</span><span class="tfree">'b</span><span class="keyword">)</span> <span class="ident">evil_form</span> <span class="keyword">=</span> 
+    <span class="ident">E_P</span> <span class="tfree">'a</span>                                         <span class="keyword">(</span><span class="string">"P# _"</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">E_Bot</span>                                          <span class="keyword">(</span><span class="string">&quot;&perp;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">E_PP</span> <span class="tfree">'b</span>                                        <span class="keyword">(</span><span class="string">&quot;\&lt;odot&gt;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">E_Imp</span> <span class="string">"('a,'b) evil_form"</span> <span class="string">"('a,'b) evil_form"</span>  <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;-&gt;&quot;</span> <span class="ident">25</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">E_B</span> <span class="tfree">'b</span> <span class="string">"('a,'b) evil_form"</span>                     <span class="keyword">(</span><span class="string">&quot;\&lt;box&gt;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">E_BB</span> <span class="tfree">'b</span> <span class="string">"('a,'b) evil_form"</span>                    <span class="keyword">(</span><span class="string">"[-]"</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">E_BBI</span> <span class="tfree">'b</span> <span class="string">"('a,'b) evil_form"</span>                   <span class="keyword">(</span><span class="string">"[+]"</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">types</span> <span class="keyword">(</span><span class="tfree">'a</span><span class="keyword">,</span><span class="tfree">'b</span><span class="keyword">)</span> <span class="ident">evil_world</span> <span class="keyword">=</span> <span class="string">&quot;&apos;a set * (&apos;b =&gt; (&apos;a cl_form set))&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We now turn to giving the recursive, compositional EviL semantic 
+   evaluation function.  EviL can be understood to rest on the 
+   semantics for classical propositional logic we have previously 
+   given.  This gives EviL a sort of Russian doll semantics, in way. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">fun</span> <span class="ident">evil_eval</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;a,&apos;b) evil_world set 
+                       =&gt; (&apos;a,&apos;b) evil_world 
+                         =&gt; (&apos;a,&apos;b) evil_form 
+                           =&gt; bool&quot;</span> <span class="keyword">(</span><span class="string">&quot;_,_ |\&lt;Turnstile&gt; _&quot;</span> <span class="ident">50</span><span class="keyword">)</span> <span class="keyword">where</span>
+     <span class="string">&quot;(_,(a,_) |\&lt;Turnstile&gt; P# p) = (p &isin; a)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(_,_ |\&lt;Turnstile&gt; &perp;) = False&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) |\&lt;Turnstile&gt; &phi; -&gt; &psi;) = 
+        ((&Omega;,(a,A) |\&lt;Turnstile&gt; &phi;) --&gt; (&Omega;,(a,A) |\&lt;Turnstile&gt; &psi;))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) |\&lt;Turnstile&gt; \&lt;box&gt; X &phi;) = 
+        (&forall;(b,B) &isin; &Omega;. (&forall;&chi; &isin; A(X). b \&lt;Turnstile&gt; &chi;)  
+                        --&gt;  &Omega;,(b,B) |\&lt;Turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) |\&lt;Turnstile&gt; \&lt;odot&gt; X) = (&forall;&chi; &isin; A(X). a \&lt;Turnstile&gt; &chi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) |\&lt;Turnstile&gt; [-] X &phi;) = 
+        (&forall;(b,B) &isin; &Omega;. a = b 
+           --&gt; B(X) &sube; A(X) 
+             --&gt;  &Omega;,(b,B) |\&lt;Turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) |\&lt;Turnstile&gt; [+] X &phi;) = 
+        (&forall;(b,B) &isin; &Omega;. a = b 
+           --&gt; B(X) &supe; A(X) 
+             --&gt;  &Omega;,(b,B) |\&lt;Turnstile&gt; &phi;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Here are the Kripke semantics for EviL, which shall be critical
+   for Henkin truth lemmas, Lindenbaum model construction and other
+   model theoretic concerns. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">record</span> <span class="keyword">(</span><span class="tfree">'w</span><span class="keyword">,</span><span class="tfree">'a</span><span class="keyword">,</span><span class="tfree">'b</span><span class="keyword">)</span> <span class="ident">evil_kripke</span> <span class="keyword">=</span>
+  <span class="ident">W</span> <span class="keyword">::</span> <span class="string">"'w set"</span>
+  <span class="ident">V</span> <span class="keyword">::</span> <span class="string">&quot;&apos;w =&gt; &apos;a =&gt; bool&quot;</span>
+  <span class="ident">PP</span> <span class="keyword">::</span> <span class="string">&quot;&apos;b =&gt; &apos;w set&quot;</span>
+  <span class="ident">RB</span> <span class="keyword">::</span> <span class="string">&quot;&apos;b =&gt; (&apos;w * &apos;w) set&quot;</span>
+  <span class="ident">RBB</span> <span class="keyword">::</span> <span class="string">&quot;&apos;b =&gt; (&apos;w * &apos;w) set&quot;</span>
+  <span class="ident">RBBI</span> <span class="keyword">::</span> <span class="string">&quot;&apos;b =&gt; (&apos;w * &apos;w) set&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">fun</span> <span class="ident">evil_modal_eval</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;w,&apos;a,&apos;b) evil_kripke 
+                         =&gt; &apos;w
+                           =&gt; (&apos;a,&apos;b) evil_form
+                             =&gt; bool&quot;</span> <span class="keyword">(</span><span class="string">&quot;_,_ |\&lt;turnstile&gt; _&quot;</span> <span class="ident">50</span><span class="keyword">)</span> <span class="keyword">where</span>
+     <span class="string">&quot;(M,w |\&lt;turnstile&gt; P# p) = (p &isin; V(M)(w))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(_,_ |\&lt;turnstile&gt; &perp;) = False&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w |\&lt;turnstile&gt; &phi; -&gt; &psi;) = 
+          ((M,w |\&lt;turnstile&gt; &phi;) --&gt; (M,w |\&lt;turnstile&gt; &psi;))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w |\&lt;turnstile&gt;  \&lt;box&gt; X &phi;) = 
+          (&forall;v &isin; W(M). (w,v) &isin; RB(M)(X)  
+                      --&gt;  M,v |\&lt;turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w |\&lt;turnstile&gt; \&lt;odot&gt; X) = (w &isin; PP(M)(X))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w |\&lt;turnstile&gt; [-] X &phi;) = 
+          (&forall;v &isin; W(M). (w,v) &isin; RBB(M)(X) 
+                      --&gt;  M,v |\&lt;turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w |\&lt;turnstile&gt; [+] X &phi;) = 
+          (&forall;v &isin; W(M). (w,v) &isin; RBBI(M)(X) 
+                      --&gt;  M,v |\&lt;turnstile&gt; &phi;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>

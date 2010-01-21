@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Theory Dual_EviL_Semantics (Isabelle2009-1: December 2009)</title>
+<link media="all" rel="stylesheet" type="text/css" href="isabelle.css"/>
+</head>
+
+<body>
+<div class="head"><h1>Theory Dual_EviL_Semantics</h1>
+
+
+<p><a href="index.html">Up</a> to index of Isabelle/HOL/EviL</p>
+<span class="command">theory</span> <span class="name">Dual_EviL_Semantics</span><br/>
+<span class="keyword">imports</span> <a href="EviL_Semantics.html"><span class="name">EviL_Semantics</span></a><br/>
+
+</div>
+<hr/>
+<div class="source">
+<pre><span class="command_span"><span class="command">header</span><span class="verbatim">{* Dual EviL Grammar and Semantics *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">theory</span> <span class="ident">Dual_EviL_Semantics</span>
+<span class="keyword">imports</span> <span class="ident">EviL_Semantics</span>
+<span class="keyword">begin</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* It should be noted that the previous grammar and 
+   semantics for EviL we have given are convenient 
+   for certain parts of the model theory of EviL and
+   inconvenient for others.  For instance, since 
+   classical logic may be axiomatized so succinctly using
+   just letters, implication and falsum, and then confers 
+   Lindenbaum constructions to \emph{any} extension, it is
+   useful to have a grammar that reflects this. Likewise,
+   the celebrated \emph{axiom K} suggests that modal logic
+   is naturally captured by extending the grammar of classical 
+   logic in precisely the manner we have, that is by 
+   incorporating modal $\Box$ operators. On the other hand, 
+   inductive arguments in this grammar and resulting can 
+   be challenging at times. However, the same inductive arguments 
+   in the \emph{dual} grammar, incorporating letters, 
+   disjunction, negation, verum, and modal $\Diamond$ can 
+   be significantly simpler. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* In this file, we give an alternate, \emph{dual} grammar 
+   and semantics for both the Kripke and set-theoretic 
+   semantics for EviL, and in both cases we show
+   that the original semantics are equivalent to the dual 
+   semantics under translation. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">datatype</span> <span class="keyword">(</span><span class="tfree">'a</span><span class="keyword">,</span><span class="tfree">'b</span><span class="keyword">)</span> <span class="ident">devil_form</span> <span class="keyword">=</span> 
+    <span class="ident">DE_P</span> <span class="tfree">'a</span>                         <span class="keyword">(</span><span class="string">"P#' _"</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_Top</span>                          <span class="keyword">(</span><span class="string">&quot;\&lt;top&gt;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_Conj</span> <span class="string">"('a,'b) devil_form"</span> 
+            <span class="string">"('a,'b) devil_form"</span>    <span class="keyword">(</span><span class="keyword">infixr</span> <span class="string">&quot;&and;&quot;</span> <span class="ident">30</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_Neg</span> <span class="string">"('a,'b) devil_form"</span>     <span class="keyword">(</span><span class="string">&quot;&not; _&quot;</span> <span class="keyword">[</span><span class="ident">40</span><span class="keyword">]</span> <span class="ident">40</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_D</span> <span class="tfree">'b</span> <span class="string">"('a,'b) devil_form"</span>    <span class="keyword">(</span><span class="string">&quot;\&lt;diamond&gt;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_PP</span> <span class="tfree">'b</span>                        <span class="keyword">(</span><span class="string">&quot;\&lt;odot&gt;&apos;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_DD</span> <span class="tfree">'b</span> <span class="string">"('a,'b) devil_form"</span>   <span class="keyword">(</span><span class="string">&quot;&lang;-&rang;&quot;</span><span class="keyword">)</span>
+  <span class="keyword">|</span> <span class="ident">DE_DDI</span> <span class="tfree">'b</span> <span class="string">"('a,'b) devil_form"</span>  <span class="keyword">(</span><span class="string">&quot;&lang;+&rang;&quot;</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">fun</span> <span class="ident">devil_eval</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;a,&apos;b) evil_world set 
+                       =&gt; (&apos;a,&apos;b) evil_world 
+                         =&gt; (&apos;a,&apos;b) devil_form 
+                           =&gt; bool&quot;</span> <span class="keyword">(</span><span class="string">&quot;_,_ ||\&lt;Turnstile&gt; _&quot;</span> <span class="ident">50</span><span class="keyword">)</span> <span class="keyword">where</span>
+     <span class="string">&quot;(_,(a,_) ||\&lt;Turnstile&gt; P#&apos; p) = (p &isin; a)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(_,_ ||\&lt;Turnstile&gt; \&lt;top&gt;) = True&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) ||\&lt;Turnstile&gt; &phi; &and; &psi;) = 
+      ((&Omega;,(a,A) ||\&lt;Turnstile&gt; &phi;) &and; (&Omega;,(a,A) ||\&lt;Turnstile&gt; &psi;))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) ||\&lt;Turnstile&gt; &not; &phi;) = (~ (&Omega;,(a,A) ||\&lt;Turnstile&gt; &phi;))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) ||\&lt;Turnstile&gt; \&lt;diamond&gt; X &phi;) = 
+      (&exist;(b,B) &isin; &Omega;. (&forall;&chi; &isin; A(X). b \&lt;Turnstile&gt; &chi;)  
+                    &and;  &Omega;,(b,B) ||\&lt;Turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) ||\&lt;Turnstile&gt; \&lt;odot&gt;&apos; X) = (&forall;&chi; &isin; A(X). a \&lt;Turnstile&gt; &chi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) ||\&lt;Turnstile&gt; &lang;-&rang; X &phi;) = (&exist;(b,B) &isin; &Omega;. a = b 
+                              &and; B(X) &sube; A(X) 
+                              &and;  &Omega;,(b,B) ||\&lt;Turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(&Omega;,(a,A) ||\&lt;Turnstile&gt; &lang;+&rang; X &phi;) = 
+      (&exist;(b,B) &isin; &Omega;. a = b &and; B(X) &supe; A(X) &and;  &Omega;,(b,B) ||\&lt;Turnstile&gt; &phi;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">fun</span> <span class="ident">devil_modal_eval</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;w,&apos;a,&apos;b) evil_kripke 
+                         =&gt; &apos;w
+                           =&gt; (&apos;a,&apos;b) devil_form
+                             =&gt; bool&quot;</span> <span class="keyword">(</span><span class="string">&quot;_,_ ||\&lt;turnstile&gt; _&quot;</span> <span class="ident">50</span><span class="keyword">)</span> <span class="keyword">where</span>
+     <span class="string">&quot;(M,w ||\&lt;turnstile&gt; P#&apos; p) = (p &isin; V(M)(w))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(_,_ ||\&lt;turnstile&gt; \&lt;top&gt;) = True&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w ||\&lt;turnstile&gt; &phi; &and; &psi;) = 
+      ((M,w ||\&lt;turnstile&gt; &phi;) &and; (M,w ||\&lt;turnstile&gt; &psi;))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w ||\&lt;turnstile&gt; &not; &phi;) = (~ (M,w ||\&lt;turnstile&gt; &phi;))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w ||\&lt;turnstile&gt;  \&lt;diamond&gt; X &phi;) = 
+      (&exist;v &isin; W(M). (w,v) &isin; RB(M)(X) &and; M,v ||\&lt;turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w ||\&lt;turnstile&gt; \&lt;odot&gt;&apos; X) = (w &isin; PP(M)(X))&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w ||\&lt;turnstile&gt; &lang;-&rang; X &phi;) = 
+      (&exist;v &isin; W(M). (w,v) &isin; RBB(M)(X) &and; M,v ||\&lt;turnstile&gt; &phi;)&quot;</span>
+  <span class="keyword">|</span>  <span class="string">&quot;(M,w ||\&lt;turnstile&gt; &lang;+&rang; X &phi;) = 
+      (&exist;v &isin; W(M). (w,v) &isin; RBBI(M)(X) &and; M,v ||\&lt;turnstile&gt; &phi;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">primrec</span> <span class="ident">devil</span> <span class="keyword">::</span> <span class="string">&quot;(&apos;a,&apos;b) evil_form 
+                   =&gt; (&apos;a,&apos;b) devil_form&quot;</span> <span class="keyword">where</span>
+    <span class="string">"devil P# p = P#' p"</span>
+  <span class="keyword">|</span> <span class="string">&quot;devil &perp; = (&not; \&lt;top&gt;)&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;devil (&phi; -&gt; &psi;) = (&not; ((devil &phi;) &and; &not; (devil &psi;)))&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;devil (\&lt;box&gt; X &phi;) = (&not; (\&lt;diamond&gt; X  (&not; (devil &phi;))))&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;devil (\&lt;odot&gt; X) = \&lt;odot&gt;&apos; X&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;devil ([-] X &phi;) = (&not; (&lang;-&rang; X  (&not; (devil &phi;))))&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;devil ([+] X &phi;) = (&not; (&lang;+&rang; X  (&not; (devil &phi;))))&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* In all cases, the equivalence 
+   of the semantics follows from routine,
+   utterly mechanical induction. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">evil_devil1</span><span class="keyword">:</span>
+  <span class="string">&quot;&forall;M. &forall;w. (M,w |\&lt;Turnstile&gt; &phi;) = (M,w ||\&lt;Turnstile&gt; devil &phi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&phi;</span><span class="keyword">,</span> <span class="ident">fastsimp</span><span class="keyword">+</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">evil_devil2</span><span class="keyword">:</span>
+  <span class="string">&quot;&forall;M. &forall;w. (M,w |\&lt;turnstile&gt; &phi;) = (M,w ||\&lt;turnstile&gt; devil &phi;)&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&phi;</span><span class="keyword">,</span> <span class="ident">fastsimp</span><span class="keyword">+</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Next, we present a primitive recursive 
+   subformula operation.  We show
+   that it results in a finite list. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">primrec</span> <span class="ident">devil_subforms</span> 
+ <span class="keyword">::</span> <span class="string">&quot;(&apos;a,&apos;b) devil_form =&gt; (&apos;a,&apos;b) devil_form set&quot;</span> <span class="keyword">(</span><span class="string">&quot;\&lt;down&gt;&quot;</span><span class="keyword">)</span>
+<span class="keyword">where</span>
+    <span class="string">&quot;\&lt;down&gt;(P#&apos; p) = {P#&apos; p}&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(\&lt;top&gt;) = {\&lt;top&gt;}&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(&not; &phi;) = {&not; &phi;} &cup; \&lt;down&gt;(&phi;)&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(&phi; &and; &psi;) = {&phi; &and; &psi;} &cup; \&lt;down&gt;(&phi;) &cup; \&lt;down&gt;(&psi;)&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(\&lt;diamond&gt; X &phi;) = {\&lt;diamond&gt; X &phi;} &cup; \&lt;down&gt;(&phi;)&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(\&lt;odot&gt;&apos; X) = {\&lt;odot&gt;&apos; X}&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(&lang;-&rang; X &phi;) = {&lang;-&rang; X &phi;} &cup; \&lt;down&gt;(&phi;)&quot;</span>
+  <span class="keyword">|</span> <span class="string">&quot;\&lt;down&gt;(&lang;+&rang; X &phi;) = {&lang;+&rang; X &phi;} &cup; \&lt;down&gt;(&phi;)&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">finite_devil_subforms</span><span class="keyword">:</span>
+<span class="string">&quot;finite (\&lt;down&gt; &phi;)&quot;</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&phi;</span><span class="keyword">,</span> <span class="ident">simp_all</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="ident">subform_refl</span> <span class="keyword">[</span><span class="ident">simp</span><span class="keyword">]</span><span class="keyword">:</span>
+<span class="string">&quot;&phi; &isin; \&lt;down&gt;&phi;&quot;</span></span><span class="ignored_span"> 
+  </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&phi;</span><span class="keyword">,</span> <span class="ident">simp_all</span><span class="keyword">)</span></span><span class="ignored_span">
+ 
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* We next define a locale for a letter
+   grabbing operation @{term &quot;&rho;&quot;},
+   which we shall employ in various model
+   theoretic arguments.  *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">locale</span> <span class="ident">EviL_&rho;</span> <span class="keyword">=</span>
+  <span class="keyword">fixes</span> <span class="ident">&phi;</span> <span class="keyword">::</span> <span class="string">"('a, 'b) devil_form"</span>
+  <span class="keyword">fixes</span> <span class="ident">Ws</span> <span class="keyword">::</span> <span class="string">"'w set"</span>
+  <span class="keyword">fixes</span> <span class="ident">L</span> <span class="keyword">::</span> <span class="string">"'a set"</span>
+  <span class="keyword">assumes</span> <span class="ident">infi_L</span><span class="keyword">:</span> <span class="string">"infinite L"</span>
+      <span class="keyword">and</span> <span class="ident">fini_Ws</span><span class="keyword">:</span> <span class="string">"finite Ws"</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">definition</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">EviL_&rho;</span><span class="keyword">)</span> <span class="ident">&rho;</span> <span class="keyword">::</span> <span class="string">&quot;&apos;w =&gt; &apos;a&quot;</span>
+<span class="keyword">where</span> <span class="string">&quot;&rho; == SOME g. inj_on g Ws 
+                  &and; range g &sube; (L - {p. (P#&apos; p) &isin; (\&lt;down&gt; &phi;)})&quot;</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Above, we have picked @{term &quot;&rho;&quot;} to have the
+   properties we desire, but we really have to prove
+   that something like this exists or else we are
+   talking nonsense (alas, this is the eternal curse
+   of Brouwer&apos;s fallen angels, who forsook intuition
+   and instead chose choice).  Fortunately, the existance of
+   the desired function is a consequence of various
+   other facts we have as background. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">EviL_&rho;</span><span class="keyword">)</span> <span class="ident">&rho;_works</span><span class="keyword">:</span>
+  <span class="string">&quot;inj_on &rho; Ws
+       &and; range &rho; &sube; L - {p. (P#&apos; p) &isin; (\&lt;down&gt; &phi;)}&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">proof</span> <span class="ident">-</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;finite {p. (P#&apos; p) &isin; (\&lt;down&gt; &phi;)}&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">induct</span> <span class="ident">&phi;</span><span class="keyword">)</span> <span class="ident">simp_all</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">infi_L</span> <span class="ident">Diff_infinite_finite</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;infinite (L - {p. (P#&apos; p) &isin; (\&lt;down&gt; &phi;)})&quot;</span></span><span class="ignored_span">
+    </span><span class="command_span"><span class="command">by</span> <span class="ident">blast</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">fini_Ws</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">have</span> <span class="string">&quot;&exist; g. inj_on g Ws 
+         &and; range g &sube; (L - {p. (P#&apos; p) &isin; (\&lt;down&gt; &phi;)})&quot;</span></span><span class="ignored_span">
+   </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">fastsimp</span> <span class="ident">intro</span><span class="keyword">!</span><span class="keyword">:</span> <span class="ident">fin_inj_on_infi</span><span class="keyword">)</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">with</span> <span class="ident">&rho;_def</span>
+   <span class="keyword">and</span> <span class="ident">someI_ex</span> <span class="keyword">[</span><span class="keyword">where</span> <span class="ident">P</span><span class="keyword">=</span><span class="string">&quot;% g. inj_on g Ws
+                 &and; range g &sube; (L - {p. (P#&apos; p) &isin; (\&lt;down&gt; &phi;)})&quot;</span><span class="keyword">]</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">show</span> <span class="var">?thesis</span></span><span class="ignored_span"> </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">qed</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">text</span>
+<span class="verbatim">{* Next we&apos;ll show that @{term &quot;&phi;&quot;} can&apos;t really talk about
+   @{term &quot;P#&apos; &rho;(w)&quot;}, and that @{term &quot;&rho;&quot;} preserves
+   equality in @{term &quot;Ws&quot;}. *}</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">EviL_&rho;</span><span class="keyword">)</span> <span class="ident">&phi;_vocab</span><span class="keyword">:</span>
+<span class="keyword">shows</span> <span class="string">&quot;P#&apos; &rho;(w) &notin; \&lt;down&gt;&phi;&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">&rho;_works</span> <span class="ident">rangeI</span></span><span class="ignored_span">
+  </span><span class="command_span"><span class="command">by</span> <span class="ident">fastsimp</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">lemma</span> <span class="keyword">(</span><span class="keyword">in</span> <span class="ident">EviL_&rho;</span><span class="keyword">)</span> <span class="ident">&rho;_eq</span><span class="keyword">:</span>
+<span class="keyword">shows</span> <span class="string">&quot;{w,v} &sube; Ws ==&gt; (w = v) = (&rho;(w) = &rho;(v))&quot;</span></span><span class="ignored_span">
+</span><span class="command_span"><span class="command">using</span> <span class="ident">&rho;_works</span></span><span class="ignored_span">
+ </span><span class="command_span"><span class="command">by</span> <span class="keyword">(</span><span class="ident">auto</span><span class="keyword">,</span> <span class="ident">unfold</span> <span class="ident">inj_on_def</span><span class="keyword">,</span> <span class="ident">blast</span><span class="keyword">)</span></span><span class="ignored_span">
+
+</span><span class="command_span"><span class="command">end</span></span></pre>
+<hr/>
+
+</div>
+</body>
+</html>
