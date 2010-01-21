@@ -1009,7 +1009,7 @@ notation
 evil_ClassAx.Atoms ("Atoms") and
 evil_ClassAx.lift_imp (infix ":\<rightarrow>" 24)
 
-abbreviation pevil_canonical_model ::
+definition pevil_canonical_model ::
   "('a,'b) evil_form
    \<Rightarrow> (('a,'b) evil_form set,'a,'b) evil_kripke" ("\<angle>")
 where
@@ -1034,6 +1034,8 @@ where
                     {\<psi>. ([-]' X \<psi>) \<in> v} \<subseteq> w \<and>
                     {([-]' X \<psi>) | \<psi>. ([-]' X \<psi>) \<in> v} \<subseteq> w})
   \<rparr>"
+
+declare pevil_canonical_model_def [simp]
 
 text {* To prove the truth lemma for @{term "\<angle> \<phi>"}
  we shall prove the inductive steps for the boxes seperately.
@@ -1526,3 +1528,5 @@ proof -
   with \<Phi>_atom have "(\<Phi>,\<Psi>) \<in> RB(\<angle> \<phi>) X" by fastsimp
   with B show ?thesis by blast
 qed
+
+end
