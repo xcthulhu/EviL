@@ -1,0 +1,233 @@
+% \documentclass{letter}
+% \usepackage{geometry,amsmath,amssymb}
+% \geometry{letterpaper}
+% 
+% %%%%%%%%%% Start TeXmacs macros
+% \newcommand{\assign}{:=}
+% \newcommand{\colons}{\,:\,}
+% \newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+% \newcommand{\tmtextsc}[1]{{\scshape{#1}}}
+% \newenvironment{itemizedot}{\begin{itemize} \renewcommand{\labelitemi}{$\bullet$}\renewcommand{\labelitemii}{$\bullet$}\renewcommand{\labelitemiii}{$\bullet$}\renewcommand{\labelitemiv}{$\bullet$}}{\end{itemize}}
+% \newenvironment{proof}{\noindent\textbf{Proof\ }}{\hspace*{\fill}$\Box$\medskip}
+% \newtheorem{definition}{Definition}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{theorem}{Theorem}
+% %%%%%%%%%% End TeXmacs macros
+
+%\begin{document}
+
+In this section, I illustrate that the structural validities of \textsc{EviL} can be used to reason that $\BM, \BP, \DM,$ and $\DP$ exhibit certain behavior over two dual fragments of the language $\mathcal{L}(\Phi)$.
+
+The following lemma summerizes the structural validities, in a systematic fashion, that I will be studying in the subsequent discussion:
+
+\begin{lemma}
+  \label{validities}The following validities hold for all \tmtextsc{EviL}
+  models:
+  \[ \begin{array}{lll}
+       \VDash \boxminus p \leftrightarrow p & \hspace{5em} & \VDash \boxplus p
+       \leftrightarrow p\\
+       \VDash \boxminus \neg p \leftrightarrow \neg p &  & \VDash \boxplus
+       \neg p \leftrightarrow \neg p\\
+       \VDash \boxminus \diamondsuit \phi \leftrightarrow \diamondsuit \phi & 
+       & \VDash \boxplus \Box \phi \leftrightarrow \Box \phi\\
+       \VDash \DM \Box \phi \leftrightarrow \Box \phi &  &
+       \VDash \DP \diamondsuit \phi \leftrightarrow \diamondsuit
+       \phi\\
+       \VDash \boxminus \boxminus \phi \leftrightarrow \boxminus \phi &  &
+       \VDash \boxplus \boxplus \phi \leftrightarrow \boxplus \phi\\
+       \VDash \boxminus \DP \phi \leftrightarrow \DP \phi &  & \VDash \boxplus \DM \phi
+       \leftrightarrow \DM \phi\\
+       \VDash \boxminus \circlearrowleft \leftrightarrow \circlearrowleft &  &
+       \VDash \boxplus \neg \circlearrowleft \leftrightarrow \neg
+       \circlearrowleft
+     \end{array} \]
+\end{lemma}
+
+These validities suggest a definite interplay between the modalities of
+\tmtextsc{EviL} -- this section is devoted to establishing a certain
+expression of this interplay that follows from the interplay expressed above.
+
+First note that the usual substitution rule holds:
+
+\begin{lemma}
+  If $\VDash \phi \leftrightarrow \psi$ is a validity, then $\VDash \chi
+  \leftrightarrow \chi [\phi / \psi]$ is a validity for any $\chi \in
+  \mathcal{L} (\Phi)$.
+\end{lemma}
+
+Next, I
+offer the following definition of two sublanguages of the main language of
+\tmtextsc{EviL}:
+
+\begin{definition}
+  Define the following fragments:\footnote{The fragment $\mathcal{L}_A(\Phi)$ was inspired from the continuous fragment of $\mu \tmop{PML}$ (FIXME).}
+  
+  $\mathcal{L}_A (\Phi)$:
+  \[ \phi {::=} \  p \  | \  \neg p
+     \  | \  \top \  | \  \bot
+     \  | \  \circlearrowleft \  | \ 
+     \phi \wedge \psi \  | \  \phi \vee \psi \ 
+     | \  \diamondsuit \phi \  | \  \boxminus
+     \phi \  | \  \DP \phi \]
+  $\mathcal{L}_B (\Phi)$:
+  \[ \phi {::=} \  \neg p \  | \  p
+     \  | \  \bot \  | \  \top
+     \  | \  \neg \circlearrowleft \  |
+     \  \phi \vee \psi \  | \  \phi \wedge \psi
+     \  | \  \Box \phi \  | \  \DM \phi \  | \  \boxplus \phi \  \]
+\end{definition}
+
+\begin{definition}
+  Define two dualizing operations $(\cdot)^A : \mathcal{L}_B (\Phi)
+  \rightarrow \mathcal{L}_A (\Phi)$ and $(\cdot)^B : \mathcal{L}_A (\Phi)
+  \rightarrow \mathcal{L}_B (\Phi)$, using recursion, such that:
+  \[ \begin{array}{ll}
+       \neg p^A \assign p & p^B \assign \neg p\\
+       p^A \assign \neg p & \neg p^B \assign p\\
+       \bot^A \assign \top & \top^B \assign \bot\\
+       \top^A \assign \bot & \bot^B \assign \top\\
+       \neg \circlearrowleft^A \assign \circlearrowleft & \circlearrowleft^B
+       \assign \neg \circlearrowleft\\
+       (\phi \vee \psi)^A \assign \phi^A \wedge \psi^A & (\phi \wedge \psi)^B
+       \assign \phi^B \vee \psi^B\\
+       (\phi \wedge \psi)^A \assign \phi^A \vee \psi^A & (\phi \vee \psi)^B
+       \assign \phi^B \wedge \psi^B\\
+       (\Box \psi)^A \assign \diamondsuit (\psi^A) & (\diamondsuit \psi)^B
+       \assign \Box(\psi^B)\\
+       (\DM \psi)^A \assign \boxminus (\psi^A) & (\boxminus
+       \psi)^B \assign \DM (\psi^B)\\
+       (\boxplus \psi)^A \assign \DP (\psi^A) & (\DP \psi)^B \assign \boxplus (\psi^B)
+     \end{array} \]
+\end{definition}
+
+With the above definition in hand, observe the following natural duality
+theorem:
+
+\begin{lemma}
+  Observe that for all $\phi \in \mathcal{L}_A (\Phi)$ and $\psi \in
+  \mathcal{L}_B (\Phi)$, $(\phi^B)^A = \phi$ and $(\psi^A)^B = \psi$. \
+  Moreover, we have the following validities: $\VDash \neg (\phi^B)
+  \leftrightarrow \phi$ and $\VDash \neg (\psi^A) \leftrightarrow \psi$.
+\end{lemma}
+
+\begin{proof}
+  The above follows from routine induction.
+\end{proof}
+
+The above duality is convenient, since it means that results proven for one
+fragment $\mathcal{L}_A (\Phi)$ can be transfered to $\mathcal{L}_B (\Phi)$ in
+a straight-forward manner.
+
+Here is what I see as the consequence of the logical equivalence given in
+Lemma \ref{validities}:
+
+\begin{definition}
+  If $\phi \in \mathcal{L}_X (\Phi)$ then let $\phi^{\ast}$ be the same
+  formula, with all instances of $\boxplus$, $\boxminus$, $\DM$
+  and $\DP$ eliminated.
+\end{definition}
+
+\begin{theorem}[Vanishing]\label{vanishing}
+  For all $\phi \in \mathcal{L}_A (\Phi)$ or $\phi \in \mathcal{L}_B (\Phi)$,
+  we have the following validity:
+  \[ \VDash \phi \leftrightarrow \phi^{\ast} \]
+\end{theorem}
+
+\begin{proof}
+  To prove proceeds in three steps.
+  
+  Step 1: First, use induction on $\phi \in \mathcal{L}_A (\Phi)$, and show
+  the following two facts simultaneously:
+  \begin{align*}
+    {\VDash}{\boxminus}{\phi}{\leftrightarrow}{\phi} &
+    {\hspace{3em}}{\VDash}\DP{\phi}{\leftrightarrow}{\phi}
+  \end{align*}
+  \begin{itemizedot}
+    \item Cases $p$, $\neg p$, $\bot$, $\top$, $\circlearrowleft$: \ In all of
+    these situations, the result follows from the validities illustrated in
+    Lemma \ref{validities}.
+    
+    \item Cases $\wedge, \vee$: \ For $\boxminus$ the connective $\wedge$ is
+    simple, and dually for $\DP$ for the connective $\vee$. \
+    This is because in each case one may simply use distribution, such as can
+    be done here:
+    \begin{align*}
+      {\VDash}{\boxminus}({\phi}{\wedge}{\psi}) &
+      {\leftrightarrow}{\boxminus}{\phi}{\wedge}{\boxminus}{\psi}\\
+      & {\leftrightarrow}{\phi}{\wedge}{\psi}
+    \end{align*}
+    
+    On the other hand, $\vee$ is more interesting for $\boxminus$, and dually
+    $\wedge$ for $\DP$.  Using induction, Lemma
+    \ref{validities}, and subsitution, and distribution, we have the line of
+    reasoning:
+    \begin{align*}
+      {\VDash}{\boxminus}({\phi}{\vee}{\psi}) &
+      {\leftrightarrow}{\boxminus}(\DP{\phi}{\vee}\DP{\psi})\\
+      & {\leftrightarrow}{\boxminus}\DP({\phi}{\vee}{\psi})\\
+      & {\leftrightarrow}\DP({\phi}{\vee}{\psi})\\
+      &
+      {\leftrightarrow}\DP{\phi}{\vee}\DP{\psi}\\
+      & {\leftrightarrow}{\phi}{\vee}{\psi}
+    \end{align*}
+    
+    \item Case $\diamondsuit$: Once again, this follows immediately from the
+    validities of Lemma \ref{validities}, namely $\VDash \boxminus
+    \diamondsuit \phi \leftrightarrow \diamondsuit \phi$ and $\VDash \DP \diamondsuit \phi \leftrightarrow \diamondsuit \phi$
+    
+    \item Cases $\boxminus, \DP$: The final step follows from
+    one more application of Lemma \ref{validities}, namely by employing the
+    following four validities
+    \[ \begin{array}{ll}
+         \VDash \boxminus \DP \phi \leftrightarrow \DP \phi & \VDash \DP \DP \phi
+         \leftrightarrow \DP \phi\\
+         \VDash \boxminus \boxminus \phi \leftrightarrow \boxminus \phi &
+         \VDash \DP \boxminus \phi \leftrightarrow \boxminus
+         \phi
+       \end{array} \]
+  \end{itemizedot}
+  Step 2: \ With the above, we can prove for any $\phi \in \mathcal{L}_A
+  (\Phi)$ that $\VDash \phi \leftrightarrow \phi^{\ast}$.  Once again, the
+  proof proceeds by induction, the only steps worth noting involve $\boxminus$
+  and $\DP$.  In either case, employing the step can be
+  completed using Step 1. For instance, we know that $\VDash \boxminus \phi
+  \leftrightarrow \phi$, hence $\VDash \boxminus \phi \leftrightarrow
+  \phi^{\ast}$ by induction.
+  
+  Step 3: \ With the result for $\mathcal{L}_A (\Phi)$ in hand, just observe
+  that for $\psi \in \mathcal{L}_B (\Phi)$ we have that $(\psi^A)^{\ast} =
+  (\psi^{\ast})^A$. With this, substitution, and duality, we have the
+  following chain of reasoning:
+  \begin{align*}
+    {\VDash}{\psi} & {\leftrightarrow}{\neg}({\psi}^A)\\
+    & {\leftrightarrow}{\neg}(({\psi}^A)^{{\ast}})\\
+    & {\leftrightarrow}{\neg}(({\psi}^{{\ast}})^A)\\
+    & {\leftrightarrow}{\neg}({\neg}((({\psi}^{{\ast}})^A)^B))\\
+    & {\leftrightarrow}{\neg}{\neg}{\psi}^{{\ast}}\\
+    & {\leftrightarrow}{\psi}^{{\ast}}
+  \end{align*}
+\end{proof}
+
+\begin{example}
+ The following validities of \textsc{EviL} are consequences of Theorem \ref{vanishing}:
+\[\VDash \BM\DP\Pos\DP\BM\Pos\Pos\DP\BM\DP\Pos\BM\Pos\BM\DP\BM\Pos\DP\neg p  \IFF \Pos\Pos\Pos\Pos\Pos\Pos\neg p \]
+\[ \VDash ((\DM\BP\Nec q\wedge\BP\DM\Nec q)\vee\Nec\BP\DM q)\wedge((\BP\Nec\DM q\vee\Nec\DM\BP q)\wedge\DM\Nec\BP q)  \IFF \Nec q \]
+\[ \VDash \BM\DP\Pos t \vee \DM\BP\Box \neg t \]
+\end{example}
+
+
+The way I read Theorem \ref{vanishing} is that $\boxminus$
+and $\DP$ is empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B
+(\Phi)$ with $\DM$ and $\boxplus$.  Further, note that
+$\mathcal{L}_0 (\Phi) \subseteq \mathcal{L}_A (\Phi) \cap \mathcal{L}_B
+(\Phi)$ (up to translation), which means that all four of $\boxplus$,
+$\boxminus$ along with their duals $\DP$ and $\DM$
+vanish on the propositional language.  Inspecting the semantics, this is to
+be expected, since neither $\boxplus$ nor $\boxminus$ interact with propositional truth values.
+
+% \end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

@@ -1,0 +1,125 @@
+In this section I turn to developing the formal semantics for \tmtextsc{EviL} with a single agent.  I imagine the object of study in \textsc{EviL} is an agent, which I call the \textsc{EviL} agent.  In \S(FIXME), the semantic framework offered here is extended to incorporate multiple agents. In Appendix (FIXME), yet another framework is offered employing gamelike semantics, which avoids the grammar restriction suggested in \S(FIXME).  %Since the original semantics offered in \S\ref{sketch} were subject to paradox, it will be of central importance to give an account of \textsc{EviL} that is not subject to paradox.
+
+I mentioned that the semantics previously developed in \S\ref{sketch}
+gave rise to a paradox.  To avoid paradoxes like this, the previous definition shall be discarded, in favor of demonstrably well-defined semantics.  This shall be achieved in two steps.
+
+\begin{definition} Let $\mathcal{L}_0 (\Phi)$ be the language of classical propositional logic, defined by the following Backus-Naur form grammar:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \]
+\end{definition}
+Models for classical propositional logic can be thought of as sets $S \subseteq \Phi$; thus the truth predicate $(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
+\rightarrow \textup{\textsf{bool}}${\footnote{$\ldots$ where $\textup{\textsf{bool}} := \{True, False\}$.  This is more commonly written as
+$(\models) \colons \powerset \Phi \rightarrow
+\textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  My notation reflects
+the notation common to the typed functional programming languages
+\tmtextit{Haskell} and \tmtextit{OCaml}. I will use both notations interchangeably.}} for classical propositional logic
+is given recursively.  
+\begin{definition}
+Define $(\models)$ such that:
+\begin{align*}
+  S{\models}p & {\iff}p{\in}S\\
+  S{\models}{\phi}{\rightarrow}{\psi} & {\iff}S{\models}{\phi}\text{ implies
+  }S{\models}{\psi}\\
+  S{\models}{\bot} & {\iff} False
+\end{align*}
+\end{definition}
+Further, observe that the language $\mathcal{L}_0$ is extended by \tmtextsc{EviL}
+\begin{definition} Define $\mathcal{L} (\Phi)$ by the following Backus-Naur grammar:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \  |
+   \  \Box \phi \  | \  \boxminus \phi
+   \  | \  \boxplus \phi \  | \ 
+   \circlearrowleft \]
+%$\ldots$where $X \in \mathcal{A}$.
+\end{definition}
+%I have The two fragments  correspond to two sublogics of \textsc{EviL}. 
+ \tmtextsc{EviL} models are sets $\Omega
+\subseteq \powerset \Phi \times \powerset
+\mathcal{L}_0 (\Phi)$.  Like classical propositional logic, semantics for
+\tmtextsc{EviL} are given recursively by a predicate
+\[ (\VDash) \colons \powerset  (\powerset \Phi \times \powerset \mathcal{L}_0 (\Phi)) \rightarrow \powerset \Phi
+   \times \powerset \mathcal{L}_0 (\Phi)
+   \rightarrow \mathcal{L} (\Phi) \rightarrow
+   \textup{\textsf{bool}}. \]
+That is, $(\VDash)$ is a function that:
+\begin{itemizedot}
+  \item Takes as input:
+\begin{itemizedot}
+  \item An \evil model
+  
+  \item A pair $(a, A)$ where
+  \begin{itemizedot}
+    \item $a\subseteq \Phi$ is a set of proposition letters
+    
+    \item $A\subseteq \mathcal{L}_0 (\Phi)$ is a set of propositional formulae.
+  \end{itemizedot}
+  \item A formula in the language $\mathcal{L} (\Phi)$
+  \end{itemizedot}
+  \item Gives as output: a truth value in $\textup{\textsf{bool}}$
+\end{itemizedot}
+I can now provide a formal definition of the semantics for \textsc{EviL}:
+%{\footnote{Where $X \in \mathcal{A}$, I use $A$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow\powerset \mathcal{L}_0 (\Phi)$}}
+\begin{definition}
+ Define $(\VDash)$ recursively such that:
+\begin{align*}
+  {\Omega},(a,A){\VDash} p & {\iff}p{\in}a\\
+  {\Omega},(a,A){\VDash} {\phi}{\rightarrow}{\psi} &
+  {\iff}{\Omega},(a,A){\VDash}{\phi}\text{ implies
+  }{\Omega},(a,A){\VDash}{\psi}\\
+  {\Omega},(a,A){\VDash}{\bot} & {\iff} False\\
+  {\Omega},(a,A){\VDash}\Box {\phi} & {\iff}{\forall}(b,B){\in}{\Omega}.
+  ({\forall}{\psi}{\in}A. b{\models}{\psi})\text{ implies
+  }{\Omega},(b,B){\VDash}{\phi}\\
+  {\Omega},(a,A){\VDash}{\boxminus}{\phi} &
+  {\iff}{\forall}(b,B){\in}{\Omega}. a=b\text{ and }B{\subseteq}A\text{
+  implies }{\Omega},(b,B){\VDash}{\phi}\\
+  {\Omega},(a,A){\VDash}{\boxplus}{\phi} &
+  {\iff}{\forall}(b,B){\in}{\Omega}. a=b\text{ and }B{\supseteq}A\text{
+  implies }{\Omega},(b,B){\VDash}{\phi}\\
+  {\Omega},(a,A){\VDash}{\circlearrowleft} & {\iff}
+  {\forall}{\psi}{\in}A.a{\models}{\psi}
+\end{align*}
+I will write $\Omega \VDash \phi$ to mean $\Omega, (a,A) \VDash \phi$ for all $(a,A) \in \Omega$.  Further, I will write $\VDash \phi$ to mean $\Omega \VDash \phi$ for all $\Omega$.
+\end{definition}
+These semantics are well defined, since apart from relying on the semantics
+for propositional logic they may be observed to be compositional.{\footnote{In
+fact, I have provided a formulation of these semantics in the same manner as
+above in the computer proof assistant Isabelle/HOL \citep{nipkow_isabelle/hol:proof_2002}; I shall
+give my remarks on formal verification in \S\ref{formal}.  In the case of
+Isabelle/HOL, the function $(\VDash)$ was defined inductively, and
+automatically proven to be well-defined.  Specifically, the conditions given
+above specify that $(\VDash)$ is determined by a \tmtextit{monotonic}
+predicate over suitable tupples, and similarly for $(\models)$.  Hence the
+result that $(\VDash)$ is well-defined ultimately relies on an application of
+the \tmtextit{Knaster-Tarski Fixpoint Theorem} \citep[chapter 12]{roman_lattices_2008}. Further,
+since I have given an inductive definition, these recursive definitions rely
+on the {\tmem{least}} fixpoint of their associated monotonic operators.}} 
+Moreover, the following relationship can be observed:
+
+\begin{lemma}
+  Let $\phi \in \mathcal{L}_0 (\Phi)$.  Then:
+  \[ a \models \phi \Longleftrightarrow \Omega, (a, A) \VDash \phi \]
+  $\ldots$for any $\Omega$ and $A$.
+\end{lemma}
+
+\begin{proof}
+  This may be seen immediately by induction on $\phi$.
+\end{proof}
+
+$\ldots$with this, we have the following, mirroring Prop. \ref{central-prop}:
+ 
+\begin{definition}  Define the following:
+ $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega \VDash \phi \}$$
+\end{definition}
+
+\begin{theorem}[Theorem Theorem]\label{theorem-theorem}
+  If $A$ is finite, then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_{\text{\textsc{EviL}}} \phi$.
+\end{theorem}
+
+I shall present $\vdash_{\text{\textsc{EviL}}}$, the logical consequence turnstile for \textsc{EviL}, in \S\ref{evil-axioms}.
+
+I chose the name ``Theorem Theorem'' because it means that for every belief the \textsc{EviL} agent has, it is a theorem she has derived from her premises. Theorem \ref{theorem-theorem} establishes one of the central desiderata outlined in \S\ref{close} is achieved by \textsc{EviL}.  With this result the foundation is set for the the central intuition driving \textsc{EviL} - that beliefs are the consequences of logical deductions.  It is a peculiarity of \textsc{EviL} that these deductions are carried on in \textsc{EviL} itself.  This was achieved, primarily, by my previous flirtation with paradox.  And as a consequence, I have tried to design \textsc{EviL} to eat its own tail. This is my favorite kind of self-reference. As a modeler using logic, it establishes that the \textsc{EviL} agent is herself also a modeler just like me, using the same logic I am using to think about her herself, to think about the state space she lives in.  It reminds me of a quote regarding the wonderful circularity of mathematics, due to \citet{browne_garden_1736}:
+\begin{quote}
+All things began in order, so shall they end, and so shall they begin again; according to the ordainer of order and mystical Mathematicks of the City of Heaven.\end{quote}
+
+%However, it is desirable to first give more familiar semantics for \textsc{EviL}, so as to stress that off the shelf modal logic can be used in its investigation.

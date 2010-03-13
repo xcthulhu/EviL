@@ -1,0 +1,31 @@
+\documentclass[]{article}
+\usepackage{MnSymbol}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4em,
+  column sep=3em, text height=1.5ex, text depth=0.25ex]
+  { 
+ & |(EVIL)| \textup{\textsc{EviL}} & \\
+|(EVIL-)| \textup{\textsc{EviL}}^\boxminus &  & |(EVIL+)| \textup{\textsc{EviL}}^\boxplus \\
+& |(K)| K &\\
+ };
+  \path[>=latex,->>]
+   (K) edge (EVIL+)
+(K) edge (EVIL-)
+(EVIL-) edge (EVIL)
+(EVIL+) edge (EVIL)
+;
+\end{tikzpicture}
+\end{center}
+\end{document}

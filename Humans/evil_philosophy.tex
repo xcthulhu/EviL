@@ -1,0 +1,811 @@
+\documentclass[11pt]{article}
+%\usepackage{pdfsync}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb,amsmath}
+\usepackage[geometry]{ifsym}
+\usepackage{bussproofs}
+\usepackage[sort, round]{natbib}
+\usepackage{hyperref}
+ \hypersetup{
+     colorlinks,%
+     citecolor=black,%
+     filecolor=black,%
+     linkcolor=black,%
+     urlcolor=black
+ }
+
+%\usepackage{xltxtra}
+
+%\usepackage{epstopdf}
+\usepackage{gn-logic14}
+%\usepackage{rotating}
+\usepackage{pifont,staves}
+\usepackage{mathabx}
+\usepackage{tocloft}
+\usepackage{MnSymbol}
+
+\usepackage[geometry]{ifsym}
+%\usepackage{bussproofs}
+
+\usepackage{tabularx,booktabs,multirow}
+
+%%%%%%%%%% Start TeXmacs macros
+\newcommand{\assign}{:=}
+%\newcommand{\nin}{\not\in}
+\newcommand{\tmtextsf}[1]{{\sffamily{#1}}}
+\newcommand{\tmem}[1]{{\em #1\/}}
+\newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+\newcommand{\tmtextit}[1]{{\itshape{#1}}}
+\newcommand{\tmstrong}[1]{{\textbf{#1}}}
+\newcommand{\tmtextsc}[1]{{\scshape{#1}}}
+\newcommand{\colons}{\,:\,}
+%%%%%%%%%%%%%%%%%%%%%
+\usepackage{enumitem}
+
+\newlist{mynum}{enumerate}{10} 
+\setlist[mynum]{label=\textup{(\emph{\arabic*})}, topsep=0.0in, parsep=0.00in}
+
+\newlist{myRoman}{enumerate}{10} 
+\setlist[myRoman]{label=\textup{(\emph{\Roman*})}, topsep=0.0in, parsep=0.075in}
+
+\newlist{myroman}{enumerate}{10} 
+\setlist[myroman]{label=\textup{(\emph{\roman*})}, topsep=0.0in, parsep=0.075in}
+
+\newlist{enumerateroman}{enumerate}{10} 
+\setlist[enumerateroman]{label=\textup{(\emph{\roman*})}, topsep=0.0in, parsep=0.075in}
+
+\newlist{empt}{itemize}{10} 
+\setlist[empt]{label*=, topsep=0.1in, parsep=0.075in}
+
+\newlist{bul}{itemize}{10} 
+\setlist[bul]{label=$\bullet$, topsep=0.0in,parsep=0.075in,}
+\setlist[bul,2]{label=$\circ$, topsep=0.0in,parsep=0.075in,}
+\setlist[bul,3]{label=$\diamond$, topsep=0.0in,parsep=0.075in,}
+
+\newlist{itemizedot}{itemize}{10} 
+\setlist[itemizedot]{label=$\bullet$, topsep=0.0in,parsep=0.075in,}
+\setlist[itemizedot,2]{label=$\circ$, topsep=0.0in,parsep=0.075in,}
+\setlist[itemizedot,3]{label=$\diamond$, topsep=0.0in,parsep=0.075in,}
+
+\newlist{myalpha}{enumerate}{10} 
+\setlist[myalpha]{label=(\emph{\alph*}), topsep=0.1in, parsep=0.1in}
+
+\textwidth = 6.5 in
+\textheight = 8.5 in
+\oddsidemargin = 0.0 in
+\evensidemargin = 0.0 in
+\topmargin = 0.0 in
+\headheight = 0.0 in
+\headsep = 0.0 in
+\parskip = 0.1in
+\parindent = 0.0in
+
+%%%%%%%%%%%%%
+\usepackage{amsthm}
+\numberwithin{equation}{subsection}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{mydef}[theorem]{Definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{lemma}[theorem]{Lemma}
+\renewcommand{\qedsymbol}{\small QED}
+
+%Symbols
+
+\DeclareMathSymbol{\sqsubset}       {3}{mathb}{"80}
+% \mathabx@undefine{\sqsupset}%
+\DeclareMathSymbol{\sqsupset}       {3}{mathb}{"81}
+\DeclareMathSymbol{\nsqsubset}      {3}{mathb}{"82}
+\DeclareMathSymbol{\nsqsupset}      {3}{mathb}{"83}
+\DeclareMathSymbol{\sqsubseteq}     {3}{mathb}{"84}
+\DeclareMathSymbol{\sqsupseteq}     {3}{mathb}{"85}
+\DeclareMathSymbol{\nsqsubseteq}    {3}{mathb}{"86}
+\DeclareMathSymbol{\nsqsupseteq}    {3}{mathb}{"87}
+\DeclareMathSymbol{\sqsubsetneq}    {3}{mathb}{"88}
+\DeclareMathSymbol{\sqsupsetneq}    {3}{mathb}{"89}
+\DeclareMathSymbol{\varsqsubsetneq} {3}{mathb}{"8A}
+\DeclareMathSymbol{\varsqsupsetneq} {3}{mathb}{"8B}
+% %
+\DeclareMathSymbol{\sqsubseteqq}    {3}{mathb}{"8C}
+\DeclareMathSymbol{\sqsupseteqq}    {3}{mathb}{"8D}
+\DeclareMathSymbol{\nsqsubseteqq}   {3}{mathb}{"8E}
+\DeclareMathSymbol{\nsqsupseteqq}   {3}{mathb}{"8F}
+\DeclareMathSymbol{\sqsubsetneqq}   {3}{mathb}{"90}
+\DeclareMathSymbol{\sqsupsetneqq}   {3}{mathb}{"91}
+\DeclareMathSymbol{\varsqsubsetneqq}{3}{mathb}{"92}
+\DeclareMathSymbol{\varsqsupsetneqq}{3}{mathb}{"93}
+% %
+\DeclareMathSymbol{\sqSubset}       {3}{mathb}{"94}
+\DeclareMathSymbol{\sqSupset}       {3}{mathb}{"95}
+\DeclareMathSymbol{\nsqSubset}      {3}{mathb}{"96}
+\DeclareMathSymbol{\nsqSupset}      {3}{mathb}{"97}
+
+\DeclareMathSymbol{\subset}        {3}{matha}{"80}
+\DeclareMathSymbol{\supset}        {3}{matha}{"81}
+\DeclareMathSymbol{\nsubset}       {3}{matha}{"82}
+\DeclareMathSymbol{\nsupset}       {3}{matha}{"83}
+\DeclareMathSymbol{\subseteq}      {3}{matha}{"84}
+\DeclareMathSymbol{\supseteq}      {3}{matha}{"85}
+\DeclareMathSymbol{\nsubseteq}     {3}{matha}{"86}
+\DeclareMathSymbol{\nsupseteq}     {3}{matha}{"87}
+\DeclareMathSymbol{\subsetneq}     {3}{matha}{"88}
+\DeclareMathSymbol{\supsetneq}     {3}{matha}{"89}
+\DeclareMathSymbol{\varsubsetneq}  {3}{matha}{"8A}
+\DeclareMathSymbol{\varsupsetneq}  {3}{matha}{"8B}
+%
+\DeclareMathSymbol{\subseteqq}     {3}{matha}{"8C}
+\DeclareMathSymbol{\supseteqq}     {3}{matha}{"8D}
+\DeclareMathSymbol{\nsubseteqq}    {3}{matha}{"8E}
+\DeclareMathSymbol{\nsupseteqq}    {3}{matha}{"8F}
+\DeclareMathSymbol{\subsetneqq}    {3}{matha}{"90}
+\DeclareMathSymbol{\supsetneqq}    {3}{matha}{"91}
+\DeclareMathSymbol{\varsubsetneqq} {3}{matha}{"92}
+\DeclareMathSymbol{\varsupsetneqq} {3}{matha}{"93}
+%
+\DeclareMathSymbol{\Subset}        {3}{matha}{"94}
+\DeclareMathSymbol{\Supset}        {3}{matha}{"95}
+\DeclareMathSymbol{\nSubset}       {3}{matha}{"96}
+\DeclareMathSymbol{\nSupset}       {3}{matha}{"97}
+
+
+\DeclareMathSymbol{\mbxVdash}         {3}{matha}{"2C}
+\renewcommand{\Vdash}{\mbxVdash}
+\DeclareMathSymbol{\mbxnVdash}        {3}{matha}{"2E}
+\renewcommand{\nVdash}{\mbxnVdash}
+\DeclareMathSymbol{\mbxVvdash}        {3}{mathb}{"2C}
+\renewcommand{\Vvdash}{\mbxVvdash}
+%\DeclareMathSymbol{\mbxnVvash}        {3}{mathb}{"2E}
+\newcommand{\nVvdash}{\nVvash}
+\DeclareMathSymbol{\mbxvDash}         {3}{matha}{"28}
+\renewcommand{\vDash}{\mbxvDash}
+\renewcommand{\models}{\mbxvDash}
+\DeclareMathSymbol{\mbxnvDash}        {3}{matha}{"2A}
+\renewcommand{\nvDash}{\mbxnvDash}
+\renewcommand{\nmodels}{\mbxnvDash}
+\renewcommand{\diamondsuit}{\Diamond}
+
+%\renewcommand{\VDash}{|\equiv}
+\newcommand{\elem}{}
+\newcommand{\bs}{\ensuremath{\backslash}}
+\newcommand{\mathbbm}{\mathbb}
+\newcommand{\evil}{\textsc{EviL} }
+\newcommand{\Omegap}{\Omega}
+\renewcommand{\Omega}{\mathfrak{M}}
+\newcommand{\ra}{\rangle}
+\newcommand{\la}{\langle}
+\renewcommand{\Cross}{\textrm{\ding{61}}}
+\newcommand{\iCross}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
+\newcommand{\ipent}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\ensuremath{\largepentagram}}}}\!\!\!}
+%\newcommand{\ang}{\textrm{\tiny{\staveVI}}}
+\newcommand{\ang}{\Lambda}
+\newcommand{\DD}{\diamondminus}
+\newcommand{\DDI}{\diamondplus}
+\newcommand{\pDD}{\diamondslash}
+\newcommand{\pDDI}{\diamondtimes}
+\newcommand{\Nec}{\Box}
+\newcommand{\Pos}{\Diamond}
+\newcommand{\BD}{\boxdot}
+\newcommand{\BM}{\boxminus}
+\newcommand{\DM}{\diamondminus}
+\newcommand{\PD}{\diamonddot}
+\newcommand{\BP}{\boxplus}
+\newcommand{\BB}{\boxminus}
+\newcommand{\pBB}{\boxslash}
+\newcommand{\BBI}{\boxplus}
+\newcommand{\pBBI}{\boxtimes}
+\newcommand{\NM}{\boxminus}
+\newcommand{\PP}{\circlearrowleft}
+\newcommand{\DP}{\diamondplus}
+\newcommand{\PM}{\diamondminus}
+\newcommand{\falsum}{\bot}
+\newcommand{\FB}{\filledmedsquare}
+\newcommand{\BlackBox}{\filledmedsquare}
+\newcommand{\NT}{\boxtimes}
+\newcommand{\PT}{\diamondtimes}
+\newcommand{\INP}{\boxplusI}
+\newcommand{\INM}{\boxminusI}
+\newcommand{\mo}[2]{\ensuremath{\mathfrak{M},( #1, #2 )}}
+\newcommand{\pr}[2]{\ensuremath{( #1, #2 )}}
+\newcommand{\rel}[1]{\ensuremath{R_{#1}}}
+\newcommand{\lc}{\ullcorner}
+\newcommand{\rc}{\ulrcorner}
+%\newcommand{\invis}{\textrm{\tiny{\staveLXII}}}
+\newcommand{\invis}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
+%\newcommand{\invis}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
+%\newcommand{\Kill}{\textrm{\footnotesize{\staveXV}}}
+\newcommand{\Kill}{\theta}
+%\renewcommand\eminnershape{\bfshape}
+
+% \usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\title{\textsc{EviL}}
+
+\author{Matthew P. Wampler-Doty}
+\date{}                                           % Activate to display a given date or no date
+\begin{document}
+\maketitle
+\pagebreak
+\tableofcontents
+\pagebreak
+%\begin{abstract} In this paper I present philosophical motivation for \emph{Evidentialist Logic}, an alternative framework to mainstream Epistemic Logic.  I will begin by characterizing Epistemic Logic, and illustrate that it embodies what I call the \emph{thermometer theory of logical agency}.  I then propose an alternative framework, which I shall call the \emph{logical theory of logical agency}.  I shall then go on to present semantics and illustrate that they accomplish this purpose.
+% based on principles from evidentialist epistemology. 
+% We consider the elementary case of a single agent in a static environment.  The aim of this logic is to give an account of how an agent may ignore or entertain evidence in their deductions; hence we refer to our logic as \emph{Evidentialist Logic}, abbreviated \textsc{EviL}.
+%\end{abstract}
+\section{Philosophy of \textsc{EviL}}\label{philosophy}
+%\cftchapterprecis{15 pgs}
+\subsection{Forward}
+The idea of applying modal logic to the study of knowledge more or less began with \citet{hintikka_knowledge_1969}.  In this it is suggested that one can use the possible world framework of modal logic to model ideal logical agents, and reason about concepts like knowledge and belief as modal $\Box$s.  In Hintikka's original text, some philosophical emphasis is put on the ideas of \emph{introspection}, which have two formulations:
+\begin{bul}
+	\item Positive: $\Box \phi \to \Box\Box \phi$ - ``If the agent knows a fact, then she knows that she knows this.''
+	\item Negative: $\Pos \phi \to \Box\Pos \phi$ - ``If the agent does not know a fact, she knows that she does not know this.''
+\end{bul}
+
+Intuitively, the second idea seems like something one ought to reject outright.  Many will recall the somewhat famous piece of sophistry put forward by former US secretary of defense Donald Rumsfeld \citep{rumsfeld_defense.gov_2002}:
+\begin{quote}
+Reports that say that something hasn't happened are always interesting to me, because as we know, there are known knowns; there are things we know we know. We also know there are known unknowns; that is to say we know there are some things we do not know. But there are also unknown unknowns -- the ones we don't know we don't know. And if one looks throughout the history of our country and other free countries, it is the latter category that tend to be the difficult ones.\end{quote}
+
+This quote was ultimately part of a larger, more diabolical justification for criminal military action.  Still, it is undeniably at variance with negative introspection; and despite its malicious intent behind it, it is compelling.  Furthermore, Hintikka also rejects negative introspection; and while it would seem from the above quote that Rumsfeld does not reject positive introspection, Hintikka does so explicitly \citep{hintikka_knowledge_1969}.
+
+Despite philosophical objections, the received view in modern epistemic logic embraces both negative and positive introspection.  In addition, the following axiom is also considered:
+\begin{bul}
+	\item Reflection: $\Box \phi \to \phi$ - ``If the agent knows a some statement, that statement is true''
+\end{bul}
+These three axioms together, along with the axioms and rules of elementary modal logic, form C.I. Lewis' system $S5$ \citep{lewis_symbolic_1951}.  Under correspondence theory, these axioms express that the underlying accessibility modal relation is an equivalence relation. That is, they express that the ideal agent under investigation has partitioned their state space into \emph{information states}.  It is well known that game theory shares an equivalent notion of information states (see, for instance, \citet{halpern_set-theoretic_1999} and \citet[chapter 3]{rubinstein_modeling_1998}).
+
+And while this view of knowledge finds industrial application, such as in \citet{agray_ban_2002} and \citet{hommersom_toward_2005,hommersom_update_2004}, it presents an inhuman perspective on knowledge, as the following is intended to illustrate.
+
+\subsection{Thermometers}\label{thermometers}
+Imagine a 1 m$^3$ box with a thermometer sealed hermetically inside, as in Fig.  \ref{fig:therm1}.  Further, pretend that the thermometer reads 290 Kelvin.  How many moles of gas are in the chamber?
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=.5]{thermometer.pdf}
+\end{center}
+\caption{A thermometer in a box}
+\label{fig:therm1}
+\end{figure}
+
+The answer is indeterminate.  Recall that the the \emph{ideal gas law} was originally discovered by \'{E}mile Clapeyon \citep{clapeyron_mmoire_1834}; in modern parlance it reads:
+\[ P V = n R T\]
+Where:
+\begin{bul}
+\item $P$ is the pressure in pascals
+\item $V$ is the volume in cubic meters
+\item $n$ is the number of moles of gas
+\item $T$ is the temperature in Kelvins
+\item $R$ is the \emph{ideal gas constant}, $\approx8.3$ J$\cdot$K$^{-1}\cdot$mol$^{-1}$
+\end{bul}
+
+With the ideal gas law, we can see that the thermometer is effectively in an epistemic space.  To be explicit, consider the basic modal language with the following grammar:
+\[ \phi ::= x \textup{ pascals}  \ |\ y \textup{ moles}  \ |\ z \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi \]
+
+This can be seen to be an ordinary modal language with three kinds of letters.  Under this language, we can naturally understand that the thermometer is an epistemic agent in an $S5$ model for this language.  Explicitly, the model is the triple $\langle W, V, \sim \rangle$ where:
+\begin{bul}
+	\item $W$ is pairs $(P,n)$ where $P$ is some positive pressure in pascals and $n$ is some positive number of moles.
+	\item $V$ is defined as follows:
+	\begin{bul}
+		\item $(P,n) \in V(x \textup{\ pascals})$ if $P = x$
+		\item $(P,n) \in V(y \textup{\ moles})$ if $n = y$
+		\item $(P,n) \in V(z \textup{\ Kelvin})$ if $z = \frac{P}{n \cdot R}$
+	\end{bul}
+	\item Finally, $(P,n) \sim (P',n')$ holds if and only if $P \cdot n' = P' \cdot n$ 
+\end{bul}
+We can also visualize the information states in Fig.  \ref{fig:therm2}; they form rays emanating from the origin.
+
+Now, I give this example because it is representative of the perspective provided by epistemic logic - agents are essentially elaborate \emph{sensor networks} in the received view.  Imagine we were to go up to an agent and ask her why she believes some proposition $\phi$; what could she possibly say?  She'd say she feels $\phi$ with every fiber of her being, that it's true in every conceivable world she can think of.  The reason that $\phi$ occurs to the agent is because it's what her sensory instruments tell her. Methodologically, this is exactly the same as the way the thermometer was modeled in the previous thought experiment. To this end I shall abbreviate the received view on epistemic logic as the \emph{thermometer theory of knowledge}.
+
+This isn't knowledge.  The thermometer theory is inadequate:  if I were to ask a person why she believes a proposition $\phi$, I probably wouldn't accept appeals that she cannot conceive of the contrary as possible.  I'd want some kind of explanation, especially if $\phi$ were a piece of mathematics, to give principle example.  It would certainly make the enterprise of mathematics far simpler if proving theorems amounted to exhibiting that their negation is not imaginable.  This gives rise to the following philosophical observation:
+\begin{quote}
+\textbf{Thermometer Principle}: \emph{Traditional epistemic agents, like thermometers, don't really have knowledge, since one must have reasons for the things they believe.}
+\end{quote}
+
+As I will elaborate, the above assertion follows from more general concerns I have with epistemic logic.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=.5]{therm.pdf} 
+\end{center}
+\caption{Thermometer information states}
+\label{fig:therm2}
+\end{figure}
+\subsection{Explicit Justification}\label{explicit}
+
+I hold that the \emph{Thermometer Principle} is an expression of the following more fundamental idea:
+\begin{quote}
+ \textbf{Justification Principle}: \emph{In order to know something, one must have a some kind of sufficient justification.}
+\end{quote}
+I contend that derivation in a logical calculus is suitable
+justification for the above principle. In light of this, all of my
+future developments shall center around the idea that in order to have
+knowledge, one must have a special derivation.  Since knowledge
+entails belief \citep[under the traditional view in]{gettier_is_1963},
+I have decided to simply equate belief with having a derivation.
+Hence knowledge can then be thought of a species of this kind of
+derivational belief. And while it is perhaps as bad an
+oversimplification as the thermometer view I have previously
+criticized, my modeling technique assumes \emph{doxastic omniscience},
+which is to say that I assume an agent's beliefs are closed under
+logical consequence\footnote{\cite{hintikka_knowledge_1969} assumes a
+  similar perspective; for modeling purposes, the agent is assumed to
+  have adequate time to realize the consequences of their beliefs.
+  Similarly, we might interpret belief as what is refered to in
+  \citet{levesque_logic_1984} as ``implicit belief.''}.  This will be illustrated shortly.
+
+The \emph{Justification Principle} is similar to demanding
+\emph{explicit justification} for beliefs in epistemic logic. I am not
+the first person to suggest this. The modern hunt for logics of
+explicit justification appears to have been initiated in
+\citet{van_benthem_reflectionsepistemic_1991}\footnote{While this
+  paper is considered seminal, it should be remarked that research
+  into this subject began prior to it.  Specifically, the
+  \emph{phrase} ``explicit belief'' appears to have its origins in
+  \citep{levesque_logic_1984}.}. One framework which has been proposed
+to achieve this is \emph{Justification Logic}
+\citep{artemov_introducing_2005,artemov_justification_2007,fitting_logic_2004,fitting_logic_2005}.
+Alternative frameworks for reasoning about implicit/explicit
+information have also been proposed in \citet{van_benthem_inference_2009} and
+\citet{velzquez-quesada_inference_2009}.
+
+
+\subsection{Sketch}\label{sketch}
+
+These analyses mentioned in the previous section are all quite
+sophisticated; I have in mind something comparatively na\"{i}ve.  
+I shall present a sketch in this section -- that being said I intend
+to be extremely informal.  A formal development of the ideas shall be 
+given in \S\ref{evil-grammar}.  With this proviso, consider the basic
+modal language $\mathcal{L}(\Phi)$:
+\[ \phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi \]
+
+Further, let $\Omega \subseteq \powerset \Phi \times \powerset \mathcal{L}(\Phi)$, that is, let $\Omega$ be pairs of sets of letters and formulae. Define the following truth predicate $\VDash$ recursively as follows:
+\begin{empt}
+ \item $\Omega, (a,A) \VDash p \iff p \in a$
+ \item $\Omega, (a,A) \VDash \phi \to \psi \iff \Omega, (a,A) \VDash \phi$ implies $\Omega, (a,A) \VDash \psi$
+ \item $\Omega, (a,A) \VDash \bot \iff False$
+ \item $\Omega, (a,A) \VDash \Box \phi \iff $ for all $(b,B) \in \Omega$, $\Omega,(b,B) \VDash A$ implies $\Omega, (b,B)\VDash \phi$ for all $(b,B) \in \Omega$
+\end{empt}
+
+Since the semantics like the above shall be the principle objects of
+study, I will give how I read them philosophically.  In these
+semantics, instead of thinking of every world individually, I think of
+every world as containing facts and a part of the agent's mind.  This
+part of the agent's mind is represented by what I shall refer to as
+propositions which she ascents to. I shall refer to these
+interchangeably as \emph{premises}, \emph{assumptions}, \emph{basic
+  beliefs}, \emph{experiences} or \emph{evidence}.  On the basis of
+her evidence, I imagine the agent composes arguments using the logic
+of semantics suggested and all of the worlds that are possible.  In
+this way, I consider this approach to be roughly in line with the
+\emph{evidentialist} view on epistemology, which
+\citet{conee_evidentialism_2004} describe as follows:
+\begin{quote}
+  [E]videntialism is a supervenience thesis according to which facts
+  about whether or not a person is justified in believing a
+  proposition supervene on facts describing the evidence that the
+  person has.
+\end{quote}
+$\ldots$however, while my sympathies are with this perspective on
+epistemology, they differ foundationally - while evidentialism
+develops intuitions using analytical philosophy, our approach shall be
+founded in formal semantics like the one above.
+
+That is, if a proper foundation can be provided at all.  Admittedly,
+the above formulation of truth immediately runs into a \emph{paradox}
+- for instance, if 
+\begin{bul}
+\item $a:=\varnothing$ 
+\item $A:=\{\Box \bot\}$
+\item and $\Omega:= \{(a,A)\}$
+\end{bul}
+\ldots then $\Omega,(a,A)\VDash \Box \bot$ has an indeterminate truth
+value.  So let $\mathcal{L}_0(\Phi)$ be the propositional fragment of
+$\mathcal{L}$; we shall restrict the truth value to $\Omega\subseteq
+\Phi \times \powerset \mathcal{L}_0(\Phi)$.  This suffices to make
+every truth value of this logic determinate.
+
+We may observe that the logic of these semantics is familiar:
+\begin{prop}
+Assuming that the set of proposition letters $\Phi$ is infinite
+$$\vdash_{K} \phi\textup{ if and only if } \Omega, (a,A) \VDash \phi \textup{ for all finite $\Omega$ for all $(a,A) \in \Omega$}$$
+\ldots where $K$ is basic modal logic.
+\end{prop}
+\begin{proof}
+ Left to right is trivial, so we shall focus on right to left.  Assume that $\nvdash_{K} \phi$, then we know from completeness and the finite model property that there's some finite model $\mathbb{M}=\langle W^\mathbb{M}, V^\mathbb{M}, R^\mathbb{M}\rangle$ and world $w \in W^\mathbb{M}$ such that $\mathbb{M},w \nVdash \phi$ (see \citet[chapters 2 \& 4]{blackburn_modal_2001} for details of these facts).
+
+Now let $\Lambda_\phi$ be the proposition letters that occur as subformulae of $\phi$, and let $\rho_\phi : W^\mathbb{M} \lhookrightarrow \Phi \bs \Lambda_\phi$ be an injection.  Define $\theta_\phi:W^\mathbb{M}\to \powerset\Phi \times \powerset \mathcal{L}_0(\Phi)$ as follows\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
+\begin{center}
+\begin{minipage}{3in}
+\begin{tabbing}
+	$\theta_\phi(w) := ($ \= $\{p\in \Phi \ |\ \mathbb{M},w\VDash p\} \cup \{\rho_\phi(w)\},$\\
+                       \> $\{ \bigvee \{\rho_\phi(v) \ | \ v\in W^\mathbb{M} \wedge w R^\mathbb{M}v \} \})$
+\end{tabbing}
+\end{minipage}
+\end{center}
+	
+
+(setq-default TeX-master nil)
+
+
+Now let $\Theta := \theta[W^\mathbb{M}]$. An induction on the complexity of subformulae $\psi$ of $\phi$ shows that 
+$\mathbb{M},w\Vdash \psi \iff \Theta,\theta(w) \VDash \psi$ for all $w \in W^\mathbb{M}$.  Since 
+$\mathbb{M}, w \nVdash \phi$ then we know that $\Theta,\theta(w)\nVDash \phi$, which completes the proof.
+\end{proof}
+
+Armed with this, we can see that these semantics are adequate for modeling agents according to my declared intentions, since we have the following:
+\begin{prop}\label{central-prop}
+ Let $A$ be finite and define $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega, (a,A) \VDash \phi \textup{ for all $(a,A) \in \Omega$\}}$$
+\ldots then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_K \phi$.
+\end{prop}
+\begin{proof}
+ To see left to right, just note that since $A$ is finite then if $\Omega, (a,A) \VDash \Box \phi$ evidently for all $(b,B)\in \Omega$ we have $\Omega, (b,B) \VDash \bigwedge A \to \phi$, which just means that $Th(\Omega) \cup A \vdash_K \phi$ by the deduction rule.
+
+On the other hand if $Th(\Omega) \cup A \vdash_K \phi$, then we know that $Th(\Omega) \vdash_K \bigwedge A \to \phi$, and since $Th(\Omega)$ is sound for $\Omega$ we then have that for all $(b,B) \in \Omega$ that $\Omega,(b,B)\VDash \bigwedge A \to \phi$.  Since $A$ is finite we know that  $\Omega,(b,B) \VDash A$ if and only if $\Omega,(b,B) \VDash \bigwedge A$, and thus we can deduce that $\Omega,(a,A)\VDash \Box \phi$ by definition.
+\end{proof}
+
+A natural way to read $Th(\Omega)$ is the background knowledge the agent has about the universe she lives in.  This approach presents an analysis of modal logic whereby an idealized agent is modeled as closed under deduction; this is the \emph{doxastic omniscience} I have mentioned earlier. Under this view, evidently the agent's beliefs correspond to those things for which she has proofs.  This shall be the basis of my future investigations.
+
+%However, before developing these semantics further, I would like to mention an alternative system of semantics. I shall illustrate that the goal of modeling agents which have proofs for their beliefs can be accomplished while avoiding the formulation of Russell's Paradox I have previously mentioned, without imposing a grammar restriction on the set of beliefs.
+
+\subsection{The Human Condition}\label{Human-Condition}
+%Returning to the ideas proposed in \S \ref{explicit}, I shall now proceed to sketch further developments I have in mind.
+To supplement to this basic framework, I shall try to illustrate how further inspiration and desiderata can be drawn from the philosophical literature.  It should be remarked that I do this in stark contrast to the received view in epistemic logic \citep[pg. 34]{lenzen_recent_1978}:
+\begin{quote}
+The search for the correct analysis of knowledge, while certainly of extreme importance and interest to epistemology, seems not significantly to affect the object of epistemic logic, the question of the validity of certain epistemic-logical principles.
+\end{quote}
+\ldots quite to the contrary, I feel epistemic logic should not turn it's back on philosophy. Philosophy critically provides guidance for the intuitions behind how knowledge should be correctly modeled.  It also provides a solid grounding in a proper treatment of knowledge.  However, engaging with philosophy is evidently not the thrust of mainstream epistemic logic.
+
+Most mainstream epistemic logic, the object of study is really the nature of information, not human knowledge.  It applies equally well to robots, \emph{homo economicus}, or thermometers as suggested in \ref{thermometers}.  It's inspiration is not really in the human experience; it's more naturally based in computer science, algebra, topology, and other mathematical disciplines.
+
+In contrast, I propose the following principle:
+\begin{quote}
+ \textbf{The Human Condition}: \emph{The analysis of knowledge should strive for a basis in the human experience}
+\end{quote}
+\ldots this principle indeed underpins the Justification Principle provided in \S\ref{explicit}. This is because I feel that the belief in a proposition can be thought of human only if the agent has a reason associated with it.  Otherwise, it seems that in the absence of reason, no account can be given for how the belief came about other than through instrumentation, which is the thermometer view.
+
+Embracing this principle, I shall turn to the development of my thoughts from their philosophical origins.
+
+\subsection{Soundness}\label{soundness}
+So to give a shallow example of a basic application of a philosophical idea, it is natural to insist that if knowledge is based on beliefs generated via deduction from some set of premises, then those premises have to be \emph{sound}. I suggest this can be done by introducing a new operator $\circlearrowleft$ with the following semantics:
+\[ \Omega,(a,A)\VDash \circlearrowleft \iff \Omega,(a,A)\VDash A\]
+Armed with these semantics, a first guess at what constitutes knowledge suggests it might be nothing more than possession of a belief based on a sound set of premises. So a first approximation of knowledge might be equated with the formula:
+$$\circlearrowleft \wedge \Box \phi.$$
+But is this anything like an adequate analysis of knowledge?
+
+\textbf{No}. To illustrate why I shall resort to a thought experiment to motivate why I think to the contrary.
+Imagine that Charlotte suspects, correctly, that if John has tried to murder
+on Alex, then Alex has survived.  She further learns, correctly, that John
+has indeed tried to murder Alex.  But later, she adds to her beliefs erroneous
+information Vietnam is south of Malaysia.  If we codify all of this as a set $C$, and let the real world be
+denoted $c$ and the universe $\Omega$, evidently we have $\Omega, (c, C) \nVDash
+\circlearrowleft$, so this previous definition of knowledge fails.  But
+should it?  I don't think so; Charlotte's knowledge about John's unspeakable
+betrayal of Alex is correct, as well as her inference that Alex is tough as
+nails.  Just because she has been deluded regarding irrelevant facts about geography shouldn't have any bearing on her
+knowledge about Alex.
+
+\subsection{Descartes}\label{Descartes}
+
+In reflection on the previous section, it should be remarked that philosophers have historically been concerned with defeasible experiential data, going back at least as early as Plato's \emph{The Republic VII} \citep{jowett_republic_1998}.
+In answer to the problem faced by the above analysis of knowledge, I think guidance can be found in Descartes' \emph{Meditations} \citep{vietch_descartes_2005}.  In
+\tmtextit{Meditations I}, Descartes suggests that he might be in an enlightenment era
+version of \tmtextit{The Matrix} created by an all powerful demon.  In
+\tmtextit{Meditations II}, he famously suggests how one might escape this
+trap:
+
+\begin{quote}
+{The Meditation of yesterday has filled my mind with so many doubts,
+that it is no longer in my power to forget them. Nor do I see, meanwhile, any
+principle on which they can be resolved; and, just as if I had fallen all of a
+sudden into very deep water, I am so greatly disconcerted as to be unable
+either to plant my feet firmly on the bottom or sustain myself by swimming on
+the surface. I will, nevertheless, make an effort, and try anew the same path
+on which I had entered yesterday, that is, proceed by casting aside all that
+admits of the slightest doubt, not less than if I had discovered it to be
+absolutely false; and I will continue always in this track until I shall find
+something that is certain, or at least, if I can do nothing more, until I
+shall know with certainty that there is nothing certain.}\end{quote}
+
+This tactic proposes a natural solution to the problem the previous
+thought experiment: \tmtextit{Charlotte can know that Alex survives if she
+ argues {\tmstrong{only}} from her experience involving Alex and John.
+ }  If like Descartes she can forget some of what she has come to believe that's a
+little suspicious, she might be able to compose an argument with a sound basis that Alex is alive.
+ Taking Descartes as inspiration, I would suggest a new semantic operation:
+\[ \Omega,(a,A) \VDash \BM \phi \iff \textup{ for all }(b,B)\in \Omega\textup{ such that }a = b\textup{ and }B \subseteq A\textup{ then }\Omega,(b,B) \VDash \phi\]
+
+This mechanism lets Charlotte access subsets of her beliefs, which would then form the basis for various arguments she might compose.  Provided that $(c,C')\in \Omega$, where $C'$ is the same as $C$ but doesn't mention erroneous beliefs about geographical data, it might serve as a basis for Charlotte's knowledge that Alex survives.  This suggests that the following equation might reasonably express a more adequate notion of knowledge:
+\[ \DM(\PP \wedge \Nec \phi) \]
+%This might be read informally as follows: some accessible subset of Charlotte's beliefs serves as a sound basis for the deducing $\phi$ (which, in this case, is thought to state ``Alex survives'').  We might 
+
+\subsection{Contradictions}\label{contradictions}
+
+There's hidden virtue in the previous analysis.  To see what it is, I am inspired by the 19th century philosopher Ralph Waldo Emerson, who writes in his essay \emph{Self-Reliance} \citep{emerson_essays_2008}:
+\begin{quote}
+{ Why drag about this corpse of your memory, lest you contradict somewhat you have stated in this or that public place? Suppose you should contradict yourself; what then? It seems to be a rule of wisdom never to rely on your memory alone, scarcely even in acts of pure memory, but to bring the past for judgment into the thousand-eyed present, and live ever in a new day. \ldots}
+
+{A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines. With consistency a great soul has simply nothing to do. He may as well concern himself with his shadow on the wall. Speak what you think now in hard words and to-morrow speak what to-morrow thinks in hard words again, 
+though it contradict every thing you said to-day. 
+-- `Ah, so you shall be sure to be misunderstood.' -- Is it so bad then to be misunderstood?
+}
+\end{quote}
+
+A healthy lack of consistency is just part of the human condition.  Isn't error-prone reasoning a hallmark of human thought?  And if a love sick epistemic agent $\exists$ is getting mixed signals from another epistemic agent $\forall$, why can't she draw inconsistent conclusions about $\forall$'s feelings on the one hand, but still have basic knowledge that $734\times 12 = 8808$ and other such irrelevant facts?  I don't see why not.  Under these considerations, I'd embrace the following:
+
+\begin{quote}
+ \textbf{Emerson's Principle}: \emph{One can be inconsistent and still have knowledge}
+\end{quote}
+
+Permit me illustrate how the framework I have given accommodates this. My treatment is further inspired by a friend and contemporary of Emerson's, the poet \emph{Walt Whitman}. In \emph{Leaves of Grass} \citep{whitman_leaves_2008}, he writes:
+\begin{center}{  Do I contradict myself?\\
+  Very well then I contradict myself,\\
+  (I am large, I contain multitudes.)}
+\end{center}
+
+So consider the model $\Omega$ in Fig. \ref{fig:example1}; this is intended to be a toy model of how I interpret Walt Whitman in the above stanza. This figure should be read as follows:
+\begin{bul}
+ \item if one point $(a,A)$ is above another point $(b,B)$ and connected by a dotted line \tikz \draw[densely dotted](0pt,0pt) -- (20pt,6pt);, this means that $a = b$ and $B \subset A$.  %This follows the standard notation for \emph{Hasse diagrams} (I shall return to why this is in \S \ref{quine}).
+  \item if one point $(a,A)$ is connected to another point $(b,B)$ by
+    a line with an arrow \tikz \draw[->,>=latex](0pt,0pt) --
+    (20pt,6pt);, this means that $\Omega,(b,B) \VDash A$
+
+\end{bul}
+%
+\begin{figure}[ht]
+\begin{center}
+  \includegraphics[]{example1/example1.pdf}
+\end{center}
+%
+%\caption{Inconsistent, yet still has knowledge (contains multitudes)}
+\caption{Inconsistent, yet still has knowledge}
+\label{fig:example1}
+\end{figure}
+%
+Observe that $\Omega,(\{p\},\{p,\neg p\}) \VDash \Box \bot$; it's obvious that in this state Walt is being inconsistent since he clearly believes contradictory things.  Simultaneously, we have that $\Omega,(\{p\},\{p,\neg p\}) \VDash \DM (\PP \wedge \Box p)$; so we figure that Walt has a sound argument that $p$.  Walt might be inconsistent, but it would appear that \emph{at least one} of his arguments makes sense.  And this is naturally because Walt contains a multiplicity of inner selves, just like he says, which the the $\BM$ modality gives access to.
+
+\subsection{Irrationality}\label{irrational}
+
+Embracing contradiction runs contrary to the received view on epistemic logic.  For instance, \citet{hendricks_wheresbridge?_2006} write:
+\begin{quote}
+{ Epistemic logic does carry epistemological significance
+ but in an inevitably idealized sort of way: One restricts attention to a
+class of rational agents where rationality is defined by certain
+postulates. Thus, agents have to satisfy at least some minimal
+conditions to simply qualify as rational. This is by and large
+what Lemmon originally suggests \citep{lemmon_symposium:_1959}.}
+\end{quote}
+Furthermore, it is conventional to think that rational agents do not hold contradictions.\footnote{It should be remarked that \citet{priest_doubt_2006} explicitly rejects this perspective on rationality.  Priest points out that in times of scientific revolution, rational people naturally hold contradictory views. He suggests that a paraconsistent logic framework could account for a rational agent holding contradictory beliefs.  I profess sympathy for Priest's perspective; however, I am confident that this does not represent the received view which I am arguing against.}  For instance, in \citep{kraus_knowledge_1986}, $\neg \Box \bot$ is taken as an axiom (it is A9 in their numbering).
+
+This is similar to the thermometer concept of knowledge we provided in \S\ref{explicit}, since like the thermometer view, it's incompatible with a human perspective.  Hence I extend the following:
+
+\begin{quote}
+ \textbf{Irrationality Principle}: \emph{Since humans are not rational, views on epistemic logic that postulate this should be rejected}
+\end{quote}
+
+I should mention that while this perspective is not typically embraced in epistemic logic\footnote{Noted exceptions to this are \citet{rantala_impossible_1982} and \citet{levesque_logic_1984}.}, it finds sympathy in other logical traditions, namely in \emph{relevance logic} and \emph{paraconsistent logic}, as already noted \citep[see][chapters 1 \& 4]{gabbay_handbook_2002}.
+
+%This principle evidently supervenes on the view that humans are not rational.  While I don't think this view is particularly controversial, it is perhaps good to sketch a very incomplete outline of some ways in which humans are not rational.  Most of the criticisms of rationality I shall present are rather targetted against \emph{game theory}.  However, as illustrated in \citet{halpern_set-theoretic_1999,rubinstein_modeling_1998,benthem_modal_2010}, natural parallels can be drawn and the approaches might be considered a unified whole.
+%
+%In what follows, in certain situations researchers have provided reponses that might be construed as a defense of a view of knowledge compatible with rationality.  I shall return to these defenses briefly.
+%
+%\begin{bul}
+% \item \emph{Humans don't employ classical logic or the probability calculus}
+%\begin{bul}
+%  \item Failure to reason with classical logic has been observed in (WASON) and subsequent studies in the famous \emph{Wason Card Selection Task} from psychology.
+%\begin{bul}
+%  \item (LAMBALGEN) suggests that logical analysis of participants in is still possible, permitted one grants that people are reasoning to various \emph{intepretations}.  Account for the failure of classical logic then extends from the idea that some of these interpretations are not classical.  
+%\end{bul}
+%  \item Failure to reason with probability has been observed in the \emph{Allais Paradox} (ALLAIS), the \emph{Ellsberg Paradox} (ALLAIS), the \emph{Linda Paradox} (KAHNEMAN), and subsequent studies.
+%\begin{bul}
+%  \item (CITEME:LEVI) provides a framework based on the \emph{interval probability calculus} that accounts for the paradoxes of Ellsberg and Allais.
+%\end{bul}
+%\end{bul}
+% \item \emph{Humans don't employ backwards induction or iterated elimination of dominated strategies.  Sometimes, they don't even use classical utility theory at all.}
+%\begin{bul}
+%  \item This has been observed repeatedly in seminal games from the experimental economics literature: the Prisoner's dilemma, \emph{Chain Store} (), the \emph{Centipede} (), Traveler's Dilemma (), Ultimatum (), Dictator () all exhibit  problems for the classic theory.
+%  \begin{bul}
+%  \item (:HALPERN) Illustrates that one might use iterated elimination of strategies based on regret rather than utility maximization might give a solution strategy for the the Traveler's Dilemma.
+%\end{bul}
+%\item (:LIST) demonstrates that in the case of the Dictator game, the introduction of seemingly irrelevant alternatives can induce a change in behavior.
+%\end{bul}
+%\item \emph{A person's preferences are not primitive; they can be manipulated in irrational ways.}
+%\begin{bul}
+%  \item In (:ARIELY), it is demonstrated that the price one bids in a Vickrey auction, a second price auction where it is weakly dominant to bid one's valuation, can be affected by providing a \emph{price anchor} in the form of a random number.  That is to say, providing an individual with a higher random number before running the auction evidently correlates with higher bidding rates.
+%  \item In (:GILBERT), it is demonstrated that the phenomenon of \emph{cognitive dissonance}, where one's beliefs are adjusted to match one's actions.  In the case of Gilbert's study, the experiment was to observe revision of preference.  Gilbert observed the phenomenon of cognitive dissonance based preference revision in psychiatric patients with \emph{anterograde amnesia}, who are people who cannot form new memories.  The study suggests that preferences are fundamentally effected by choices individuals make, which is generally not a perspective accomodated in decision theory. 
+%\end{bul}
+%\end{bul}
+%
+%While some replies might be given to the above criticisms, in general practitioners of epistemic logic do not engage these issues.  I should remark that I, too, do not engage these issues addressed, but I am sympathetic to efforts to accomodate them (especially approaches such as those given in (:LAMBALGEN) and (:PROPERTREATMENT-OF-EVENTS)).  In any event, I consider the above to provide adequate grounds for dismissing any commitment to a traditional view on rationality, given a human perspective on epistemology.
+
+\subsection{Quine}\label{quine}
+
+I shall now return to developing my framework.  To recap, so far I have suggested adding a novel modality $\BM$ which corresponds to taking subsets of an agent's set of beliefs.  In the context of conventional modal logic, this means a shift in perspective - instead of thinking of each world as a situation where the agent can imagine other situations, now each world corresponds to a network of beliefs ordered by inclusion. These networks of beliefs form a poset, or partially ordered set.  Thus the choice to visually represent them as \emph{Hasse diagrams}, as I have done, follows the standard practice in lattice theory. %An example of such a network is given in Fig. \ref{fig:poset}.
+
+Furthermore, I should point out the following phenomenon - as higher nodes in a belief network are considered, the agent is employing more premises for the arguments they are composing, and using less pure logic to come to conclusions.  I feel this suggests the following - namely, that as we consider levels higher and higher in the poset of an agent's beliefs, this sort of corresponds to embracing an agent's experience and interpretation of their sensory data.  But arguments that rest on more premises are prima facie more fallible than arguments that rely on fewer assumptions.
+
+A similar perspective has been presented before, however in a different setting, in \emph{Two Dogmas of Empiricism} \citep{quine_two_1951}:
+\begin{quote}
+{Certain statements, though about physical objects and not sense experience, seem peculiarly germane to sense experience -- and in a selective way: some statements to some experiences, others to others. Such statements, especially germane to particular experiences, I picture as near the periphery. But in this relation of ``germaneness'' I envisage nothing more than a loose association reflecting the relative likelihood, in practice, of our choosing one statement rather than another for revision in the event of recalcitrant experience. For example, we can imagine recalcitrant experiences to which we would surely be inclined to accommodate our system by re-evaluating just the statement that there are brick houses on Elm Street, together with related statements on the same topic. We can imagine other recalcitrant experiences to which we would be inclined to accommodate our system by re-evaluating just the statement that there are no centaurs, along with kindred statements. A recalcitrant experience can, I have already urged, be accommodated by any of various alternative re-evaluations in various alternative quarters of the total system; but, in the cases which we are now imagining, our natural tendency to disturb the total system as little as possible would lead us to focus our revisions upon these specific statements concerning brick houses or centaurs. These statements are felt, therefore, to have a sharper empirical reference than highly theoretical statements of physics or logic or ontology. \textbf{The latter statements may be thought of as relatively centrally l	ocated within the total network, meaning merely that little preferential connection with any particular sense data obtrudes itself.} }
+\end{quote}
+
+The emphasis on the last sentence is my addition.  The above paragraph importantly anticipates ideas in belief revision theory (such as in \citet{alchourron_logic_1985} and subsequent studies), as well as recent trends in probabilistic dynamic epistemic logic \citep[such as in][etc.]{van_benthem_conditional_2003,van_benthem_dynamic_2009,baltag_probabilistic_2008,kooi_probabilistic_2003}.  However, in the framework that I have so far been developing, what Quine refers to as the ``periphery'' of his web of belief corresponds to a higher node in a belief poset, while what Quine referes to as the ``center'' reflects something like a lower node.  This is visually depicted in Fig. \ref{fig:poset}.  Beliefs that are members of lower nodes, and the ideas that follow from them, can be thought of as belonging to the agent's world-view.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[]{poset/poset2.pdf}
+\end{center}
+\caption{A network of beliefs}
+\label{fig:poset}
+\end{figure}
+
+I feel the above observation informs a corresponding perspective on
+epistemology.  If an agent's world view largely rested legends about
+the Norse gods, I'd be reluctant to say she knows various facts about
+nature, such as why lightning strikes.  This is because all of her
+explanations would inevitably be based upon myths in one way or
+another, which would all occupy lower nodes in her belief network.
+This dictates that \emph{sanity} plays a role in how much knowledge an
+agent can have - it is permissible to grant that an inconsistent agent
+has knowledge provided that the inconsistency follows only shallowly
+from her experiential data, and it is something she would readily give
+up.  However, if a contradiction is intrinsic to the agent's
+psychology, and thus follows from a lower node in her belief poset, my
+analysis suggests she doesn't really have knowledge.  So while I
+believe that irrational agents can possess knowledge, as I have argued
+in \S\ref{irrational}, I do not contend that they \emph{always} posses
+knowledge. Moreover, I hold that the sort of irrationality that I am
+considering needn't be superficial - both mundane as well as deeply
+demented characters can be modeled.
+
+
+I'll admit that the above essentially presents my own interpretation
+of Quine's web of belief, which might be contentious.  On the other
+hand, I feel both the quote from Quine and the quote from Whitman in
+\S\ref{contradictions} suggest the following principle without too
+much controversy:
+\begin{quote}
+ \textbf{Quine/Whitman Principle}: \emph{Epistemic agents are compound
+   entities, which invite compositional analysis.}
+\end{quote}
+The above presents the final philosophical principle that I intend to
+extend.  Apart from this, I would say from the previous discussion, I
+would like to extract an additional thing:  Figure \ref{fig:poset}
+naturally suggests that we might think of \emph{going up} in a belief
+net, in a manner similar to how $\BM$ allows one to \emph{go down} as
+I suggested in \S\ref{Descartes}. Along these lines, I would suggest
+the introduction of a new operator $\BP$.  The semantics for $\BP$ are
+given as follows:
+\[ \Omega,(a,A) \VDash \BP \phi \iff \textup{ for all } (b,B)\in\Omega\textup{ if } b = a \textup{ and } A\subseteq B \textup{ then } \Omega,(a,A) \VDash \phi \]
+Just as $\BM$ corresponds to the agent casting assumptions into doubt,
+or disregarding their premises, $\BP$ corresponds to the agent
+embracing their experience, suspending disbelief and accepting her
+intuitions and senses.
+
+This essentially concludes the sketch of novelties I propose in the
+practice of modelling knowledge.
+
+\subsection{Closing Remarks}
+\label{close}
+The various principles extended in the previous sections are not independent - some of them are more basic than others.  Their relationship is summarized in Fig. \ref{fig:principles} - here the lower a principle is depicted, the more basic I feel it is.  Dotted lines indicate that I feel the philosophical justification for the higher principle supervenes on the justification of the lower principle.
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\textwidth]{principles/principles.pdf} 
+\end{center}
+\caption{A visualization of the relationship of the principles I have suggested}
+\label{fig:principles}
+\end{figure}
+In addition, in further development of the framework sketched in \S\ref{explicit}, I shall want the following criteria, based on my ideas given in relevant sections:
+\begin{description}
+ \item[\S\ref{explicit}] \begin{bul}
+                          \item Agents shall be modelled with proofs for the things they believe.
+			  \item To avoid paradoxes, correct
+                            foundations must be provided.  Idealy, I
+                            would like my semantics to correspond to a
+                            provably terminating computation, granting
+                            certain non-deterministic operations such
+                            as a  \emph{choice operator}
+                            $\varepsilon$, as described in
+                            \citep{hilbert_neubegrndung_1922}.
+                         \end{bul}
+  \item[] For a set of beliefs $A$:
+\begin{description}
+  \item[\S\ref{soundness}] It should be expressible whether everything in $A$ is sound 
+  \item[\S\ref{Descartes}] Certain subsets $B\subseteq A$ should be accessible
+  \item[\S\ref{quine}] Certain extensions $B \supseteq A$ could also be accessed
+\end{description}
+\end{description}
+In line with evidentialist epistemology, as mentioned in
+\S\ref{sketch}, I have decided to call the logic I shall develop
+\emph{Evidentialist Logic}, or \textsc{EviL} for brevity.
+
+\section{Introduction to \textsc{EviL}}\label{evil-semantics}
+%\subsection{Forward}
+With the philosophical intuitions and scaffolding provided from
+\S\ref{philosophy}, I shall now turn to giving a precise account of my previously
+developed ideas.  This shall be done in three movements:
+\begin{description}
+ \item[\S\ref{basic-evil}]  In the first section I will provide the
+   basic grammar and semantics for \textsc{EviL} with a single agent;
+   the presentation in this section will remain primarily
+   philosophical and light.
+ \item[\S\ref{dead-by-dawn}]  In the second section I develop several
+   topics in the pure theory of \textsc{EviL} which I consider
+   non-basic.
+  \item[\S\ref{army-of-darkness}]  In this section, completeness and
+    decidability is discussed in relation to \textsc{EviL}.
+\end{description}
+
+% from that section provided by the previous section into a provide an outline
+% for the basic grammar and semantics of \textsc{EviL}. I also try to develop
+% intuitions about how I personally read these semantics, and provide examples of
+% various validities.
+
+%\addcontentsline{toc}{subsection}{15 pgs}at t
+\subsection{\textsc{EviL} I}\label{basic-evil}
+\subsubsection{Grammar \& Semantics}\label{evil-grammar}
+\input{semantics_introduction.tex}
+\subsubsection{Intuitions}
+\input{evil_intuition.tex}
+\subsubsection{Validities}
+\input{evil-validities.tex}
+\subsection{\textsc{EviL} II: Dead by Dawn}
+\label{dead-by-dawn}
+\subsubsection{Elimination}
+\label{elimination}
+\input{vanishing.tex}
+\subsubsection{Multiple Agents}\label{multi-agent}
+\subsubsection{Kripke Structures}
+\input{semantics_partII.tex}
+\input{semantics_partIII.tex}
+\subsection{\textsc{EviL} III: Army of Darkness}\label{army-of-darkness}
+\subsubsection{Axiom Systems}\label{evil-axioms}
+\input{evil_axiom_systems.tex}
+%\addcontentsline{toc}{subsection}{20 pgs}
+\input{evil-formal-crap.tex}
+
+\section{Applications}
+\subsection{Collapse}
+\subsection{Epistemic Plurality}
+\subsubsection{Different Kinds of Knowledge}
+\subsubsection{Moore's Paradox}
+\subsubsection{Fitch's Paradox}
+\subsection{Intuitionistic Logic}
+\subsubsection{The G\"{o}del Embedding and $\mathcal{L}^\BB(\Phi)$}
+\subsubsection{Knowledge}
+\subsubsection{Imagination}
+\subsubsection{$ImK_\Box$}
+
+\section{Formal Methods}\label{formal}
+%\addcontentsline{toc}{subsection}{20 pgs}
+
+%\subsection{Don't Believe in Math}
+%\addcontentsline{toc}{subsubsection}{5 pgs}
+\subsection{LCF Theorem Proving}
+\subsection{Formalizing the \textsc{EviL} Completeness Theorem}
+
+\section{Epilogue}
+\addcontentsline{toc}{subsection}{10 pgs}
+\subsection{Comparison to Other Approaches}
+% \subsection{Failure}
+% 
+% Having developed \textsc{EviL}, I feel it necessary to reengage the philosophical concerns presented in \S\ref{Human-Condition}.  \textsc{EviL} was a project to try to base an epistemic logic more on intuition and human nature, rather than the more mechanical foundation which forms the basis for mainstream epistemic logic.
+
+\appendix
+\section{Alternate Semantics}
+\input{alternate-semantics.tex}
+
+\section{Isabelle/HOL's Logic}
+
+\pagebreak
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{unsrtnat}
+\bibliography{zotero}
+\end{document}  

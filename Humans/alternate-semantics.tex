@@ -1,0 +1,297 @@
+
+In this section, I shall present an alternative work to the framework proposed in \S\ref{explicit}.% and developed in \S\ref{evil-semantics}.
+These semantics are inspired by game semantics for modal logic, such as those in \citet[chapter 2]{van_benthem_modal_2010}.
+
+Consider structures of the form $\langle W, V, \beta, \iota \rangle$
+consisting of:
+\begin{itemizedot}
+  \item A set of worlds $W$
+  
+  \item A propositional valuation function $V : \Phi \rightarrow \powerset
+  W$
+  
+  \item An belief function $\beta : W \rightarrow \powerset \mathcal{L}
+  (\Phi)$
+  
+  \item An imagination function $\iota : W \rightarrow \powerset W$
+\end{itemizedot}
+We shall call these \tmtextit{belief-imagination models}.   One can think of a
+model $\Omega$ sort of like a of tuples like in \S\ref{evil-semantics}; however
+in this case evidently it would have to be \ $\Omega \subseteq \powerset
+\Phi \times \powerset \mathcal{L} (\Phi) \times \powerset \Omega$, so
+apparently it would have to be a non-wellfounded set.   This is somewhat natural,
+given a modal logic setting - see for instance \citet{barwise_vicious_1996} for an
+elaboration on these connections.
+
+\begin{definition}
+  We now define by recursion the following two truth relations:
+  
+  First relation:
+  \begin{empt}
+    \item $\Omega, w \Vdash p \Longleftrightarrow p \in V (w)$
+    
+    \item $\Omega, w \Vdash \phi \wedge \psi \Longleftrightarrow$both $\Omega,
+    w \Vdash \phi$ and $\Omega, w \Vdash \psi$
+    
+    \item $\Omega, w \Vdash \phi \vee \psi \Longleftrightarrow$either $\Omega,
+    w \Vdash \phi$ or $\Omega, w \Vdash \psi$
+    
+    \item $\Omega, w \Vdash \neg \phi \Longleftrightarrow \Omega, w \Vvdash
+    \phi$
+    
+    \item $\Omega, w \Vdash \Box \phi \Longleftrightarrow \beta (w)
+    \vdash^{\ast} \phi$
+    
+    $\ldots$where $\vdash^{\ast}$ is a sequent that's closed under reflection
+    and resolution:
+    \begin{eqnarray*}
+      \frac{\phi \in \Gamma}{\Gamma \vdash^{\ast} \phi} &  & \frac{\Gamma
+      \vdash^{\ast} \neg \phi \vee \psi \ \ \  \Delta \vdash^{\ast}
+      \phi}{\Gamma \cup \Delta \vdash^{\ast} \psi}
+    \end{eqnarray*}
+  \end{empt}
+  Second relation:
+  \begin{empt}
+    \item $\Omega, w \Vvdash p \Longleftrightarrow p \nin V (w)$
+    
+    \item $\Omega, w \Vvdash \phi \wedge \psi \Longleftrightarrow$either
+    $\Omega, w \Vvdash \phi$ or $\Omega, w \Vvdash \psi$
+    
+    \item $\Omega, w \Vvdash \phi \vee \psi \Longleftrightarrow$both $\Omega,
+    w \Vvdash \phi$ and $\Omega, w \Vvdash \psi$
+    
+    \item $\Omega, w \Vvdash \neg \phi \Longleftrightarrow \Omega, w \Vdash
+    \phi$
+    
+    \item $\Omega, w \Vvdash \Box \phi \Longleftrightarrow$there is some $v
+    \in \iota (w)$ such that $\Omega, v \Vvdash \phi$
+  \end{empt}
+\end{definition}
+
+I feel it is necessary to motivate the intuition behind these semantics.  
+Informally, I think of these two truth relations correspond to two players, whom I call the
+{\tmem{logician}} and the {\tmem{philosopher}}.   The logician wields a set
+beliefs given by $\beta$ and tries to compose compelling arguments, and the
+philosopher employs a corpus of thought experiments given by $\iota$ to thwart
+the logician's arguments.   Of course, the logician and the philosopher are
+really just two aspects of a single epistemic agent I am trying to model; I
+imagine epistemic agents modeled by this system to be embroiled in internal
+conflict. I feel this sort of dissension between reason and imagination rages
+on within us all -- it's fundamental to human nature.
+
+These semantics are not naturally bivalent; that is it doesn't hold that
+either $\Omega, w \Vdash \phi$ or $\Omega, w \Vvdash \phi$, exclusively. To
+see this consider a model where $\beta (w) = \iota (w) = \varnothing$; then
+evidently $\Omega, w {\nVdash} \Box p$ and $\Omega, w {\nVvdash} \Box p$.
+
+However, bivalence has a convenient semantic characterization:
+
+\begin{proposition}
+  \label{biv1}Let $\mathbbm{M}^{\Omega} = \langle W^{\Omega}, V^{\Omega},
+  R^{\Omega} \rangle$ be a model for basic modal logic model based on a
+  belief/imagination model $\Omega$, where $w R^{\Omega} v \assign v \in \iota
+  (w)$, and let $\Vdash_{\Box}$ be the modal truth predicate.   We have that
+  $\Vdash$ and $\Vvdash$ are bivalent if and only if $\Omega, w \Vdash \phi
+  \Longleftrightarrow \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$.
+\end{proposition}
+
+\begin{proof}
+  $(\Longrightarrow)$  Assume that $\Vdash$ and $\Vvdash$ are bivalent and
+  consider any $\phi \in \mathcal{L} (\Phi)$.   The proof that $\Omega, w
+  \Vdash \phi$ is equivalent to $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$
+  proceeds by induction.   The case for proposition letters, conjunction and
+  disjunction are straightforward, so we shall only consider negation and
+  modality.
+  
+  Negation:  We have the following chain of equivalences:
+  \begin{eqnarray*}
+    \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \neg \phi  
+    \Longleftrightarrow & \mathbbm{M}^{\Omega}, w {\nVdash}_{\Box} \phi &
+    \\
+    \Longleftrightarrow & \Omega, w {\nVdash} \phi & (\tmop{inductive}
+    \tmop{step})\\
+    \Longleftrightarrow & \Omega, w \Vvdash \phi & (\tmop{bivalence})\\
+    \Longleftrightarrow & \Omega, w \Vdash \neg \phi & 
+  \end{eqnarray*}
+  Modality: \ We have another chain of equivalences:
+  \begin{eqnarray*}
+    \Omega, w \Vdash \Box \phi \  \Longleftrightarrow & \Omega, w
+    {\nVvdash} \Box \phi & (\tmop{bivalence})\\
+    \Longleftrightarrow & \forall v \in \iota (w) .  \Omega, w {\nVvdash}
+    \phi & (\tmop{definition})\\
+    \Longleftrightarrow & \forall v \in \iota (w) .  \Omega, w \Vdash \phi &
+    (\tmop{bivalence})\\
+    \Longleftrightarrow & \forall v \in \iota (w) .\mathbbm{M}^{\Omega}, w
+    \Vdash_{\Box} \phi & (\tmop{inductive} \tmop{step})\\
+    \Longleftrightarrow & \forall v.w R^{\Omega} v \Longrightarrow
+    \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi & (\tmop{definition})\\
+    \Longleftrightarrow & \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \Box \phi & 
+  \end{eqnarray*}
+  $\ldots$this completes the induction.
+  
+  $(\Longleftarrow)$ \ Assume that $\Omega, w \Vdash \phi$ and
+  $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$ are always equivalent.   We
+  have:
+  \begin{eqnarray*}
+    \Omega, w \Vdash \phi \  \Longleftrightarrow &
+    \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi & \\
+    \Longleftrightarrow & \Omega, w {\nVdash}_{\Box} \neg \phi & \\
+    \Longleftrightarrow & \Omega, w {\nVdash} \neg \phi &
+    (\tmop{hypothesis})\\
+    \Longleftrightarrow & \Omega, w {\nVvdash} \phi & 
+  \end{eqnarray*}
+\end{proof}
+
+\begin{corollary}
+  If $\Vdash$ and $\Vvdash$ are bivalent, then $\beta (w) \vdash^{\ast} \phi$
+  for all $\phi \in \tmop{Th}_{\Vdash} (\Omega)$ for all $w \in W^{\Omega}$,
+  where $\tmop{Th}_{\Vdash} (\Omega) =\{\phi \in \mathcal{L} (\Phi)
+  \  | \  \Omega, w \Vdash \phi$ for all $w \in W^{\Omega}
+  \}$.
+\end{corollary}
+
+Evidently bivalence of $\Vdash$ and $\Vvdash$ gives rise to semantics where
+the agent has a proof for every proposition they believe.   Furthermore, we
+can take any modal logic model $\mathbbm{M} \assign \langle W^{\mathbbm{M}},
+V^{\mathbbm{M}}, R^{\mathbbm{M}} \rangle$ and define an equivalent
+belief/imagination model $\Omega^{\mathbbm{M}} \assign \langle
+W^{\mathbbm{M}}, V^{\mathbbm{M}}, \beta^{\mathbbm{M}}, \iota^{\mathbbm{M}}
+\rangle$ where:
+\begin{eqnarray}
+  \beta^{\mathbbm{M}} (w) \assign & \{\phi \in \mathcal{L} (\Phi) \ 
+  | \  \mathbbm{M}, w \Vdash_{\Box} \Box \phi\} &  \nonumber\\
+  \iota^{\mathbbm{M}} (w) \assign & \{v \in W^{\mathbbm{M}} \  |
+  \  w R^{\mathbbm{M}} v\} &  \nonumber
+\end{eqnarray}
+We can immediately leverage this to give the a characterization of these
+semantics:
+
+\begin{proposition}
+  The basic modal logic $K$ is sound and strongly complete for bivalent
+  belief/imagination models.
+\end{proposition}
+
+\begin{proof}
+  Soundness is trivial given the previous lemma, strong completeness follows
+  by considering the canonical model $\mathbbm{K}$ and looking at
+  $\Omega^{\mathbbm{K}}$. 
+\end{proof}
+
+However, reflecting on my remarks in \S\ref{thermometers}, I think that it's wrong for agents to be able to have
+everything they believe in their minds; this is about as bad as the thermometer theory of knowledge
+ in my opinion.   However, this is evidently not entirely necessary. Call a belief/imagination model
+\tmtextit{reasonable} if the following two constraints are satisfied:
+\begin{itemizedot}
+  \item $\beta (w) \vdash^{\ast} \phi$ for all $\phi \in \tmop{Th}_{\Vdash}
+  (\Omega)$ for all $w \in W^{\Omega}$, where $\tmop{Th}_{\Vdash} (\Omega)
+  =\{\phi \in \mathcal{L} (\Phi) \  | \  \Omega, w \Vdash
+  \phi$ for all $w \in W^{\Omega} \}$
+  
+  \item $\tmop{Mod}^{\Omega}_{{\nVvdash}} (\beta (w)) \subseteq \iota (w)$,
+  where $\tmop{Mod}^{\Omega}_{{\nVvdash}} (\beta (w)) =\{v \in W^{\Omega}
+  \  | \  \Omega, v {\nVvdash} \phi$ for all $\phi \in
+  \beta (w)$\}
+  
+  \item $\beta (w) \backslash \tmop{Th}_{\Vdash} (\Omega)$ is finite
+\end{itemizedot}
+Evidently, forcing these requirements suffices to force bivalence:
+
+\begin{proposition}
+  For any reasonable model $\Omega$ and any $w \in W^{\Omega}$, we have:
+  \begin{enumerateroman}
+    \item If $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$ then $\Omega, w
+    \Vdash \phi$
+    
+    \item If $\mathbbm{M}^{\Omega}, w {\nVdash}_{\Box} \phi$ then $\Omega,
+    w \Vvdash \phi$
+  \end{enumerateroman}
+  $\ldots$ where $\mathbbm{M}^{\Omega}$ is as defined in Prop.  \ref{biv1}.  
+  Hence we have $\Vdash$ and $\Vvdash$ are bivalent.
+\end{proposition}
+
+\begin{proof}
+  The propositional, disjunctive and conjunctive cases are all
+  straightforward; I shall focus on negation and modality.
+  
+  Negation: In the case of (\tmtextit{i}), we know that \
+  \begin{eqnarray}
+    \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \neg \phi \Longleftrightarrow &
+    \mathbbm{M}^{\Omega}, w {\nVdash}_{\Box} \phi &  \nonumber\\
+    \Longrightarrow & \Omega, w \Vvdash \phi & \text{(by the inductive step)}
+    \nonumber\\
+    \Longleftrightarrow & \Omega, w \Vdash \neg \phi &  \nonumber
+  \end{eqnarray}
+  $\ldots$the proof for (\tmtextit{ii}) is similar.
+  
+  Modality: \ In the case of (\tmtextit{i}), assume that
+  $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \Box \phi$. Using the definition of
+  reasonableness and the inductive step we know for all $v \in W^{\Omega}$
+  that if $\Omega, v {\nVvdash} \psi$ for all $\psi \in \beta (w)
+  \backslash \tmop{Th} (\Omega)$ then $\Omega, v \Vdash \phi$.
+  
+  From this and the fact that $\Omega$ is reasonable we can infer that
+  $\bigvee_{\psi \in \beta (w) \backslash \tmop{Th} (\Omega)} \neg \psi \vee
+  \phi \in \tmop{Th}_{\Vdash} (\Omega)$.   We know further from reasonableness
+  that we have $\tmop{Th}_{\Vdash} (\Omega) \subseteq \beta (w)$. So we can
+  prove by induction that repeatedly applying resolution gets $\beta (w)
+  \vdash^{\ast} \phi$, which just means that $\Omega, w \Vdash \Box \phi$, as
+  desired.
+  
+  The case of (\tmtextit{ii}) follows trivially by induction.
+\end{proof}
+
+We may continue to obtain weak completeness for these semantics:
+
+\begin{proposition}
+  $\vdash_K \phi$ if and only if $\Omega, w \Vdash \phi$ for all reasonable
+  models $\Omega$ and $w \in W^{\Omega}$
+\end{proposition}
+
+\begin{proof}
+  Left to right follows straightforwardly, so we just need to prove right to
+  left.
+  
+  Assume $\nvdash_K \phi$. As before, let $\mathbbm{M} = \langle
+  W^{\mathbbm{M}}, V^{\mathbbm{M}}, R^{\mathbbm{M}} \rangle$ be a finite model
+  and with a world $w \in W^{\mathbbm{M}}$ such that $\mathbbm{M}, w
+  {\nVdash}_{\Box} \phi$.   Now consider a slightly modified model
+  $\mathbbm{M}' \assign \langle W^{\mathbbm{M}}, V', R^{\mathbbm{M}} \rangle$
+  where
+  \[ V' (p) \assign \left\{ \begin{array}{ll}
+       \{v\} & p = \rho (v)\\
+       V (p) & o / w
+     \end{array} \right.  \]
+  A proof by induction on subformulae $\psi$ of $\phi$ verifies that
+  $\mathbbm{M}, w \Vdash_{\Box} \psi$ if and only if $\mathbbm{M}', w
+  \Vdash_{\Box} \psi$.
+  
+  So now consider $\Omega \assign \langle W^{\mathbbm{M}'}, V^{\mathbbm{M}'},
+  \tau, \lambda x.R^{\mathbbm{M}'} [x] \rangle$ such that
+  \[ \tau (w) \assign \tmop{Th} (\mathbbm{M}') \cup \left\{ \bigvee_{v \in
+     R^{\mathbbm{M}'} [w]} \rho (v) \right\} \]
+  $\ldots$where $\tmop{Th} (\mathbbm{M}') \assign \{\psi \in \mathcal{L}
+  (\Phi) \  | \  \mathbbm{M}', v \Vdash \psi$ for all $v
+  \in W^{\mathbbm{M}'} \}$.   A proof by induction on $\psi$ shows that
+  $\mathbbm{M}', w \Vdash_{\Box} \psi$, $\Omega, w \Vdash \psi$ and $\Omega, v
+  {\nVvdash} \psi$ are equivalent for all $\psi \in \mathcal{L} (\Phi)$.  
+  Thus we have that for all $v \in W^{\Omega}$ that $\Omega, v {\nVvdash}
+  \psi$ for all $\psi \in \tmop{Th} (\mathbbm{M}')$.   Moreover, evidently $w
+  R^{\mathbbm{M}'} v$ if and only if $\mathbbm{M}', v \Vdash_{\Box} \bigvee_{u
+  \in R^{\mathbbm{M}'} [w]} \rho (u)$, whence we have that $w R^{\mathbbm{M}'}
+  v$ if and only if $\Omega, v {\nVvdash} \chi$ for all $\chi \in \tau
+  (w)$. With this we can employ induction and establish that $\mathbbm{M}', w
+  \Vdash_{\Box} \psi$ if and only if $\Omega, w \models \psi$ for all $\psi
+  \in \mathcal{L} (\Phi)$.   Since $\mathbbm{M}', w {\nVdash}_{\Box} \phi$,
+  we have that $\Omega, w {\nmodels} \phi$.   Finally, note that in this
+  model we have that $\tmop{Mod}^{\Omega}_{{\nVvdash}} (\beta (w)) =
+  R^{\mathbbm{M}'} [w]$. With this and the definition of $\Omega$, we can see
+  that $\Omega$ is evidently reasonable, and thus we may complete the proof.
+
+\end{proof}
+
+Now, while reasonable models attain the goal of modeling agents that have
+proofs for the things they believe, I do not consider them adequate. These models are only reasonable in the
+sense that they indeed model agents providing nontrivial proofs for their beliefs.
+However, they aren't reasonable in the sense that they are simple
+to reckon with.   So while the semantics provided in \S\ref{evil-semantics} requires a grammar
+restriction, which might be considered inelegant, I have settled on it, rather than the formulation given above, precisely because I consider this to be less manageable.

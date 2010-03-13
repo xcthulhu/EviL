@@ -1,0 +1,70 @@
+% \documentclass{letter}
+% \usepackage{geometry,amsmath,amssymb,bbm}
+% \geometry{letterpaper}
+% 
+% %%%%%%%%%% Start TeXmacs macros
+% \newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+% \newcommand{\tmtextit}[1]{{\itshape{#1}}}
+% \newcommand{\tmtextsc}[1]{{\scshape{#1}}}
+% \newenvironment{itemizedot}{\begin{itemize} \renewcommand{\labelitemi}{$\bullet$}\renewcommand{\labelitemii}{$\bullet$}\renewcommand{\labelitemiii}{$\bullet$}\renewcommand{\labelitemiv}{$\bullet$}}{\end{itemize}}
+% %%%%%%%%%% End TeXmacs macros
+% 
+% \begin{document}
+
+These properties are definitive - as we shall demonstrate, \tmtextsc{EviL} is
+sound and weakly complete for \tmtextsc{EviL} models.
+
+The Kripke semantics also serve to \ provide proper intuition behind
+\tmtextsc{EviL} models. \ I think of the defined relations given as follows:
+\begin{itemizedot}
+  \item If $x R^{\Omega}_X y$, then at world $x$ the agent $X$ can imagine $y$
+  is true, since $y$ is compatible with what the agent believes
+  
+  \item If $x \sqsubseteq^{\Omega}_X y$, then at world $x$, agent $X$'s
+  assumptions (or the experiences they are taking under consideration) are
+  contained in her evidence at $y$
+\end{itemizedot}
+Given this perspective, the proof of \ref{pV} can be understood in the
+following way - if the agent assumes fewer things, more things are imaginable,
+since it's easier for a world to be incompatible with an agent's evidence.
+
+Another expression of the same idea as above is as follows. \ For a given
+Kripke structure $\mathbbm{M}$, define two operators $Mod^{\mathbbm{M}}
+: \powerset  \mathcal{L} (\Phi, \mathcal{A}) \rightarrow \powerset
+(W^{\mathbbm{M}})$ and $Th^{\mathbbm{M}} : \powerset
+(W^{\mathbbm{M}}) \rightarrow \powerset \mathcal{L} (\Phi, \mathcal{A})$:
+
+\begin{align*}
+  Mod^{{\mathbbm{M}}}({\Delta}) &
+  =\{x{\in}W{\ }|{\ }{\forall}{\psi}{\in}{\Delta}.
+  {\mathbbm{M}},x{\Vdash}{\psi}\}\\
+  Th^{{\mathbbm{M}}}({\nabla}) & =\{{\psi}{\in}\mathcal{L}({\Phi},
+  \mathcal{A}){\ }|{\ }{\forall}x{\in}{\nabla}.
+  {\mathbbm{M}},x{\Vdash}{\psi}\}
+\end{align*}
+
+The following relationship holds, where $\Delta \in \powerset  \mathcal{L}
+(\Phi, \mathcal{A})$ and $\nabla \in \powerset (W^{\mathbbm{M}})$:
+\[ \nabla \subseteq Mod^{\mathbbm{M}} (\Delta) \text{ if and only if }
+   \Delta \subseteq Th^{\mathbbm{M}} (\nabla) \]
+$\ldots$hence we these two operations form what is refered an
+\tmtextit{antitone Galois connection}, between the lattice $\powerset
+(W^{\mathbbm{M}})$ and the lattice $\powerset \mathcal{L} (\Phi,
+\mathcal{A})$. \ It follows from the theory of Galois connections (FIXME) that
+the following two properties hold:
+\begin{itemizedot}
+  \item If $\nabla \supseteq \nabla'$ then $Th^{\mathbbm{M}} (\nabla)
+  \subseteq Th^{\mathbbm{M}} (\nabla')$
+  
+  \item If $\Delta \supseteq \Delta'$ then $Mod^{\mathbbm{M}} (\Delta)
+  \subseteq Mod^{\mathbbm{M}} (\Delta')$
+\end{itemizedot}
+We can see that (\ref{pV}) follows from the second of these two properties. \
+To see this, assume that $(a, A) \sqsupseteq_X^{\Omega} (b, B)$, hence $A_X
+\supseteq B_X$ and thus $Mod^{\Omega} (A_X) \subseteq
+Mod^{\Omega} (B_X)$. \ But it follows from semantics of \tmtextsc{EviL}
+we have that $(c, C) \in Mod^{\Omega} (A_X)$ if and only if $(a, A)
+R^{\Omega}_X (c, C)$, and likewise for $B_X$. \ Hence if $(a, A) R^{\Omega}_X
+(c, C)$ then $(b, B) R^{\Omega}_X (c, C)$.
+
+% \end{document}

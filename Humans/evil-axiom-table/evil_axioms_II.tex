@@ -1,0 +1,98 @@
+\begin{table}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabular}{|ll|}
+\hline
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \phi \rightarrow \psi \rightarrow \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash (\phi \rightarrow \psi \rightarrow \chi) \rightarrow (\phi
+  \rightarrow \psi) \rightarrow \phi \rightarrow \chi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash (\neg \phi \rightarrow \neg \psi) \rightarrow \psi \rightarrow
+  \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \boxminus_X \phi \rightarrow \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \boxminus_X \phi \rightarrow \boxminus_X \boxminus_X \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash p \rightarrow \boxminus_X p$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \neg p \rightarrow \boxminus_X \neg p$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \diamondsuit_X \phi \rightarrow \boxminus_X \diamondsuit_X \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \Box_X \phi \rightarrow \Box_X \boxminus_Y \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \phi \rightarrow \boxminus_X (\circlearrowleft_X \rightarrow
+  \diamondsuit_X \phi)$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \circlearrowleft_X \rightarrow \boxminus_X \circlearrowleft_X$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \Box_X (\phi \rightarrow \psi) \rightarrow \Box_X \phi \rightarrow
+  \Box_X \psi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \boxminus_X (\phi \rightarrow \psi) \rightarrow \boxminus_X \phi
+  \rightarrow \boxminus_X \psi$\\
+(\addtocounter{rownum2}{1}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi \to \psi$}
+\AxiomC{$\vdash \phi$}
+\BinaryInfC{$\vdash \psi$}
+\DisplayProof$ \\ %& Modus Ponens\\[10pt]
+(\addtocounter{rownum2}{1}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash \Box_X \phi$}
+\DisplayProof$ \\ %& \multirow{3}{8.5cm}{Variations on necessitation}\\
+(\addtocounter{rownum2}{1}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash \BB_X \phi$}
+\DisplayProof$   \\
+% (\addtocounter{rownum2}{1}\Roman{rownum2}) &
+%  $\AxiomC{$\vdash \phi$}
+% \UnaryInfC{$\vdash \BBI_X \phi$}
+% \DisplayProof$  \\% [10pt]
+\hline
+\end{tabular}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+ \centering
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabular}{|ll|}
+\hline
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \phi \rightarrow \psi \rightarrow \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash (\phi \rightarrow \psi \rightarrow \chi) \rightarrow (\phi
+  \rightarrow \psi) \rightarrow \phi \rightarrow \chi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash (\neg \phi \rightarrow \neg \psi) \rightarrow \psi \rightarrow
+  \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \boxplus_X \phi \rightarrow \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \boxplus_X \phi \rightarrow \boxplus_X \boxplus_X \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash p \rightarrow \boxplus_X p$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \neg p \rightarrow \boxplus_X \neg p$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \Box_X \phi \rightarrow \boxplus_X \Box_X \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \Box_X \phi \rightarrow \Box_X \boxplus_Y \phi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \phi \rightarrow \boxplus_X (\circlearrowleft_X \rightarrow
+  \diamondsuit_X \phi)$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \neg \circlearrowleft_X \rightarrow \boxplus_X \neg
+  \circlearrowleft_X$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \Box_X (\phi \rightarrow \psi) \rightarrow \Box_X \phi \rightarrow
+  \Box_X \psi$\\
+  (\addtocounter{rownum}{1}\arabic{rownum})&$ \vdash \boxplus_X (\phi \rightarrow \psi) \rightarrow \boxplus_X \phi
+  \rightarrow \boxplus_X \psi$\\
+(\addtocounter{rownum2}{1}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi \to \psi$}
+\AxiomC{$\vdash \phi$}
+\BinaryInfC{$\vdash \psi$}
+\DisplayProof$ \\ %& Modus Ponens\\[10pt]
+(\addtocounter{rownum2}{1}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash \Box_X \phi$}
+\DisplayProof$ \\ %& \multirow{3}{8.5cm}{Variations on necessitation}\\
+% (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
+%  $\AxiomC{$\vdash \phi$}
+% \UnaryInfC{$\vdash \BB_X \phi$}
+% \DisplayProof$   \\
+(\addtocounter{rownum2}{1}\Roman{rownum2}) &
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash \BBI_X \phi$}
+\DisplayProof$  \\% [10pt]
+\hline
+\end{tabular}
+\end{minipage}
+\caption{Axiom system \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$ respectively}
+\label{table:axiomsII}
+\end{table}

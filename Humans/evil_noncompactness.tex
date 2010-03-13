@@ -1,0 +1,52 @@
+In this section I shall demonstrate that \textsc{EviL} is not compact by giving an example of an infinite set of formula for which every finite subset is satisfiable while the entirety is not.  In the subsequent discussion I shall restrict ourselves to models with one agent and cease to employ subscripts.
+
+\begin{lemma}%\renewcommand{\qedsymbol}{$\dashv$}
+Let $\tau : \Phi \to \mathcal{L}$ be defined as follows:
+\begin{center}
+\begin{minipage}{3in}
+\begin{tabbing}
+	$\tau(p) := $ \=$p \wedge \Pos\top \wedge$ \\
+	\> $\Nec$ \= $(\neg p \wedge \Pos\top \wedge$\\
+	\> \> $\Nec$ \= $(p \wedge \Pos p))$
+\end{tabbing}
+\end{minipage}
+\end{center}
+Every finite subset of $\tau[\Phi]$ is satisfiable, but not the entirety, which is infinite. 
+\elem\end{lemma}
+\begin{proof}
+That $\tau[\Phi]$ is infinite is immediate, as $\Phi$ was stipulated to be infinite. 
+
+So let $S\subseteq \tau[\Phi]$ by finite.  We shall find a model that satisfies $S$.  First observe that there is a finite $\Psi\subset \Phi$ such that $S = \tau[\Psi]$. Let $\{q,r,s\} \subseteq \Phi \; \bs \; \Psi$ be three distinct letters - this can be done, since $\Phi \; \bs \; \Psi$ is infinite.  Let $\mathfrak{M}$ be as in Fig. \ref{fig:mod4}, where 
+\begin{align*}
+a & := \Psi \cup \{s\} \\
+b & := \{q \} \\
+c & := \Psi \cup \{r\}
+\end{align*}
+%the valuation function $V$ of $\mathfrak{M}$\footnote{ is such that: $V(p) =\{a,c\}$ for each $p \in \Psi$, $V(q) = \{b\}$, $V(r) = \{c\}$, and $V(s) = \{a\}$.
+One may check that $\mathfrak{M},( a,\{q\}) \VDash \tau(p)$ for all $p \in \Psi$.
+
+	\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    semithick]
+  \tikzstyle{every state}=[text=black, shape=rectangle]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[empt] (aA1) at (45:2.5) [] {$\pr{a}{\{q\}}$};
+\node[empt] (aA2) at (165:2.5) {$\pr{b}{\{r\}}$};
+\node[empt] (aA3) at (285:2.5) {$\pr{c}{\{s\}}$};
+%\node[empt] (aA4) at (270:2.5) {$\pr{w_4}{\{d\}}$};
+\path
+(aA1) edge [->,bend right] node {} (aA2)
+(aA2) edge [->,bend right] node {} (aA3)
+(aA3) edge [->,bend right] node {} (aA1);
+%(aA3) edge [->,densely dotted,bend right] node {} (aA4)
+%(aA4) edge [->,densely dotted,bend right] node {} (aA1);
+\end{scope}
+\end{tikzpicture}
+\caption{Model $\mathfrak{M}$}
+   \label{fig:mod4}
+\end{figure}
+
+On the other hand, suppose there was some model $\mathfrak{N}$ such that $\mathfrak{N}, ( a, A) \VDash \tau(p)$ for all $p \in \Psi$.  This implies that $\mathfrak{N}, ( a, A) \VDash p$ for each $p \in \Phi$.  Moreover, let $( b, B)$ be such that $\mathfrak{N},( b, B)\VDash A$ (one exists since by hypothesis $\mathfrak{N}, ( a, A) \VDash \Pos p$).  By the semantics of $\tau(p)$, it is evident that $\mathfrak{N}, ( b, B) \VDash \neg p$ and that there's a $( c, C)$ such that $\mathfrak{N},( c,C ) \VDash B$ and $\mathfrak{N},( c,C ) \VDash p \wedge \Pos p$.  But then from this it must be that $a$ and $c$ both contain exactly the same sentence letters, which means that $\mathfrak{N},( a,A) \VDash B$ as well.  However it cannot be that $\mathfrak{N},( a,A ) \VDash \Pos p$ since $\mathfrak{N},( a,A ) \VDash \Nec \neg p$ by $\tau(p)$. Thus it is impossible that $\mathfrak{N},( a, A) \VDash \tau[\Phi]$. $\lightning$
+\end{proof}

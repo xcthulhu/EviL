@@ -1,0 +1,119 @@
+
+In this section I turn to developing the formal semantics for \tmtextsc{EviL} with a single agent.  It will be of central importance to give an account of \textsc{EviL} that is not subject to paradox.
+
+I mentioned that the semantics previously developed in \S
+gave rise to a form of {\tmem{Russell's Paradox}}.  This is due to the informal approach that I employ in presenting my intuitions.  To avoid paradoxes like this, the previous definition shall be discarded, in favor of demonstrably well-defined semantics.  This shall be achieved in two steps.
+
+\begin{definition} Let $\mathcal{L}_0 (\Phi)$ be the language of classical propositional logic, defined by the following Backus-Naur form grammar:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \]
+\end{definition}
+Models for classical propositional logic can be thought of as sets $S \subseteq \Phi$; thus the truth predicate $(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
+\rightarrow \textup{\textsf{bool}}${\footnote{$\ldots$ where $\textup{\textsf{bool}} := \{True, False\}$.  This is more commonly written as
+$(\models) \colons \powerset \Phi \rightarrow
+\textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  My notation reflects
+the notation common to the typed functional programming languages
+\tmtextit{Haskell} and \tmtextit{OCaml}. I will use both notations interchangeably.}} for classical propositional logic
+is given recursively.  
+\begin{definition}
+Define $(\models)$ such that:
+\begin{align*}
+  S{\models}p & {\iff}p{\in}S\\
+  S{\models}{\phi}{\rightarrow}{\psi} & {\iff}S{\models}{\phi}\text{ implies
+  }S{\models}{\psi}\\
+  S{\models}{\bot} & {\iff} False
+\end{align*}
+\end{definition}
+Further, observe that the language $\mathcal{L}_0$ is extended by \tmtextsc{EviL}
+\begin{definition} Define $\mathcal{L} (\Phi, \mathcal{A})$ by the following Backus-Naur grammar:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \  |
+   \  \Box_X \phi \  | \  \boxminus_X \phi
+   \  | \  \boxplus_X \phi \  | \ 
+   \circlearrowleft_X \]
+$\ldots$where $X \in \mathcal{A}$.
+\end{definition}
+%I have The two fragments  correspond to two sublogics of \textsc{EviL}. 
+ \tmtextsc{EviL} models are sets $\Omega
+\subseteq \powerset \Phi \times ( \mathcal{A} \rightarrow \powerset
+\mathcal{L}_0 (\Phi))$.  Like classical propositional logic, semantics for
+\tmtextsc{EviL} are given recursively by a predicate
+\[ (\VDash) \colons \powerset ( \powerset \Phi \times ( \mathcal{A}
+   \rightarrow \powerset \mathcal{L}_0 (\Phi))) \rightarrow \powerset \Phi
+   \times ( \mathcal{A} \rightarrow \powerset \mathcal{L}_0 (\Phi))
+   \rightarrow \mathcal{L} (\Phi, \mathcal{A}) \rightarrow
+   \textup{\textsf{bool}}. \]
+That is, $(\VDash)$ is a function that:
+\begin{itemizedot}
+  \item Takes as input:
+\begin{itemizedot}
+  \item An \evil model
+  
+  \item A pair $(a, A)$ where
+  \begin{itemizedot}
+    \item $a$ is a set of proposition letters
+    
+    \item $A:\mathcal{A}\to \mathcal{L}_0 (\Phi)$ assigns sets of formulae to agents.
+  \end{itemizedot}
+  \item A formula in the language $\mathcal{L} (\Phi, \mathcal{A})$
+  \end{itemizedot}
+  \item Gives as output: a truth value in $\textup{\textsf{bool}}$
+\end{itemizedot}
+I can now provide a formal definition of the semantics for $(\VDash)$:
+{\footnote{Where $X \in \mathcal{A}$, I
+use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
+\powerset \mathcal{L}_0 (\Phi)$}}
+\begin{definition}
+\begin{align*}
+  {\Omega},(a,A){\VDash} p & {\iff}p{\in}a\\
+  {\Omega},(a,A){\VDash} {\phi}{\rightarrow}{\psi} &
+  {\iff}{\Omega},(a,A){\VDash}{\phi}\text{ implies
+  }{\Omega},(a,A){\VDash}{\psi}\\
+  {\Omega},(a,A){\VDash}{\bot} & {\iff} False\\
+  {\Omega},(a,A){\VDash}\Box_X {\phi} & {\iff}{\forall}(b,B){\in}{\Omega}.
+  ({\forall}{\psi}{\in}A_X. b{\models}{\psi})\text{ implies
+  }{\Omega},(b,B){\VDash}{\phi}\\
+  {\Omega},(a,A){\VDash}{\boxminus}_X{\phi} &
+  {\iff}{\forall}(b,B){\in}{\Omega}. a=b\text{ and }B_X{\subseteq}A_X\text{
+  implies }{\Omega},(b,B){\VDash}{\phi}\\
+  {\Omega},(a,A){\VDash}{\boxplus}_X{\phi} &
+  {\iff}{\forall}(b,B){\in}{\Omega}. a=b\text{ and }B_X{\supseteq}A_X\text{
+  implies }{\Omega},(b,B){\VDash}{\phi}\\
+  {\Omega},(a,A){\VDash}{\circlearrowleft}_X & {\iff}
+  {\forall}{\psi}{\in}A_X.a{\models}{\psi}
+\end{align*}
+\end{definition}
+These semantics are well defined, since apart from relying on the semantics
+for propositional logic they may be observed to be compositional.{\footnote{In
+fact, I have provided a formulation of these semantics in the same manner as
+above in the computer proof assistant Isabelle/HOL(FIXME:CITATION); I shall
+give my remarks on formal verification in \S(FIXME).  In the case of
+Isabelle/HOL, the function $(\VDash)$ was defined inductively, and
+automatically proven to be well-defined.  Specifically, the conditions given
+above specify that $(\VDash)$ is determined by a \tmtextit{monotonic}
+predicate over suitable tupples, and similarly for $(\models)$.  Hence the
+result that $(\VDash)$ is well-defined ultimately relies on an application of
+the \tmtextit{Knaster-Tarski Fixpoint Theorem} (FIXME:CITATION). Further,
+since I have given an inductive definition, these recursive definitions rely
+on the {\tmem{least}} fixpoint of their associated monotonic operators.}} 
+Moreover, the following relationship can be observed:
+
+\begin{lemma}
+  Let $\phi \in \mathcal{L}_0 (\Phi)$.  Then:
+  \[ a \models \phi \Longleftrightarrow \Omega, (a, A) \VDash \phi \]
+  $\ldots$for any $\Omega$ and $A$.
+\end{lemma}
+
+\begin{proof}
+  This may be seen immediately by induction on $\phi$.
+\end{proof}
+
+$\ldots$and with this, we have our central desirederatum, mirroring in Prop \ref{central-prop}:
+
+\begin{proposition}
+  Let $A$ be finite and define $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega, (a,A) \VDash \phi \textup{ for all $(a,A) \in \Omega$\}}$$
+\ldots then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_{\text{\textsc{EviL}}} \phi$.
+\end{proposition}
+
+I shall present $\vdash_{\text{\textsc{EviL}}}$, the logical consequence turnstile for \textsc{EviL} in \S\ref{evil-axioms}.
+  However, it is desirable to fist give more familiar semantics for \textsc{EviL}, so as to stress that off the shelf modal logic can be used in its investigation.

@@ -1,0 +1,28 @@
+% Rule based diagram
+% Author: Remus Mihail Prunescu
+\documentclass[]{article}
+%\usepackage{pxfonts}            % Or palatino or mathpazo
+%\usepackage{eulervm}            %
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3em,
+  column sep=3em, text height=1.5ex, text depth=0.25ex]
+  { |(1)| (\{p\}, \{p,\neg p\}) \\
+    |(2)| (\{p\}, \{p\}) \\ };
+  \path[]
+  (1) edge [densely dotted] node[] {} (2)
+  (2) edge [->, >=latex, loop left] ();
+\end{tikzpicture}
+\end{center}
+\end{document}

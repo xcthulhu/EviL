@@ -1,0 +1,50 @@
+% Rule based diagram
+% Author: Remus Mihail Prunescu
+\documentclass[]{article}
+\usepackage{pxfonts}            % Or palatino or mathpazo
+%\usepackage{eulervm}            %
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3em,
+  column sep=3em, text height=1.5ex, text depth=0.25ex]
+  {
+             & |(13)| \circ &             & |(12)| \circ &              & |(15)|  & \\
+             & |(10)| \circ & |(9)| \circ &              &  |(11)| \circ  \\
+ |(8)| \circ & |(6)| \circ &              &  |(7)| \circ &             \\
+ |(3)| \circ & |(2)| \circ &              & |(4)| \circ  & |(5)| \circ \\
+ |(0)| \circ &             & |(1)| \circ  &              &             &  |(14)|  & \\ };
+  \path[->,>=latex]
+  (1) edge [bend left=30] node[below,sloped] {$\supset$} (3)
+  (1) edge [bend right=30] node[below,sloped] {$\subset$} (5)
+  (5) edge [bend right=30] node[above,sloped] {$\supset$} (9)
+  (0) edge [bend right=30] node[below,sloped] {$\subset$} (9)
+  (4) edge [bend right=30] node[below,sloped] {$\supset$} (10)
+  (0) edge node[above,sloped] {$\subset$} (3)
+  (6) edge node[above,sloped] {$\subset$} (10)
+  (10) edge node[above,sloped] {$\subset$} (13)
+  (9) edge node[above,sloped] {$\subset$} (12)
+  (11) edge node[above,sloped] {$\supset$} (12)
+  (6) edge [bend left=30] node[above,sloped] {$\subset$} (12)
+  (7) edge node[above,sloped] {$\supset$} (9)
+  (7) edge node[above,sloped] {$\subset$} (11)
+  (1) edge node[above,sloped] {$\supset$} (2)
+  (1) edge node[above,sloped] {$\subset$} (4)
+  (3) edge node[above,sloped] {$\subset$} (6)
+  (3) edge node[above,sloped] {$\subset$} (8)
+  (2) edge node[above,sloped] {$\subset$} (6)
+  (4) edge node[above,sloped] {$\subset$} (7)
+  (14) edge[line width=8]node[below,sloped] {Premises} (15);
+\end{tikzpicture}
+\end{center}
+\end{document}

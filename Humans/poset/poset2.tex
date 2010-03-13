@@ -1,0 +1,51 @@
+% Rule based diagram
+% Author: Remus Mihail Prunescu
+\documentclass[]{article}
+%\usepackage{pxfonts}            % Or palatino or mathpazo
+%\usepackage{eulervm}            %
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3em,
+  column sep=3em, text height=1.5ex, text depth=0.25ex]
+  {
+  |(B)| &             & |(13)| \circ &             & |(12)| \circ &              & |(15)|  & \\
+  &             & |(10)| \circ & |(9)| \circ &              &  |(11)| \circ  \\
+  & |(8)| \circ & |(6)| \circ &              &  |(7)| \circ &             \\
+  & |(3)| \circ & |(2)| \circ &              & |(4)| \circ  & |(5)| \circ \\
+  |(A)| & |(0)| \circ &             & |(1)| \circ  &              &             &  |(14)|  & \\ };
+  \path[densely dotted]
+  (1) edge [bend left=30] node[below,sloped] {} (3)
+  (1) edge [bend right=30] node[below,sloped] {} (5)
+  (5) edge [bend right=30] node[above,sloped] {} (9)
+  (0) edge [bend right=30] node[below,sloped] {} (9)
+  (4) edge [bend right=30] node[below,sloped] {} (10)
+  (0) edge node[above,sloped] {} (3)
+  (6) edge node[above,sloped] {} (10)
+  (10) edge node[above,sloped] {} (13)
+  (9) edge node[above,sloped] {} (12)
+  (11) edge node[above,sloped] {} (12)
+  (6) edge [bend left=30] node[above,sloped] {} (12)
+  (7) edge node[above,sloped] {} (9)
+  (7) edge node[above,sloped] {} (11)
+  (1) edge node[above,sloped] {} (2)
+  (1) edge node[above,sloped] {} (4)
+  (3) edge node[above,sloped] {} (6)
+  (3) edge node[above,sloped] {} (8)
+  (2) edge node[above,sloped] {} (6)
+  (4) edge node[above,sloped] {} (7)
+  (14) edge[solid, ->, >=latex, line width=8]node[below,sloped] {Premises} (15)
+  (A) edge[solid, ->, >=latex, line width=8]node[above,sloped] {Experiential Data} (B);
+\end{tikzpicture}
+\end{center}
+\end{document}

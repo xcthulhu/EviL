@@ -1,0 +1,146 @@
+% \documentclass{letter}
+% \usepackage{geometry,amsmath,amssymb,enumerate,bbm}
+% \geometry{letterpaper}
+% 
+% %%%%%%%%%% Start TeXmacs macros
+% \newcommand{\assign}{:=}
+% \newcommand{\tmtextsc}[1]{{\scshape{#1}}}
+% \newcommand{\tmtextsf}[1]{{\sffamily{#1}}}
+% \newenvironment{enumerateromancap}{\begin{enumerate}[I.] }{\end{enumerate}}
+% \newenvironment{itemizedot}{\begin{itemize} \renewcommand{\labelitemi}{$\bullet$}\renewcommand{\labelitemii}{$\bullet$}\renewcommand{\labelitemiii}{$\bullet$}\renewcommand{\labelitemiv}{$\bullet$}}{\end{itemize}}
+% \newenvironment{proof}{\noindent\textbf{Proof\ }}{\hspace*{\fill}$\Box$\medskip}
+% \newtheorem{definition}{Definition}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{proposition}{Proposition}
+% %%%%%%%%%% End TeXmacs macros
+% 
+% \begin{document}
+
+While superficially it might appear that the semantics for
+\tmtextsc{EviL} are novel, they can be seen to correspond to highly structured
+Kripke models, with a minor modification on the standard definition.  The slight alteration is given as follows:
+%The semantics above correspond to Kripke semantics.
+
+\begin{definition}
+  Let $\Phi$ be a set of letters and let $\mathcal{A}$ be a set of agents. \
+  An Kripke structure is a state transition system $\langle W, R,
+  \sqsubseteq, \sqsupseteq, V,
+  P_{\circlearrowleft} \rangle$ where:
+  \begin{itemizedot}
+    \item $W$ is a set of worlds
+    
+    \item $R : \mathcal{A} \rightarrow \powerset (W \times W)$,
+    $\sqsubseteq^{} : \mathcal{A} \rightarrow \powerset (W \times W)$, and
+    $\sqsupseteq : \mathcal{A} \rightarrow \powerset (W \times W)$ are
+    $\mathcal{A}$-indexed set of relations
+    
+    \item $V : \Phi \rightarrow \powerset (W)$ is a predicate letter
+    valuation
+    
+    \item $P_{\circlearrowleft} : \mathcal{A} \rightarrow \powerset (W)$
+    assigns sets of worlds to agents
+  \end{itemizedot}
+  Call $\mathcal{K}_{\Phi, \mathcal{A}, I}$ the class of Kripke structures for
+  letters $\Phi$, agents $\mathcal{A}$, and where $W \subseteq I$.
+\end{definition}
+
+Kripke semantics $(\Vdash) : \mathcal{K}_{\Phi, \mathcal{A}, I} \times I
+\rightarrow \text{\tmtextsf{bool}}$ for these models are defined recursively
+as usual, granted the exceptional behavior of $P_{\circlearrowleft}$.
+
+\begin{definition}
+  Let $\mathbbm{M}$ be in the class $\mathcal{K}_{\Phi, \mathcal{A}, I}$
+  \begin{eqnarray*}
+    \mathbbm{M}, w \Vdash p & \Longleftrightarrow & w \in V^{\mathbbm{M}}
+    (p)\\
+    \mathbbm{M}, w \Vdash \phi \rightarrow \psi & \Longleftrightarrow &
+    \mathbbm{M}, w \Vdash \phi \text{ implies } \mathbbm{M}, w \Vdash \psi\\
+    \mathbbm{M}, w \Vdash \bot & \Longleftrightarrow & \text{False}\\
+    \mathbbm{M}, w \Vdash \Box_X \phi & \Longleftrightarrow & \forall v \in
+    W^{\mathbbm{M}} . w R^{\mathbbm{M}}_X v \text{ implies } \mathbbm{M}, v
+    \Vdash \phi\\
+    \mathbbm{M}, w \Vdash \boxminus_X \phi & \Longleftrightarrow & \forall v
+    \in W^{\mathbbm{M}} . w \sqsupseteq^{\mathbbm{M}}_X v \text{ implies }
+    \mathbbm{M}, v \Vdash \phi\\
+    \mathbbm{M}, w \Vdash \boxplus_X \phi & \Longleftrightarrow & \forall v
+    \in W^{\mathbbm{M}} . w \sqsubseteq^{\mathbbm{M}}_X v \text{ implies }
+    \mathbbm{M}, v \Vdash \phi\\
+    \mathbbm{M}, w \Vdash \circlearrowleft_X & \Longleftrightarrow & w \in
+    P_{\circlearrowleft}^{\mathbbm{M}} (X)
+  \end{eqnarray*}
+\end{definition}
+
+Kripke structures can be observe to have a lot less structure than
+\tmtextsc{EviL} models.  However, \tmtextsc{EviL} models can be understood as
+Kripke structures in disguise.  To illustrate this, observe the following
+lemma:
+
+\begin{lemma}
+  \label{tranlemma1}Let $\Omega$ be an \tmtextsc{EviL} model.  Define
+  $\mathbbm{M}^{\Omega} \assign \langle \Omega, R^{\Omega},
+  \sqsubseteq^{\Omega}, \sqsupseteq^{\Omega}, V^{\Omega},
+  P_{\circlearrowleft}^{\Omega} \rangle$, where
+  \[ \begin{array}{llll}
+       \bullet & \text{$(a, A) R^{\Omega}_X (b, B) \Longleftrightarrow \forall
+       \psi \in A_X .b \models \psi$} & \bullet & (a, A)
+       \sqsubseteq^{\Omega}_X (b, B) \Longleftrightarrow a = b \text{ and }
+       A_X \subseteq B_X\\
+       \bullet & (a, A) \sqsupseteq^{\Omega}_X (b, B) \Longleftrightarrow a =
+       b \text{ and } A_X \supseteq B_X & \bullet & (a, A) \in
+       P_{\circlearrowleft}^{\Omega} (X) \Longleftrightarrow \forall \psi \in
+       A_X .a \models \psi
+     \end{array} \]
+  $\ldots$then for all $(a, A) \in \Omega$ we have $\Omega, (a, A) \VDash
+  \phi$ if and only if $\mathbbm{M}^{\Omega}, (a, A) \Vdash \phi$
+\end{lemma}
+
+\begin{proof}
+  This follows from a straightforward induction on $\phi$.
+\end{proof}
+
+The following summerizes the structural properties of
+\tmtextsc{EviL} models, when transformed into Kripke structures:
+
+\begin{proposition}
+  Let $\Omega$ be an \tmtextsc{EviL} model, and let $\mathbbm{M}^{\Omega}$ be
+  as in Lemma \ref{tranlemma1}.  $\mathbbm{M}^{\Omega}$ has the following
+  properties{\footnote{Note that in this we have that $w \in \powerset \Phi
+  \times \powerset \mathcal{L}_0$}}:
+  \begin{myRoman}
+    \item $\sqsupseteq^{\Omega}_X$ is reflexive
+    
+    \item $\sqsupseteq^{\Omega}_X$ is transitive
+    
+    \item \label{pantisym}$\sqsupseteq^{\Omega}_X$ is anti-symmetric
+    
+    \item $w \sqsupseteq^{\Omega}_X v$ if and only if $v
+    \sqsubseteq^{\Omega}_X w$
+    
+    \item If $w \sqsubseteq^{\Omega}_X v$ then $w \in V (p)$ if and only if $v
+    \in V (p)$
+    
+    \item \label{pV}$R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X \subseteq
+    R^{\Omega}_X \subseteq R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X$
+    
+    \item $\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X = R^{\Omega}_X =
+    \sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X$
+    
+    \item $w \in P_{\circlearrowleft}^{\Omega} (X)$ if and only if $w
+    R^{\Omega}_X w$
+  \end{myRoman}
+  $\ldots$a Kripke structure is called \tmtextsc{EviL} if it makes true the
+  above properties (with the exception of \ref{pantisym}, which is optional).
+\end{proposition}
+
+\begin{proof}
+  Everything except \ref{pV} follows directly from the definitions - so we shall only
+  demonstrate $R^{\Omega}_X \subseteq R^{\Omega}_X \circ
+  \sqsupseteq^{\Omega}_X$.
+  
+  Suppose that $(a, A) R^{\Omega}_X (b, B)$, then evidently $\forall \psi \in
+  A_X .b \models \psi$.  Now assume that $(a, A) \sqsupseteq_X^{\Omega} (c,
+  C)$.  Then we know that $A_X \supseteq C_X$.  But then $\forall \psi \in
+  C_X .b \models \psi$, so $(c, C) R^{\Omega}_X (b, B)$, which suffices to
+  show the claim.
+\end{proof}
+

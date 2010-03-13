@@ -1,0 +1,57 @@
+% Rule based diagram
+% Author: Remus Mihail Prunescu
+\documentclass[]{article}
+%\usepackage{pxfonts}            % Or palatino or mathpazo
+%\usepackage{eulervm}            %
+\usepackage{tikz}
+\usetikzlibrary{positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+
+\begin{document}
+\tikzset{
+    hidden/.style={draw=white, fill=white, text=white},
+    state/.style={rectangle, rounded corners=1mm, fill=white, draw=black, very thick, text width=5cm,
+                  text centered, anchor=south, text=black, solid},
+    hiddenstate/.style={rectangle, rounded corners=1mm,
+                        text centered, anchor=south, draw=white, fill=white, text=white},
+    leaf/.style={rectangle, rounded corners=1mm, fill=blue!20,
+        text centered, anchor=south, text=black},
+    hiddenleaf/.style={rectangle, rounded corners=1mm,
+                       text centered, anchor=south, draw=white, fill=white, text=white},
+}
+ 
+\begin{tikzpicture}[level distance=1cm, 
+                    growth parent anchor=north, 
+                    grow'=up, 
+                    densely dotted,
+                    level 1/.style={sibling distance=7cm},
+                    level 2/.style={sibling distance=7cm},
+                    level 3/.style={sibling distance=7cm}]
+\node (State00) [state] { \textbf{The Human Condition}:\\ \emph{Accounts of knowledge\\ should formulate foundations\\ in human nature} } [-]
+    child{
+	node (EMER) [state] {\textbf{Emerson's Principle}:\\ \emph{Inconsistency,\\ in conjunction with knowledge,\\ can be possible}}
+	child{
+	    node (IRR) [state] {\textbf{Irrationality Principle}:\\ \emph{One cannot deny \\ man's irrationality \\ in knowledge theories}}
+	}
+    }
+    child{ [level distance=3cm]
+	node [state] {\textbf{Justification Principle}:\\ \emph{To possess knowledge,\\ satisfactory reasons\\ are necessary}}
+	child {
+	    node (THERM) [state] {\textbf{Thermometer Principle}:\\ \emph{A thermometer\\ with epistemology\\ is impossible}}
+			  %, since one must have reasons for the things they believe.
+	}
+    }
+    child{
+	 node (QUINE) [state] {\textbf{Quine/Whitman Principle}:\\ \emph{Agents are compound -\\ an analysis of them \\ should treat them as parts}}
+    }
+;
+    \path[densely dotted] (IRR) edge [bend left=15] node[below,sloped] {} (THERM)
+                          (QUINE) edge [bend right=30] node[below,sloped] {} (THERM) ;
+\end{tikzpicture}
+
+\end{document}
