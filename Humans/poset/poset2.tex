@@ -1,5 +1,3 @@
-% Rule based diagram
-% Author: Remus Mihail Prunescu
 \documentclass[]{article}
 %\usepackage{pxfonts}            % Or palatino or mathpazo
 %\usepackage{eulervm}            %
@@ -43,7 +41,8 @@
   (3) edge node[above,sloped] {} (6)
   (3) edge node[above,sloped] {} (8)
   (2) edge node[above,sloped] {} (6)
-  (4) edge node[above,sloped] {} (7)
+  (4) edge node[above,sloped] {} (7) ;
+\path[]
   (14) edge[solid, ->, >=latex, line width=8]node[below,sloped] {Premises} (15)
   (A) edge[solid, ->, >=latex, line width=8]node[above,sloped] {Experiential Data} (B);
 \end{tikzpicture}

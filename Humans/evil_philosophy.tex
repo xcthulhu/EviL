@@ -6,7 +6,6 @@
 %\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
 \usepackage{amssymb,amsmath}
-\usepackage[geometry]{ifsym}
 \usepackage{bussproofs}
 \usepackage[sort, round]{natbib}
 \usepackage{hyperref}
@@ -18,22 +17,14 @@
      urlcolor=black
  }
 
-%\usepackage{xltxtra}
-
-%\usepackage{epstopdf}
 \usepackage{gn-logic14}
-%\usepackage{rotating}
-\usepackage{pifont,staves}
-\usepackage{mathabx}
 \usepackage{tocloft}
-\usepackage{MnSymbol}
-
 \usepackage[geometry]{ifsym}
-%\usepackage{bussproofs}
+%\usepackage{pifont}
 
 \usepackage{tabularx,booktabs,multirow}
 
-%%%%%%%%%% Start TeXmacs macros
+%%%%%%%%%% TeXmacs macros
 \newcommand{\assign}{:=}
 %\newcommand{\nin}{\not\in}
 \newcommand{\tmtextsf}[1]{{\sffamily{#1}}}
@@ -43,7 +34,9 @@
 \newcommand{\tmstrong}[1]{{\textbf{#1}}}
 \newcommand{\tmtextsc}[1]{{\scshape{#1}}}
 \newcommand{\colons}{\,:\,}
-%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mathbbm}{\mathbb}
+
+%%%%%%%%%% Enumitem Environments
 \usepackage{enumitem}
 
 \newlist{mynum}{enumerate}{10} 
@@ -84,7 +77,7 @@
 \parskip = 0.1in
 \parindent = 0.0in
 
-%%%%%%%%%%%%%
+%%%%%%%% AMSTHM environments
 \usepackage{amsthm}
 \numberwithin{equation}{subsection}
 \newtheorem{theorem}{Theorem}[subsection]
@@ -97,93 +90,99 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \renewcommand{\qedsymbol}{\small QED}
 
-%Symbols
+%%%%%%% Symbols
 
-\DeclareMathSymbol{\sqsubset}       {3}{mathb}{"80}
-% \mathabx@undefine{\sqsupset}%
-\DeclareMathSymbol{\sqsupset}       {3}{mathb}{"81}
-\DeclareMathSymbol{\nsqsubset}      {3}{mathb}{"82}
-\DeclareMathSymbol{\nsqsupset}      {3}{mathb}{"83}
-\DeclareMathSymbol{\sqsubseteq}     {3}{mathb}{"84}
-\DeclareMathSymbol{\sqsupseteq}     {3}{mathb}{"85}
-\DeclareMathSymbol{\nsqsubseteq}    {3}{mathb}{"86}
-\DeclareMathSymbol{\nsqsupseteq}    {3}{mathb}{"87}
-\DeclareMathSymbol{\sqsubsetneq}    {3}{mathb}{"88}
-\DeclareMathSymbol{\sqsupsetneq}    {3}{mathb}{"89}
-\DeclareMathSymbol{\varsqsubsetneq} {3}{mathb}{"8A}
-\DeclareMathSymbol{\varsqsupsetneq} {3}{mathb}{"8B}
-% %
-\DeclareMathSymbol{\sqsubseteqq}    {3}{mathb}{"8C}
-\DeclareMathSymbol{\sqsupseteqq}    {3}{mathb}{"8D}
-\DeclareMathSymbol{\nsqsubseteqq}   {3}{mathb}{"8E}
-\DeclareMathSymbol{\nsqsupseteqq}   {3}{mathb}{"8F}
-\DeclareMathSymbol{\sqsubsetneqq}   {3}{mathb}{"90}
-\DeclareMathSymbol{\sqsupsetneqq}   {3}{mathb}{"91}
-\DeclareMathSymbol{\varsqsubsetneqq}{3}{mathb}{"92}
-\DeclareMathSymbol{\varsqsupsetneqq}{3}{mathb}{"93}
-% %
-\DeclareMathSymbol{\sqSubset}       {3}{mathb}{"94}
-\DeclareMathSymbol{\sqSupset}       {3}{mathb}{"95}
-\DeclareMathSymbol{\nsqSubset}      {3}{mathb}{"96}
-\DeclareMathSymbol{\nsqSupset}      {3}{mathb}{"97}
+% Yeah, I use a lot of crazy symbols, now that I reflect on this.
+% Upon reflection, this section has evolved into quite a spectacular mess.
 
-\DeclareMathSymbol{\subset}        {3}{matha}{"80}
-\DeclareMathSymbol{\supset}        {3}{matha}{"81}
-\DeclareMathSymbol{\nsubset}       {3}{matha}{"82}
-\DeclareMathSymbol{\nsupset}       {3}{matha}{"83}
-\DeclareMathSymbol{\subseteq}      {3}{matha}{"84}
-\DeclareMathSymbol{\supseteq}      {3}{matha}{"85}
-\DeclareMathSymbol{\nsubseteq}     {3}{matha}{"86}
-\DeclareMathSymbol{\nsupseteq}     {3}{matha}{"87}
-\DeclareMathSymbol{\subsetneq}     {3}{matha}{"88}
-\DeclareMathSymbol{\supsetneq}     {3}{matha}{"89}
-\DeclareMathSymbol{\varsubsetneq}  {3}{matha}{"8A}
-\DeclareMathSymbol{\varsupsetneq}  {3}{matha}{"8B}
-%
-\DeclareMathSymbol{\subseteqq}     {3}{matha}{"8C}
-\DeclareMathSymbol{\supseteqq}     {3}{matha}{"8D}
-\DeclareMathSymbol{\nsubseteqq}    {3}{matha}{"8E}
-\DeclareMathSymbol{\nsupseteqq}    {3}{matha}{"8F}
-\DeclareMathSymbol{\subsetneqq}    {3}{matha}{"90}
-\DeclareMathSymbol{\supsetneqq}    {3}{matha}{"91}
-\DeclareMathSymbol{\varsubsetneqq} {3}{matha}{"92}
-\DeclareMathSymbol{\varsupsetneqq} {3}{matha}{"93}
-%
-\DeclareMathSymbol{\Subset}        {3}{matha}{"94}
-\DeclareMathSymbol{\Supset}        {3}{matha}{"95}
-\DeclareMathSymbol{\nSubset}       {3}{matha}{"96}
-\DeclareMathSymbol{\nSupset}       {3}{matha}{"97}
+% We're gonna want to undefine and redefine stuff...
+\def\my@undefine#1{\let#1=\undefined}%
 
+% Load fakeMnSymbol
+% 'cause some MnSymbols in this are awesome, but many kind of suck
+% and after a little bit of searching, it looks like someone arleady
+% solved this crazy problem...
+\usepackage[]{fakeMnSymbol}
+\DeclareSymbolFont{mnsymbolc}{U}{MnSymbolC}{m}{n}
 
-\DeclareMathSymbol{\mbxVdash}         {3}{matha}{"2C}
-\renewcommand{\Vdash}{\mbxVdash}
-\DeclareMathSymbol{\mbxnVdash}        {3}{matha}{"2E}
-\renewcommand{\nVdash}{\mbxnVdash}
-\DeclareMathSymbol{\mbxVvdash}        {3}{mathb}{"2C}
-\renewcommand{\Vvdash}{\mbxVvdash}
-%\DeclareMathSymbol{\mbxnVvash}        {3}{mathb}{"2E}
-\newcommand{\nVvdash}{\nVvash}
-\DeclareMathSymbol{\mbxvDash}         {3}{matha}{"28}
-\renewcommand{\vDash}{\mbxvDash}
-\renewcommand{\models}{\mbxvDash}
-\DeclareMathSymbol{\mbxnvDash}        {3}{matha}{"2A}
-\renewcommand{\nvDash}{\mbxnvDash}
-\renewcommand{\nmodels}{\mbxnvDash}
+% Here are the symbols it looks like I use from here:
+\newcommand{\largepentagram}{\MNSlargepentagram}
+\newcommand{\powerset}{\MNSpowerset}
+\newcommand{\diamondminus}{\MNSdiamondminus}
+\newcommand{\diamondplus}{\MNSdiamondplus}
+
+% Sometimes, we are going to need more subtle hacks, so things can be
+% in superscripts.  \MNSxxx symbols are in \mbox... fucking LaTeX...
+\my@undefine{\boxminus}
+\DeclareMathSymbol{\boxminus}      {2}{mnsymbolc}{112}
+\my@undefine{\boxplus}
+\DeclareMathSymbol{\boxplus}      {2}{mnsymbolc}{116}
+\my@undefine{\Box}
+\DeclareMathSymbol{\Box}      {2}{mnsymbolc}{106}
+\renewcommand{\boxtimes}{\MNSboxtimes}
+\newcommand{\boxslash}{\MNSboxslash}
+\renewcommand{\Diamond}{\MNSmeddiamond}
+
+% stdmaryrd has the best lightning symbol
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+\DeclareMathSymbol\lightning\mathord{stmry}{"20}
+
+% Mathabx Font has cool corner symbols
+\DeclareFontFamily{U}{matha}{\hyphenchar\font45}
+\DeclareFontShape{U}{matha}{m}{n}{
+      <5> <6> <7> <8> <9> <10> gen * matham
+      <10.95> matham10 <12> <14.4> <17.28> <20.74> <24.88> matham12
+      }{}
+\DeclareSymbolFont{matha}{U}{matha}{m}{n}
+\DeclareFontSubstitution{U}{matha}{m}{n}
+
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{
+      <5> <6> <7> <8> <9> <10> gen * mathbm
+      <10.95> mathbm10 <12> <14.4> <17.28> <20.74> <24.88> mathbm12
+      }{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+\DeclareFontSubstitution{U}{mathb}{m}{n}
+
+% I only use a few of these crazy mathabx symbols
+\DeclareMathSymbol{\VDash}         {3}{mathb}{"28}
+\DeclareMathSymbol{\DashV}         {3}{mathb}{"29}
+\DeclareMathSymbol{\nVDash}        {3}{mathb}{"2A}
+\DeclareMathSymbol{\nDashV}        {3}{mathb}{"2B}
+\DeclareMathSymbol{\Vvdash}        {3}{mathb}{"2C}
+\DeclareMathSymbol{\nVvdash}        {3}{mathb}{"2E}
+\DeclareMathSymbol{\lcorners}      {4}{mathb}{"76}% name to be checked
+\DeclareMathSymbol{\rcorners}      {5}{mathb}{"77}% name to be checked
+\my@undefine{\ulcorner}%
+\DeclareMathSymbol{\ulcorner}      {4}{mathb}{"78}% name to be checked
+\my@undefine{\urcorner}%
+\DeclareMathSymbol{\urcorner}      {5}{mathb}{"79}% name to be checked
+\my@undefine{\llcorner}%
+\DeclareMathSymbol{\llcorner}      {4}{mathb}{"7A}% name to be checked
+\my@undefine{\lrcorner}%
+\DeclareMathSymbol{\lrcorner}      {5}{mathb}{"7B}% name to be checked
+\newcommand{\lc}{\ullcorner}
+\newcommand{\rc}{\ulrcorner}
+
+% For my EviL completeness symbol, I use upside down crosses... (I use pifont)
+\newcommand{\Pifont}[1]{\fontfamily{#1}\fontencoding{U}%
+                                           \fontseries{m}\fontshape{n}\selectfont}
+\newcommand{\Pisymbol}[2]{{\Pifont{#1}\char#2}}
+\newcommand{\ding}{\Pisymbol{pzd}}
+\renewcommand{\Cross}{\textrm{\ding{61}}}
+\newcommand{\iCross}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\Cross}}}\!}
+\newcommand{\invis}{\iCross}
+\newcommand{\lhookrightarrow}{\hookrightarrow}
+\newcommand{\nmodels}{\nvDash}
 \renewcommand{\diamondsuit}{\Diamond}
-
-%\renewcommand{\VDash}{|\equiv}
-\newcommand{\elem}{}
 \newcommand{\bs}{\ensuremath{\backslash}}
-\newcommand{\mathbbm}{\mathbb}
 \newcommand{\evil}{\textsc{EviL} }
 \newcommand{\Omegap}{\Omega}
 \renewcommand{\Omega}{\mathfrak{M}}
 \newcommand{\ra}{\rangle}
 \newcommand{\la}{\langle}
-\renewcommand{\Cross}{\textrm{\ding{61}}}
-\newcommand{\iCross}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
 \newcommand{\ipent}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\ensuremath{\largepentagram}}}}\!\!\!}
-%\newcommand{\ang}{\textrm{\tiny{\staveVI}}}
 \newcommand{\ang}{\Lambda}
 \newcommand{\DD}{\diamondminus}
 \newcommand{\DDI}{\diamondplus}
@@ -196,6 +195,7 @@
 \newcommand{\DM}{\diamondminus}
 \newcommand{\PD}{\diamonddot}
 \newcommand{\BP}{\boxplus}
+\newcommand{\nin}{\not\in}
 \newcommand{\BB}{\boxminus}
 \newcommand{\pBB}{\boxslash}
 \newcommand{\BBI}{\boxplus}
@@ -214,18 +214,16 @@
 \newcommand{\mo}[2]{\ensuremath{\mathfrak{M},( #1, #2 )}}
 \newcommand{\pr}[2]{\ensuremath{( #1, #2 )}}
 \newcommand{\rel}[1]{\ensuremath{R_{#1}}}
-\newcommand{\lc}{\ullcorner}
-\newcommand{\rc}{\ulrcorner}
 %\newcommand{\invis}{\textrm{\tiny{\staveLXII}}}
-\newcommand{\invis}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
-%\newcommand{\invis}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
+% %\newcommand{\invis}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
 %\newcommand{\Kill}{\textrm{\footnotesize{\staveXV}}}
 \newcommand{\Kill}{\theta}
-%\renewcommand\eminnershape{\bfshape}
+% %\renewcommand\eminnershape{\bfshape}
+%\newcommand{\nVvdash}{\nVvash}
 
 % \usepackage{pgf}
 \usepackage{tikz}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows,decorations.pathmorphing}
 
 \title{\textsc{EviL}}
 
@@ -419,9 +417,13 @@ $$\vdash_{K} \phi\textup{ if and only if } \Omega, (a,A) \VDash \phi \textup{ fo
 \ldots where $K$ is basic modal logic.
 \end{prop}
 \begin{proof}
- Left to right is trivial, so we shall focus on right to left.  Assume that $\nvdash_{K} \phi$, then we know from completeness and the finite model property that there's some finite model $\mathbb{M}=\langle W^\mathbb{M}, V^\mathbb{M}, R^\mathbb{M}\rangle$ and world $w \in W^\mathbb{M}$ such that $\mathbb{M},w \nVdash \phi$ (see \citet[chapters 2 \& 4]{blackburn_modal_2001} for details of these facts).
+ Left to right is trivial, so we shall focus on right to left.  Assume
+ that $\nvdash_{K} \phi$, then we know from completeness and the
+ finite model property that there's some finite model
+ $\mathbb{M}=\langle W^\mathbb{M}, V^\mathbb{M}, R^\mathbb{M}\rangle$ and world $w \in W^\mathbb{M}$ such that $\mathbb{M},w \nVdash \phi$ (see \citet[chapters 2 \& 4]{blackburn_modal_2001} for details of these facts).
 
-Now let $\Lambda_\phi$ be the proposition letters that occur as subformulae of $\phi$, and let $\rho_\phi : W^\mathbb{M} \lhookrightarrow \Phi \bs \Lambda_\phi$ be an injection.  Define $\theta_\phi:W^\mathbb{M}\to \powerset\Phi \times \powerset \mathcal{L}_0(\Phi)$ as follows\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
+Now let $\Lambda_\phi$ be the proposition letters that occur as
+subformulae of $\phi$, and let $\rho_\phi : W^\mathbb{M} \hookrightarrow \Phi \bs \Lambda_\phi$ be an injection.  Define $\theta_\phi:W^\mathbb{M}\to \powerset\Phi \times \powerset \mathcal{L}_0(\Phi)$ as follows\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
 \begin{center}
 \begin{minipage}{3in}
 \begin{tabbing}
@@ -520,11 +522,18 @@ thought experiment: \tmtextit{Charlotte can know that Alex survives if she
  }  If like Descartes she can forget some of what she has come to believe that's a
 little suspicious, she might be able to compose an argument with a sound basis that Alex is alive.
  Taking Descartes as inspiration, I would suggest a new semantic operation:
-\[ \Omega,(a,A) \VDash \BM \phi \iff \textup{ for all }(b,B)\in \Omega\textup{ such that }a = b\textup{ and }B \subseteq A\textup{ then }\Omega,(b,B) \VDash \phi\]
+\[ \Omega,(a,A) \VDash \BM \phi 
+     \iff \textup{ for all }(b,B)\in \Omega
+           \textup{ such that }a = b
+                   \textup{ and }B \subseteq A
+            \textup{ then }\Omega,(b,B) \VDash \phi \]
 
 This mechanism lets Charlotte access subsets of her beliefs, which would then form the basis for various arguments she might compose.  Provided that $(c,C')\in \Omega$, where $C'$ is the same as $C$ but doesn't mention erroneous beliefs about geographical data, it might serve as a basis for Charlotte's knowledge that Alex survives.  This suggests that the following equation might reasonably express a more adequate notion of knowledge:
 \[ \DM(\PP \wedge \Nec \phi) \]
-%This might be read informally as follows: some accessible subset of Charlotte's beliefs serves as a sound basis for the deducing $\phi$ (which, in this case, is thought to state ``Alex survives'').  We might 
+%This might be read informally as follows: some accessible subset of
+%Charlotte's beliefs serves as a sound basis for the deducing $\phi$
+%(which, in this case, is thought to state ``Alex survives'').  We
+%might
 
 \subsection{Contradictions}\label{contradictions}
 
@@ -534,12 +543,18 @@ There's hidden virtue in the previous analysis.  To see what it is, I am inspire
 
 {A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines. With consistency a great soul has simply nothing to do. He may as well concern himself with his shadow on the wall. Speak what you think now in hard words and to-morrow speak what to-morrow thinks in hard words again, 
 though it contradict every thing you said to-day. 
--- `Ah, so you shall be sure to be misunderstood.' -- Is it so bad then to be misunderstood?
-}
+-- `Ah, so you shall be sure to be misunderstood.' -- Is it so bad
+then to be misunderstood? }
 \end{quote}
 
-A healthy lack of consistency is just part of the human condition.  Isn't error-prone reasoning a hallmark of human thought?  And if a love sick epistemic agent $\exists$ is getting mixed signals from another epistemic agent $\forall$, why can't she draw inconsistent conclusions about $\forall$'s feelings on the one hand, but still have basic knowledge that $734\times 12 = 8808$ and other such irrelevant facts?  I don't see why not.  Under these considerations, I'd embrace the following:
-
+A healthy lack of consistency is just part of the human condition.
+Isn't error-prone reasoning a hallmark of human thought?  And if a
+love sick epistemic agent $\exists$ is getting mixed signals from
+another epistemic agent $\forall$, why can't she draw inconsistent
+conclusions about $\forall$'s feelings on the one hand, but still have
+basic knowledge that $734\times 12 = 8808$ and other such irrelevant
+facts?  I don't see why not.  Under these considerations, I'd embrace
+the following:
 \begin{quote}
  \textbf{Emerson's Principle}: \emph{One can be inconsistent and still have knowledge}
 \end{quote}
@@ -549,10 +564,18 @@ Permit me illustrate how the framework I have given accommodates this. My treatm
   Very well then I contradict myself,\\
   (I am large, I contain multitudes.)}
 \end{center}
-
-So consider the model $\Omega$ in Fig. \ref{fig:example1}; this is intended to be a toy model of how I interpret Walt Whitman in the above stanza. This figure should be read as follows:
+So consider the model $\Omega$ in Fig. \ref{fig:example1}; this is
+intended to be a toy model of how I interpret Walt Whitman in the
+above stanza. This figure should be read as follows:
 \begin{bul}
- \item if one point $(a,A)$ is above another point $(b,B)$ and connected by a dotted line \tikz \draw[densely dotted](0pt,0pt) -- (20pt,6pt);, this means that $a = b$ and $B \subset A$.  %This follows the standard notation for \emph{Hasse diagrams} (I shall return to why this is in \S \ref{quine}).
+ \item if one point $(a,A)$ is above another point $(b,B)$ and
+   connected by a densely dotted line 
+   \tikz \draw[densely dotted](0pt,0pt) -- (20pt,6pt);, 
+   this means that $a = b$ and $B
+   \subset A$.  
+   %This follows the standard notation for \emph{Hasse diagrams} 
+   % (I shall return to why this is in \S
+   %\ref{quine}).
   \item if one point $(a,A)$ is connected to another point $(b,B)$ by
     a line with an arrow \tikz \draw[->,>=latex](0pt,0pt) --
     (20pt,6pt);, this means that $\Omega,(b,B) \VDash A$
@@ -569,7 +592,15 @@ So consider the model $\Omega$ in Fig. \ref{fig:example1}; this is intended to b
 \label{fig:example1}
 \end{figure}
 %
-Observe that $\Omega,(\{p\},\{p,\neg p\}) \VDash \Box \bot$; it's obvious that in this state Walt is being inconsistent since he clearly believes contradictory things.  Simultaneously, we have that $\Omega,(\{p\},\{p,\neg p\}) \VDash \DM (\PP \wedge \Box p)$; so we figure that Walt has a sound argument that $p$.  Walt might be inconsistent, but it would appear that \emph{at least one} of his arguments makes sense.  And this is naturally because Walt contains a multiplicity of inner selves, just like he says, which the the $\BM$ modality gives access to.
+Observe that $\Omega,(\{p\},\{p,\neg p\}) \VDash \Box \bot$; it's
+obvious that in this state Walt is being inconsistent since he clearly
+believes contradictory things.  Simultaneously, we have that
+$\Omega,(\{p\},\{p,\neg p\}) \VDash \DM (\PP \wedge \Box p)$; so we
+figure that Walt has a sound argument that $p$.  Walt might be
+inconsistent, but it would appear that \emph{at least one} of his
+arguments makes sense.  And this is naturally because Walt contains a
+multiplicity of inner selves, just like he says, which the the $\BM$
+modality gives access to.
 
 \subsection{Irrationality}\label{irrational}
 
