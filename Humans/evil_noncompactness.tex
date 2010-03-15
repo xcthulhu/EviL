@@ -1,4 +1,4 @@
-In this section I shall demonstrate that \textsc{EviL} is not compact by giving an example of an infinite set of formula for which every finite subset is satisfiable while the entirety is not.  In the subsequent discussion I shall restrict ourselves to models with one agent and cease to employ subscripts.
+In this section I shall demonstrate that \textsc{EviL} is not compact by giving an example of an infinite set of formulae for which every finite subset is satisfiable while the entirety is not.  %In the subsequent discussion I shall restrict to models with one agent and cease to employ subscripts.
 
 \begin{lemma}%\renewcommand{\qedsymbol}{$\dashv$}
 Let $\tau : \Phi \to \mathcal{L}$ be defined as follows:
@@ -12,7 +12,7 @@ Let $\tau : \Phi \to \mathcal{L}$ be defined as follows:
 \end{minipage}
 \end{center}
 Every finite subset of $\tau[\Phi]$ is satisfiable, but not the entirety, which is infinite. 
-\elem\end{lemma}
+\end{lemma}
 \begin{proof}
 That $\tau[\Phi]$ is infinite is immediate, as $\Phi$ was stipulated to be infinite. 
 
@@ -48,5 +48,26 @@ One may check that $\mathfrak{M},( a,\{q\}) \VDash \tau(p)$ for all $p \in \Psi$
    \label{fig:mod4}
 \end{figure}
 
-On the other hand, suppose there was some model $\mathfrak{N}$ such that $\mathfrak{N}, ( a, A) \VDash \tau(p)$ for all $p \in \Psi$.  This implies that $\mathfrak{N}, ( a, A) \VDash p$ for each $p \in \Phi$.  Moreover, let $( b, B)$ be such that $\mathfrak{N},( b, B)\VDash A$ (one exists since by hypothesis $\mathfrak{N}, ( a, A) \VDash \Pos p$).  By the semantics of $\tau(p)$, it is evident that $\mathfrak{N}, ( b, B) \VDash \neg p$ and that there's a $( c, C)$ such that $\mathfrak{N},( c,C ) \VDash B$ and $\mathfrak{N},( c,C ) \VDash p \wedge \Pos p$.  But then from this it must be that $a$ and $c$ both contain exactly the same sentence letters, which means that $\mathfrak{N},( a,A) \VDash B$ as well.  However it cannot be that $\mathfrak{N},( a,A ) \VDash \Pos p$ since $\mathfrak{N},( a,A ) \VDash \Nec \neg p$ by $\tau(p)$. Thus it is impossible that $\mathfrak{N},( a, A) \VDash \tau[\Phi]$. $\lightning$
+On the other hand, suppose there was some model $\mathfrak{N}$ such
+that $\mathfrak{N}, ( a, A) \VDash \tau(p)$ for all $p \in \Psi$.
+This implies that $\mathfrak{N}, ( a, A) \VDash p$ for each $p \in
+\Phi$.  Moreover, let $( b, B)$ be such that $\mathfrak{N},( b,
+B)\VDash A$ (one exists since by hypothesis $\mathfrak{N}, ( a, A)
+\VDash \Pos p$).  By the semantics of $\tau(p)$, it is evident that
+$\mathfrak{N}, ( b, B) \VDash \neg p$ and that there's a $( c, C)$
+such that $\mathfrak{N},( c,C ) \VDash B$ and $\mathfrak{N},( c,C )
+\VDash p \wedge \Pos p$.  But then from this it must be that $a$ and
+$c$ both contain exactly the same sentence letters, which means that
+$\mathfrak{N},( a,A) \VDash B$ as well.  However it cannot be that
+$\mathfrak{N},( a,A ) \VDash \Pos p$ since $\mathfrak{N},( a,A )
+\VDash \Nec \neg p$ by $\tau(p)$. Thus it is impossible that
+$\mathfrak{N},( a, A) \VDash \tau[\Phi]$. $\lightning$
 \end{proof}
+
+This failure of compactness, while a fairly basic result in the model
+theory of \textsc{EviL}, is fundamental.  As a consequence, there is
+no hope of achieving completeness using infinitary Lindenbaum
+constructions that are typically employed in modal logic, such as is
+done in \citep[][chapter 4]{blackburn_modal_2001}, for instance.
+Any completeness theorem for \textsc{EviL} will necessarily have to be
+finite in nature.

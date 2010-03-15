@@ -28,12 +28,12 @@ Given this perspective, the proof of \ref{pV} can be understood in the
 following way - if the agent assumes fewer things, more things are imaginable,
 since it's easier for a world to be incompatible with an agent's evidence.
 
-Another expression of the same idea as above is as follows. \ For a given
+In fact, in light of Theorem \ref{theorem-theorem}, the above follows
+from a more general relationship present in model theory.  For a given
 Kripke structure $\mathbbm{M}$, define two operators $Mod^{\mathbbm{M}}
 : \powerset  \mathcal{L} (\Phi, \mathcal{A}) \rightarrow \powerset
 (W^{\mathbbm{M}})$ and $Th^{\mathbbm{M}} : \powerset
-(W^{\mathbbm{M}}) \rightarrow \powerset \mathcal{L} (\Phi, \mathcal{A})$:
-
+(W^{\mathbbm{M}}) \rightarrow \powerset \mathcal{L} (\Phi, \mathcal{A})$
 \begin{align*}
   Mod^{{\mathbbm{M}}}({\Delta}) &
   =\{x{\in}W{\ }|{\ }{\forall}{\psi}{\in}{\Delta}.
@@ -42,20 +42,19 @@ Kripke structure $\mathbbm{M}$, define two operators $Mod^{\mathbbm{M}}
   \mathcal{A}){\ }|{\ }{\forall}x{\in}{\nabla}.
   {\mathbbm{M}},x{\Vdash}{\psi}\}
 \end{align*}
-
-The following relationship holds, where $\Delta \in \powerset  \mathcal{L}
+We then have, for any $\Delta \in \powerset  \mathcal{L}
 (\Phi, \mathcal{A})$ and $\nabla \in \powerset (W^{\mathbbm{M}})$:
 \[ \nabla \subseteq Mod^{\mathbbm{M}} (\Delta) \text{ if and only if }
    \Delta \subseteq Th^{\mathbbm{M}} (\nabla) \]
 $\ldots$hence we these two operations form what is refered an
 \tmtextit{antitone Galois connection}, between the lattice $\powerset
 (W^{\mathbbm{M}})$ and the lattice $\powerset \mathcal{L} (\Phi,
-\mathcal{A})$. \ It follows from the theory of Galois connections (FIXME) that
-the following two properties hold:
+\mathcal{A})$. It follows from the theory of Galois connections
+\citep[][chapter 3]{roman_lattices_2008} that
+the following two properties:
 \begin{itemizedot}
   \item If $\nabla \supseteq \nabla'$ then $Th^{\mathbbm{M}} (\nabla)
   \subseteq Th^{\mathbbm{M}} (\nabla')$
-  
   \item If $\Delta \supseteq \Delta'$ then $Mod^{\mathbbm{M}} (\Delta)
   \subseteq Mod^{\mathbbm{M}} (\Delta')$
 \end{itemizedot}

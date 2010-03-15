@@ -6,39 +6,32 @@ Consider structures of the form $\langle W, V, \beta, \iota \rangle$
 consisting of:
 \begin{itemizedot}
   \item A set of worlds $W$
-  
   \item A propositional valuation function $V : \Phi \rightarrow \powerset
   W$
-  
   \item An belief function $\beta : W \rightarrow \powerset \mathcal{L}
   (\Phi)$
-  
-  \item An imagination function $\iota : W \rightarrow \powerset W$
+   \item An imagination function $\iota : W \rightarrow \powerset W$
 \end{itemizedot}
 We shall call these \tmtextit{belief-imagination models}.   One can think of a
 model $\Omega$ sort of like a of tuples like in \S\ref{evil-semantics}; however
-in this case evidently it would have to be \ $\Omega \subseteq \powerset
+in this case evidently it would have to be $\Omega \subseteq \powerset
 \Phi \times \powerset \mathcal{L} (\Phi) \times \powerset \Omega$, so
 apparently it would have to be a non-wellfounded set.   This is somewhat natural,
-given a modal logic setting - see for instance \citet{barwise_vicious_1996} for an
+given a modal logic setting - see for instance \citep{barwise_vicious_1996} for an
 elaboration on these connections.
 
 \begin{definition}
-  We now define by recursion the following two truth relations:
+  Define by recursion the following two truth relations:
   
   First relation:
   \begin{empt}
     \item $\Omega, w \Vdash p \Longleftrightarrow p \in V (w)$
-    
-    \item $\Omega, w \Vdash \phi \wedge \psi \Longleftrightarrow$both $\Omega,
+    \item $\Omega, w \Vdash \phi \wedge \psi \Longleftrightarrow$ both $\Omega,
     w \Vdash \phi$ and $\Omega, w \Vdash \psi$
-    
-    \item $\Omega, w \Vdash \phi \vee \psi \Longleftrightarrow$either $\Omega,
+    \item $\Omega, w \Vdash \phi \vee \psi \Longleftrightarrow$ either $\Omega,
     w \Vdash \phi$ or $\Omega, w \Vdash \psi$
-    
     \item $\Omega, w \Vdash \neg \phi \Longleftrightarrow \Omega, w \Vvdash
     \phi$
-    
     \item $\Omega, w \Vdash \Box \phi \Longleftrightarrow \beta (w)
     \vdash^{\ast} \phi$
     
@@ -53,17 +46,12 @@ elaboration on these connections.
   Second relation:
   \begin{empt}
     \item $\Omega, w \Vvdash p \Longleftrightarrow p \nin V (w)$
-    
-    \item $\Omega, w \Vvdash \phi \wedge \psi \Longleftrightarrow$either
-    $\Omega, w \Vvdash \phi$ or $\Omega, w \Vvdash \psi$
-    
-    \item $\Omega, w \Vvdash \phi \vee \psi \Longleftrightarrow$both $\Omega,
+    \item $\Omega, w \Vvdash \phi \wedge \psi \Longleftrightarrow$ either $\Omega, w \Vvdash \phi$ or $\Omega, w \Vvdash \psi$
+    \item $\Omega, w \Vvdash \phi \vee \psi \Longleftrightarrow$ both $\Omega,
     w \Vvdash \phi$ and $\Omega, w \Vvdash \psi$
-    
     \item $\Omega, w \Vvdash \neg \phi \Longleftrightarrow \Omega, w \Vdash
     \phi$
-    
-    \item $\Omega, w \Vvdash \Box \phi \Longleftrightarrow$there is some $v
+    \item $\Omega, w \Vvdash \Box \phi \Longleftrightarrow$ there is some $v
     \in \iota (w)$ such that $\Omega, v \Vvdash \phi$
   \end{empt}
 \end{definition}

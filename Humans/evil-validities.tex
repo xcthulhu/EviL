@@ -39,16 +39,55 @@ true the following: if something is achievable by repeatedly casting
 assumptions into doubt, then it's achievable by casting assumptions
 into doubt only once:
 \begin{equation}
-\Vdash \PM^+\phi \to \PM \phi
+\VDash \PM^+\phi \to \PM \phi
 \end{equation}
 \ldots where $^+$ is taken from the syntax for \emph{regular
-  expressions} commonly used in computer science meaning ``one or
+  expressions} commonly used in computer science and UNIX programming
+to mean ``one or
 more'' \citep{friedl_mastering_2006}.  Similarly, I have assumed that
 discarding no assumptions is, in a way, vacuously casting assumptions
 into doubt.  In light of this \textsc{EviL} also makes true the following:
 \begin{equation}
-\Vdash \phi \to \PM \phi
+\VDash \phi \to \PM \phi
 \end{equation}
+Furthermore, it is worth mentioning some harder to understand
+validities of this system.  The first one is that when the agent
+believes something, they believe it regardless of the process of
+doubting or embracing their beliefs:
+\begin{eqnarray}
+\VDash \Box \phi \to \Box \BM \phi \label{dontcare1}\\
+\VDash \Box \phi \to \Box \BP \phi \label{dontcare2}
+\end{eqnarray}
+We can observe that this generalizes to multiple agents, as specified
+in \S\ref{multi-agent}.
+
+Another more challenging validity is the fact that if
+some proposition $\phi$ holds , then for any restriction of
+\textsc{EviL} agent's beliefs (or dually, any extension), 
+if those beliefs are sound, then $\phi$ must be conceivable.  This is
+expressed as the following two validities:
+\begin{eqnarray}
+\VDash \phi \to \BM (\PP \to \Pos \phi) \label{fraghack1}\\
+\VDash \phi \to \BP (\PP \to \Pos \phi) \label{fraghack2}
+\end{eqnarray}
+Finally, another a peculiarity of \textsc{EviL} is that not all of its
+validities are \emph{schematic}.  For instance, there is a kind of
+\emph{Cartesian dualism} present in the semantics, where the
+\textsc{EviL} agent's deliberation on her evidence does not bear on
+brute matters of fact.  For a world pair $(a,A)$, $A$ and $a$ are
+basically separate - an \textsc{EviL} agent's mind and the world they
+live are composed of different substance.  This gives rise to the following four validities: 
+\begin{eqnarray}
+& \VDash p \to \BM p \\
+& \VDash p \to \BP p \\
+& \VDash \neg p \to \BM \neg p \\
+& \VDash \neg p \to \BP \neg p
+\end{eqnarray}
+Hence, \textsc{EviL} is not a \emph{normal} logic.  On the other hand,
+the duality between doubting and embracing one's experience, belief
+and imagination, as well as the soundness and unsoundness give rise
+to an interplay which I don't believe is present in any \emph{normal} logic.
+This shall be the subject of study in \S\ref{elimination}.
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"

@@ -16,9 +16,21 @@
 
 %\begin{document}
 
-In this section, I illustrate that the structural validities of \textsc{EviL} can be used to reason that $\BM, \BP, \DM,$ and $\DP$ exhibit certain behavior over two dual fragments of the language $\mathcal{L}(\Phi)$.
+In section \S\ref{validities}, I presented the structural validities of
+\text{EviL} from a philosophical perspective.  That being the case, my
+manner of presentation followed my intuition, which I
+admit is altogether unorganized.  In this section, I shall give the
+validities of \textsc{EviL} a more systematic presentation.  In doing
+so, I shall showcase an elimination theorem, that I feel sits at the
+heart of \textsc{EviL}.
 
-The following lemma summerizes the structural validities, in a systematic fashion, that I will be studying in the subsequent discussion:
+%In this section, I illustrate that the structural validities of
+%\textsc{EviL} can be used to reason that $\BM, \BP, \DM,$ and $\DP$
+%exhibit certain behavior over two dual fragments of the language
+%$\mathcal{L}(\Phi)$.
+
+To start, the following lemma summerizes the structural validities
+that I will be studying in the subsequent discussion:
 
 \begin{lemma}
   \label{validities}The following validities hold for all \tmtextsc{EviL}
@@ -44,10 +56,9 @@ The following lemma summerizes the structural validities, in a systematic fashio
 \end{lemma}
 
 These validities suggest a definite interplay between the modalities of
-\tmtextsc{EviL} -- this section is devoted to establishing a certain
-expression of this interplay that follows from the interplay expressed above.
-
-First note that the usual substitution rule holds:
+\tmtextsc{EviL}; they are highly suggestive of a general elimination
+theorem.  To see what arises from Lemma \ref{validities}, first
+observe that \textsc{EviL} makes true the usual substitution rule:
 
 \begin{lemma}
   If $\VDash \phi \leftrightarrow \psi$ is a validity, then $\VDash \chi
@@ -55,8 +66,7 @@ First note that the usual substitution rule holds:
   \mathcal{L} (\Phi)$.
 \end{lemma}
 
-Next, I
-offer the following definition of two sublanguages of the main language of
+Next, I offer two sublanguages of the main language of
 \tmtextsc{EviL}:
 
 \begin{definition}
@@ -100,25 +110,21 @@ offer the following definition of two sublanguages of the main language of
      \end{array} \]
 \end{definition}
 
-With the above definition in hand, observe the following natural duality
+With the above definition in hand, it is straightforward to see the following duality
 theorem:
 
-\begin{lemma}
+\begin{theorem}[Duality]
   Observe that for all $\phi \in \mathcal{L}_A (\Phi)$ and $\psi \in
   \mathcal{L}_B (\Phi)$, $(\phi^B)^A = \phi$ and $(\psi^A)^B = \psi$. \
   Moreover, we have the following validities: $\VDash \neg (\phi^B)
   \leftrightarrow \phi$ and $\VDash \neg (\psi^A) \leftrightarrow \psi$.
-\end{lemma}
+\end{theorem}
 
-\begin{proof}
-  The above follows from routine induction.
-\end{proof}
+The above duality is convenient, since it can be leveraged to transfer
+results proven for one the fragment $\mathcal{L}_A (\Phi)$ to $\mathcal{L}_B (\Phi)$.
 
-The above duality is convenient, since it means that results proven for one
-fragment $\mathcal{L}_A (\Phi)$ can be transfered to $\mathcal{L}_B (\Phi)$ in
-a straight-forward manner.
-
-Here is what I see as the consequence of the logical equivalence given in
+With the above machinery in place, I present what I feel is the
+natural consequence of the logical equivalence given in
 Lemma \ref{validities}:
 
 \begin{definition}
@@ -127,14 +133,14 @@ Lemma \ref{validities}:
   and $\DP$ eliminated.
 \end{definition}
 
-\begin{theorem}[Vanishing]\label{vanishing}
+\begin{theorem}[\textsc{EviL} Elimination]\label{vanishing}
   For all $\phi \in \mathcal{L}_A (\Phi)$ or $\phi \in \mathcal{L}_B (\Phi)$,
   we have the following validity:
   \[ \VDash \phi \leftrightarrow \phi^{\ast} \]
 \end{theorem}
 
 \begin{proof}
-  To prove proceeds in three steps.
+  The prove proceeds in three steps.
   
   Step 1: First, use induction on $\phi \in \mathcal{L}_A (\Phi)$, and show
   the following two facts simultaneously:
@@ -144,7 +150,7 @@ Lemma \ref{validities}:
   \end{align*}
   \begin{itemizedot}
     \item Cases $p$, $\neg p$, $\bot$, $\top$, $\circlearrowleft$: \ In all of
-    these situations, the result follows from the validities illustrated in
+    these situations, the result follows directly from the validities illustrated in
     Lemma \ref{validities}.
     
     \item Cases $\wedge, \vee$: \ For $\boxminus$ the connective $\wedge$ is
@@ -215,15 +221,27 @@ Lemma \ref{validities}:
 \[ \VDash \BM\DP\Pos t \vee \DM\BP\Box \neg t \]
 \end{example}
 
-
 The way I read Theorem \ref{vanishing} is that $\boxminus$
-and $\DP$ is empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B
+and $\DP$ are empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B
 (\Phi)$ with $\DM$ and $\boxplus$.  Further, note that
 $\mathcal{L}_0 (\Phi) \subseteq \mathcal{L}_A (\Phi) \cap \mathcal{L}_B
 (\Phi)$ (up to translation), which means that all four of $\boxplus$,
 $\boxminus$ along with their duals $\DP$ and $\DM$
 vanish on the propositional language.  Inspecting the semantics, this is to
-be expected, since neither $\boxplus$ nor $\boxminus$ interact with propositional truth values.
+be expected, since neither $\boxplus$ nor $\boxminus$ interact with
+propositional truth values.
+
+Finally, I should remark that Theorem \ref{vanishing} reflects one of
+the basic themes of \textsc{EviL} - the interplay between belief,
+reflected by $\Box$, and
+imagination, reflected by $\Pos$.  I feel that these two phenomena are just two sides of
+the same coin - furthermore, one couldn't have more natural opposites.
+Belief and imagination exemplify what I naturally feel are two warring
+forces dwelling within any \textsc{EviL} agent's heart.  Evidently
+soundness $\PP$ is aligned with imagination and
+unsoundness $\neg\PP$ is aligned with belief.  However, I admit that I
+do not understand what philosophical light is shed by Theorem
+\ref{vanishing}, if there is indeed any at all.
 
 % \end{document}
 

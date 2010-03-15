@@ -1,7 +1,20 @@
-In this section I turn to developing the formal semantics for \tmtextsc{EviL} with a single agent.  I imagine the object of study in \textsc{EviL} is an agent, which I call the \textsc{EviL} agent.  In \S(FIXME), the semantic framework offered here is extended to incorporate multiple agents. In Appendix (FIXME), yet another framework is offered employing gamelike semantics, which avoids the grammar restriction suggested in \S(FIXME).  %Since the original semantics offered in \S\ref{sketch} were subject to paradox, it will be of central importance to give an account of \textsc{EviL} that is not subject to paradox.
+In this section I turn to developing the formal semantics for
+\tmtextsc{EviL} with a single agent.  I imagine the object of study in
+\textsc{EviL} is an agent, which I call the \textsc{EviL} agent.  In
+\S\ref{multi-agent}, the semantic framework offered here is extended to
+incorporate multiple agents. In Appendix \ref{alternative}, yet another
+framework is offered employing gamelike semantics, which avoids the
+grammar restriction suggested in \S\ref{sketch}.  %Since the original
+                                %semantics offered in \S\ref{sketch}
+                                %were subject to paradox, it will be
+                                %of central importance to give an
+                                %account of \textsc{EviL} that is not
+                                %subject to paradox.
 
-I mentioned that the semantics previously developed in \S\ref{sketch}
-gave rise to a paradox.  To avoid paradoxes like this, the previous definition shall be discarded, in favor of demonstrably well-defined semantics.  This shall be achieved in two steps.
+% I mentioned that the semantics previously developed in \S\ref{sketch} gave rise to a paradox.  
+The grammar restriction imposed on \textsc{EviL} was introduced to
+avoid paradoxes. That being the case, I shall discard the previous
+definition of $(\VDash)$ I suggested, in favor of demonstrably well-defined semantics.  This shall be achieved in two steps.
 
 \begin{definition} Let $\mathcal{L}_0 (\Phi)$ be the language of classical propositional logic, defined by the following Backus-Naur form grammar:
 \[ \phi \ {::=} \  p \in \Phi \  | \  \phi

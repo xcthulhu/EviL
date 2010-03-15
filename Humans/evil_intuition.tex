@@ -1,13 +1,3 @@
-% \documentclass{letter}
-% \usepackage{geometry,amssymb}
-% \geometry{letterpaper}
-% 
-% %%%%%%%%%% Start TeXmacs macros
-% \newcommand{\tmtextit}[1]{{\itshape{#1}}}
-% \newcommand{\tmtextsc}[1]{{\scshape{#1}}}
-%%%%%%%%%% End TeXmacs macros
-
-% \begin{document}
 \label{evil-intuition}
 In this section, I shall illustrate how I intuitively read the operators in
 \tmtextsc{EviL}, and provide a number of validities.
@@ -23,22 +13,20 @@ My intuition for how to read $\DM \phi$ was first mentioned in
 \tmtextsc{EviL} agent were to set aside some of her beliefs, or cast some of
 her beliefs into doubt, then $\phi$ would hold.''  Dually, I tend to read
 $\boxminus \phi$ as saying something like ``For all the ways that the
-\tmtextsc{EviL} agent might use her imagination, $\phi$ holds.'' \ I recognize
+\tmtextsc{EviL} agent might use her imagination, $\phi$ holds.''  I recognize
 that these interpretations might seem inconsistent -- however, I regard
 casting beliefs into doubt and embracing one's imagination as part of the same
-coin.  For, naturally, when one doubts more thing, more things start to
-appear possible.  If I set aside, for a second, the belief that
+coin.  For, naturally, when one doubts more things, then for a fleeting moment their dreams take flight as the inconceivable turns around into the conceivable, if only for a little while.  To give an example, if I set aside for a moment my belief that
 
 {\hspace*{\fill}}the law of gravity is an exceptionless regularity of the
 universe{\hspace*{\fill}}$(g)$
 
 $\ldots$then it seems natural to imagine that
 
-{\hspace*{\fill}}a propulsion device exploiting this exceptions to the law of
-gravitation might be constructable.{\hspace*{\fill}}$(p)$
+{\hspace*{\fill}}a propulsion device exploiting some exception to gravitation might be constructable.{\hspace*{\fill}}$(p)$
 
 In the symbology of \tmtextsc{EviL} formulae, I would code this intuition as
-\[ \boxminus (\Box  g \rightarrow \diamondsuit p) . \]
+\[ \boxminus (\Box  \neg g \rightarrow \diamondsuit p) . \]
 To give another example, if I pretend that it isn't the case that:
 
 {\hspace*{\fill}}the canals of Amsterdam are filthy{\hspace*{\fill}}$(f)$
@@ -56,12 +44,12 @@ because it has tons of garbage, but also because
 Frankly, I am not so bold that I could go skinny dipping in Amstel without
 that being awkward.  Hence I would say in the language of \tmtextsc{EviL}
 that:
-\[ \neg \boxminus (\Box  f \rightarrow \diamondsuit r) \]
+\[ \neg \boxminus (\Box  \neg f \rightarrow \diamondsuit r) \]
 This is because I can cast into doubt the assumption of the filthiness of the
 canals of Amsterdam, while still retaining my belief that I don't have a
 bathingsuit, so swimming in Amstel would still be awkward for me.  In
 symbols, I would write express this sentiment as the following expression:
-\[ \DM (\diamondsuit f \wedge \Box  b \wedge \neg \diamondsuit r)
+\[ \DM (\diamondsuit \neg f \wedge \Box  b \wedge \neg \diamondsuit r)
 \]
 Further, my intuition for how to read $\DP \phi$ is ``If the
 \tmtextsc{EviL} agent were to remember something, then $\phi$ would hold.'' \
@@ -103,7 +91,8 @@ versions of actual people, who actually have minds and engage in remembering,
 imagining, and other similar activities.  After all, according to the
 semantics stipulated in \S\ref{evil-grammar}, \tmtextsc{EviL} agents apparently have sets
 for brains, which makes an \tmtextsc{EviL} agent a strange effigy for a person
-indeed -- with the possible exception of set theorists.
+indeed -- with the possible exception of set theorists, who are
+typically constructed entirely of sets or urelements.
 
 Furthermore, it is under the set theoretical reading that $\PP$ makes
 the most sense.  I read it as asserting something like ``the basis for
@@ -117,9 +106,7 @@ isn't a phenomenon that is subject to synchronicity or other failures
 of compositionality.  A set of premises is sound if and only if all of
 its subsets are also sound.
 
-% \end{document}
-
 %%% Local Variables: 
-%%% mode: plain-tex
+%%% mode: latex
 %%% TeX-master: "evil_philosophy"
 %%% End: 
