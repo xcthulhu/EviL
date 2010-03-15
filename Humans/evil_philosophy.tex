@@ -214,52 +214,78 @@
 \newcommand{\mo}[2]{\ensuremath{\mathfrak{M},( #1, #2 )}}
 \newcommand{\pr}[2]{\ensuremath{( #1, #2 )}}
 \newcommand{\rel}[1]{\ensuremath{R_{#1}}}
-%\newcommand{\invis}{\textrm{\tiny{\staveLXII}}}
-% %\newcommand{\invis}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\textrm{\ding{61}}}}}\!}
-%\newcommand{\Kill}{\textrm{\footnotesize{\staveXV}}}
-\newcommand{\Kill}{\theta}
-% %\renewcommand\eminnershape{\bfshape}
-%\newcommand{\nVvdash}{\nVvash}
-
-% \usepackage{pgf}
+\newcommand{\kl}{\theta}
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing}
+\usetikzlibrary{arrows}
 
-\title{\textsc{EviL}}
 
+\title{Evidentialist Logic}
 \author{Matthew P. Wampler-Doty}
-\date{}                                           % Activate to display a given date or no date
+\date{}
+
 \begin{document}
 \maketitle
 \pagebreak
 \tableofcontents
 \pagebreak
-%\begin{abstract} In this paper I present philosophical motivation for \emph{Evidentialist Logic}, an alternative framework to mainstream Epistemic Logic.  I will begin by characterizing Epistemic Logic, and illustrate that it embodies what I call the \emph{thermometer theory of logical agency}.  I then propose an alternative framework, which I shall call the \emph{logical theory of logical agency}.  I shall then go on to present semantics and illustrate that they accomplish this purpose.
-% based on principles from evidentialist epistemology. 
-% We consider the elementary case of a single agent in a static environment.  The aim of this logic is to give an account of how an agent may ignore or entertain evidence in their deductions; hence we refer to our logic as \emph{Evidentialist Logic}, abbreviated \textsc{EviL}.
-%\end{abstract}
+
+
 \section{Philosophy of \textsc{EviL}}\label{philosophy}
-%\cftchapterprecis{15 pgs}
 \subsection{Forward}
-The idea of applying modal logic to the study of knowledge more or less began with \citet{hintikka_knowledge_1969}.  In this it is suggested that one can use the possible world framework of modal logic to model ideal logical agents, and reason about concepts like knowledge and belief as modal $\Box$s.  In Hintikka's original text, some philosophical emphasis is put on the ideas of \emph{introspection}, which have two formulations:
+The idea of applying modal logic to the study of knowledge more or
+less began with \citet{hintikka_knowledge_1969}.  In this it is
+suggested that one can use the possible world framework of modal logic
+to model ideal logical agents, and reason about concepts like
+knowledge and belief as modal $\Box$s.  In Hintikka's original text,
+some philosophical emphasis is put on the ideas of
+\emph{introspection}, which have two formulations:
 \begin{bul}
 	\item Positive: $\Box \phi \to \Box\Box \phi$ - ``If the agent knows a fact, then she knows that she knows this.''
 	\item Negative: $\Pos \phi \to \Box\Pos \phi$ - ``If the agent does not know a fact, she knows that she does not know this.''
 \end{bul}
-
-Intuitively, the second idea seems like something one ought to reject outright.  Many will recall the somewhat famous piece of sophistry put forward by former US secretary of defense Donald Rumsfeld \citep{rumsfeld_defense.gov_2002}:
+Intuitively, the second idea seems like something one ought to reject
+outright.  Many will recall the somewhat famous piece of sophistry put
+forward by former US secretary of defense Donald Rumsfeld
+\citep{rumsfeld_defense.gov_2002}:
 \begin{quote}
-Reports that say that something hasn't happened are always interesting to me, because as we know, there are known knowns; there are things we know we know. We also know there are known unknowns; that is to say we know there are some things we do not know. But there are also unknown unknowns -- the ones we don't know we don't know. And if one looks throughout the history of our country and other free countries, it is the latter category that tend to be the difficult ones.\end{quote}
+Reports that say that something hasn't happened are always interesting
+to me, because as we know, there are known knowns; there are things we
+know we know. We also know there are known unknowns; that is to say we
+know there are some things we do not know. But there are also unknown
+unknowns -- the ones we don't know we don't know. And if one looks
+throughout the history of our country and other free countries, it is
+the latter category that tend to be the difficult ones.\end{quote}
 
-This quote was ultimately part of a larger, more diabolical justification for criminal military action.  Still, it is undeniably at variance with negative introspection; and despite its malicious intent behind it, it is compelling.  Furthermore, Hintikka also rejects negative introspection; and while it would seem from the above quote that Rumsfeld does not reject positive introspection, Hintikka does so explicitly \citep{hintikka_knowledge_1969}.
+This quote was ultimately part of a larger, more diabolical
+justification for criminal military action.  Still, it is undeniably
+at variance with negative introspection; and despite its malicious
+intent behind it, it is compelling.  Furthermore, Hintikka also
+rejects negative introspection; and while it would seem from the above
+quote that Rumsfeld does not reject positive introspection, Hintikka
+does so explicitly \citep{hintikka_knowledge_1969}.
 
-Despite philosophical objections, the received view in modern epistemic logic embraces both negative and positive introspection.  In addition, the following axiom is also considered:
+Despite philosophical objections, the received view in modern
+epistemic logic embraces both negative and positive introspection.  In
+addition, the following axiom is also considered:
 \begin{bul}
 	\item Reflection: $\Box \phi \to \phi$ - ``If the agent knows a some statement, that statement is true''
 \end{bul}
 These three axioms together, along with the axioms and rules of elementary modal logic, form C.I. Lewis' system $S5$ \citep{lewis_symbolic_1951}.  Under correspondence theory, these axioms express that the underlying accessibility modal relation is an equivalence relation. That is, they express that the ideal agent under investigation has partitioned their state space into \emph{information states}.  It is well known that game theory shares an equivalent notion of information states (see, for instance, \citet{halpern_set-theoretic_1999} and \citet[chapter 3]{rubinstein_modeling_1998}).
 
-And while this view of knowledge finds industrial application, such as in \citet{agray_ban_2002} and \citet{hommersom_toward_2005,hommersom_update_2004}, it presents an inhuman perspective on knowledge, as the following is intended to illustrate.
+And while this view of knowledge finds industrial application, such as
+in \citet{agray_ban_2002} and
+\citet{hommersom_toward_2005,hommersom_update_2004}, it presents an
+perspective on knowledge which is not very human.\footnote{Admittedly,
+  most of the criticisms I shall levy against mainstream epistemic
+  logic in the subsequent discussion are known to the
+  epistemic logic community.  I understand it is preferred that they
+  be swept under the carpet and never mentioned, as they are fairly painful
+  to remember for epistemic logic enthusiasts. I am not particularly
+  apologetic in recounting the basic failures of epistemic logic as an 
+  intellectual exercise.  The discussion I present in this section is
+  intended for people new to epistemic logic, who may be unaware of
+  its basic inadequacies and irrelevance.}
+
 
 \subsection{Thermometers}\label{thermometers}
 Imagine a 1 m$^3$ box with a thermometer sealed hermetically inside, as in Fig.  \ref{fig:therm1}.  Further, pretend that the thermometer reads 290 Kelvin.  How many moles of gas are in the chamber?
@@ -432,10 +458,6 @@ subformulae of $\phi$, and let $\rho_\phi : W^\mathbb{M} \hookrightarrow \Phi \b
 \end{tabbing}
 \end{minipage}
 \end{center}
-	
-
-(setq-default TeX-master nil)
-
 
 Now let $\Theta := \theta[W^\mathbb{M}]$. An induction on the complexity of subformulae $\psi$ of $\phi$ shows that 
 $\mathbb{M},w\Vdash \psi \iff \Theta,\theta(w) \VDash \psi$ for all $w \in W^\mathbb{M}$.  Since 
@@ -768,10 +790,10 @@ developed ideas.  This shall be done in three movements:
    the presentation in this section will remain primarily
    philosophical and light.
  \item[\S\ref{dead-by-dawn}]  In the second section I develop several
-   topics in the pure theory of \textsc{EviL} which I consider
-   non-basic.
+   topics in the pure theory of \textsc{EviL} which I consider a bit
+   beyond the bare essentials.
   \item[\S\ref{army-of-darkness}]  In this section, completeness and
-    decidability is discussed in relation to \textsc{EviL}.
+    decidability is discussed in relation to \textsc{EviL} and two sublogics.
 \end{description}
 
 % from that section provided by the previous section into a provide an outline
@@ -780,23 +802,28 @@ developed ideas.  This shall be done in three movements:
 % various validities.
 
 %\addcontentsline{toc}{subsection}{15 pgs}at t
-\subsection{\textsc{EviL} I}\label{basic-evil}
+\subsection{Elementary \textsc{EviL}}\label{basic-evil}
 \subsubsection{Grammar \& Semantics}\label{evil-grammar}
 \input{semantics_introduction.tex}
 \subsubsection{Intuitions}
 \input{evil_intuition.tex}
 \subsubsection{Validities}
+\label{validites}
 \input{evil-validities.tex}
-\subsection{\textsc{EviL} II: Dead by Dawn}
+\subsection{\textsc{EviL} Basics}
 \label{dead-by-dawn}
-\subsubsection{Elimination}
+\subsubsection{\text{EviL} Elimination}
 \label{elimination}
 \input{vanishing.tex}
+\subsubsection{Failure of Compactness}
+\label{non-compactness}
+\input{evil_noncompactness.tex}
 \subsubsection{Multiple Agents}\label{multi-agent}
+\input{multi-agents.tex}
 \subsubsection{Kripke Structures}
 \input{semantics_partII.tex}
 \input{semantics_partIII.tex}
-\subsection{\textsc{EviL} III: Army of Darkness}\label{army-of-darkness}
+\subsection{\textsc{EviL} Completeness}\label{army-of-darkness}
 \subsubsection{Axiom Systems}\label{evil-axioms}
 \input{evil_axiom_systems.tex}
 %\addcontentsline{toc}{subsection}{20 pgs}
@@ -823,14 +850,17 @@ developed ideas.  This shall be done in three movements:
 \subsection{Formalizing the \textsc{EviL} Completeness Theorem}
 
 \section{Epilogue}
-\addcontentsline{toc}{subsection}{10 pgs}
+%\addcontentsline{toc}{subsection}{10 pgs}
 \subsection{Comparison to Other Approaches}
-% \subsection{Failure}
+\subsection{Failure}
+\input{failure.tex}
+
 % 
 % Having developed \textsc{EviL}, I feel it necessary to reengage the philosophical concerns presented in \S\ref{Human-Condition}.  \textsc{EviL} was a project to try to base an epistemic logic more on intuition and human nature, rather than the more mechanical foundation which forms the basis for mainstream epistemic logic.
 
 \appendix
 \section{Alternate Semantics}
+\label{alternative}
 \input{alternate-semantics.tex}
 
 \section{Isabelle/HOL's Logic}
