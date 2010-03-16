@@ -230,7 +230,7 @@
 \pagebreak
 
 
-\section{Philosophy of \textsc{EviL}}\label{philosophy}
+\section{Philosophy}\label{philosophy}
 \subsection{Forward}
 The idea of applying modal logic to the study of knowledge more or
 less began with \citet{hintikka_knowledge_1969}.  In this it is
@@ -483,48 +483,78 @@ A natural way to read $Th(\Omega)$ is the background knowledge the agent has abo
 %Returning to the ideas proposed in \S \ref{explicit}, I shall now proceed to sketch further developments I have in mind.
 To supplement to this basic framework, I shall try to illustrate how further inspiration and desiderata can be drawn from the philosophical literature.  It should be remarked that I do this in stark contrast to the received view in epistemic logic \citep[pg. 34]{lenzen_recent_1978}:
 \begin{quote}
-The search for the correct analysis of knowledge, while certainly of extreme importance and interest to epistemology, seems not significantly to affect the object of epistemic logic, the question of the validity of certain epistemic-logical principles.
+The search for the correct analysis of knowledge, while certainly of
+extreme importance and interest to epistemology, seems not
+significantly to affect the object of epistemic logic, the question of
+the validity of certain epistemic-logical principles.
 \end{quote}
-\ldots quite to the contrary, I feel epistemic logic should not turn it's back on philosophy. Philosophy critically provides guidance for the intuitions behind how knowledge should be correctly modeled.  It also provides a solid grounding in a proper treatment of knowledge.  However, engaging with philosophy is evidently not the thrust of mainstream epistemic logic.
+\ldots quite to the contrary, I feel epistemic logic should not turn
+it's back on philosophy. Philosophy critically provides guidance for
+the intuitions behind how knowledge should be correctly modeled.  It
+also provides a solid grounding in a proper treatment of knowledge.
+However, engaging with philosophy is evidently not the thrust of
+mainstream epistemic logic.
 
-Most mainstream epistemic logic, the object of study is really the nature of information, not human knowledge.  It applies equally well to robots, \emph{homo economicus}, or thermometers as suggested in \ref{thermometers}.  It's inspiration is not really in the human experience; it's more naturally based in computer science, algebra, topology, and other mathematical disciplines.
+Most mainstream epistemic logic, the object of study is really the
+nature of information, not human knowledge.  It applies equally well
+to robots, \emph{homo economicus}, or thermometers as suggested in
+\ref{thermometers}.  It's inspiration is not really in what it's like
+to be a living person; it's more naturally based in artificial intelligence, automata
+theory, algebra, topology, and other abstract disciplines.
 
 In contrast, I propose the following principle:
 \begin{quote}
- \textbf{The Human Condition}: \emph{The analysis of knowledge should strive for a basis in the human experience}
+ \textbf{The Human Condition}: \emph{The analysis of knowledge should strive for a basis in human experience}
 \end{quote}
-\ldots this principle indeed underpins the Justification Principle provided in \S\ref{explicit}. This is because I feel that the belief in a proposition can be thought of human only if the agent has a reason associated with it.  Otherwise, it seems that in the absence of reason, no account can be given for how the belief came about other than through instrumentation, which is the thermometer view.
+\ldots this principle indeed underpins the Justification Principle
+provided in \S\ref{explicit}. This is because I feel that the belief
+in a proposition can be thought of human only if the agent has a
+reason associated with it.  Otherwise, it seems that in the absence of
+reason, no account can be given for how the belief came about other
+than through instrumentation, which is the thermometer view.
 
-Embracing this principle, I shall turn to the development of my thoughts from their philosophical origins.
+Embracing this principle, I shall turn to the development of my
+thoughts from their philosophical origins.
 
 \subsection{Soundness}\label{soundness}
-So to give a shallow example of a basic application of a philosophical idea, it is natural to insist that if knowledge is based on beliefs generated via deduction from some set of premises, then those premises have to be \emph{sound}. I suggest this can be done by introducing a new operator $\circlearrowleft$ with the following semantics:
+So to give a shallow example of a basic application of a philosophical
+idea, it is natural to insist that if knowledge is based on beliefs
+generated via deduction from some set of premises, then those premises
+have to be \emph{sound}. I suggest this can be done by introducing a
+new operator $\circlearrowleft$ with the following semantics:
 \[ \Omega,(a,A)\VDash \circlearrowleft \iff \Omega,(a,A)\VDash A\]
-Armed with these semantics, a first guess at what constitutes knowledge suggests it might be nothing more than possession of a belief based on a sound set of premises. So a first approximation of knowledge might be equated with the formula:
+Armed with these semantics, a first guess at what constitutes
+knowledge suggests it might be nothing more than possession of a
+belief based on a sound set of premises. So a first approximation of
+knowledge might be equated with the formula:
 $$\circlearrowleft \wedge \Box \phi.$$
 But is this anything like an adequate analysis of knowledge?
 
 \textbf{No}. To illustrate why I shall resort to a thought experiment to motivate why I think to the contrary.
 Imagine that Charlotte suspects, correctly, that if John has tried to murder
 on Alex, then Alex has survived.  She further learns, correctly, that John
-has indeed tried to murder Alex.  But later, she adds to her beliefs erroneous
-information Vietnam is south of Malaysia.  If we codify all of this as a set $C$, and let the real world be
+has indeed tried to murder Alex.  But later, she ``learns'' some erroneous
+information asserting Vietnam is south of Malaysia.  If we codify all of this as
+a set $C$, and let the real world be
 denoted $c$ and the universe $\Omega$, evidently we have $\Omega, (c, C) \nVDash
 \circlearrowleft$, so this previous definition of knowledge fails.  But
 should it?  I don't think so; Charlotte's knowledge about John's unspeakable
 betrayal of Alex is correct, as well as her inference that Alex is tough as
-nails.  Just because she has been deluded regarding irrelevant facts about geography shouldn't have any bearing on her
+nails.  Just because she has been deluded regarding irrelevant facts
+about geography shouldn't have any bearing on her
 knowledge about Alex.
-
 \subsection{Descartes}\label{Descartes}
-
-In reflection on the previous section, it should be remarked that philosophers have historically been concerned with defeasible experiential data, going back at least as early as Plato's \emph{The Republic VII} \citep{jowett_republic_1998}.
-In answer to the problem faced by the above analysis of knowledge, I think guidance can be found in Descartes' \emph{Meditations} \citep{vietch_descartes_2005}.  In
+In reflection on the previous section, it should be remarked that
+philosophers have historically been concerned with defeasible
+experiential data, going back at least as early as Plato's \emph{The
+  Republic VII} \citep{jowett_republic_1998}.
+In answer to the problem faced by the above analysis of knowledge, I
+think guidance can be found in Descartes' \emph{Meditations}
+\citep{vietch_descartes_2005}.  In
 \tmtextit{Meditations I}, Descartes suggests that he might be in an enlightenment era
 version of \tmtextit{The Matrix} created by an all powerful demon.  In
 \tmtextit{Meditations II}, he famously suggests how one might escape this
 trap:
-
 \begin{quote}
 {The Meditation of yesterday has filled my mind with so many doubts,
 that it is no longer in my power to forget them. Nor do I see, meanwhile, any
@@ -549,8 +579,13 @@ little suspicious, she might be able to compose an argument with a sound basis t
            \textup{ such that }a = b
                    \textup{ and }B \subseteq A
             \textup{ then }\Omega,(b,B) \VDash \phi \]
-
-This mechanism lets Charlotte access subsets of her beliefs, which would then form the basis for various arguments she might compose.  Provided that $(c,C')\in \Omega$, where $C'$ is the same as $C$ but doesn't mention erroneous beliefs about geographical data, it might serve as a basis for Charlotte's knowledge that Alex survives.  This suggests that the following equation might reasonably express a more adequate notion of knowledge:
+This mechanism lets Charlotte access subsets of her beliefs, which
+would then form the basis for various arguments she might compose.
+Provided that $(c,C')\in \Omega$, where $C'$ is the same as $C$ but
+doesn't mention erroneous beliefs about geographical data, it might
+serve as a basis for Charlotte's knowledge that Alex survives.  This
+suggests that the following equation might reasonably express a more
+adequate notion of knowledge:
 \[ \DM(\PP \wedge \Nec \phi) \]
 %This might be read informally as follows: some accessible subset of
 %Charlotte's beliefs serves as a sound basis for the deducing $\phi$
@@ -559,17 +594,29 @@ This mechanism lets Charlotte access subsets of her beliefs, which would then fo
 
 \subsection{Contradictions}\label{contradictions}
 
-There's hidden virtue in the previous analysis.  To see what it is, I am inspired by the 19th century philosopher Ralph Waldo Emerson, who writes in his essay \emph{Self-Reliance} \citep{emerson_essays_2008}:
+There's hidden virtue in the previous analysis.  To see what it is, I
+am inspired by the 19th century philosopher Ralph Waldo Emerson, who
+writes in his essay \emph{Self-Reliance} \citep{emerson_essays_2008}:
 \begin{quote}
-{ Why drag about this corpse of your memory, lest you contradict somewhat you have stated in this or that public place? Suppose you should contradict yourself; what then? It seems to be a rule of wisdom never to rely on your memory alone, scarcely even in acts of pure memory, but to bring the past for judgment into the thousand-eyed present, and live ever in a new day. \ldots}
+{ Why drag about this corpse of your memory, lest you contradict
+  somewhat you have stated in this or that public place? Suppose you
+  should contradict yourself; what then? It seems to be a rule of
+  wisdom never to rely on your memory alone, scarcely even in acts of
+  pure memory, but to bring the past for judgment into the
+  thousand-eyed present, and live ever in a new day. \ldots}
 
-{A foolish consistency is the hobgoblin of little minds, adored by little statesmen and philosophers and divines. With consistency a great soul has simply nothing to do. He may as well concern himself with his shadow on the wall. Speak what you think now in hard words and to-morrow speak what to-morrow thinks in hard words again, 
+{A foolish consistency is the hobgoblin of little minds, adored by
+  little statesmen and philosophers and divines. With consistency a
+  great soul has simply nothing to do. He may as well concern himself
+  with his shadow on the wall. Speak what you think now in hard words
+  and to-morrow speak what to-morrow thinks in hard words again, 
 though it contradict every thing you said to-day. 
 -- `Ah, so you shall be sure to be misunderstood.' -- Is it so bad
 then to be misunderstood? }
 \end{quote}
 
-A healthy lack of consistency is just part of the human condition.
+A healthy lack of consistency is just part of what makes up the day to
+day life of any living, sane person.
 Isn't error-prone reasoning a hallmark of human thought?  And if a
 love sick epistemic agent $\exists$ is getting mixed signals from
 another epistemic agent $\forall$, why can't she draw inconsistent
@@ -580,8 +627,10 @@ the following:
 \begin{quote}
  \textbf{Emerson's Principle}: \emph{One can be inconsistent and still have knowledge}
 \end{quote}
-
-Permit me illustrate how the framework I have given accommodates this. My treatment is further inspired by a friend and contemporary of Emerson's, the poet \emph{Walt Whitman}. In \emph{Leaves of Grass} \citep{whitman_leaves_2008}, he writes:
+Permit me illustrate how the framework I have given accommodates
+this. My treatment is further inspired by a friend and contemporary of
+Emerson's, the poet \emph{Walt Whitman}. In \emph{Leaves of Grass}
+\citep{whitman_leaves_2008}, he writes:
 \begin{center}{  Do I contradict myself?\\
   Very well then I contradict myself,\\
   (I am large, I contain multitudes.)}
@@ -601,9 +650,7 @@ above stanza. This figure should be read as follows:
   \item if one point $(a,A)$ is connected to another point $(b,B)$ by
     a line with an arrow \tikz \draw[->,>=latex](0pt,0pt) --
     (20pt,6pt);, this means that $\Omega,(b,B) \VDash A$
-
 \end{bul}
-%
 \begin{figure}[ht]
 \begin{center}
   \includegraphics[]{example1/example1.pdf}
@@ -613,7 +660,6 @@ above stanza. This figure should be read as follows:
 \caption{Inconsistent, yet still has knowledge}
 \label{fig:example1}
 \end{figure}
-%
 Observe that $\Omega,(\{p\},\{p,\neg p\}) \VDash \Box \bot$; it's
 obvious that in this state Walt is being inconsistent since he clearly
 believes contradictory things.  Simultaneously, we have that
@@ -626,7 +672,9 @@ modality gives access to.
 
 \subsection{Irrationality}\label{irrational}
 
-Embracing contradiction runs contrary to the received view on epistemic logic.  For instance, \citet{hendricks_wheresbridge?_2006} write:
+Embracing contradiction runs contrary to the received view on
+epistemic logic.  For instance, \citet{hendricks_wheresbridge?_2006}
+write:
 \begin{quote}
 { Epistemic logic does carry epistemological significance
  but in an inevitably idealized sort of way: One restricts attention to a
@@ -635,61 +683,81 @@ postulates. Thus, agents have to satisfy at least some minimal
 conditions to simply qualify as rational. This is by and large
 what Lemmon originally suggests \citep{lemmon_symposium:_1959}.}
 \end{quote}
-Furthermore, it is conventional to think that rational agents do not hold contradictions.\footnote{It should be remarked that \citet{priest_doubt_2006} explicitly rejects this perspective on rationality.  Priest points out that in times of scientific revolution, rational people naturally hold contradictory views. He suggests that a paraconsistent logic framework could account for a rational agent holding contradictory beliefs.  I profess sympathy for Priest's perspective; however, I am confident that this does not represent the received view which I am arguing against.}  For instance, in \citep{kraus_knowledge_1986}, $\neg \Box \bot$ is taken as an axiom (it is A9 in their numbering).
+Furthermore, it is conventional to think that rational agents do not
+hold contradictions.\footnote{It should be remarked that
+  \citet{priest_doubt_2006} explicitly rejects this perspective on
+  rationality.  Priest points out that in times of scientific
+  revolution, rational people naturally hold contradictory views. He
+  suggests that a paraconsistent logic framework could account for a
+  rational agent holding contradictory beliefs.  I profess sympathy
+  for Priest's perspective; however, I am confident that this does not
+  represent the received view which I am arguing against.}  For
+instance, in \citep{kraus_knowledge_1986}, $\neg \Box \bot$ is taken
+as an axiom (it is A9 in their numbering).
 
-This is similar to the thermometer concept of knowledge we provided in \S\ref{explicit}, since like the thermometer view, it's incompatible with a human perspective.  Hence I extend the following:
-
+This is similar to the thermometer concept of knowledge we provided in
+\S\ref{explicit}, since like the thermometer view, it's incompatible
+with a human perspective.  Hence I extend the following:
 \begin{quote}
- \textbf{Irrationality Principle}: \emph{Since humans are not rational, views on epistemic logic that postulate this should be rejected}
+ \textbf{Irrationality Principle}: \emph{Since humans are not
+   rational, views on epistemic logic that postulate this should be
+   rejected}
 \end{quote}
-
-I should mention that while this perspective is not typically embraced in epistemic logic\footnote{Noted exceptions to this are \citet{rantala_impossible_1982} and \citet{levesque_logic_1984}.}, it finds sympathy in other logical traditions, namely in \emph{relevance logic} and \emph{paraconsistent logic}, as already noted \citep[see][chapters 1 \& 4]{gabbay_handbook_2002}.
-
-%This principle evidently supervenes on the view that humans are not rational.  While I don't think this view is particularly controversial, it is perhaps good to sketch a very incomplete outline of some ways in which humans are not rational.  Most of the criticisms of rationality I shall present are rather targetted against \emph{game theory}.  However, as illustrated in \citet{halpern_set-theoretic_1999,rubinstein_modeling_1998,benthem_modal_2010}, natural parallels can be drawn and the approaches might be considered a unified whole.
-%
-%In what follows, in certain situations researchers have provided reponses that might be construed as a defense of a view of knowledge compatible with rationality.  I shall return to these defenses briefly.
-%
-%\begin{bul}
-% \item \emph{Humans don't employ classical logic or the probability calculus}
-%\begin{bul}
-%  \item Failure to reason with classical logic has been observed in (WASON) and subsequent studies in the famous \emph{Wason Card Selection Task} from psychology.
-%\begin{bul}
-%  \item (LAMBALGEN) suggests that logical analysis of participants in is still possible, permitted one grants that people are reasoning to various \emph{intepretations}.  Account for the failure of classical logic then extends from the idea that some of these interpretations are not classical.  
-%\end{bul}
-%  \item Failure to reason with probability has been observed in the \emph{Allais Paradox} (ALLAIS), the \emph{Ellsberg Paradox} (ALLAIS), the \emph{Linda Paradox} (KAHNEMAN), and subsequent studies.
-%\begin{bul}
-%  \item (CITEME:LEVI) provides a framework based on the \emph{interval probability calculus} that accounts for the paradoxes of Ellsberg and Allais.
-%\end{bul}
-%\end{bul}
-% \item \emph{Humans don't employ backwards induction or iterated elimination of dominated strategies.  Sometimes, they don't even use classical utility theory at all.}
-%\begin{bul}
-%  \item This has been observed repeatedly in seminal games from the experimental economics literature: the Prisoner's dilemma, \emph{Chain Store} (), the \emph{Centipede} (), Traveler's Dilemma (), Ultimatum (), Dictator () all exhibit  problems for the classic theory.
-%  \begin{bul}
-%  \item (:HALPERN) Illustrates that one might use iterated elimination of strategies based on regret rather than utility maximization might give a solution strategy for the the Traveler's Dilemma.
-%\end{bul}
-%\item (:LIST) demonstrates that in the case of the Dictator game, the introduction of seemingly irrelevant alternatives can induce a change in behavior.
-%\end{bul}
-%\item \emph{A person's preferences are not primitive; they can be manipulated in irrational ways.}
-%\begin{bul}
-%  \item In (:ARIELY), it is demonstrated that the price one bids in a Vickrey auction, a second price auction where it is weakly dominant to bid one's valuation, can be affected by providing a \emph{price anchor} in the form of a random number.  That is to say, providing an individual with a higher random number before running the auction evidently correlates with higher bidding rates.
-%  \item In (:GILBERT), it is demonstrated that the phenomenon of \emph{cognitive dissonance}, where one's beliefs are adjusted to match one's actions.  In the case of Gilbert's study, the experiment was to observe revision of preference.  Gilbert observed the phenomenon of cognitive dissonance based preference revision in psychiatric patients with \emph{anterograde amnesia}, who are people who cannot form new memories.  The study suggests that preferences are fundamentally effected by choices individuals make, which is generally not a perspective accomodated in decision theory. 
-%\end{bul}
-%\end{bul}
-%
-%While some replies might be given to the above criticisms, in general practitioners of epistemic logic do not engage these issues.  I should remark that I, too, do not engage these issues addressed, but I am sympathetic to efforts to accomodate them (especially approaches such as those given in (:LAMBALGEN) and (:PROPERTREATMENT-OF-EVENTS)).  In any event, I consider the above to provide adequate grounds for dismissing any commitment to a traditional view on rationality, given a human perspective on epistemology.
+I should mention that while this perspective is not typically embraced
+in epistemic logic\footnote{Noted exceptions to this are
+  \citet{rantala_impossible_1982} and \citet{levesque_logic_1984}.},
+it finds sympathy in other logical traditions, namely in
+\emph{relevance logic} and \emph{paraconsistent logic}, as already
+noted \citep[see][chapters 1 \& 4]{gabbay_handbook_2002}.
 
 \subsection{Quine}\label{quine}
-
 I shall now return to developing my framework.  To recap, so far I have suggested adding a novel modality $\BM$ which corresponds to taking subsets of an agent's set of beliefs.  In the context of conventional modal logic, this means a shift in perspective - instead of thinking of each world as a situation where the agent can imagine other situations, now each world corresponds to a network of beliefs ordered by inclusion. These networks of beliefs form a poset, or partially ordered set.  Thus the choice to visually represent them as \emph{Hasse diagrams}, as I have done, follows the standard practice in lattice theory. %An example of such a network is given in Fig. \ref{fig:poset}.
 
 Furthermore, I should point out the following phenomenon - as higher nodes in a belief network are considered, the agent is employing more premises for the arguments they are composing, and using less pure logic to come to conclusions.  I feel this suggests the following - namely, that as we consider levels higher and higher in the poset of an agent's beliefs, this sort of corresponds to embracing an agent's experience and interpretation of their sensory data.  But arguments that rest on more premises are prima facie more fallible than arguments that rely on fewer assumptions.
 
 A similar perspective has been presented before, however in a different setting, in \emph{Two Dogmas of Empiricism} \citep{quine_two_1951}:
 \begin{quote}
-{Certain statements, though about physical objects and not sense experience, seem peculiarly germane to sense experience -- and in a selective way: some statements to some experiences, others to others. Such statements, especially germane to particular experiences, I picture as near the periphery. But in this relation of ``germaneness'' I envisage nothing more than a loose association reflecting the relative likelihood, in practice, of our choosing one statement rather than another for revision in the event of recalcitrant experience. For example, we can imagine recalcitrant experiences to which we would surely be inclined to accommodate our system by re-evaluating just the statement that there are brick houses on Elm Street, together with related statements on the same topic. We can imagine other recalcitrant experiences to which we would be inclined to accommodate our system by re-evaluating just the statement that there are no centaurs, along with kindred statements. A recalcitrant experience can, I have already urged, be accommodated by any of various alternative re-evaluations in various alternative quarters of the total system; but, in the cases which we are now imagining, our natural tendency to disturb the total system as little as possible would lead us to focus our revisions upon these specific statements concerning brick houses or centaurs. These statements are felt, therefore, to have a sharper empirical reference than highly theoretical statements of physics or logic or ontology. \textbf{The latter statements may be thought of as relatively centrally l	ocated within the total network, meaning merely that little preferential connection with any particular sense data obtrudes itself.} }
+{Certain statements, though about physical objects and not sense
+  experience, seem peculiarly germane to sense experience -- and in a
+  selective way: some statements to some experiences, others to
+  others. Such statements, especially germane to particular
+  experiences, I picture as near the periphery. But in this relation
+  of ``germaneness'' I envisage nothing more than a loose association
+  reflecting the relative likelihood, in practice, of our choosing one
+  statement rather than another for revision in the event of
+  recalcitrant experience. For example, we can imagine recalcitrant
+  experiences to which we would surely be inclined to accommodate our
+  system by re-evaluating just the statement that there are brick
+  houses on Elm Street, together with related statements on the same
+  topic. We can imagine other recalcitrant experiences to which we
+  would be inclined to accommodate our system by re-evaluating just
+  the statement that there are no centaurs, along with kindred
+  statements. A recalcitrant experience can, I have already urged, be
+  accommodated by any of various alternative re-evaluations in various
+  alternative quarters of the total system; but, in the cases which we
+  are now imagining, our natural tendency to disturb the total system
+  as little as possible would lead us to focus our revisions upon
+  these specific statements concerning brick houses or centaurs. These
+  statements are felt, therefore, to have a sharper empirical
+  reference than highly theoretical statements of physics or logic or
+  ontology. \textbf{The latter statements may be thought of as
+    relatively centrally located within the total network, meaning
+    merely that little preferential connection with any particular
+    sense data obtrudes itself.} }
 \end{quote}
 
-The emphasis on the last sentence is my addition.  The above paragraph importantly anticipates ideas in belief revision theory (such as in \citet{alchourron_logic_1985} and subsequent studies), as well as recent trends in probabilistic dynamic epistemic logic \citep[such as in][etc.]{van_benthem_conditional_2003,van_benthem_dynamic_2009,baltag_probabilistic_2008,kooi_probabilistic_2003}.  However, in the framework that I have so far been developing, what Quine refers to as the ``periphery'' of his web of belief corresponds to a higher node in a belief poset, while what Quine referes to as the ``center'' reflects something like a lower node.  This is visually depicted in Fig. \ref{fig:poset}.  Beliefs that are members of lower nodes, and the ideas that follow from them, can be thought of as belonging to the agent's world-view.
+The emphasis on the last sentence is my addition.  The above paragraph
+importantly anticipates ideas in belief revision theory (such as in
+\citet{alchourron_logic_1985} and subsequent studies), as well as
+recent trends in probabilistic dynamic epistemic logic \citep[such as
+in][etc.]{van_benthem_conditional_2003,van_benthem_dynamic_2009,baltag_probabilistic_2008,kooi_probabilistic_2003}.
+However, in the framework that I have so far been developing, what
+Quine refers to as the ``periphery'' of his web of belief corresponds
+to a higher node in a belief poset, while what Quine referes to as the
+``center'' reflects something like a lower node.  This is visually
+depicted in Fig. \ref{fig:poset}.  Beliefs that are members of lower
+nodes, and the ideas that follow from them, can be thought of as
+belonging to the agent's world-view.
 
 \begin{figure}[ht]
 \begin{center}
@@ -718,7 +786,6 @@ knowledge. Moreover, I hold that the sort of irrationality that I am
 considering needn't be superficial - both mundane as well as deeply
 demented characters can be modeled.
 
-
 I'll admit that the above essentially presents my own interpretation
 of Quine's web of belief, which might be contentious.  On the other
 hand, I feel both the quote from Quine and the quote from Whitman in
@@ -736,7 +803,9 @@ net, in a manner similar to how $\BM$ allows one to \emph{go down} as
 I suggested in \S\ref{Descartes}. Along these lines, I would suggest
 the introduction of a new operator $\BP$.  The semantics for $\BP$ are
 given as follows:
-\[ \Omega,(a,A) \VDash \BP \phi \iff \textup{ for all } (b,B)\in\Omega\textup{ if } b = a \textup{ and } A\subseteq B \textup{ then } \Omega,(a,A) \VDash \phi \]
+\[ \Omega,(a,A) \VDash \BP \phi \iff \textup{ for all }
+(b,B)\in\Omega\textup{ if } b = a \textup{ and } A\subseteq B \textup{
+  then } \Omega,(a,A) \VDash \phi \]
 Just as $\BM$ corresponds to the agent casting assumptions into doubt,
 or disregarding their premises, $\BP$ corresponds to the agent
 embracing their experience, suspending disbelief and accepting her
@@ -747,7 +816,13 @@ practice of modelling knowledge.
 
 \subsection{Closing Remarks}
 \label{close}
-The various principles extended in the previous sections are not independent - some of them are more basic than others.  Their relationship is summarized in Fig. \ref{fig:principles} - here the lower a principle is depicted, the more basic I feel it is.  Dotted lines indicate that I feel the philosophical justification for the higher principle supervenes on the justification of the lower principle.
+The various principles extended in the previous sections are not
+independent - some of them are more basic than others.  Their
+relationship is summarized in Fig. \ref{fig:principles} - here the
+lower a principle is depicted, the more basic I feel it is.  Dotted
+lines indicate that I feel the philosophical justification for the
+higher principle supervenes on the justification of the lower
+principle.
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{principles/principles.pdf} 
@@ -812,7 +887,7 @@ developed ideas.  This shall be done in three movements:
 \input{evil-validities.tex}
 \subsection{\textsc{EviL} Basics}
 \label{dead-by-dawn}
-\subsubsection{\text{EviL} Elimination}
+\subsubsection{Elimination}
 \label{elimination}
 \input{vanishing.tex}
 \subsubsection{Failure of Compactness}
@@ -826,7 +901,6 @@ developed ideas.  This shall be done in three movements:
 \subsection{\textsc{EviL} Completeness}\label{army-of-darkness}
 \subsubsection{Axiom Systems}\label{evil-axioms}
 \input{evil_axiom_systems.tex}
-%\addcontentsline{toc}{subsection}{20 pgs}
 \input{evil-formal-crap.tex}
 
 \section{Applications}
@@ -843,9 +917,9 @@ developed ideas.  This shall be done in three movements:
 
 \section{Formal Methods}\label{formal}
 %\addcontentsline{toc}{subsection}{20 pgs}
-
 %\subsection{Don't Believe in Math}
 %\addcontentsline{toc}{subsubsection}{5 pgs}
+
 \subsection{LCF Theorem Proving}
 \subsection{Formalizing the \textsc{EviL} Completeness Theorem}
 
