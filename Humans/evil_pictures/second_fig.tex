@@ -1,0 +1,59 @@
+\documentclass[]{article}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+\begin{document}
+	\begin{tikzpicture}[shorten >=1pt,auto,node distance=2cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=black,draw=none,text=black, circle,minimum size=.5pt]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[empt] (aA1) {$( \{q\},\{p, q\vee r\})$};
+\node[empt] (aA2) [below left of=aA1] {$( \{q\},\{p\})$};
+\node[empt] (aA3) [below right of=aA1] {$( \{q\},\{q\vee r\})$};
+\node[empt] (aA4) [below left of=aA3] {$( \{q\},\varnothing)$};
+\node[empt] (bB1) at (4,2) {$( \{p, q\},\{\neg p, \neg q\})$};
+\node[empt] (bB2) [below left of=bB1] {$( \{p, q\},\{\neg p\})$};
+\node[empt] (bB3) [below right of=bB1] {$( \{p, q\},\{\neg q\})$};
+  \path (aA1) edge [densely dotted] node[auto,swap] { }  (aA2)
+  (aA1) edge [densely dotted] node { } (aA3)
+  (aA2) edge [densely dotted] node[auto,swap] { } (aA4)
+  (aA3) edge [densely dotted] node { }  (aA4)
+  (bB1) edge [densely dotted] node[auto,swap] { } (bB2)
+  (bB1) edge [densely dotted] node { } (bB3);
+\path[->] 
+  (aA1) edge [>=latex,bend left=45] node {} (bB1)
+        (aA1) edge [>=latex,bend right=45] node {} (bB3)
+        (aA4) edge [>=latex,bend right=45] (bB1)
+        (aA4) edge [>=latex,bend right=45,<->] (bB2)
+        (aA4) edge [>=latex,bend right=45] (bB3)
+        (aA2) edge [>=latex,bend left=45] (bB1)
+        (aA2) edge [>=latex,<->,bend left=70] (bB2)
+        (aA2) edge [>=latex,bend left=90] (bB3)
+        (aA3) edge [>=latex,bend right] (bB1)
+        (aA3) edge [>=latex,<->] (bB2)
+        (aA3) edge [>=latex,bend right] (bB3)
+        (aA3) edge [>=latex] (aA2)
+        (aA3) edge [>=latex,bend right] (aA1)
+  ;
+
+   % \draw [->] (aA3) to [loop below] node { } (aA3);
+   % \draw [->] (aA2) to [loop below] node { } (aA2);
+   %    \draw [->] (aA1) to [loop above] node { } (aA1);
+   % \draw [->] (aA4) to [loop below] node { } (aA4);
+   %    \draw [->] (bB2) to [loop below] node { } (bB2);
+   %          \draw [->] (bB1) to [loop above] node { } (bB1);
+   % \draw [->] (bB3) to [loop below] node { } (bB3);
+
+   \draw[<->] (aA1) edge [>=latex,bend left=45] node {} (bB2);
+   \draw [<->] (aA3) to [>=latex,bend right] node {} (aA4);
+        \draw [->] (aA4) to [>=latex] node {} (aA1);
+     \draw [->] (aA4) to [>=latex,bend right] node {} (aA2);
+   \draw [->] (aA4) to [>=latex,loop left] node {} (aA4);
+\end{scope}
+\end{tikzpicture}
+\end{document}
