@@ -1,13 +1,10 @@
 \documentclass[11pt]{article}
-%\usepackage{pdfsync}
-\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
-%\geometry{landscape}                % Activate for for rotated page geometry
-%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{geometry}
+\geometry{letterpaper} 
 \usepackage{graphicx}
 \usepackage{amssymb,amsmath}
 \usepackage{bussproofs}
-\usepackage[sort, round]{natbib}
+\usepackage[round, authoryear, comma]{natbib}
 \usepackage{hyperref}
  \hypersetup{
      colorlinks,%
@@ -18,15 +15,13 @@
  }
 
 \usepackage{gn-logic14}
-\usepackage{tocloft}
+\usepackage{subfigure}
 \usepackage[geometry]{ifsym}
-%\usepackage{pifont}
 
 \usepackage{tabularx,booktabs,multirow}
 
 %%%%%%%%%% TeXmacs macros
 \newcommand{\assign}{:=}
-%\newcommand{\nin}{\not\in}
 \newcommand{\tmtextsf}[1]{{\sffamily{#1}}}
 \newcommand{\tmem}[1]{{\em #1\/}}
 \newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
@@ -711,11 +706,30 @@ it finds sympathy in other logical traditions, namely in
 noted \citep[see][chapters 1 \& 4]{gabbay_handbook_2002}.
 
 \subsection{Quine}\label{quine}
-I shall now return to developing my framework.  To recap, so far I have suggested adding a novel modality $\BM$ which corresponds to taking subsets of an agent's set of beliefs.  In the context of conventional modal logic, this means a shift in perspective - instead of thinking of each world as a situation where the agent can imagine other situations, now each world corresponds to a network of beliefs ordered by inclusion. These networks of beliefs form a poset, or partially ordered set.  Thus the choice to visually represent them as \emph{Hasse diagrams}, as I have done, follows the standard practice in lattice theory. %An example of such a network is given in Fig. \ref{fig:poset}.
+I shall now return to developing my framework.  To recap, so far I
+have suggested adding a novel modality $\BM$ which corresponds to
+taking subsets of an agent's set of beliefs.  In the context of
+conventional modal logic, this means a shift in perspective - instead
+of thinking of each world as a situation where the agent can imagine
+other situations, now each world corresponds to a network of beliefs
+ordered by inclusion. These networks of beliefs form a poset, or
+partially ordered set.  Thus the choice to visually represent them as
+\emph{Hasse diagrams}, as I have done in Fig. \ref{fig:example1}, 
+follows the standard practice in lattice theory. 
 
-Furthermore, I should point out the following phenomenon - as higher nodes in a belief network are considered, the agent is employing more premises for the arguments they are composing, and using less pure logic to come to conclusions.  I feel this suggests the following - namely, that as we consider levels higher and higher in the poset of an agent's beliefs, this sort of corresponds to embracing an agent's experience and interpretation of their sensory data.  But arguments that rest on more premises are prima facie more fallible than arguments that rely on fewer assumptions.
+Furthermore, I should point out the following phenomenon - as higher
+nodes in a belief network are considered, the agent is employing more
+premises for the arguments they are composing, and using less pure
+logic to come to conclusions.  I feel this suggests the following -
+namely, that as we consider levels higher and higher in the poset of
+an agent's beliefs, this sort of corresponds to embracing an agent's
+experience and interpretation of their sensory data.  But arguments
+that rest on more premises are prima facie more fallible than
+arguments that rely on fewer assumptions.
 
-A similar perspective has been presented before, however in a different setting, in \emph{Two Dogmas of Empiricism} \citep{quine_two_1951}:
+A similar perspective has been presented before, however in a
+different setting, in \emph{Two Dogmas of Empiricism}
+\citep{quine_two_1951}:
 \begin{quote}
 {Certain statements, though about physical objects and not sense
   experience, seem peculiarly germane to sense experience -- and in a
@@ -897,7 +911,7 @@ developed ideas.  This shall be done in three movements:
 \input{multi-agents.tex}
 \subsubsection{Kripke Structures}
 \input{semantics_partII.tex}
-\input{semantics_partIII.tex}
+%\input{semantics_partIII.tex}
 \subsection{\textsc{EviL} Completeness}\label{army-of-darkness}
 \subsubsection{Axiom Systems}\label{evil-axioms}
 \input{evil_axiom_systems.tex}
@@ -926,7 +940,7 @@ developed ideas.  This shall be done in three movements:
 \section{Epilogue}
 %\addcontentsline{toc}{subsection}{10 pgs}
 \subsection{Comparison to Other Approaches}
-\subsection{Failure}
+\subsection{Failures}
 \input{failure.tex}
 
 % 
@@ -941,6 +955,6 @@ developed ideas.  This shall be done in three movements:
 
 \pagebreak
 \addcontentsline{toc}{section}{References}
-\bibliographystyle{unsrtnat}
+\bibliographystyle{abbrvnat}
 \bibliography{zotero}
 \end{document}  
