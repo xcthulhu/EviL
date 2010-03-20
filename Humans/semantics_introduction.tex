@@ -101,12 +101,11 @@ since I have given an inductive definition, these recursive definitions rely
 on the {\tmem{least}} fixpoint of their associated monotonic operators.}} 
 Moreover, the following relationship can be observed:
 
-\begin{lemma}
+\begin{lemma}\label{truthiness}
   Let $\phi \in \mathcal{L}_0 (\Phi)$.  Then:
   \[ a \models \phi \Longleftrightarrow \Omega, (a, A) \VDash \phi \]
   $\ldots$for any $\Omega$ and $A$.
 \end{lemma}
-
 \begin{proof}
   This may be seen immediately by induction on $\phi$.
 \end{proof}

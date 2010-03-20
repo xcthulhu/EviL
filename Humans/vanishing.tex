@@ -1,21 +1,3 @@
-% \documentclass{letter}
-% \usepackage{geometry,amsmath,amssymb}
-% \geometry{letterpaper}
-% 
-% %%%%%%%%%% Start TeXmacs macros
-% \newcommand{\assign}{:=}
-% \newcommand{\colons}{\,:\,}
-% \newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
-% \newcommand{\tmtextsc}[1]{{\scshape{#1}}}
-% \newenvironment{itemizedot}{\begin{itemize} \renewcommand{\labelitemi}{$\bullet$}\renewcommand{\labelitemii}{$\bullet$}\renewcommand{\labelitemiii}{$\bullet$}\renewcommand{\labelitemiv}{$\bullet$}}{\end{itemize}}
-% \newenvironment{proof}{\noindent\textbf{Proof\ }}{\hspace*{\fill}$\Box$\medskip}
-% \newtheorem{definition}{Definition}
-% \newtheorem{lemma}{Lemma}
-% \newtheorem{theorem}{Theorem}
-% %%%%%%%%%% End TeXmacs macros
-
-%\begin{document}
-
 In section \S\ref{validities}, I presented the structural validities of
 \text{EviL} from a philosophical perspective.  That being the case, my
 manner of presentation followed my intuition, which I
@@ -24,16 +6,11 @@ validities of \textsc{EviL} a more systematic presentation.  In doing
 so, I shall showcase an elimination theorem, that I feel sits at the
 heart of \textsc{EviL}.
 
-%In this section, I illustrate that the structural validities of
-%\textsc{EviL} can be used to reason that $\BM, \BP, \DM,$ and $\DP$
-%exhibit certain behavior over two dual fragments of the language
-%$\mathcal{L}(\Phi)$.
-
 To start, the following lemma summerizes the structural validities
 that I will be studying in the subsequent discussion:
 
 \begin{lemma}
-  \label{validities}The following validities hold for all \tmtextsc{EviL}
+  \label{lemma:validities}The following validities hold for all \tmtextsc{EviL}
   models:
   \[ \begin{array}{lll}
        \VDash \boxminus p \leftrightarrow p & \hspace{5em} & \VDash \boxplus p
@@ -57,7 +34,7 @@ that I will be studying in the subsequent discussion:
 
 These validities suggest a definite interplay between the modalities of
 \tmtextsc{EviL}; they are highly suggestive of a general elimination
-theorem.  To see what arises from Lemma \ref{validities}, first
+theorem.  To see what arises from Lemma \ref{lemma:validities}, first
 observe that \textsc{EviL} makes true the usual substitution rule:
 
 \begin{lemma}
@@ -125,7 +102,7 @@ results proven for one the fragment $\mathcal{L}_A (\Phi)$ to $\mathcal{L}_B (\P
 
 With the above machinery in place, I present what I feel is the
 natural consequence of the logical equivalence given in
-Lemma \ref{validities}:
+Lemma \ref{lemma:validities}:
 
 \begin{definition}
   If $\phi \in \mathcal{L}_X (\Phi)$ then let $\phi^{\ast}$ be the same
@@ -151,7 +128,7 @@ Lemma \ref{validities}:
   \begin{itemizedot}
     \item Cases $p$, $\neg p$, $\bot$, $\top$, $\circlearrowleft$: \ In all of
     these situations, the result follows directly from the validities illustrated in
-    Lemma \ref{validities}.
+    Lemma \ref{lemma:validities}.
     
     \item Cases $\wedge, \vee$: \ For $\boxminus$ the connective $\wedge$ is
     simple, and dually for $\DP$ for the connective $\vee$. \
@@ -165,7 +142,7 @@ Lemma \ref{validities}:
     
     On the other hand, $\vee$ is more interesting for $\boxminus$, and dually
     $\wedge$ for $\DP$.  Using induction, Lemma
-    \ref{validities}, and subsitution, and distribution, we have the line of
+    \ref{lemma:validities}, and subsitution, and distribution, we have the line of
     reasoning:
     \begin{align*}
       {\VDash}{\boxminus}({\phi}{\vee}{\psi}) &
@@ -178,11 +155,11 @@ Lemma \ref{validities}:
     \end{align*}
     
     \item Case $\diamondsuit$: Once again, this follows immediately from the
-    validities of Lemma \ref{validities}, namely $\VDash \boxminus
+    validities of Lemma \ref{lemma:validities}, namely $\VDash \boxminus
     \diamondsuit \phi \leftrightarrow \diamondsuit \phi$ and $\VDash \DP \diamondsuit \phi \leftrightarrow \diamondsuit \phi$
     
     \item Cases $\boxminus, \DP$: The final step follows from
-    one more application of Lemma \ref{validities}, namely by employing the
+    one more application of Lemma \ref{lemma:validities}, namely by employing the
     following four validities
     \[ \begin{array}{ll}
          \VDash \boxminus \DP \phi \leftrightarrow \DP \phi & \VDash \DP \DP \phi
@@ -195,8 +172,8 @@ Lemma \ref{validities}:
   Step 2: \ With the above, we can prove for any $\phi \in \mathcal{L}_A
   (\Phi)$ that $\VDash \phi \leftrightarrow \phi^{\ast}$.  Once again, the
   proof proceeds by induction, the only steps worth noting involve $\boxminus$
-  and $\DP$.  In either case, employing the step can be
-  completed using Step 1. For instance, we know that $\VDash \boxminus \phi
+  and $\DP$.  In either case, these may be completed using Step 1. 
+  For instance, we know that $\VDash \boxminus \phi
   \leftrightarrow \phi$, hence $\VDash \boxminus \phi \leftrightarrow
   \phi^{\ast}$ by induction.
   
@@ -218,7 +195,7 @@ Lemma \ref{validities}:
  The following validities of \textsc{EviL} are consequences of Theorem \ref{vanishing}:
 \[\VDash \BM\DP\Pos\DP\BM\Pos\Pos\DP\BM\DP\Pos\BM\Pos\BM\DP\BM\Pos\DP\neg p  \IFF \Pos\Pos\Pos\Pos\Pos\Pos\neg p \]
 \[ \VDash ((\DM\BP\Nec q\wedge\BP\DM\Nec q)\vee\Nec\BP\DM q)\wedge((\BP\Nec\DM q\vee\Nec\DM\BP q)\wedge\DM\Nec\BP q)  \IFF \Nec q \]
-\[ \VDash \BM\DP\Pos t \vee \DM\BP\Box \neg t \]
+\[ \VDash \BM\DP\Pos t \vee \BP\Box\DM \neg t \]
 \end{example}
 
 The way I read Theorem \ref{vanishing} is that $\boxminus$

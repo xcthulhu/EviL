@@ -10,11 +10,10 @@ Kripke models, I would like to return to the visualization technique for
 \textsc{EviL} models I introduced in \S(FIXME).  This involved, roughly,
 thinking of the \textsc{EviL} models as \emph{posets} with arrows,
 as I first presented in Fig. \ref{fig:example1}.  I have given
-additional examples in Figs.
-\ref{fig:example2} and \ref{fig:example3}.  In all of these depictions,
-the implicit relational structure of \textsc{EviL} models is given
-visual expression.  So it seems only natural to me that this
-graphically perceived structure
+additional examples in Figs. \ref{fig:example2} and
+\ref{fig:example3}.  
+In all of these depictions, the implicit relational structure of \textsc{EviL} models is given
+visual expression.  So it seems only natural to me that this graphically perceived structure
 could also find formal expression.
 \begin{figure}[ht]
 \centering
@@ -30,24 +29,27 @@ could also find formal expression.
 \caption{\textsc{EviL} model visualizations}
 \end{figure}
 
-
 Following the modified semantics provided in \S\ref{multi-agent}, the
 developments this section will assume multiple agents.
 \begin{definition}
   Let $\Phi$ be a set of letters and let $\mathcal{A}$ be a set of agents. \
-  A \textbf{Kripke structure} is a state transition system $\langle W, R,
-  \sqsubseteq, \sqsupseteq, V,
-  P_{\circlearrowleft} \rangle$ where:
+  A \textbf{Kripke structure} is a state transition system $\mathbb{M}=\langle W^{\mathbb{M}}, R^{\mathbb{M}},
+  \sqsubseteq^{\mathbb{M}}, \sqsupseteq^{\mathbb{M}}, V^{\mathbb{M}},
+  P^{\mathbb{M}}_{\circlearrowleft} \rangle$ where\footnote{Where
+    the context is clear, I shall drop $\mathbb{M}$ from the
+    superscripts I am employing.}:
   \begin{itemizedot}
-    \item $W$ is a set of worlds    
-    \item $R : \mathcal{A} \rightarrow \powerset (W \times W)$, $\sqsubseteq^{} : \mathcal{A} \rightarrow \powerset (W \times W)$, and $\sqsupseteq : \mathcal{A} \rightarrow \powerset (W \times W)$ are
-    $\mathcal{A}$-indexed sets of relations
-    \item $V : \Phi \rightarrow \powerset (W)$ is a predicate letter valuation    
+    \item $W^{\mathbb{M}}$ is a set of worlds    
+    \item $R^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$, $\sqsubseteq^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$, and $\sqsupseteq^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$ are
+    $\mathcal{A}$-indexed sets of relations\footnote{I will abbreviate
+      $R(X)$, $\sqsubseteq(X)$ and $\sqsupseteq(X)$ as $R(X)$,
+      $\sqsubseteq(X)$ and $\sqsupseteq(X)$ as $R_X$, $\sqsubseteq_X$
+      and $\sqsupseteq_X$ respectively.}
+    \item $V : \Phi \rightarrow \powerset (W)$ is a predicate letter valuation
     \item $P_{\circlearrowleft} : \mathcal{A} \rightarrow \powerset
       (W)$ are sets of worlds indexed by agents
   \end{itemizedot}
-  Let $\mathcal{K}_{\Phi, \mathcal{A}, I}$ denote the class of Kripke
-  structures for letters $\Phi$, agents $\mathcal{A}$, and where $W \subseteq I$.
+  Let $\mathcal{K}_{\Phi, \mathcal{A}, I}$ denote the class of Kripke structures for letters $\Phi$, agents $\mathcal{A}$, and where $W \subseteq I$.
 \end{definition}
 Kripke semantics given by $(\Vdash) : \mathcal{K}_{\Phi, \mathcal{A}, I} \to I
 \rightarrow \text{\tmtextsf{bool}}$ for these models are defined recursively
@@ -105,9 +107,9 @@ The following summarizes the structural properties of
 \begin{proposition}
   For any \textsc{EviL} model $\Omega$,  $\mho^{\Omega}$ has the following
   properties{\footnote{Note that in this we have that $\{w,v\} \subseteq \powerset \Phi
-  \times \powerset \mathcal{L}_0$ in the subsequent discussion}}:
+      \times \powerset \mathcal{L}_0$ in the subsequent discussion}}:
   \begin{myRoman}
-    \item $\sqsupseteq^{\Omega}_X$ is reflexive
+    \item\label{pI} $\sqsupseteq^{\Omega}_X$ is reflexive
     \item $\sqsupseteq^{\Omega}_X$ is transitive 
     \item \label{pantisym}$\sqsupseteq^{\Omega}_X$ is anti-symmetric
     \item $w \sqsupseteq^{\Omega}_X v$ if and only if $v
@@ -118,11 +120,9 @@ The following summarizes the structural properties of
     R^{\Omega}_X \subseteq R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X$
     \item $\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X = R^{\Omega}_X =
     \sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X$
-    \item $w \in P_{\circlearrowleft}^{\Omega} (X)$ if and only if $w
+    \item\label{propVII} $w \in P_{\circlearrowleft}^{\Omega} (X)$ if and only if $w
     R^{\Omega}_X w$
   \end{myRoman}
-  $\ldots$a Kripke structure is called \tmtextsc{EviL} if it makes true the
-  above properties (with the exception of \ref{pantisym}, which is optional).
 \end{proposition}
 \begin{proof}
   Everything except \ref{pV} follows directly from the definitions - so I shall only
@@ -137,6 +137,11 @@ The following summarizes the structural properties of
   C_X .b \models \psi$, so $(c, C) R^{\Omega}_X (b, B)$, which
   suffices to show the claim.
 \end{proof}
+
+\begin{definition}
+A Kripke structure is called \tmtextsc{EviL} if it makes true the
+  above properties \ref{pI} through \ref{pVII} (with the exception of \ref{pantisym}, which is optional).
+\end{definition}
 
 These properties are definitive - as we shall demonstrate, \tmtextsc{EviL} is
 sound and weakly complete for \tmtextsc{EviL} models.
@@ -155,7 +160,7 @@ following way - if the agent assumes fewer things, more things are imaginable,
 since it's easier for a world to be incompatible with an agent's evidence.
 
 In fact, in light of Theorem \ref{theorem-theorem}, the above follows
-from a more general relationship present in model theory.  For a given
+from an underlying, order theoretic relationship present in model theory.  For a given
 Kripke structure $\mathbbm{M}$, define two operators $Mod^{\mathbbm{M}}
 : \powerset  \mathcal{L} (\Phi, \mathcal{A}) \rightarrow \powerset
 (W^{\mathbbm{M}})$ and $Th^{\mathbbm{M}} : \powerset
@@ -173,7 +178,7 @@ We then have, for any $\Delta \in \powerset  \mathcal{L}
 \[ \nabla \subseteq Mod^{\mathbbm{M}} (\Delta) \text{ if and only if }
    \Delta \subseteq Th^{\mathbbm{M}} (\nabla) \]
 $\ldots$hence we these two operations form what is refered an
-\tmtextit{antitone Galois connection}, between the lattice $\powerset
+\emph{antitone Galois connection}, between the lattice $\powerset
 (W^{\mathbbm{M}})$ and the lattice $\powerset \mathcal{L} (\Phi,
 \mathcal{A})$. It follows from the theory of Galois connections
 \citep[][chapter 3]{roman_lattices_2008} that

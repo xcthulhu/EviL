@@ -1,5 +1,5 @@
 In this section I turn to extending the semantics for
-\tmtextsc{EviL} from a single agent, as presented in \S(FIXME), to
+\tmtextsc{EviL} from a single agent, as presented in \S\ref{evil-grammar}, to
 accommodate multiple agents.  This is primarily of interest since further
 results in \textsc{EviL}, namely completeness, can naturally be
 abstracted beyond the single agent case.  But I will freely admit that
@@ -17,7 +17,8 @@ The following provides the definition of the language of multi-agent \textsc{Evi
 $\ldots$where $X \in \mathcal{A}$ and $\mathcal{A}$ is non-empty.
 \end{definition}
 
-As in the single agent case, multi-agent \tmtextsc{EviL} models are sets $\Omega
+As in the single agent case, multi-agent \tmtextsc{EviL} models are 
+sets $\Omega
 \subseteq \powerset \Phi \times (  (\powerset
 \mathcal{L}_0 (\Phi))^\mathcal{A})$ -- that is, $\Omega$ is a set of
 pairs of sets of proposition letters, and indexed sets of
@@ -30,26 +31,12 @@ multi-agent \textsc{EviL} is
    \times ( \mathcal{A} \rightarrow \powerset \mathcal{L}_0 (\Phi))
    \rightarrow \mathcal{L} (\Phi, \mathcal{A}) \rightarrow
    \textup{\textsf{bool}}. \]
-The input/output behavior of $(\VDash)$ is just as before in
-\S(FIXME), the only difference in this setting is that instead of
+The input/output behavior of $(\VDash)$ is just as it was defined before in
+\S\ref{evil-grammar}, the only difference in this setting is that instead of
 taking a pair as an input, where the second element is a
 set, it takes an indexed set.
-% That is, $(\VDash)$ is a function that:
-% \begin{itemizedot}
-%   \item Takes as input:
-% \begin{itemizedot}
-%   \item An \evil model
-%   \item A pair $(a, A)$ where
-%   \begin{itemizedot}
-%     \item $a$ is a set of proposition letters
-%     \item $A:\mathcal{A}\to \mathcal{L}_0 (\Phi)$ assigns sets of formulae to agents.
-%   \end{itemizedot}
-%   \item A formula in the language $\mathcal{L} (\Phi, \mathcal{A})$
-%   \end{itemizedot}
-%   \item Gives as output: a truth value in $\textup{\textsf{bool}}$
-% \end{itemizedot}
-I shall now provide a formal definition of the semantics for
-multi-agent $(\VDash)$:
+
+I shall now provide a formal definition of the semantics for the multi-agent $(\VDash)$:
 {\footnote{Where $X \in \mathcal{A}$, I
 use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
 \powerset \mathcal{L}_0 (\Phi)$}}
@@ -74,14 +61,14 @@ use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
 \end{align*}
 \end{definition}
 
-Just as in \S(FIXME), Lemma (FIXME) and Theorem
+Just as in \S\ref{evil-grammar}, Lemma \ref{truthiness} and Theorem
 \ref{theorem-theorem} can be seen to obtain for the new generalized
 semantics.  Furthermore, all of the validities mentioned in \S\ref{validities}
 and \S\ref{elimination} hold, 
-along with Theorem \ref{vanishing}, where $\Box$, $\Pos$, $\BM$, $\BP$, $\DM$, $\DP$
-and $\PP$ are all replaced with $\Box_X$, $\Pos_X$, $\BM_X$, $\BP_X$, $\DM_X$, $\DP_X$
-and $\PP_X$ respectively, for any fixed $X \in \mathcal{A}$.
-Furthermore, compactness still fails, just as presented in \S
+along with Theorem \ref{vanishing}, where $\Box$, $\Pos$, $\BM$,
+$\BP$, $\DM$, $\DP$ and $\PP$ are all replaced with $\Box_X$, $\Pos_X$, $\BM_X$, $\BP_X$,
+$\DM_X$, $\DP_X$ and $\PP_X$ respectively, for any fixed $X \in \mathcal{A}$.
+Furthermore, compactness still fails, just as presented in \S\ref{non-compactness}.
 
 Finally, there is are two novel validities that these semantics give
 rise to:
@@ -89,15 +76,15 @@ rise to:
 & \VDash \Box_X \phi \to \Box_X \BP_Y \phi 
  \end{eqnarray*}
 This is just to say, that as the \textsc{EviL} agent's deliberative process was opaque
-to her beliefs in the single agent case, as expressed in
-\eqref{dontcare1} and \eqref{dontcare2} in \S(FIXME), 
+to her beliefs in the single agent case, as expressed by
+\eqref{dontcare1} and \eqref{dontcare2} in \S\ref{validities}, 
 in a similar fashion she cannot read anyone else's mind, nor anyone
 else hers.
 
 I will admit that little use shall be made of \textsc{EviL} generalized
 this way, since the single agent case is far more natural to think
 about for me.  However, it will be of interest to the main theorems of
-\textsc{EviL}, which I shall present in \S(FIXME), that they be proved
+\textsc{EviL}, which I shall present in \S\ref{army-of-darkness}, that they be proved
 in the widest generality.
 %%% Local Variables: 
 %%% mode: latex

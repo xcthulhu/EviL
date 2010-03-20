@@ -1,6 +1,6 @@
-In this section I shall demonstrate that \textsc{EviL} is not compact by giving an example of an infinite set of formulae for which every finite subset is satisfiable while the entirety is not.  %In the subsequent discussion I shall restrict to models with one agent and cease to employ subscripts.
+In this section I shall demonstrate that \textsc{EviL} is not compact by giving an example of an infinite set of formulae for which every finite subset is satisfiable while the entirety is not.
 
-\begin{lemma}%\renewcommand{\qedsymbol}{$\dashv$}
+\begin{lemma}
 Let $\tau : \Phi \to \mathcal{L}$ be defined as follows:
 \begin{center}
 \begin{minipage}{3in}
@@ -16,14 +16,27 @@ Every finite subset of $\tau[\Phi]$ is satisfiable, but not the entirety, which 
 \begin{proof}
 That $\tau[\Phi]$ is infinite is immediate, as $\Phi$ was stipulated to be infinite. 
 
-So let $S\subseteq \tau[\Phi]$ by finite.  We shall find a model that satisfies $S$.  First observe that there is a finite $\Psi\subset \Phi$ such that $S = \tau[\Psi]$. Let $\{q,r,s\} \subseteq \Phi \; \bs \; \Psi$ be three distinct letters - this can be done, since $\Phi \; \bs \; \Psi$ is infinite.  Let $\mathfrak{M}$ be as in Fig. \ref{fig:mod4}, where 
+So let $S\subseteq \tau[\Phi]$ by finite.  We shall find a model that
+satisfies $S$.  First observe that there is a
+ finite $\Psi\subset
+\Phi$ such that $S = \tau[\Psi]$.  Let $\{q,r,s\} \subseteq \Phi \; \bs
+\; \Psi$ be
+ three distinct letters - this can be done, since $\Phi \;
+\bs \; \Psi$ is infinite.
+  Let $\mathfrak{M} = \{\pr{a}{\{q\}},
+\pr{b}{\{r\}}, \pr{c}{\{s\}} \}$, where 
 \begin{align*}
 a & := \Psi \cup \{s\} \\
 b & := \{q \} \\
 c & := \Psi \cup \{r\}
 \end{align*}
-%the valuation function $V$ of $\mathfrak{M}$\footnote{ is such that: $V(p) =\{a,c\}$ for each $p \in \Psi$, $V(q) = \{b\}$, $V(r) = \{c\}$, and $V(s) = \{a\}$.
-One may check that $\mathfrak{M},( a,\{q\}) \VDash \tau(p)$ for all $p \in \Psi$.
+ Using the same visualizations I introduced in \S\ref{contradictions},
+ $\mathfrak{M}$ can  be visualized\footnote{While this situation
+   presents itself like a Kripke model, I am not employing Kripke
+   semantics.  The means in which one world accesses another is not by
+   an accessibility relation, but rather through the sets of beliefs,
+   which in this case are the sets ${q},{r},$ and ${s}$.} in Fig. \ref{fig:mod4}.  It is straightforward to 
+check that $\mathfrak{M},( a,\{q\}) \VDash \tau(p)$ for all $p \in \Psi$.
 
 	\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
@@ -52,7 +65,8 @@ On the other hand, suppose there was some model $\mathfrak{N}$ such
 that $\mathfrak{N}, ( a, A) \VDash \tau(p)$ for all $p \in \Psi$.
 This implies that $\mathfrak{N}, ( a, A) \VDash p$ for each $p \in
 \Phi$.  Moreover, let $( b, B)$ be such that $\mathfrak{N},( b,
-B)\VDash A$ (one exists since by hypothesis $\mathfrak{N}, ( a, A)
+B)\VDash A$ 
+(one exists since by hypothesis $\mathfrak{N}, ( a, A)
 \VDash \Pos p$).  By the semantics of $\tau(p)$, it is evident that
 $\mathfrak{N}, ( b, B) \VDash \neg p$ and that there's a $( c, C)$
 such that $\mathfrak{N},( c,C ) \VDash B$ and $\mathfrak{N},( c,C )
@@ -71,3 +85,7 @@ constructions that are typically employed in modal logic, such as is
 done in \citep[][chapter 4]{blackburn_modal_2001}, for instance.
 Any completeness theorem for \textsc{EviL} will necessarily have to be
 finite in nature.
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

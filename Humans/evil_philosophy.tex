@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+%\usepackage{illcmolthesis}
 \usepackage{geometry}
 \geometry{letterpaper} 
 \usepackage{graphicx}
@@ -216,6 +217,12 @@
 
 \title{Evidentialist Logic}
 \author{Matthew P. Wampler-Doty}
+%\birthdate{May 23rd, 1984}
+%\birthdate{}
+%\birthplace{Boston, Massachusetts, USA}
+%\birthplace{}
+%\defensedate{}
+%\supervisor{Prof.dr J. F. A. K. van Benthem}
 \date{}
 
 \begin{document}
@@ -582,10 +589,6 @@ serve as a basis for Charlotte's knowledge that Alex survives.  This
 suggests that the following equation might reasonably express a more
 adequate notion of knowledge:
 \[ \DM(\PP \wedge \Nec \phi) \]
-%This might be read informally as follows: some accessible subset of
-%Charlotte's beliefs serves as a sound basis for the deducing $\phi$
-%(which, in this case, is thought to state ``Alex survives'').  We
-%might
 
 \subsection{Contradictions}\label{contradictions}
 
@@ -637,11 +640,7 @@ above stanza. This figure should be read as follows:
  \item if one point $(a,A)$ is above another point $(b,B)$ and
    connected by a densely dotted line 
    \tikz \draw[densely dotted](0pt,0pt) -- (20pt,6pt);, 
-   this means that $a = b$ and $B
-   \subset A$.  
-   %This follows the standard notation for \emph{Hasse diagrams} 
-   % (I shall return to why this is in \S
-   %\ref{quine}).
+   this means that $a = b$ and $B \subset A$.
   \item if one point $(a,A)$ is connected to another point $(b,B)$ by
     a line with an arrow \tikz \draw[->,>=latex](0pt,0pt) --
     (20pt,6pt);, this means that $\Omega,(b,B) \VDash A$
@@ -897,7 +896,7 @@ developed ideas.  This shall be done in three movements:
 \subsubsection{Intuitions}
 \input{evil_intuition.tex}
 \subsubsection{Validities}
-\label{validites}
+\label{validities}
 \input{evil-validities.tex}
 \subsection{\textsc{EviL} Basics}
 \label{dead-by-dawn}
