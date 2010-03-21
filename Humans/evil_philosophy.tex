@@ -479,11 +479,12 @@ On the other hand if $Th(\Omega) \cup A \vdash_K \phi$, then we know that $Th(\O
 
 A natural way to read $Th(\Omega)$ is the background knowledge the agent has about the universe she lives in.  This approach presents an analysis of modal logic whereby an idealized agent is modeled as closed under deduction; this is the \emph{doxastic omniscience} I have mentioned earlier. Under this view, evidently the agent's beliefs correspond to those things for which she has proofs.  This shall be the basis of my future investigations.
 
-%However, before developing these semantics further, I would like to mention an alternative system of semantics. I shall illustrate that the goal of modeling agents which have proofs for their beliefs can be accomplished while avoiding the formulation of Russell's Paradox I have previously mentioned, without imposing a grammar restriction on the set of beliefs.
-
 \subsection{The Human Condition}\label{Human-Condition}
-%Returning to the ideas proposed in \S \ref{explicit}, I shall now proceed to sketch further developments I have in mind.
-To supplement to this basic framework, I shall try to illustrate how further inspiration and desiderata can be drawn from the philosophical literature.  It should be remarked that I do this in stark contrast to the received view in epistemic logic \citep[pg. 34]{lenzen_recent_1978}:
+To supplement to this basic framework, I shall try to illustrate how
+further inspiration and desiderata can be drawn from the philosophical
+literature.  It should be remarked that I do this in stark contrast to
+the received view in epistemic logic
+\citep[pg. 34]{lenzen_recent_1978}:
 \begin{quote}
 The search for the correct analysis of knowledge, while certainly of
 extreme importance and interest to epistemology, seems not
@@ -704,6 +705,15 @@ it finds sympathy in other logical traditions, namely in
 \emph{relevance logic} and \emph{paraconsistent logic}, as already
 noted \citep[see][chapters 1 \& 4]{gabbay_handbook_2002}.
 
+Apart from inconsistency, I do not really accommodate very much
+irrationality; I will freely admit that frameworks like
+\citep{rantala_impossible_1982} and and \citet{levesque_logic_1984}
+employing \emph{impossible world} semantics are far more accommodating
+to irrationality than the semantics I am proposing.  Regardless,
+allowing for an agent's beliefs to
+naturally be inconsistent is already orthogonal to the assumption that
+agent's are rational.
+
 \subsection{Quine}\label{quine}
 I shall now return to developing my framework.  To recap, so far I
 have suggested adding a novel modality $\BM$ which corresponds to
@@ -908,7 +918,7 @@ developed ideas.  This shall be done in three movements:
 \input{evil_noncompactness.tex}
 \subsubsection{Multiple Agents}\label{multi-agent}
 \input{multi-agents.tex}
-\subsubsection{Kripke Structures}
+\subsubsection{Kripke Structures}\label{kripke}
 \input{semantics_partII.tex}
 %\input{semantics_partIII.tex}
 \subsection{\textsc{EviL} Completeness}\label{army-of-darkness}

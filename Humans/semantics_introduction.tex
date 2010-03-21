@@ -8,19 +8,24 @@ grammar restriction suggested in \S\ref{sketch}.
 
 The grammar restriction imposed on \textsc{EviL} was introduced to
 avoid paradoxes. That being the case, I shall discard the previous
-definition of $(\VDash)$ I suggested, in favor of demonstrably well-defined semantics.  This shall be achieved in two steps.
+definition of $(\VDash)$ I suggested, in favor of demonstrably
+well-defined semantics.  This shall be achieved in two steps.
 
-\begin{definition} Let $\mathcal{L}_0 (\Phi)$ be the language of classical propositional logic, defined by the following Backus-Naur form grammar:
+\begin{definition} Let $\mathcal{L}_0 (\Phi)$ be the language of
+  classical propositional logic, defined by the following Backus-Naur form grammar:
 \[ \phi \ {::=} \  p \in \Phi \  | \  \phi
    \rightarrow \psi \  | \  \bot \]
 \end{definition}
-Models for classical propositional logic can be thought of as sets $S \subseteq \Phi$; thus the truth predicate $(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
+Models for classical propositional logic can be thought of as sets $S
+\subseteq \Phi$;
+thus the truth predicate $(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
 \rightarrow \textup{\textsf{bool}}${\footnote{$\ldots$ where $\textup{\textsf{bool}} := \{True, False\}$.  This is more commonly written as
 $(\models) \colons \powerset \Phi \rightarrow
 \textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  My notation reflects
 the notation common to the typed functional programming languages
-\tmtextit{Haskell} and \tmtextit{OCaml}. I will use both notations interchangeably.}} for classical propositional logic
-can be given recursively as follows:  
+\tmtextit{Haskell} and \tmtextit{OCaml}. I will use both notations
+interchangeably.}} for classical 
+propositional logic can be given recursively as follows:
 \begin{definition}
 Define $(\models)$ such that
 \begin{align*}
@@ -51,11 +56,9 @@ That is, $(\VDash)$ is a function that:
   \item Takes as input:
 \begin{itemizedot}
   \item An \evil model
-  
   \item A pair $(a, A)$ where
   \begin{itemizedot}
     \item $a\subseteq \Phi$ is a set of proposition letters
-    
     \item $A\subseteq \mathcal{L}_0 (\Phi)$ is a set of propositional formulae.
   \end{itemizedot}
   \item A formula in the language $\mathcal{L} (\Phi)$
@@ -63,7 +66,6 @@ That is, $(\VDash)$ is a function that:
   \item Gives as output: a truth value in $\textup{\textsf{bool}}$
 \end{itemizedot}
 I can now provide a formal definition of the semantics for \textsc{EviL}:
-%{\footnote{Where $X \in \mathcal{A}$, I use $A$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow\powerset \mathcal{L}_0 (\Phi)$}}
 \begin{definition}
  Define $(\VDash)$ recursively such that:
 \begin{align*}
@@ -98,7 +100,9 @@ predicate over suitable tupples, and similarly for $(\models)$.  Hence the
 result that $(\VDash)$ is well-defined ultimately relies on an application of
 the \tmtextit{Knaster-Tarski Fixpoint Theorem} \citep[chapter 12]{roman_lattices_2008}. Further,
 since I have given an inductive definition, these recursive definitions rely
-on the {\tmem{least}} fixpoint of their associated monotonic operators.}} 
+on the {\tmem{least}} fixpoint of their associated monotonic
+operators.  This is not really particular to \textsc{EviL}; rather, this is
+central to the basic ``logic engineering'' philosophy of Isabelle/HOL \citep{berghofer_meta-theory_2009}.}} 
 Moreover, the following relationship can be observed:
 
 \begin{lemma}[Truthiness]\label{truthiness}
@@ -111,7 +115,6 @@ Moreover, the following relationship can be observed:
 \end{proof}
 
 $\ldots$with this, we have the following, mirroring Prop. \ref{central-prop}:
- 
 \begin{definition}  Define the following:
  $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega \VDash \phi \}$$
 \end{definition}
@@ -122,10 +125,26 @@ $\ldots$with this, we have the following, mirroring Prop. \ref{central-prop}:
 
 I shall present $\vdash_{\text{\textsc{EviL}}}$, the logical consequence turnstile for \textsc{EviL}, in \S\ref{evil-axioms}.
 
-I chose the name ``Theorem Theorem'' because it means that for every belief the \textsc{EviL} agent has, it is a theorem she has derived from her premises. Theorem \ref{theorem-theorem} establishes one of the central desiderata outlined in \S\ref{close} is achieved by \textsc{EviL}.  With this result the foundation is set for the the central intuition driving \textsc{EviL} - that beliefs are the consequences of logical deductions.  It is a peculiarity of \textsc{EviL} that these deductions are carried on in \textsc{EviL} itself.  This was achieved, primarily, by my previous flirtation with paradox.  And as a consequence, I have tried to design \textsc{EviL} to eat its own tail. This is my favorite kind of self-reference. As a modeler using logic, it establishes that the \textsc{EviL} agent is herself also a modeler just like me, using the same logic I am using to think about her herself, to think about the state space she lives in.  It reminds me of a quote regarding the wonderful circularity of mathematics, due to \citet{browne_garden_1736}:
+I chose the name ``Theorem Theorem'' because it means that for every
+belief the \textsc{EviL} agent has, it is a theorem she has derived
+from her premises. Theorem \ref{theorem-theorem} establishes one of
+the central desiderata outlined in \S\ref{close} is achieved by
+\textsc{EviL}.  With this result the foundation is set for the the
+central intuition driving \textsc{EviL} - that beliefs are the
+consequences of logical deductions.  It is a peculiarity of
+\textsc{EviL} that these deductions are carried on in \textsc{EviL}
+itself.  This was achieved, primarily, by my previous flirtation with
+paradox.  And as a consequence, I have tried to design \textsc{EviL}
+to eat its own tail. This is my favorite kind of self-reference. As a
+modeler using logic, it establishes that the \textsc{EviL} agent is
+herself also a modeler just like me, using the same logic I am using
+to think about her herself, to think about the state space she lives
+in.  It reminds me of a quote regarding the wonderful circularity of
+mathematics, due to \citet{browne_garden_1736}:
 \begin{quote}
-All things began in order, so shall they end, and so shall they begin again; according to the ordainer of order and mystical Mathematicks of the City of Heaven.\end{quote}
-
+All things began in order, so shall they end, and so shall they begin
+again; according to the ordainer of order and mystical Mathematicks of
+the City of Heaven.\end{quote}
 
 %%% Local Variables: 
 %%% mode: latex

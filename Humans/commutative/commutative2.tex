@@ -15,12 +15,18 @@
      column sep=3em 
      %text height=1.5ex, text depth=0.25ex 
      ]
-  { |(aA')| (a,A') & |(bB)| (b,B) \\
-     |(aA)| (a,A) & \\ };
+     {                 & |(bB')| (b,B') \\
+       |(aA)| (a,A) & |(bB)| (b,B) \\
+%                        & |(bB'')| (b,B'')\\ 
+     };
   \path[densely dotted]
-      (aA) edge (aA') ;
+      (bB) edge (bB')
+%      (bB) edge (bB'') 
+      ;
   \path[->,>=latex] 
-      (aA') edge (bB)
-      (aA) edge[dashed] (bB);
+      (aA) edge (bB)
+      (aA) edge[dashed] (bB')
+%      (aA) edge[dashed] (bB'')
+     ;
 \end{tikzpicture}
 \end{document}

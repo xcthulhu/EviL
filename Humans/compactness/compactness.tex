@@ -1,0 +1,28 @@
+\documentclass[]{article}
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+\newcommand{\pr}[2]{\ensuremath{( #1, #2 )}}
+
+\begin{document}
+	\begin{tikzpicture}[->,>=latex,
+         shorten >=3pt, shorten <= 3pt, 
+         auto,node distance=4cm, semithick]
+  \tikzstyle{state}=[draw=black, shape=rectangle]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[state] (aA1) at (45:2.5) [] {$\pr{a}{\{q\}}$};
+\node[empt] (aA2) at (165:2.5) {$\pr{b}{\{r\}}$};
+\node[empt] (aA3) at (285:2.5) {$\pr{c}{\{s\}}$};
+\path
+(aA1) edge [->,bend right] node {} (aA2)
+(aA2) edge [->,bend right] node {} (aA3)
+(aA3) edge [->,bend right] node {} (aA1);
+\end{scope}
+\end{tikzpicture}
+\end{document}

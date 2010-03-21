@@ -47,7 +47,9 @@ Next, I offer two sublanguages of the main language of
 \tmtextsc{EviL}:
 
 \begin{definition}
-  Define the following fragments:\footnote{The fragment $\mathcal{L}_A(\Phi)$ was inspired from the continuous fragment of $\mu \tmop{PML}$ (FIXME).}
+  Define the following fragments:\footnote{I was inspired to look at the fragment
+    $\mathcal{L}_A(\Phi)$ by thinking about the continuous fragment of
+    $\mu \tmop{PML}$ \citep{fontaine_continuous_2008}.}
   
   $\mathcal{L}_A (\Phi)$:
   \[ \phi {::=} \  p \  | \  \neg p
@@ -98,14 +100,15 @@ theorem:
 \end{theorem}
 
 The above duality is convenient, since it can be leveraged to transfer
-results proven for one the fragment $\mathcal{L}_A (\Phi)$ to $\mathcal{L}_B (\Phi)$.
+results proven for the fragment $\mathcal{L}_A (\Phi)$ to
+$\mathcal{L}_B (\Phi)$ and vice versa.
 
 With the above machinery in place, I present what I feel is the
 natural consequence of the logical equivalence given in
 Lemma \ref{lemma:validities}:
 
 \begin{definition}
-  If $\phi \in \mathcal{L}_X (\Phi)$ then let $\phi^{\ast}$ be the same
+  If $\phi \in \mathcal{L} (\Phi)$ then let $\phi^{\ast}$ be the same
   formula, with all instances of $\boxplus$, $\boxminus$, $\DM$
   and $\DP$ eliminated.
 \end{definition}
@@ -126,12 +129,12 @@ Lemma \ref{lemma:validities}:
     {\hspace{3em}}{\VDash}\DP{\phi}{\leftrightarrow}{\phi}
   \end{align*}
   \begin{itemizedot}
-    \item Cases $p$, $\neg p$, $\bot$, $\top$, $\circlearrowleft$: \ In all of
+    \item Cases $p$, $\neg p$, $\bot$, $\top$, $\circlearrowleft$:  In all of
     these situations, the result follows directly from the validities illustrated in
     Lemma \ref{lemma:validities}.
     
-    \item Cases $\wedge, \vee$: \ For $\boxminus$ the connective $\wedge$ is
-    simple, and dually for $\DP$ for the connective $\vee$. \
+    \item Cases $\wedge, \vee$: For $\boxminus$ the connective $\wedge$ is
+    simple, and dually for $\DP$ for the connective $\vee$. 
     This is because in each case one may simply use distribution, such as can
     be done here:
     \begin{align*}
@@ -169,7 +172,7 @@ Lemma \ref{lemma:validities}:
          \phi
        \end{array} \]
   \end{itemizedot}
-  Step 2: \ With the above, we can prove for any $\phi \in \mathcal{L}_A
+  Step 2:  With the above, we can prove for any $\phi \in \mathcal{L}_A
   (\Phi)$ that $\VDash \phi \leftrightarrow \phi^{\ast}$.  Once again, the
   proof proceeds by induction, the only steps worth noting involve $\boxminus$
   and $\DP$.  In either case, these may be completed using Step 1. 
@@ -177,7 +180,7 @@ Lemma \ref{lemma:validities}:
   \leftrightarrow \phi$, hence $\VDash \boxminus \phi \leftrightarrow
   \phi^{\ast}$ by induction.
   
-  Step 3: \ With the result for $\mathcal{L}_A (\Phi)$ in hand, just observe
+  Step 3:  With the result for $\mathcal{L}_A (\Phi)$ in hand, just observe
   that for $\psi \in \mathcal{L}_B (\Phi)$ we have that $(\psi^A)^{\ast} =
   (\psi^{\ast})^A$. With this, substitution, and duality, we have the
   following chain of reasoning:
@@ -193,17 +196,36 @@ Lemma \ref{lemma:validities}:
 
 \begin{example}
  The following validities of \textsc{EviL} are consequences of Theorem \ref{vanishing}:
-\[\VDash \BM\DP\Pos\DP\BM\Pos\Pos\DP\BM\DP\Pos\BM\Pos\BM\DP\BM\Pos\DP\neg p  \IFF \Pos\Pos\Pos\Pos\Pos\Pos\neg p \]
-\[ \VDash ((\DM\BP\Nec q\wedge\BP\DM\Nec q)\vee\Nec\BP\DM q)\wedge((\BP\Nec\DM q\vee\Nec\DM\BP q)\wedge\DM\Nec\BP q)  \IFF \Nec q \]
+%\[\VDash
+%\BM\DP\Pos\DP\BM\Pos\Pos\DP\BM\DP\Pos\BM\Pos\BM\DP\BM\Pos\DP\neg p
+%\IFF \Pos\Pos\Pos\Pos\Pos\Pos\neg p \]
 \[ \VDash \BM\DP\Pos t \vee \BP\Box\DM \neg t \]
+\[ \VDash ((\DM\BP\Nec q\wedge\BP\DM\Nec q)\vee\Nec\BP\DM q)\wedge((\BP\Nec\DM q\vee\Nec\DM\BP q)\wedge\DM\Nec\BP q)  \IFF \Nec q \]
+\begin{eqnarray*}
+\VDash & \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\ \\ 
+& \DP\DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\DP\ \\ 
+& \DP\DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\DP\ \\ 
+& \DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\DP\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\DP\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\DP\Box\Box\Box\Box\Box\Box\Box\Box\DP\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\BM\BM\Box\Box\DP\DP\DP\DP\DP\DP\DP\DP\Box\Box\BM\BM\BM\DP\ \\ 
+&
+\DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\
+\\ 
+& \DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\  \\ 
+& \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\bot & 
+\IFF \Box^{70}\bot
+\end{eqnarray*}
 \end{example}
 
-The way I read Theorem \ref{vanishing} is that $\boxminus$
-and $\DP$ are empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B
-(\Phi)$ with $\DM$ and $\boxplus$.  Further, note that
-$\mathcal{L}_0 (\Phi) \subseteq \mathcal{L}_A (\Phi) \cap \mathcal{L}_B
-(\Phi)$ (up to translation), which means that all four of $\boxplus$,
-$\boxminus$ along with their duals $\DP$ and $\DM$
+The way I read Theorem \ref{vanishing} is that $\boxminus$ and $\DP$
+are empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B
+(\Phi)$ with $\DM$ and $\boxplus$.  
+Further, note that $\mathcal{L}_0 (\Phi) \subseteq \mathcal{L}_A (\Phi) \cap \mathcal{L}_B
+(\Phi)$ (up to translation), which means 
+that all four of $\boxplus$, $\boxminus$ along with their duals $\DP$ and $\DM$
 vanish on the propositional language.  Inspecting the semantics, this is to
 be expected, since neither $\boxplus$ nor $\boxminus$ interact with
 propositional truth values.
@@ -219,8 +241,6 @@ soundness $\PP$ is aligned with imagination and
 unsoundness $\neg\PP$ is aligned with belief.  However, I admit that I
 do not understand what philosophical light is shed by Theorem
 \ref{vanishing}, if there is indeed any at all.
-
-% \end{document}
 
 %%% Local Variables: 
 %%% mode: latex

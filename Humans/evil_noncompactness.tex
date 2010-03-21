@@ -16,45 +16,32 @@ Every finite subset of $\tau[\Phi]$ is satisfiable, but not the entirety, which 
 \begin{proof}
 That $\tau[\Phi]$ is infinite is immediate, as $\Phi$ was stipulated to be infinite. 
 
-So let $S\subseteq \tau[\Phi]$ by finite.  We shall find a model that
+So let $S\subseteq \tau[\Phi]$ be finite.  I shall provide a model that
 satisfies $S$.  First observe that there is a
  finite $\Psi\subset
 \Phi$ such that $S = \tau[\Psi]$.  Let $\{q,r,s\} \subseteq \Phi \; \bs
-\; \Psi$ be
+\; \Psi$ contain
  three distinct letters - this can be done, since $\Phi \;
 \bs \; \Psi$ is infinite.
-  Let $\mathfrak{M} = \{\pr{a}{\{q\}},
+  Let $\mathfrak{M} := \{\pr{a}{\{q\}},
 \pr{b}{\{r\}}, \pr{c}{\{s\}} \}$, where 
 \begin{align*}
 a & := \Psi \cup \{s\} \\
 b & := \{q \} \\
 c & := \Psi \cup \{r\}
 \end{align*}
- Using the same visualizations I introduced in \S\ref{contradictions},
- $\mathfrak{M}$ can  be visualized\footnote{While this situation
-   presents itself like a Kripke model, I am not employing Kripke
-   semantics.  The means in which one world accesses another is not by
-   an accessibility relation, but rather through the sets of beliefs,
-   which in this case are the sets ${q},{r},$ and ${s}$.} in Fig. \ref{fig:mod4}.  It is straightforward to 
+ Using the same visualization convention I introduced in \S\ref{contradictions},
+ $\mathfrak{M}$ can  be visualized% \footnote{I feel I should alert the reader to the fact that I am
+   % not employing Kripke  semantics.  The means in which one world 
+   % accesses another is not by an accessibility relation, 
+   % but rather through the sets of beliefs,
+   % which in this case are the sets ${q},{r},$ and ${s}$.} 
+in Fig. \ref{fig:mod4}.  It is straightforward to 
 check that $\mathfrak{M},( a,\{q\}) \VDash \tau(p)$ for all $p \in \Psi$.
 
 	\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
-	\begin{tikzpicture}[->,
-         shorten >=3pt, shorten <= 3pt, 
-         auto,node distance=4cm, semithick]
-  \tikzstyle{state}=[draw=black, shape=rectangle]
-  \tikzstyle{empt} = [draw=none,fill=none]
-\begin{scope}
-\node[state] (aA1) at (45:2.5) [] {$\pr{a}{\{q\}}$};
-\node[empt] (aA2) at (165:2.5) {$\pr{b}{\{r\}}$};
-\node[empt] (aA3) at (285:2.5) {$\pr{c}{\{s\}}$};
-\path
-(aA1) edge [->,bend right] node {} (aA2)
-(aA2) edge [->,bend right] node {} (aA3)
-(aA3) edge [->,bend right] node {} (aA1);
-\end{scope}
-\end{tikzpicture}
+    \includegraphics[]{compactness/compactness.pdf}
 \caption{$\mathfrak{M},\pr{a}{\{q\}}\VDash \tau[\Psi]$}
    \label{fig:mod4}
 \end{figure}
@@ -77,19 +64,24 @@ Thus it is impossible that $\mathfrak{N},( a, A) \VDash \tau[\Phi]$. $\lightning
 
 The above argument illustrates that while \textsc{EviL} semantics
 present themselves as similar to the traditional Kripke Semantics for modal
-logic, they aren't the same.  If for some reason two world-pairs
-$(a,A)$ and $(b,B)$ make true the same sentence letters, then $a=b$,
-and then for any $C \subseteq \mathcal{L}_0$, we have that $a \models
-C$ if and only if $b \models C$. This is crucial - even though
+logic, they aren't the same.  The similarity particularly manifests
+itself when thinking about visualizations like Fig. \ref{fig:mod4}.
+But if for some reason two world-pairs $(a,A)$ and $(b,B)$ make true
+the same sentence letters, then $a=b$.
+Moreover, for any $C \subseteq \mathcal{L}_0$, we have that $a \models
+C$ if and only if $b \models C$ in this case. This is crucial - even though
 \textsc{EviL} is modal, it has no accessibility relations; the role of
-accessibility relations is instead picked up by sets of beliefs $C$. 
-Since my initial design considerations for \textsc{EviL} demanded a
-grammar restriction, to ensure the semantics were well-defined,
-an unusual failure of compactness manifests itself.
+accessibility relations is instead picked up by basic sets of beliefs
+$C$.
+It is necessarily the case that for a basic set of beliefs $C$ that
+$C\subseteq \mathcal{L}_0$, due to grammar restriction I decided upon
+to ensure the semantics of \textsc{EviL} were well-defined.
+It is from this basic design choice that my unusual failure of compactness manifests itself.
+I shall return to considering the relationship of Kripke semantics and
+\textsc{EviL} models in \S\ref{kripke}.
 
-My failure of compactness, while a fairly basic result in the model
-theory of \textsc{EviL}, has far reaching consequences for the model
-theory of \textsc{EviL}.  As a consequence, there is
+The failure of compactness, while a fairly basic result in the model
+theory of \textsc{EviL}, is far reaching.  As a consequence, there is
 no hope of achieving completeness using infinitary Lindenbaum
 constructions that are typically employed in modal logic, such as is
 done in \citep[][chapter 4]{blackburn_modal_2001}, for instance.
