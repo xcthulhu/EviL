@@ -20,9 +20,9 @@ $(\models) \colons \powerset \Phi \rightarrow
 \textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  My notation reflects
 the notation common to the typed functional programming languages
 \tmtextit{Haskell} and \tmtextit{OCaml}. I will use both notations interchangeably.}} for classical propositional logic
-is given recursively.  
+can be given recursively as follows:  
 \begin{definition}
-Define $(\models)$ such that:
+Define $(\models)$ such that
 \begin{align*}
   S{\models}p & {\iff}p{\in}S\\
   S{\models}{\phi}{\rightarrow}{\psi} & {\iff}S{\models}{\phi}\text{ implies
@@ -101,7 +101,7 @@ since I have given an inductive definition, these recursive definitions rely
 on the {\tmem{least}} fixpoint of their associated monotonic operators.}} 
 Moreover, the following relationship can be observed:
 
-\begin{lemma}\label{truthiness}
+\begin{lemma}[Truthiness]\label{truthiness}
   Let $\phi \in \mathcal{L}_0 (\Phi)$.  Then:
   \[ a \models \phi \Longleftrightarrow \Omega, (a, A) \VDash \phi \]
   $\ldots$for any $\Omega$ and $A$.
@@ -126,4 +126,8 @@ I chose the name ``Theorem Theorem'' because it means that for every belief the 
 \begin{quote}
 All things began in order, so shall they end, and so shall they begin again; according to the ordainer of order and mystical Mathematicks of the City of Heaven.\end{quote}
 
-%However, it is desirable to first give more familiar semantics for \textsc{EviL}, so as to stress that off the shelf modal logic can be used in its investigation.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

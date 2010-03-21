@@ -10,7 +10,9 @@
 
 \begin{document}
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=latex',
+         shorten >=3pt, shorten <= 3pt, 
+         auto,node distance=4cm, semithick]
   \matrix (m) [matrix of math nodes, row sep=3em,
   column sep=3em, text height=1.5ex, text depth=0.25ex]
   { |(1)| (\{p\}, \{p,\neg p\}) \\

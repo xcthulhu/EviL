@@ -1,0 +1,7 @@
+_region*
+*.bbl
+*.log
+*.aux
+*.toc
+*.out
+*.blg

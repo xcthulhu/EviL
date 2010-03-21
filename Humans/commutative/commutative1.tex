@@ -1,0 +1,29 @@
+\documentclass[]{article}
+%\usepackage{pxfonts}            % Or palatino or mathpazo
+%\usepackage{eulervm}            %
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+
+\newcommand{\seq}{\Rightarrow} 
+
+\begin{document}
+\begin{tikzpicture}[  shorten >=3pt, shorten <= 3pt,  inner sep=2.5pt, semithick]
+  \matrix (m) [matrix of math nodes, 
+     row sep=5em,
+     column sep=3em 
+     %text height=1.5ex, text depth=0.25ex 
+     ]
+  { |(aA')| (a,A') & |(bB)| (b,B) \\
+     |(aA)| (a,A) & \\ };
+  \path[densely dotted]
+      (aA) edge (aA') ;
+  \path[->,>=latex] 
+      (aA') edge (bB)
+      (aA) edge[dashed] (bB);
+\end{tikzpicture}
+\end{document}

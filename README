@@ -1,0 +1,19 @@
+EviL: Just another ILLC MSc thesis in symbolic nonsense
+
+EviL/
+   This directory contains the code for the
+   computer assisted formalization in Isabelle/HOL of 
+   the completeness theorem of EviL.
+
+Humans/
+   This directory contains a MSc thesis that a human 
+   supervisor forced me to write.  The thesis contains philosophy,
+   which is some kind of empty activity according to a reading of
+   early Wittgenstein. It's sort of like building sandcastles this way, 
+   only far less interesting/applied.
+
+isa-make-output/
+    Isabelle/HOL automatically generates output from
+    the formal proof code - this directory contains that output.
+    It shall ultimately be a large appendix of the central thesis.
+

@@ -40,51 +40,61 @@ check that $\mathfrak{M},( a,\{q\}) \VDash \tau(p)$ for all $p \in \Psi$.
 
 	\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
-                    semithick]
-  \tikzstyle{every state}=[text=black, shape=rectangle]
+	\begin{tikzpicture}[->,
+         shorten >=3pt, shorten <= 3pt, 
+         auto,node distance=4cm, semithick]
+  \tikzstyle{state}=[draw=black, shape=rectangle]
   \tikzstyle{empt} = [draw=none,fill=none]
 \begin{scope}
-\node[empt] (aA1) at (45:2.5) [] {$\pr{a}{\{q\}}$};
+\node[state] (aA1) at (45:2.5) [] {$\pr{a}{\{q\}}$};
 \node[empt] (aA2) at (165:2.5) {$\pr{b}{\{r\}}$};
 \node[empt] (aA3) at (285:2.5) {$\pr{c}{\{s\}}$};
-%\node[empt] (aA4) at (270:2.5) {$\pr{w_4}{\{d\}}$};
 \path
 (aA1) edge [->,bend right] node {} (aA2)
 (aA2) edge [->,bend right] node {} (aA3)
 (aA3) edge [->,bend right] node {} (aA1);
-%(aA3) edge [->,densely dotted,bend right] node {} (aA4)
-%(aA4) edge [->,densely dotted,bend right] node {} (aA1);
 \end{scope}
 \end{tikzpicture}
-\caption{Model $\mathfrak{M}$}
+\caption{$\mathfrak{M},\pr{a}{\{q\}}\VDash \tau[\Psi]$}
    \label{fig:mod4}
 \end{figure}
-
-On the other hand, suppose there was some model $\mathfrak{N}$ such
-that $\mathfrak{N}, ( a, A) \VDash \tau(p)$ for all $p \in \Psi$.
+On the other hand, suppose there was some model $\mathfrak{N}$ such that $\mathfrak{N}, ( a, A) \VDash \tau(p)$ for all $p \in \Psi$.
 This implies that $\mathfrak{N}, ( a, A) \VDash p$ for each $p \in
-\Phi$.  Moreover, let $( b, B)$ be such that $\mathfrak{N},( b,
-B)\VDash A$ 
+\Phi$.  Moreover, let $( b, B)\in\mathfrak{N}$ be such that $b \models A$ 
 (one exists since by hypothesis $\mathfrak{N}, ( a, A)
 \VDash \Pos p$).  By the semantics of $\tau(p)$, it is evident that
-$\mathfrak{N}, ( b, B) \VDash \neg p$ and that there's a $( c, C)$
-such that $\mathfrak{N},( c,C ) \VDash B$ and $\mathfrak{N},( c,C )
+$\mathfrak{N}, ( b, B) \VDash \neg p$ and that there's a $( c, C)\in\mathfrak{N}$
+such that $c \models B$ and $\mathfrak{N},( c,C )
 \VDash p \wedge \Pos p$.  But then from this it must be that $a$ and
-$c$ both contain exactly the same sentence letters, which means that
-$\mathfrak{N},( a,A) \VDash B$ as well.  However it cannot be that
+$c$ both contain exactly the same sentence letters, so $a = b$ which means that
+$a \models B$ as well, since $B \subseteq
+\mathcal{L}_0$ (as per the grammar restriction).  However it cannot be that
 $\mathfrak{N},( a,A ) \VDash \Pos p$ since $\mathfrak{N},( a,A )
-\VDash \Nec \neg p$ by $\tau(p)$. Thus it is impossible that
-$\mathfrak{N},( a, A) \VDash \tau[\Phi]$. $\lightning$
+\VDash \Nec \neg p$, which follows from the assumption that $\mathfrak{N},( a,A )
+\VDash \tau(p)$. 
+Thus it is impossible that $\mathfrak{N},( a, A) \VDash \tau[\Phi]$. $\lightning$
 \end{proof}
 
-This failure of compactness, while a fairly basic result in the model
-theory of \textsc{EviL}, is fundamental.  As a consequence, there is
+The above argument illustrates that while \textsc{EviL} semantics
+present themselves as similar to the traditional Kripke Semantics for modal
+logic, they aren't the same.  If for some reason two world-pairs
+$(a,A)$ and $(b,B)$ make true the same sentence letters, then $a=b$,
+and then for any $C \subseteq \mathcal{L}_0$, we have that $a \models
+C$ if and only if $b \models C$. This is crucial - even though
+\textsc{EviL} is modal, it has no accessibility relations; the role of
+accessibility relations is instead picked up by sets of beliefs $C$. 
+Since my initial design considerations for \textsc{EviL} demanded a
+grammar restriction, to ensure the semantics were well-defined,
+an unusual failure of compactness manifests itself.
+
+My failure of compactness, while a fairly basic result in the model
+theory of \textsc{EviL}, has far reaching consequences for the model
+theory of \textsc{EviL}.  As a consequence, there is
 no hope of achieving completeness using infinitary Lindenbaum
 constructions that are typically employed in modal logic, such as is
 done in \citep[][chapter 4]{blackburn_modal_2001}, for instance.
-Any completeness theorem for \textsc{EviL} will necessarily have to be
-finite in nature.
+Hence the completeness theorem for \textsc{EviL} presented in \S\ref{army-of-darkness}
+will necessarily have to be finite in nature.
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"
