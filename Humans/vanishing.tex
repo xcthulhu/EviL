@@ -43,8 +43,7 @@ observe that \textsc{EviL} makes true the usual substitution rule:
   \mathcal{L} (\Phi)$.
 \end{lemma}
 
-Next, I offer two sublanguages of the main language of
-\tmtextsc{EviL}:
+Next, I offer two sublanguages of the main language of \tmtextsc{EviL}:
 
 \begin{definition}
   Define the following fragments:\footnote{I was inspired to look at the fragment
@@ -108,9 +107,25 @@ natural consequence of the logical equivalence given in
 Lemma \ref{lemma:validities}:
 
 \begin{definition}
-  If $\phi \in \mathcal{L} (\Phi)$ then let $\phi^{\ast}$ be the same
+  If $\phi \in \mathcal{L}_A (\Phi) \cup \mathcal{L}_B (\Phi)$ then let $\phi^{\ast}$ be the same
   formula, with all instances of $\boxplus$, $\boxminus$, $\DM$
-  and $\DP$ eliminated.
+  and $\DP$ eliminated.  That is, $(\cdot)^\ast$ has the following
+  recursive definition:
+\[ \begin{array}{ll}
+  p ^\ast \assign p &  (\neg p) ^\ast \assign \neg p \\
+  \top^\ast \assign \top &
+  \bot^\ast \assign \bot \\ 
+ \PP^\ast \assign \PP  &
+ (\neg \PP)^\ast \assign \neg \PP \\ 
+  (\phi\vee \psi)^\ast \assign (\phi^\ast) \vee (\psi^\ast) &
+  (\phi\wedge \psi)^\ast \assign (\phi^\ast) \wedge (\psi^\ast) \\
+  (\Box \phi)^\ast \assign  \Box (\phi^\ast) &
+  (\Pos \phi)^\ast \assign  \Pos (\phi^\ast) \\
+  (\BM \phi)^\ast \assign  \phi^\ast &
+  (\DM \phi)^\ast \assign  \phi^\ast \\
+  (\BP \phi)^\ast \assign  \phi^\ast &
+  (\DP \phi)^\ast \assign  \phi^\ast 
+     \end{array} \]
 \end{definition}
 
 \begin{theorem}[\textsc{EviL} Elimination]\label{vanishing}
@@ -120,7 +135,7 @@ Lemma \ref{lemma:validities}:
 \end{theorem}
 
 \begin{proof}
-  The prove proceeds in three steps.
+  The proof proceeds in three steps.
   
   Step 1: First, use induction on $\phi \in \mathcal{L}_A (\Phi)$, and show
   the following two facts simultaneously:
@@ -215,15 +230,14 @@ Lemma \ref{lemma:validities}:
 \DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\
 \\ 
 & \DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\  \\ 
-& \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\bot & 
-\IFF \Box^{70}\bot
+& \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\top & 
 \end{eqnarray*}
 \end{example}
 
 The way I read Theorem \ref{vanishing} is that $\boxminus$ and $\DP$
 are empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B
 (\Phi)$ with $\DM$ and $\boxplus$.  
-Further, note that $\mathcal{L}_0 (\Phi) \subseteq \mathcal{L}_A (\Phi) \cap \mathcal{L}_B
+Further, note that $\mathcal{L}_0 (\Phi) = \mathcal{L}_A (\Phi) \cap \mathcal{L}_B
 (\Phi)$ (up to translation), which means 
 that all four of $\boxplus$, $\boxminus$ along with their duals $\DP$ and $\DM$
 vanish on the propositional language.  Inspecting the semantics, this is to

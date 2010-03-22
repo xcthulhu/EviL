@@ -230,8 +230,27 @@ R^{\Omega}_X (c, C)$, and likewise for $B_X$. \ Hence if $(a, A) R^{\Omega}_X
 Finally, while Prop. \ref{evil_models} presents itself as a sort of
 representation lemma, the relationship between \textsc{EviL} semantics
 and Kripke semantics is not reciprocal.  Not every Kripke model can be
-represented as an \textsc{EviL} model.
+represented as an \textsc{EviL} model.  I can think of a fairly easy
+example of this failure of representation.
 
+\begin{lemma}
+Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R,
+  \sqsubseteq, \sqsupseteq, V, P \rangle$ where
+\begin{bul}
+  \item $W := \{w,v\}$
+  \item $R := \{(w,v)\}$
+  \item $ \sqsubseteq := \sqsupseteq := \{(w,w),(v,v)\}$
+  \item $V := \lambda p. \varnothing$
+  \item $P := \varnothing$
+\end{bul}
+\end{lemma}
+\begin{figure}[ht]
+\centering
+  \includegraphics[]{evil_pictures/first_fig.pdf}
+%\caption{A fairly simple example}
+\label{fig:notevil}
+\caption{$\mathbb{M}$ has not \textsc{EviL} representation}
+\end{figure}
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"
