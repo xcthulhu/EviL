@@ -1,19 +1,24 @@
-EviL: Just another ILLC MSc thesis in symbolic nonsense
+EviL: Just another ILLC MSc thesis
+
+EviL is the abbreviation of "Evidentialist Logic", which is an
+epistemic logic I invented when thinking about my ideas about
+epistemology.
+
+At one point, I decided that I wanted to verify its correctness
+using computer assisted verification; hence, EviL became a
+substantive programming effort as well a philosophical logic.
 
 EviL/
-   This directory contains the code for the
-   computer assisted formalization in Isabelle/HOL of 
-   the completeness theorem of EviL.
+    This directory contains the code for the
+    computer assisted formalization in Isabelle/HOL of 
+    the completeness theorem of my logic.
 
 Humans/
-   This directory contains a MSc thesis that a human 
-   supervisor forced me to write.  The thesis contains philosophy,
-   which is some kind of empty activity according to a reading of
-   early Wittgenstein. It's sort of like building sandcastles this way, 
-   only far less interesting/applied.
+    This directory contains my MSc thesis on my logic. It has a
+    lot more pictures and is more interesting to read than the
+    computer code.
 
 isa-make-output/
     Isabelle/HOL automatically generates output from
     the formal proof code - this directory contains that output.
-    It shall ultimately be a large appendix of the central thesis.
-
+    It shall ultimately be a large appendix of my MSc thesis.
