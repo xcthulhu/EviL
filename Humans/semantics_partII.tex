@@ -231,7 +231,19 @@ Finally, while Prop. \ref{evil_models} presents itself as a sort of
 representation lemma, the relationship between \textsc{EviL} semantics
 and Kripke semantics is not reciprocal.  Not every Kripke model can be
 represented as an \textsc{EviL} model.  I can think of a fairly easy
-example of this failure of representation.
+example of this failure of representation.  It turns on the following
+observation:
+
+\begin{lemma}
+  For a given \textsc{EviL} model $\mathfrak{M}$, for any
+  $\{(a,A),(b,B),(c,C)\} \subseteq \mathfrak{M}$, if $a = b$ then $a
+  \models C$ if and only if $b \models C$
+\end{lemma}
+\begin{proof}
+  This is an elementary result in the semantics of propositional logic.
+\end{proof}
+
+With this elementary observation, I propose the following:
 
 \begin{lemma}
 Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R,
@@ -243,14 +255,63 @@ Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R
   \item $V := \lambda p. \varnothing$
   \item $P := \varnothing$
 \end{bul}
+\ldots this structure is indicated in Fig. \ref{fig:notevil}.  No
+\textsc{EviL} model corresponds to $\mathbb{M}$.
 \end{lemma}
 \begin{figure}[ht]
 \centering
-  \includegraphics[]{evil_pictures/first_fig.pdf}
+  \includegraphics[]{evil_pictures/third_fig.pdf}
 %\caption{A fairly simple example}
 \label{fig:notevil}
-\caption{$\mathbb{M}$ has not \textsc{EviL} representation}
+\caption{$\mathbb{M}$ is a Kripke Structure with no \textsc{EviL} representation}
 \end{figure}
+\begin{proof}
+  Observe that the above model makes true the following:
+
+\begin{align}
+  \mathbb{M},w & \Vdash \Pos \top \label{notevil:eq1}\\
+  \mathbb{M},w & \Vdash \Nec \neg p \textup{ for all $p \in
+    \Phi$} \label{notevil:eq4} \\
+  \mathbb{M},w & \Vdash \neg p \textup{ for all $p \in \Phi$} \label{notevil:eq2} \\
+  \mathbb{M},w & \Vdash \neg \Pos \Pos \top \label{notevil:eq3} 
+\end{align}
+
+Armed with these observations, I can assert that it is impossible for
+there to be an \textsc{EviL} structure $\mathfrak{M}$ with a world
+$(a,A)$ such that $\mathbb{M},w \Vdash \phi$ if and only if
+$\mathfrak{M}, (a,A) \VDash \phi$.
+
+For suppose there were, then I could deduce the following facts, using
+the observations above:
+\begin{mynum}
+\item\label{notevil:1} From \eqref{notevil:eq1}, there must be some pair $(b,B)
+   \in \mathfrak{M}$ such that $b\models A$.  Hence, $A$ must be
+   \emph{consistent}.
+\item From \eqref{notevil:eq4}, I know that for the $b$ mentioned in
+  \ref{notevil:1}, it must be that $b = \varnothing$ -- this is a
+  direct consequence of Lemma \ref{truthiness}, the Truthiness Lemma.
+ \item From \eqref{notevil:eq2}, evidently $a = \varnothing$
+  \item From \eqref{notevil:eq3}, it must be
+    that $a \nmodels A$, since otherwise I would have
+    $\mathfrak{M},(a,A) \VDash \Pos \Pos \top$
+\end{mynum}
+This is absurd... since $a = b = \varnothing$ and $b \models A$
+then it must be that $a \models A$. $\lightning$
+\end{proof}
+
+The above one way correspondence is inconvenient - it means that while
+\textsc{EviL} only enjoys some features from modal logic, it is denied
+others.  Despite this, I hold that \textsc{EviL} enjoys \emph{most} of the
+benefits of basic modal logic.  Furthermore, even though \textsc{EviL}
+is quite formal in nature, it might rightly be considered an
+application  of traditional modal logic rather than a novel logic
+in of itself.  If the language of \textsc{EviL} had been first order
+rather than modal, I doubt I would have been tempted to call a logic
+at all.  The novelty of \textsc{EviL} is that it presents semantics
+that automatically connect truth and derivability (as expressed in
+Theorem \ref{theorem-theorem}, the Theorem Theorem).
+
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"

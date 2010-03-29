@@ -215,7 +215,12 @@ Lemma \ref{lemma:validities}:
 %\BM\DP\Pos\DP\BM\Pos\Pos\DP\BM\DP\Pos\BM\Pos\BM\DP\BM\Pos\DP\neg p
 %\IFF \Pos\Pos\Pos\Pos\Pos\Pos\neg p \]
 \[ \VDash \BM\DP\Pos t \vee \BP\Box\DM \neg t \]
-\[ \VDash ((\DM\BP\Nec q\wedge\BP\DM\Nec q)\vee\Nec\BP\DM q)\wedge((\BP\Nec\DM q\vee\Nec\DM\BP q)\wedge\DM\Nec\BP q)  \IFF \Nec q \]
+\[ \VDash ((\DM\BP\Nec q\wedge\BP\DM\Nec q)\vee\Nec\BP\DM
+q)\wedge((\BP\Nec\DM q\vee\Nec\DM\BP q)\wedge\DM\Nec\BP q)  \IFF \Nec
+q \]
+%% FUCKING BOXES AND DIAMONDS!!!!
+\renewcommand{\DP}{\diamondminus}
+\renewcommand{\BM}{\boxplus}
 \begin{eqnarray*}
 \VDash & \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\ \\ 
 & \DP\DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\DP\ \\ 
@@ -233,6 +238,8 @@ Lemma \ref{lemma:validities}:
 & \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\top & 
 \end{eqnarray*}
 \end{example}
+\renewcommand{\DP}{\diamondplus}
+\renewcommand{\BM}{\boxminus}
 
 The way I read Theorem \ref{vanishing} is that $\boxminus$ and $\DP$
 are empty modalities on $\mathcal{L}_A (\Phi)$, and dually for $\mathcal{L}_B

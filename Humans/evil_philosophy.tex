@@ -235,10 +235,10 @@
 \section{Philosophy}\label{philosophy}
 \subsection{Forward}
 The idea of applying modal logic to the study of knowledge more or
-less began with \citet{hintikka_knowledge_1969}.  In this it is
+less began with \citet[\emph{Knowledge and Belief}, by]{hintikka_knowledge_1969}.  In this it is
 suggested that one can use the possible world framework of modal logic
 to model ideal logical agents, and reason about concepts like
-knowledge and belief as modal $\Box$s.  In Hintikka's original text,
+knowledge and belief as modal boxes.  In Hintikka's text,
 some philosophical emphasis is put on the ideas of
 \emph{introspection}, which have two formulations:
 \begin{bul}
@@ -258,39 +258,69 @@ unknowns -- the ones we don't know we don't know. And if one looks
 throughout the history of our country and other free countries, it is
 the latter category that tend to be the difficult ones.\end{quote}
 
-This quote was ultimately part of a larger, more diabolical
+This quote was ultimately part of a rather hideous 
 justification for criminal military action.  Still, it is undeniably
 at variance with negative introspection; and despite its malicious
-intent behind it, it is compelling.  Furthermore, Hintikka also
-rejects negative introspection; and while it would seem from the above
-quote that Rumsfeld does not reject positive introspection, Hintikka
-does so explicitly \citep{hintikka_knowledge_1969}.
+intent, it is compelling.  Like Rumsfeld, Hintikka also
+rejects negative introspection.  Furthermore, it would seem from the above
+quote that Rumsfeld does not reject positive introspection. Hintikka
+does not either, and goes one step further to endorse it explicitly.
 
 Despite philosophical objections, the received view in modern
 epistemic logic embraces both negative and positive introspection.  In
-addition, the following axiom is also considered:
+addition, the following axiom is also embraced:
 \begin{bul}
 	\item Reflection: $\Box \phi \to \phi$ - ``If the agent knows a some statement, that statement is true''
 \end{bul}
-These three axioms together, along with the axioms and rules of elementary modal logic, form C.I. Lewis' system $S5$ \citep{lewis_symbolic_1951}.  Under correspondence theory, these axioms express that the underlying accessibility modal relation is an equivalence relation. That is, they express that the ideal agent under investigation has partitioned their state space into \emph{information states}.  It is well known that game theory shares an equivalent notion of information states (see, for instance, \citet{halpern_set-theoretic_1999} and \citet[chapter 3]{rubinstein_modeling_1998}).
+These three axioms together, along with the axioms and rules of
+elementary modal logic, form C.I. Lewis' system $S5$
+\citep{lewis_symbolic_1951}.  Under correspondence theory, these
+axioms express that the underlying modal accessibility relation is an
+equivalence relation. That is, they express that the ideal agent under
+investigation has partitioned her state space into \emph{information
+  states}.  It is well known that game theory shares an equivalent
+notion of information states (see, for instance,
+\citet{halpern_set-theoretic_1999} and \citet[chapter
+3]{rubinstein_modeling_1998}).
 
-And while this view of knowledge finds industrial application, such as
-in \citet{agray_ban_2002} and
-\citet{hommersom_toward_2005,hommersom_update_2004}, it presents an
-perspective on knowledge which is not very human.\footnote{Admittedly,
-  most of the criticisms I shall levy against mainstream epistemic
-  logic in the subsequent discussion are known to the
-  epistemic logic community.  I understand it is preferred that they
-  be swept under the carpet and never mentioned, as they are fairly painful
-  to remember for epistemic logic enthusiasts. I am not particularly
-  apologetic in recounting the basic failures of epistemic logic as an 
-  intellectual exercise.  The discussion I present in this section is
-  intended for people new to epistemic logic, who may be unaware of
-  its basic inadequacies and irrelevance.}
+Although this view of knowledge has been the focus of exhaustive
+research, even finding industrial application such as in \citet{agray_ban_2002} and
+\citet{hommersom_toward_2005,hommersom_update_2004}, it is natural for
+a practitioner to hold lingering philosophical concerns.  The purpose
+of this thesis is to present a framework which tries to address some
+of these issues.  It shall conform to the following structure:
+\begin{itemize}
+  \item[\S\ref{philosophy}] First, I elaborate the
+    philosophical issues I intend to address, and sketch an epistemic
+    logic framework which tackles them
+    \item[\S\ref{evil-semantics}] Next, I give formal details of the
+      system I want to develop.  This section climaxes in exposition
+      of weak completeness for my system.
+  \item[\S\ref{applications}]  Third, I illustrate philosophical applications of
+    \textsc{EviL}.  As a bit of serendipity, it shall be revealed that
+    \emph{intuitionistic logic} is profoundly linked to the thoughts I
+    develop.A
+  \item[\S\ref{robots}]  Here, I discuss a side project I carried out
+    where I formalized the weak completeness theorem of
+    \S\ref{evil-semantics} in the computer proof
+    assistant Isabelle/HOL.  
+    % I did this principally because the proof was sufficiently
+    % challenging that I held many personal doubts of its correctness.
+    This section is intended to showcase how computer assisted verification can be
+    used as a vehicle for over-coming conceptual difficulties in mathematics.
+  \item[\S\ref{epilogue}]  Finally, I shall compare my framework to
+    other approaches, and mention lingering philosophical concerns I
+    feel must be addressed.
+\end{itemize}
 
+That being said, I shall now turn to investigating the philosophical
+issues with epistemic logic, and sketch the solution I shall propose.
 
 \subsection{Thermometers}\label{thermometers}
-Imagine a 1 m$^3$ box with a thermometer sealed hermetically inside, as in Fig.  \ref{fig:therm1}.  Further, pretend that the thermometer reads 290 Kelvin.  How many moles of gas are in the chamber?
+
+Imagine a 1 m$^3$ box with a thermometer sealed hermetically inside,
+as in Fig.  \ref{fig:therm1}.  Further, pretend that the thermometer
+reads 290 Kelvin.  How many moles of gas are in the chamber?
 
 \begin{figure}[ht]
 \begin{center}
@@ -300,41 +330,114 @@ Imagine a 1 m$^3$ box with a thermometer sealed hermetically inside, as in Fig. 
 \label{fig:therm1}
 \end{figure}
 
-The answer is indeterminate.  Recall that the the \emph{ideal gas law} was originally discovered by \'{E}mile Clapeyon \citep{clapeyron_mmoire_1834}; in modern parlance it reads:
+The answer is indeterminate.  Recall the \emph{ideal gas law}, originally discovered by \'{E}mile Clapeyon
+\citep{clapeyron_mmoire_1834}, which in modern parlance it reads:
 \[ P V = n R T\]
 Where:
 \begin{bul}
-\item $P$ is the pressure in pascals
+\item $P$ is the pressure in Pascals
 \item $V$ is the volume in cubic meters
 \item $n$ is the number of moles of gas
 \item $T$ is the temperature in Kelvins
-\item $R$ is the \emph{ideal gas constant}, $\approx8.3$ J$\cdot$K$^{-1}\cdot$mol$^{-1}$
+\item $R$ is the \emph{ideal gas constant}, $\approx 8.3$
+  J$\cdot$K$^{-1}\cdot$mol$^{-1}$
 \end{bul}
 
-With the ideal gas law, we can see that the thermometer is effectively in an epistemic space.  To be explicit, consider the basic modal language with the following grammar:
-\[ \phi ::= x \textup{ pascals}  \ |\ y \textup{ moles}  \ |\ z \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi \]
+Applying the ideal gas law, one can observe that the thermometer is effectively
+in something analogous to an epistemic space.  To be explicit, consider a basic modal
+language with the following grammar:
+\[ \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi \]
 
-This can be seen to be an ordinary modal language with three kinds of letters.  Under this language, we can naturally understand that the thermometer is an epistemic agent in an $S5$ model for this language.  Explicitly, the model is the triple $\langle W, V, \sim \rangle$ where:
+Interpreting this language appropriately, the
+thermometer is evidently an epistemic agent in an $S5$ model.
+One model for the thermometer-in-a-box is the triple $\langle W, V, \sim \rangle$,
+where:
 \begin{bul}
-	\item $W$ is pairs $(P,n)$ where $P$ is some positive pressure in pascals and $n$ is some positive number of moles.
+	\item $W$ is pairs $(P,n)$ where $P$ is some positive pressure
+          in Pascals and $n$ is some positive number of moles.
 	\item $V$ is defined as follows:
 	\begin{bul}
-		\item $(P,n) \in V(x \textup{\ pascals})$ if $P = x$
+		\item $(P,n) \in V(x \textup{\ Pascals})$ if $P = x$
 		\item $(P,n) \in V(y \textup{\ moles})$ if $n = y$
 		\item $(P,n) \in V(z \textup{\ Kelvin})$ if $z = \frac{P}{n \cdot R}$
 	\end{bul}
 	\item Finally, $(P,n) \sim (P',n')$ holds if and only if $P \cdot n' = P' \cdot n$ 
 \end{bul}
-We can also visualize the information states in Fig.  \ref{fig:therm2}; they form rays emanating from the origin.
+\ref{fig:therm2} provides a visual representation of the information
+states in the above model, which form rays emanating from the origin.
 
-Now, I give this example because it is representative of the perspective provided by epistemic logic - agents are essentially elaborate \emph{sensor networks} in the received view.  Imagine we were to go up to an agent and ask her why she believes some proposition $\phi$; what could she possibly say?  She'd say she feels $\phi$ with every fiber of her being, that it's true in every conceivable world she can think of.  The reason that $\phi$ occurs to the agent is because it's what her sensory instruments tell her. Methodologically, this is exactly the same as the way the thermometer was modeled in the previous thought experiment. To this end I shall abbreviate the received view on epistemic logic as the \emph{thermometer theory of knowledge}.
-
-This isn't knowledge.  The thermometer theory is inadequate:  if I were to ask a person why she believes a proposition $\phi$, I probably wouldn't accept appeals that she cannot conceive of the contrary as possible.  I'd want some kind of explanation, especially if $\phi$ were a piece of mathematics, to give principle example.  It would certainly make the enterprise of mathematics far simpler if proving theorems amounted to exhibiting that their negation is not imaginable.  This gives rise to the following philosophical observation:
+The view in philosophy of mind that thermometers are epistemic agents 
+originates in \emph{The Intentional Stance} by 
+\citet{dennett_intentional_1998}, with the proviso that Dennett's
+original discussion originates around thermostats rather than 
+thermometers.  Dennett writes:
 \begin{quote}
-\textbf{Thermometer Principle}: \emph{Traditional epistemic agents, like thermometers, don't really have knowledge, since one must have reasons for the things they believe.}
+\emph{It is not that we attribute (or should attribute) beliefs and desires only to
+things in which we find internal representations, but rather that when we
+discover some object for which the intentional strategy works, we endeavor to
+interpret some of its internal states or processes as internal representations.
+What makes some internal feature of a thing a representation could only be its
+role in regulating the behavior of an intentional system.}
+
+Now the reason for stressing our kinship with the thermostat
+should be clear. There is no magic moment in the transition from a
+simple thermostat to a system that really has an internal representation
+of the world around it. The thermostat has a minimally demanding
+representation of the world, fancier thermostats have more demanding 
+representations of the world, fancier robots for helping around
+the house would have still more demanding representations of the
+world. Finally you reach us.
 \end{quote}
 
-As I will elaborate, the above assertion follows from more general concerns I have with epistemic logic.
+% Now, I give this example because it is representative of the
+% perspective provided by epistemic logic - agents are essentially
+% elaborate \emph{sensor networks} in the received view.  
+The aim of epistemic logic is to model agents modeling the world; and
+in doing so its development mirrors the increasing levels of
+complexity that Dennett illustrates.  To give an exemplar of the
+modern level
+of sophistication achieved by epistemic logic, consider
+probablistic dynamic epistemic logic as developed in \citep{van_benthem_dynamic_2009}.
+
+Moreover, just as making thinking about thermostats serves as a vehicle for
+philosophy of mind for Daniel Dennett, thinking about
+thermometers can elucidate intuitions behind basic epistemic logic,
+and how it might be extended.
+%A particular desiderata for epistemic logic emerges when thinking of the two in conjunction.  
+Imagine we were to go up to a agent, under the theory of basic
+epistemic logic, and ask her why she knows some
+proposition $\phi$. What would she possibly say?  She would say she feels
+$\phi$ with every fiber of her being, that it is true in every
+world she can conceive.  The reason that $\phi$ occurs to
+the agent is because it is what her sensory instruments (modeled as her
+accessibility relations) tell her.   In this respect, the analogy of
+the thermometer seems pretty apt.
+%Indeed, thermometers appear to be rather representative as agents under
+%the theory of basic epistemic logic.
+%This is exactly the same as the way the thermometer was modeled in the previous thought experiment. 
+%To this end I shall abbreviate the received view on epistemic logic as the
+%\emph{thermometer theory of knowledge}.
+
+Some philosophical features of knowledge 
+cannot be captured by this basic approach.
+If I were to ask a person why she believes a proposition $\phi$, I
+likely would not accept her appeals that she cannot conceive of the contrary as
+possible.  I would want some kind of explanation, especially if $\phi$
+were a piece of mathematics, for instance.  It would
+certainly make the enterprise of mathematics far simpler if proving
+theorems amounted to exhibiting that their negation is not imaginable.
+This gives rise to the following philosophical observation:
+\begin{quote}
+\textbf{Anti-Thermometer Principle}: \emph{Traditional epistemic agents,
+  like thermometers, don't really have knowledge, since one must
+  sometimes have reasons for the things they believe.}
+\end{quote}
+
+How might epistemic logic be saved by the objection that the above
+principle proposes?  To find out, I turn to diagnosing the
+underpinning of the above principle.
+%To address the issue with epistemic logic raised by the above principle, 
+%As I will elaborate, the above assertion follows from more general concerns I have with epistemic logic.
 
 \begin{figure}[ht]
 \begin{center}
@@ -345,35 +448,35 @@ As I will elaborate, the above assertion follows from more general concerns I ha
 \end{figure}
 \subsection{Explicit Justification}\label{explicit}
 
-I hold that the \emph{Thermometer Principle} is an expression of the following more fundamental idea:
+I hold that the \emph{Anti-Thermometer Principle} is an expression of the following more fundamental idea:
 \begin{quote}
- \textbf{Justification Principle}: \emph{In order to know something, one must have a some kind of sufficient justification.}
+ \textbf{Justification Principle}: \emph{In order to know something, one must have sufficient justification.}
 \end{quote}
-I contend that derivation in a logical calculus is suitable
-justification for the above principle. In light of this, all of my
-future developments shall center around the idea that in order to have
-knowledge, one must have a special derivation.  Since knowledge
-entails belief \citep[under the traditional view in]{gettier_is_1963},
-I have decided to simply equate belief with having a derivation.
-Hence knowledge can then be thought of a species of this kind of
-derivational belief. And while it is perhaps as bad an
-oversimplification as the thermometer view I have previously
-criticized, my modeling technique assumes \emph{doxastic omniscience},
-which is to say that I assume an agent's beliefs are closed under
-logical consequence\footnote{\cite{hintikka_knowledge_1969} assumes a
-  similar perspective; for modeling purposes, the agent is assumed to
-  have adequate time to realize the consequences of their beliefs.
-  Similarly, we might interpret belief as what is refered to in
-  \citet{levesque_logic_1984} as ``implicit belief.''}.  This will be illustrated shortly.
 
-The \emph{Justification Principle} is similar to demanding
+% I contend that derivation in a logical calculus is suitable
+% justification for the above principle. In light of this, all of my
+% future developments shall center around the idea that in order to have
+% knowledge, one must have a special derivation.  Since knowledge
+% entails belief \citep[under the traditional view in]{gettier_is_1963},
+% I have decided to simply equate belief with having a derivation.
+% Hence knowledge can then be thought of a species of this kind of
+% derivational belief. And while it is perhaps as bad an
+% oversimplification as the thermometer view I have previously
+% criticized, my modeling technique assumes \emph{doxastic omniscience},
+% which is to say that I assume an agent's beliefs are closed under
+% logical consequence\footnote{\cite{hintikka_knowledge_1969} assumes a
+%   similar perspective; for modeling purposes, the agent is assumed to
+%   have adequate time to realize the consequences of their beliefs.
+%   Simlarly, we might interpret belief as what is refered to in
+%   \citet{levesque_logic_1984} as ``implicit belief.''}.  This will be illustrated shortly.
+
+Demanding the \emph{Justification Principle} is tantamount to demanding
 \emph{explicit justification} for beliefs in epistemic logic. I am not
 the first person to suggest this. The modern hunt for logics of
-explicit justification appears to have been initiated in
-\citet{van_benthem_reflectionsepistemic_1991}\footnote{While this
+explicit justification was initiated in \citet{van_benthem_reflectionsepistemic_1991}\footnote{While this
   paper is considered seminal, it should be remarked that research
   into this subject began prior to it.  Specifically, the
-  \emph{phrase} ``explicit belief'' appears to have its origins in
+  phrase ``explicit belief'' appears to have its origins in
   \citep{levesque_logic_1984}.}. One framework which has been proposed
 to achieve this is \emph{Justification Logic}
 \citep{artemov_introducing_2005,artemov_justification_2007,fitting_logic_2004,fitting_logic_2005}.
@@ -381,6 +484,9 @@ Alternative frameworks for reasoning about implicit/explicit
 information have also been proposed in \citet{van_benthem_inference_2009} and
 \citet{velzquez-quesada_inference_2009}.
 
+I offer a novel framework in this line of research, in the hopes of
+offering further salvation for epistemic logic from the concerns surrounding the
+\emph{Justification Principle}.
 
 \subsection{Sketch}\label{sketch}
 
@@ -397,7 +503,9 @@ Further, let $\Omega \subseteq \powerset \Phi \times \powerset \mathcal{L}(\Phi)
  \item $\Omega, (a,A) \VDash p \iff p \in a$
  \item $\Omega, (a,A) \VDash \phi \to \psi \iff \Omega, (a,A) \VDash \phi$ implies $\Omega, (a,A) \VDash \psi$
  \item $\Omega, (a,A) \VDash \bot \iff False$
- \item $\Omega, (a,A) \VDash \Box \phi \iff $ for all $(b,B) \in \Omega$, $\Omega,(b,B) \VDash A$ implies $\Omega, (b,B)\VDash \phi$ for all $(b,B) \in \Omega$
+ \item $\Omega, (a,A) \VDash \Box \phi \iff $ for all $(b,B) \in
+   \Omega$, $\Omega,(b,B) \VDash A$ implies $\Omega, (b,B)\VDash \phi$
+   for all $(b,B) \in \Omega$
 \end{empt}
 
 Since the semantics like the above shall be the principle objects of
@@ -763,7 +871,7 @@ different setting, in \emph{Two Dogmas of Empiricism}
   these specific statements concerning brick houses or centaurs. These
   statements are felt, therefore, to have a sharper empirical
   reference than highly theoretical statements of physics or logic or
-  ontology. \textbf{The latter statements may be thought of as
+  ontology. \emph{The latter statements may be thought of as
     relatively centrally located within the total network, meaning
     merely that little preferential connection with any particular
     sense data obtrudes itself.} }
@@ -925,7 +1033,7 @@ developed ideas.  This shall be done in three movements:
 \input{evil_axiom_systems.tex}
 \input{evil-formal-crap.tex}
 
-\section{Applications}
+\section{Applications}\label{applications}
 \subsection{Collapse}
 \subsection{Epistemic Plurality}
 \subsubsection{Different Kinds of Knowledge}
@@ -937,7 +1045,7 @@ developed ideas.  This shall be done in three movements:
 \subsubsection{Imagination}
 \subsubsection{$ImK_\Box$}
 
-\section{Formal Methods}\label{formal}
+\section{Mechanization}\label{formal}
 %\addcontentsline{toc}{subsection}{20 pgs}
 %\subsection{Don't Believe in Math}
 %\addcontentsline{toc}{subsubsection}{5 pgs}
@@ -945,7 +1053,7 @@ developed ideas.  This shall be done in three movements:
 \subsection{LCF Theorem Proving}
 \subsection{Formalizing the \textsc{EviL} Completeness Theorem}
 
-\section{Epilogue}
+\section{Epilogue}\ref{epilogue}
 %\addcontentsline{toc}{subsection}{10 pgs}
 \subsection{Comparison to Other Approaches}
 \subsection{Failures}
