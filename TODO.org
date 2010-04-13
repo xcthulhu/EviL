@@ -1,0 +1,40 @@
+** What's Left To Do
+
+- [0/2] Philosophy Section
+  - [ ] Add remarks about Hedgehogs and Foxes to philosophy section
+  - [ ] Explain how EviL models Irrationality
+    - Doxastic but not epistemic omniscience
+
+- [0/5] Formal Section
+  - [ ] Clarify Theorem Theorem
+  - [ ] Simplify failure of compactness theorem
+  - [ ] Give Bisimulations for fragments
+  - [ ] Make Pictures of Bisimulations
+  - [ ] Elucidate Complexity Results
+      - Bounded below by PSPACE and above by EXP2
+
+- [0/3] Applications Section
+  - [ ] Collapse Theorem
+  - [ ] Analysis of Moore's Paradox
+  - [ ] Characterization of Species of Knowledge
+  - [0/5] Embedding Theorems for Intuitionistic Logic
+    - [ ] Basic Intuitionistic Logic
+    - [ ] Intuitionistic Logic using Knowledge
+    - [ ] Logic of Imagination
+    - [ ] van Benthem's S4
+    - [ ] Modal Intuitionistic Logic
+
+- [0/3] Formalization Section
+  - [ ] Why Formalize?
+  - [ ] LCF Theorem Proving
+  - [ ] Technical description of what is involved in formalization
+
+- [0/2] Conclusion
+  - [ ] Comparison to Other frameworks
+  - [ ] Dangling Philosophical Issues
+
+- [0/4] Actual Formalization
+  - [ ] Finish Truth Lemma
+  - [ ] Bisimulation Section
+  - [ ] Finish Completeness Theorem
+  - [ ] Tidy everything up
