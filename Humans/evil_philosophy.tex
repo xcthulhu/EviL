@@ -235,17 +235,20 @@
 
 \section{Philosophy}\label{philosophy}
 \subsection{Forward}
+
 The idea of applying modal logic to the study of knowledge more or
-less began with \citet[\emph{Knowledge and Belief}, by]{hintikka_knowledge_1969}.  In this it is
-suggested that one can use the possible world framework of modal logic
-to model ideal logical agents, and reason about concepts like
-knowledge and belief as modal boxes.  In Hintikka's text,
-some philosophical emphasis is put on the ideas of
+less began with \citet[\emph{Knowledge and Belief},
+by]{hintikka_knowledge_1969}.  In this it is suggested that one can
+use the possible world framework of modal logic to model ideal logical
+agents, and reason about concepts like knowledge and belief as modal
+boxes.  In Hintikka's text, some philosophical emphasis is put on the ideas of
 \emph{introspection}, which have two formulations:
+
 \begin{bul}
 	\item Positive: $\Box \phi \to \Box\Box \phi$ - ``If the agent knows a fact, then she knows that she knows this.''
 	\item Negative: $\Pos \phi \to \Box\Pos \phi$ - ``If the agent does not know a fact, she knows that she does not know this.''
 \end{bul}
+
 Intuitively, the second idea seems like something one ought to reject
 outright.  Many will recall the somewhat famous piece of sophistry put
 forward by former US secretary of defense Donald Rumsfeld
@@ -345,8 +348,8 @@ Where:
 \end{bul}
 
 Applying the ideal gas law, one can observe that the thermometer is effectively
-in something analogous to an epistemic space.  To be explicit, consider a basic modal
-language with the following grammar:
+in something analogous to an epistemic space.  To be explicit,
+consider a basic modal language with the following grammar:
 \[ \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi \]
 
 Interpreting this language appropriately, the
@@ -421,12 +424,12 @@ the thermometer seems pretty apt.
 I argue that some natural philosophical features of knowledge 
 cannot be captured by this basic approach.
 If I were to ask a person on the street why she believes a proposition $\phi$, I
-likely would not accept her appeals that she cannot conceive of the contrary as
-possible.  I would want some kind of explanation, especially if $\phi$
-were a piece of mathematics, for instance.  It would
-certainly make the enterprise of mathematics far simpler if proving
-theorems amounted to exhibiting that their negation is not imaginable.
-This gives rise to the following philosophical observation:
+likely would not accept her appeals that she cannot imagine or
+conceive of the contrary as possible.  I would want some kind of
+explanation, especially if $\phi$ were a piece of mathematics, for
+instance.  It would certainly make the enterprise of mathematics far
+simpler if proving theorems amounted to exhibiting that their negation
+is not imaginable. This gives rise to the following philosophical observation:
 \begin{quote}
 \textbf{Anti-Thermometer Principle}: \emph{Traditional epistemic agents,
   like thermometers, don't always have knowledge, since one must
@@ -446,9 +449,11 @@ underpinning of the above principle.
 \caption{Thermometer information states}
 \label{fig:therm2}
 \end{figure}
+
 \subsection{Explicit Justification}\label{explicit}
 
-I hold that the \emph{Anti-Thermometer Principle} is an expression of the following more fundamental idea:
+I hold that the \emph{Anti-Thermometer Principle} is an expression of
+the following more fundamental idea:
 \begin{quote}
  \textbf{Justification Principle}: \emph{In order to know something,
    one must sometimes demonstrate inferential justification.}
@@ -469,12 +474,14 @@ I hold that the \emph{Anti-Thermometer Principle} is an expression of the follow
 %   similar perspective; for modeling purposes, the agent is assumed to
 %   have adequate time to realize the consequences of their beliefs.
 %   Simlarly, we might interpret belief as what is refered to in
-%   \citet{levesque_logic_1984} as ``implicit belief.''}.  This will be illustrated shortly.
+%   \citet{levesque_logic_1984} as ``implicit belief.''}.  This will
+%   be illustrated shortly.
 
 Demanding the \emph{Justification Principle} is tantamount to demanding
 \emph{explicit justification} for beliefs in epistemic logic. I am not
-the first person to suggest this. The modern hunt for logics of
-explicit justification was initiated in \citet{van_benthem_reflectionsepistemic_1991}\footnote{While this
+the first person to suggest this. The hunt for logics of
+explicit justification was initiated in
+\citet{van_benthem_reflectionsepistemic_1991}\footnote{While this
   paper is considered seminal, it should be remarked that research
   into this subject began prior to it.  Specifically, the
   phrase ``explicit belief'' appears to have its origins in
@@ -488,23 +495,27 @@ information have also been proposed in \citet{van_benthem_inference_2009} and
 I offer a novel framework in this line of research, in the hopes of
 offering further response that practitioners of epistemic logic may
 exhort in answer to the problems raised by the 
-\emph{Justification Principle}.  My idea is to modify the semantics of
-modal logic to incorporate certain \emph{basic beliefs}, which I take to be
-non-inferentially justified.  These basic beliefs then inferentially
-generate the rest of what the agent believes.
+\emph{Justification Principle}.  
+My idea is to modify the semantics of modal logic to incorporate 
+certain \emph{basic beliefs}, which I take to be non-inferentially 
+justified.  These basic beliefs then inferentially generate the rest 
+of what the agent believes.
 
-This perspective amounts to what
-is called \emph{classical foundationalism} in the philosophical
-literature.  In \citep[chapter 1]{depaul_resurrecting_2001}, Richard
+This perspective amounts to what is called 
+\emph{classical foundationalism} in the philosophical literature.  
+In \citep[chapter 1]{depaul_resurrecting_2001}, Richard
 Fumerton describes the view as follows:
 
 \begin{quote}
-[A] foundationalist is someone who claims that there are noninferentially
-justified beliefs and that all justified beliefs owe their
-justification, ultimately, in part, to the existence of
-noninferentially justified beliefs.  A belief is noninferentially
-justified if its justification is not constituted by the having of
-other justified beliefs.
+[A] foundationalist is someone who claims that there are 
+noninferentially justified beliefs and that all justified 
+beliefs owe their justification, ultimately, in part, to the 
+existence of noninferentially justified beliefs\footnote{In the
+  proceeding discussion, it should be noted that I refer 
+ to \emph{noninferentially justified beliefs} as \emph{basic
+   beliefs} or premises.}.  
+A belief is  noninferentially justified if its justification is not constituted 
+by the having of other justified beliefs.
 \end{quote}
 
 The view I am presenting would not deny that thermometers or
@@ -551,37 +562,47 @@ recursively:
 Since the semantics like the above shall be the principle objects of
 study, I will give how I read them philosophically.  In these
 semantics, instead of thinking of every world individually, I think of
-every world as containing facts and a part of the agent's mind.  This
-part of the agent's mind is represented by what I shall refer to as
+every world as containing facts and a part of the agent's mind.  
+This part of the agent's mind is represented by what I shall refer to as
 propositions which she ascents to. I shall refer to these
 interchangeably as \emph{premises}, \emph{assumptions}, \emph{basic
   beliefs}, \emph{experiences}, or \emph{evidence}.  These sets of
 propositions also represent, in a way, the agent's \emph{frame of
   mind}; I shall return to developing this perspective in
-\S\ref{irrational}. For now I will stick to the former readings.
- 
-On the basis of her evidence, I imagine the agent composes 
-arguments using logic.  Like the original formulation of epistemic
-logic in \cite{hintikka_knowledge_1969}, I assume that agents are
-\emph{doxastically omniscient} - that is they believe all of the
-consequences of their beliefs.  I prefer to think of this particular
-idealization as thinking about what an agent
-might conclude \emph{eventually}.
+\S\ref{irrational}. For now we will stick to the former readings.
 
-By focusing on basic items of evidence as forming the foundation for
-belief, I consider this approach to be
-roughly in line with the \emph{evidentialist} view on 
-epistemology, which \citet{conee_evidentialism_2004} describe as follows:
-\begin{quote}
+ To understand $\box \phi$, we think of the agent as producing
+ derivations in a logical calculus on the basis of her evidence.  
+ So I alternately read  as \emph{the agent believes $phi$}, 
+ \emph{the agent can deduce $\phi$} or
+ \emph{can compose an argument for $\phi$}.
+  Like the original formulation of epistemic
+ logic in \cite{hintikka_knowledge_1969}, I assume that 
+ agents are \emph{doxastically omniscient} - that is they 
+ believe all of the consequences of their beliefs.  I prefer to 
+ think of this particular idealization as thinking about 
+ what an agent might conclude \emph{eventually}.
+
+ By focusing on basic items of evidence as forming the foundation for
+ belief, I consider this approach to be roughly in line with the 
+ \emph{evidentialist} view on  epistemology, which 
+ \citet{conee_evidentialism_2004} describe as follows:
+ \begin{quote}
   [E]videntialism is a supervenience thesis according to which facts
   about whether or not a person is justified in believing a
   proposition supervene on facts describing the evidence that the
   person has.
-\end{quote}
-$\ldots$however, while my sympathies are with this perspective on
-epistemology, they differ foundationally - while evidentialism
-develops intuitions using analytical philosophy, our approach shall be
-founded in formal semantics like the one above.
+ \end{quote}
+ $\ldots$ however, while our sympathies are with this perspective on
+ epistemology, they differ foundationally - while evidentialism
+ develops intuitions using analytical philosophy, our approach shall be
+ founded in formal semantics like the one above.
+
+As alluded to in \S\ref{thermometers}, we shall read $\Pos \phi$ as
+\emph{the agent can conceive that $\phi$} or \emph{the agent can
+  imagine $\phi$ being possible}.  The former is the standard reading
+in epistemic logic (see, for instance, \cite{meyer_epistemic_1995}).  In general, we shall prefer to read $\Pos$ as
+in terms of \emph{imagination}.  
 
 That is, if a proper foundation can be provided at all.  Admittedly,
 the above formulation of truth immediately runs into a \emph{paradox}
@@ -1127,7 +1148,7 @@ developed ideas.  This shall be done in three movements:
 % various validities.
 
 %\addcontentsline{toc}{subsection}{15 pgs}at t
-\subsection{Elementary \textsc{EviL}}\label{basic-evil}
+\subsection{Basic \textsc{EviL}}\label{basic-evil}
 \subsubsection{Grammar \& Semantics}\label{evil-grammar}
 \input{semantics_introduction.tex}
 \subsubsection{Intuitions}
@@ -1135,7 +1156,7 @@ developed ideas.  This shall be done in three movements:
 \subsubsection{Validities}
 \label{validities}
 \input{evil-validities.tex}
-\subsection{\textsc{EviL} Basics}
+\subsection{Basic \textsc{EviL}}
 \label{dead-by-dawn}
 \subsubsection{Elimination}
 \label{elimination}

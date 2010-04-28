@@ -18,13 +18,16 @@ well-defined semantics.  This shall be achieved in two steps.
 \end{definition}
 Models for classical propositional logic can be thought of as sets $S
 \subseteq \Phi$;
-thus the truth predicate $(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
-\rightarrow \textup{\textsf{bool}}${\footnote{$\ldots$ where $\textup{\textsf{bool}} := \{True, False\}$.  This is more commonly written as
-$(\models) \colons \powerset \Phi \rightarrow
-\textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  My notation reflects
-the notation common to the typed functional programming languages
-\tmtextit{Haskell} and \tmtextit{OCaml}. I will use both notations
-interchangeably.}} for classical 
+thus the truth predicate{\footnote{$\ldots$ where $\textup{\textsf{bool}} := \{True, False\}$.  This is more commonly written as
+$(\models) \colons \powerset \Phi \rightarrow (\mathcal{L}_0 (\Phi)
+\rightarrow \textup{\textsf{bool}})$ or $(\models) \colons \powerset \Phi \rightarrow
+\textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  The notation I
+present assumes that $\to$ associates to the left, following the
+convention for implication in logic. In general, my notation follows
+the typed functional programming languages \tmtextit{Haskell} 
+and \tmtextit{OCaml}.}} 
+$(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
+\rightarrow \textup{\textsf{bool}}$ for classical 
 propositional logic can be given recursively as follows:
 \begin{definition}
 Define $(\models)$ such that
@@ -43,15 +46,11 @@ Further, observe that the language $\mathcal{L}_0$ is extended by \tmtextsc{EviL
    \  | \  \boxplus \phi \  | \ 
    \circlearrowleft \]
 \end{definition}
- \tmtextsc{EviL} models are sets $\Omega
-\subseteq \powerset \Phi \times \powerset
-\mathcal{L}_0 (\Phi)$.  Like classical propositional logic, semantics for
-\tmtextsc{EviL} are given recursively by a predicate
-\[ (\VDash) \colons \powerset  (\powerset \Phi \times \powerset \mathcal{L}_0 (\Phi)) \rightarrow \powerset \Phi
-   \times \powerset \mathcal{L}_0 (\Phi)
-   \rightarrow \mathcal{L} (\Phi) \rightarrow
-   \textup{\textsf{bool}}. \]
-That is, $(\VDash)$ is a function that:
+Unlike traditional modal logic, \textsc{EviL} employs concrete models
+rather than Kripke structures. \tmtextsc{EviL} models are sets 
+$\Omega \subseteq \powerset \Phi \times \powerset \mathcal{L}_0
+(\Phi)$.  Like classical propositional logic, semantics for
+\tmtextsc{EviL} are given recursively by a predicate $(\VDash)$ which:
 \begin{itemizedot}
   \item Takes as input:
 \begin{itemizedot}
@@ -65,7 +64,16 @@ That is, $(\VDash)$ is a function that:
   \end{itemizedot}
   \item Gives as output: a truth value in $\textup{\textsf{bool}}$
 \end{itemizedot}
-I can now provide a formal definition of the semantics for \textsc{EviL}:
+
+More concisely, this may be written as 
+\[ (\VDash) \colons \powerset  (\powerset \Phi \times \powerset \mathcal{L}_0 (\Phi)) \rightarrow \powerset \Phi
+   \times \powerset \mathcal{L}_0 (\Phi)
+   \rightarrow \mathcal{L} (\Phi) \rightarrow
+   \textup{\textsf{bool}}. \]
+
+The following provides a definition of the semantics for 
+\textsc{EviL}:
+
 \begin{definition}
  Define $(\VDash)$ recursively such that:
 \begin{align*}

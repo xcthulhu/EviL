@@ -1,4 +1,3 @@
-
 In this section, I shall present an alternative work to the framework
 proposed in \S\ref{explicit}. 
 These semantics are inspired by game semantics for modal logic, 
@@ -37,7 +36,7 @@ elaboration on these connections.
     \item $\Omega, w \Vdash \Box \phi \Longleftrightarrow \beta (w)
     \vdash^{\ast} \phi$
     
-    $\ldots$where $\vdash^{\ast}$ is a sequent that's closed under reflection
+    Where $\vdash^{\ast}$ is a sequent that is closed under reflection
     and resolution:
     \begin{eqnarray*}
       \frac{\phi \in \Gamma}{\Gamma \vdash^{\ast} \phi} &  & \frac{\Gamma
@@ -117,7 +116,7 @@ However, bivalence has a convenient semantic characterization:
     \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi & (\tmop{definition})\\
     \Longleftrightarrow & \mathbbm{M}^{\Omega}, w \Vdash_{\Box} \Box \phi & 
   \end{eqnarray*}
-  $\ldots$this completes the induction.
+  This completes the induction.
   
   $(\Longleftarrow)$ \ Assume that $\Omega, w \Vdash \phi$ and
   $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$ are always equivalent.   We
@@ -187,6 +186,7 @@ everything they believe in their minds; this is about as bad as the thermometer 
 Evidently, forcing these requirements suffices to force bivalence:
 
 \begin{proposition}
+  Let $\mathbbm{M}^{\Omega}$ be defined as in Prop.  \ref{biv1}.
   For any reasonable model $\Omega$ and any $w \in W^{\Omega}$, we have:
   \begin{enumerateroman}
     \item If $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$ then $\Omega, w
@@ -194,8 +194,7 @@ Evidently, forcing these requirements suffices to force bivalence:
     
     \item If $\mathbbm{M}^{\Omega}, w {\nVdash}_{\Box} \phi$ then $\Omega,
     w \Vvdash \phi$
-  \end{enumerateroman}
-  $\ldots$ where $\mathbbm{M}^{\Omega}$ is as defined in Prop.  \ref{biv1}.  
+  \end{enumerateroman}  
   Hence we have $\Vdash$ and $\Vvdash$ are bivalent.
 \end{proposition}
 
@@ -211,7 +210,7 @@ Evidently, forcing these requirements suffices to force bivalence:
     \nonumber\\
     \Longleftrightarrow & \Omega, w \Vdash \neg \phi &  \nonumber
   \end{eqnarray}
-  $\ldots$the proof for (\tmtextit{ii}) is similar.
+  The proof for (\tmtextit{ii}) is similar.
   
   Modality: \ In the case of (\tmtextit{i}), assume that
   $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \Box \phi$. Using the definition of
@@ -258,8 +257,8 @@ We may continue to obtain weak completeness for these semantics:
   So now consider $\Omega \assign \langle W^{\mathbbm{M}'}, V^{\mathbbm{M}'},
   \tau, \lambda x.R^{\mathbbm{M}'} [x] \rangle$ such that
   \[ \tau (w) \assign \tmop{Th} (\mathbbm{M}') \cup \left\{ \bigvee_{v \in
-     R^{\mathbbm{M}'} [w]} \rho (v) \right\} \]
-  $\ldots$where $\tmop{Th} (\mathbbm{M}') \assign \{\psi \in \mathcal{L}
+     R^{\mathbbm{M}'} [w]} \rho (v) \right\}, \]
+  where $\tmop{Th} (\mathbbm{M}') \assign \{\psi \in \mathcal{L}
   (\Phi) \  | \  \mathbbm{M}', v \Vdash \psi$ for all $v
   \in W^{\mathbbm{M}'} \}$.   A proof by induction on $\psi$ shows that
   $\mathbbm{M}', w \Vdash_{\Box} \psi$, $\Omega, w \Vdash \psi$ and $\Omega, v

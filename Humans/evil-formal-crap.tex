@@ -33,7 +33,7 @@ In this section we provide definitions and lemmas related to the subformula cons
 \hspace{1cm} \vdash \pBB_X \phi \IFF \BB_X \phi \hspace{1cm} &
 \vdash \pBBI_X \phi \IFF \BBI_X \phi
 \end{eqnarray*}
-\ldots moreover \ldots 
+Moreover,
 \begin{align*}
 \pBB_X \phi = \pBB_X\pBB_X \phi & & \pBBI_X\phi = \pBBI_X \pBBI_X \phi \hfill
 \end{align*}
@@ -127,7 +127,7 @@ I first introduce a Backus-Naur form grammar for the $\mathsf{Either}$ type cons
 \begin{mydef}
 Let $\mathbb{M}$ be a Kripke model, then define $\invis^\mathbb{M}$ as a model
 \[\la W^{\invis^\mathbb{M}},V^{\invis^\mathbb{M}}, P^{\invis^\mathbb{M}}_X,R^{\invis^\mathbb{M}}_{\Nec_X},R^{\invis^\mathbb{M}}_{\BB_X},R^{\invis^\mathbb{M}}_{\BBI_X}\ra\] 
-\ldots where \ldots
+Where:
 \begin{tabbing}
 $W^{\invis^\mathbb{M}} := \bigcup\{\{w_l,w_r\}\ |\ w\in W^\mathbb{M}\}$\\
 $V^{\invis^\mathbb{M}}(p) := \bigcup\{\{w_l,w_r\}\ |\ w\in V^\mathbb{M}(p)\}$\\
@@ -164,7 +164,7 @@ In the subsequent discussion, it will be useful to exploit certain properties of
 
 \begin{mydef}Let $\mathbb{M}$ be a partly \textsc{EviL} Kripke structure.  I shall make the following definition:
 \[ \lcorners w\rcorners^\mathbb{M} := \{ v\ |\ w (R^{\mathbb{M}}_{\BB_X}\cup R^{\mathbb{M}}_{\BBI_X})^\ast v \}\]
-\ldots where $R^\ast$ is the reflexive transitive closure of $R$
+Here $R^\ast$ is the reflexive transitive closure of $R$.
 \end{mydef}
 
 \begin{lemma}[Column Lemma]\label{column}
@@ -238,7 +238,7 @@ Assume that $\nvdash_K \phi$, then we know from modal logic that there's a finit
 	\item $P := \{(v,v)\ |\ v R v\}$
 	\item $R_\BB := R_\BBI := \{(w,w)\ |\ w \in W\}$
 \end{bul}
-\ldots this model is trivially completely \textsc{EviL}. Moreover we know that $\mathbb{M}$ is an elementary submodel of $\mathbb{M}'$, so $\mathbb{M}', w\nvdash \phi$.  Hence by the Lemma \ref{translation} we have a model $\mathfrak{M}$ and $(a,A) \in \mathfrak{M}$ such that $\mathfrak{M},(a,A) \nmodels \phi$; so by soundness for \textsc{EviL} we have the desired result.
+This model is trivially completely \textsc{EviL}. Moreover we know that $\mathbb{M}$ is an elementary submodel of $\mathbb{M}'$, so $\mathbb{M}', w\nvdash \phi$.  Hence by the Lemma \ref{translation} we have a model $\mathfrak{M}$ and $(a,A) \in \mathfrak{M}$ such that $\mathfrak{M},(a,A) \nmodels \phi$; so by soundness for \textsc{EviL} we have the desired result.
 
 Similarly, if we $\nvdash_{\textup{\textsc{EviL}}_\mathcal{A}} \phi$ then by completeness can find a witnessing $\mathfrak{M}$ and $(a,A) \in \mathfrak{M}$ such that $\mathfrak{M},(a,A) \nmodels \phi$.  But then we can embed $\mathfrak{M}$ into $\mathfrak{M}'$ for agents $\mathcal{B} \supseteq \mathcal{A}$ where $\mathfrak{M}' := \{(a,A') \ |\ (a,A) \in \mathfrak{M}\}$ and
 $$ A'_X := \begin{cases} A_X & X \in\mathcal{A} \\ \varnothing & X \nin \mathcal{A}\end{cases} $$
