@@ -26,8 +26,9 @@
 
 - [0/3] Formalization Section
   - [ ] Why Formalize?
-  - [ ] LCF Theorem Proving
+  - [ ] LCF-Style Theorem Proving
   - [ ] Technical description of what is involved in formalization
+  - [ ] Document Isabelle/HOLs Logic
 
 - [0/2] Conclusion
   - [ ] Comparison to Other frameworks

@@ -18,7 +18,6 @@
 \usepackage{gn-logic14}
 \usepackage{subfigure}
 \usepackage[geometry]{ifsym}
-
 \usepackage{tabularx,booktabs,multirow}
 
 %%%%%%%%%% TeXmacs macros
@@ -148,20 +147,20 @@
 \DeclareMathSymbol{\nDashV}        {3}{mathb}{"2B}
 \DeclareMathSymbol{\Vvdash}        {3}{mathb}{"2C}
 \DeclareMathSymbol{\nVvdash}        {3}{mathb}{"2E}
-\DeclareMathSymbol{\lcorners}      {4}{mathb}{"76}% name to be checked
-\DeclareMathSymbol{\rcorners}      {5}{mathb}{"77}% name to be checked
-\my@undefine{\ulcorner}%
-\DeclareMathSymbol{\ulcorner}      {4}{mathb}{"78}% name to be checked
-\my@undefine{\urcorner}%
-\DeclareMathSymbol{\urcorner}      {5}{mathb}{"79}% name to be checked
-\my@undefine{\llcorner}%
-\DeclareMathSymbol{\llcorner}      {4}{mathb}{"7A}% name to be checked
-\my@undefine{\lrcorner}%
-\DeclareMathSymbol{\lrcorner}      {5}{mathb}{"7B}% name to be checked
+\DeclareMathSymbol{\lcorners}      {4}{mathb}{"76}
+\DeclareMathSymbol{\rcorners}      {5}{mathb}{"77}
+\my@undefine{\ulcorner}
+\DeclareMathSymbol{\ulcorner}      {4}{mathb}{"78}
+\my@undefine{\urcorner}
+\DeclareMathSymbol{\urcorner}      {5}{mathb}{"79}
+\my@undefine{\llcorner}
+\DeclareMathSymbol{\llcorner}      {4}{mathb}{"7A}
+\my@undefine{\lrcorner}
+\DeclareMathSymbol{\lrcorner}      {5}{mathb}{"7B}
 \newcommand{\lc}{\ullcorner}
 \newcommand{\rc}{\ulrcorner}
 
-% For my EviL completeness symbol, I use upside down crosses... (I use pifont)
+\newcommand{\nmodels}{\ensuremath{\not\models}}
 \newcommand{\Pifont}[1]{\fontfamily{#1}\fontencoding{U}%
                                            \fontseries{m}\fontshape{n}\selectfont}
 \newcommand{\Pisymbol}[2]{{\Pifont{#1}\char#2}}
@@ -170,7 +169,7 @@
 \newcommand{\iCross}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\Cross}}}\!}
 \newcommand{\invis}{\iCross}
 \newcommand{\lhookrightarrow}{\hookrightarrow}
-\newcommand{\nmodels}{\nvDash}
+%\newcommand{\nmodels}{\nvDash}
 \renewcommand{\diamondsuit}{\Diamond}
 \newcommand{\bs}{\ensuremath{\backslash}}
 \newcommand{\evil}{\textsc{EviL} }
@@ -211,6 +210,9 @@
 \newcommand{\pr}[2]{\ensuremath{( #1, #2 )}}
 \newcommand{\rel}[1]{\ensuremath{R_{#1}}}
 \newcommand{\kl}{\theta}
+
+\def\implies{\ \mathrel{\joinrel=\joinrel\Rightarrow}}
+
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 
@@ -230,7 +232,6 @@
 \pagebreak
 \tableofcontents
 \pagebreak
-
 
 \section{Philosophy}\label{philosophy}
 \subsection{Forward}
@@ -299,7 +300,7 @@ of these issues.  It shall conform to the following structure:
   \item[\S\ref{applications}]  Third, I illustrate philosophical applications of
     \textsc{EviL}.  As a bit of serendipity, it shall be revealed that
     \emph{intuitionistic logic} is profoundly linked to the thoughts I
-    develop.A
+    develop.
   \item[\S\ref{robots}]  Here, I discuss a side project I carried out
     where I formalized the weak completeness theorem of
     \S\ref{evil-semantics} in the computer proof
@@ -367,10 +368,11 @@ where:
 states in the above model, which form rays emanating from the origin.
 
 The view in philosophy of mind that thermometers are epistemic agents 
-originates in \emph{The Intentional Stance} by 
-\citet{dennett_intentional_1998}, with the proviso that Dennett's
+originates Daniel Dennet's \emph{The Intentional Stance}
+\citep{dennett_intentional_1998}, 
+with the proviso that Dennett's
 original discussion originates around thermostats rather than 
-thermometers.  Dennett writes:
+thermometers as I have argued.  Dennett writes:
 \begin{quote}
 \emph{It is not that we attribute (or should attribute) beliefs and desires only to
 things in which we find internal representations, but rather that when we
@@ -395,16 +397,14 @@ world. Finally you reach us.
 The aim of epistemic logic is to model agents modeling the world; and
 in doing so its development mirrors the increasing levels of
 complexity that Dennett illustrates.  To give an exemplar of the
-modern level
-of sophistication achieved by epistemic logic, consider
+modern level of sophistication achieved by epistemic logic, consider
 probablistic dynamic epistemic logic as developed in \citep{van_benthem_dynamic_2009}.
 
-Moreover, just as making thinking about thermostats serves as a vehicle for
+Moreover, just as thinking about thermostats serves as a vehicle for
 philosophy of mind for Daniel Dennett, thinking about
 thermometers can elucidate intuitions behind basic epistemic logic,
 and how it might be extended.
-%A particular desiderata for epistemic logic emerges when thinking of the two in conjunction.  
-Imagine we were to go up to a agent, under the theory of basic
+Imagine we were to go up to one of the agents modeled in basic
 epistemic logic, and ask her why she knows some
 proposition $\phi$. What would she possibly say?  She would say she feels
 $\phi$ with every fiber of her being, that it is true in every
@@ -418,9 +418,9 @@ the thermometer seems pretty apt.
 %To this end I shall abbreviate the received view on epistemic logic as the
 %\emph{thermometer theory of knowledge}.
 
-Some philosophical features of knowledge 
+I argue that some natural philosophical features of knowledge 
 cannot be captured by this basic approach.
-If I were to ask a person why she believes a proposition $\phi$, I
+If I were to ask a person on the street why she believes a proposition $\phi$, I
 likely would not accept her appeals that she cannot conceive of the contrary as
 possible.  I would want some kind of explanation, especially if $\phi$
 were a piece of mathematics, for instance.  It would
@@ -429,7 +429,7 @@ theorems amounted to exhibiting that their negation is not imaginable.
 This gives rise to the following philosophical observation:
 \begin{quote}
 \textbf{Anti-Thermometer Principle}: \emph{Traditional epistemic agents,
-  like thermometers, don't really have knowledge, since one must
+  like thermometers, don't always have knowledge, since one must
   sometimes have reasons for the things they believe.}
 \end{quote}
 
@@ -450,7 +450,8 @@ underpinning of the above principle.
 
 I hold that the \emph{Anti-Thermometer Principle} is an expression of the following more fundamental idea:
 \begin{quote}
- \textbf{Justification Principle}: \emph{In order to know something, one must have sufficient justification.}
+ \textbf{Justification Principle}: \emph{In order to know something,
+   one must sometimes demonstrate inferential justification.}
 \end{quote}
 
 % I contend that derivation in a logical calculus is suitable
@@ -485,29 +486,68 @@ information have also been proposed in \citet{van_benthem_inference_2009} and
 \citet{velzquez-quesada_inference_2009}.
 
 I offer a novel framework in this line of research, in the hopes of
-offering further salvation for epistemic logic from the concerns surrounding the
-\emph{Justification Principle}.
+offering further response that practitioners of epistemic logic may
+exhort in answer to the problems raised by the 
+\emph{Justification Principle}.  My idea is to modify the semantics of
+modal logic to incorporate certain \emph{basic beliefs}, which I take to be
+non-inferentially justified.  These basic beliefs then inferentially
+generate the rest of what the agent believes.
+
+This perspective amounts to what
+is called \emph{classical foundationalism} in the philosophical
+literature.  In \citep[chapter 1]{depaul_resurrecting_2001}, Richard
+Fumerton describes the view as follows:
+
+\begin{quote}
+[A] foundationalist is someone who claims that there are noninferentially
+justified beliefs and that all justified beliefs owe their
+justification, ultimately, in part, to the existence of
+noninferentially justified beliefs.  A belief is noninferentially
+justified if its justification is not constituted by the having of
+other justified beliefs.
+\end{quote}
+
+The view I am presenting would not deny that thermometers or
+traditional epistemic agents have knowledge, no more than it would
+deny that I have knowledge of that my right hand has five fingers
+attached to the end. Rather, my aim is to try to modify the semantics 
+of epistemic logic, more specifically \emph{doxastic logic}, 
+with the ingredients for a foundationalist analysis of knowledge.  As I
+will demonstrate, this can be done without modifying the basic modal
+logic syntax. % traditionally used in epistemic logic.
+%My approach will make use of off-the-shelf syntax of modal logic.
 
 \subsection{Sketch}\label{sketch}
 
-These analyses mentioned in the previous section are all quite
-sophisticated; I have in mind something comparatively na\"{i}ve.  
-I shall present a sketch in this section -- that being said I intend
-to be extremely informal.  A formal development of the ideas shall be 
+%These analyses mentioned in the previous section are all quite
+%sophisticated; I have in mind something comparatively na\"{i}ve.  
+In this section I intend to give a very informal presentation of the
+basic elements I intend for the forthcoming analysis.  
+A formal development of the ideas sketched in this section shall be 
 given in \S\ref{evil-grammar}.  With this proviso, consider the basic
 modal language $\mathcal{L}(\Phi)$:
 \[ \phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi \]
 
-Further, let $\Omega \subseteq \powerset \Phi \times \powerset \mathcal{L}(\Phi)$, that is, let $\Omega$ be pairs of sets of letters and formulae. Define the following truth predicate $\VDash$ recursively as follows:
+Further, let $\Omega \subseteq \powerset \Phi \times \powerset
+\mathcal{L}(\Phi)$, that is, let $\Omega$ be pairs of sets of letters
+and formulae. Define the following truth predicate $\VDash$
+recursively:
+
+\par
+\begin{minipage}[h]{\linewidth}
+\begin{definition}\label{basicsemantics}\  
 \begin{empt}
  \item $\Omega, (a,A) \VDash p \iff p \in a$
  \item $\Omega, (a,A) \VDash \phi \to \psi \iff \Omega, (a,A) \VDash \phi$ implies $\Omega, (a,A) \VDash \psi$
  \item $\Omega, (a,A) \VDash \bot \iff False$
  \item $\Omega, (a,A) \VDash \Box \phi \iff $ for all $(b,B) \in
    \Omega$, $\Omega,(b,B) \VDash A$ implies $\Omega, (b,B)\VDash \phi$
-   for all $(b,B) \in \Omega$
+%   for all $(b,B) \in \Omega$
 \end{empt}
+\end{definition}
+\end{minipage}
 
+\par 
 Since the semantics like the above shall be the principle objects of
 study, I will give how I read them philosophically.  In these
 semantics, instead of thinking of every world individually, I think of
@@ -515,12 +555,23 @@ every world as containing facts and a part of the agent's mind.  This
 part of the agent's mind is represented by what I shall refer to as
 propositions which she ascents to. I shall refer to these
 interchangeably as \emph{premises}, \emph{assumptions}, \emph{basic
-  beliefs}, \emph{experiences} or \emph{evidence}.  On the basis of
-her evidence, I imagine the agent composes arguments using the logic
-of semantics suggested and all of the worlds that are possible.  In
-this way, I consider this approach to be roughly in line with the
-\emph{evidentialist} view on epistemology, which
-\citet{conee_evidentialism_2004} describe as follows:
+  beliefs}, \emph{experiences}, or \emph{evidence}.  These sets of
+propositions also represent, in a way, the agent's \emph{frame of
+  mind}; I shall return to developing this perspective in
+\S\ref{irrational}. For now I will stick to the former readings.
+ 
+On the basis of her evidence, I imagine the agent composes 
+arguments using logic.  Like the original formulation of epistemic
+logic in \cite{hintikka_knowledge_1969}, I assume that agents are
+\emph{doxastically omniscient} - that is they believe all of the
+consequences of their beliefs.  I prefer to think of this particular
+idealization as thinking about what an agent
+might conclude \emph{eventually}.
+
+By focusing on basic items of evidence as forming the foundation for
+belief, I consider this approach to be
+roughly in line with the \emph{evidentialist} view on 
+epistemology, which \citet{conee_evidentialism_2004} describe as follows:
 \begin{quote}
   [E]videntialism is a supervenience thesis according to which facts
   about whether or not a person is justified in believing a
@@ -556,36 +607,104 @@ $$\vdash_{K} \phi\textup{ if and only if } \Omega, (a,A) \VDash \phi \textup{ fo
  Left to right is trivial, so we shall focus on right to left.  Assume
  that $\nvdash_{K} \phi$, then we know from completeness and the
  finite model property that there's some finite model
- $\mathbb{M}=\langle W^\mathbb{M}, V^\mathbb{M}, R^\mathbb{M}\rangle$ and world $w \in W^\mathbb{M}$ such that $\mathbb{M},w \nVdash \phi$ (see \citet[chapters 2 \& 4]{blackburn_modal_2001} for details of these facts).
+ $\mathbb{M}=\langle W, V, R \rangle$ and world $w \in W$ such that $\mathbb{M},w \nVdash \phi$ (see \citet[chapters 2 \& 4]{blackburn_modal_2001} for details of these facts).
 
-Now let $\Lambda_\phi$ be the proposition letters that occur as
-subformulae of $\phi$, and let $\rho_\phi : W^\mathbb{M} \hookrightarrow \Phi \bs \Lambda_\phi$ be an injection.  Define $\theta_\phi:W^\mathbb{M}\to \powerset\Phi \times \powerset \mathcal{L}_0(\Phi)$ as follows\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
-\begin{center}
-\begin{minipage}{3in}
-\begin{tabbing}
-	$\theta_\phi(w) := ($ \= $\{p\in \Phi \ |\ \mathbb{M},w\VDash p\} \cup \{\rho_\phi(w)\},$\\
-                       \> $\{ \bigvee \{\rho_\phi(v) \ | \ v\in W^\mathbb{M} \wedge w R^\mathbb{M}v \} \})$
-\end{tabbing}
-\end{minipage}
-\end{center}
+Now let $PropVars_\phi$ be the proposition letters that occur as
+subformulae of $\phi$, and let $q : W
+\hookrightarrow \Phi \bs PropVars_\phi$ be an injection. In
+  other words $q$ assigns \emph{fresh letters} to worlds in the
+  model \footnote{ In
+  this vein, I shall abbreviate $q(w)$ as $q_w$. Note
+  that because $PropVars_\phi$ are \emph{finite} and $\Phi$ is assumed
+to be \emph{infinite}, such an inject always exists.  This is a
+consequence of \emph{The Axiom of Choice}.}.  Define $\theta:W^\mathbb{M}\to \powerset\Phi \times \powerset \mathcal{L}_0(\Phi)$ as follows\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
+$$ \theta(x) := (\{p\in \Phi \ |\ \mathbb{M},w\VDash p\} \cup
+\{q_w\}, \{ \bigvee_{v \in R[w]} q_v  \} ) $$
+% \begin{center}
+% \begin{minipage}{3in}
+% \begin{tabbing}
+% 	$\theta_\phi(w) := ($ \= \hspace{-.25cm} $\{p\in \Phi \ |\ \mathbb{M},w\VDash p\} \cup \{q_w\},$\\
+%                        \> \hspace{-.25cm} $\{ \bigvee_{v \in R^\mathbb{M}[w]} q_v  \} )$
+% \end{tabbing}
+% \end{minipage}
+% \end{center}
 
-Now let $\Theta := \theta[W^\mathbb{M}]$. An induction on the complexity of subformulae $\psi$ of $\phi$ shows that 
+Now let $\Theta := \theta[W]$. An induction on the complexity of subformulae $\psi$ of $\phi$ shows that 
 $\mathbb{M},w\Vdash \psi \iff \Theta,\theta(w) \VDash \psi$ for all $w \in W^\mathbb{M}$.  Since 
 $\mathbb{M}, w \nVdash \phi$ then we know that $\Theta,\theta(w)\nVDash \phi$, which completes the proof.
 \end{proof}
 
-Armed with this, we can see that these semantics are adequate for modeling agents according to my declared intentions, since we have the following:
+Intuitively, the idea behind the above construction is to label all of the
+worlds with fresh letters, and then construct a special formula from these
+fresh letters for each world.  The extension of each of these formulae is, in every case,
+exactly the worlds the agent could have accessed with the
+accessibility relation.  A far more elaborate construction, based on
+the similar principles, shall be presented in \S\ref{translation}.
+
+Armed with this, we can see that these semantics are adequate for
+modeling agents according to my declared intentions.
+Recall the following definitions from basic logic and modal model
+theory\footnote{This notation consciously imitates the notation
+  employed in \citep{blackburn_modal_2001}.}:
+\begin{mydef}\label{basicdefs}
+\begin{mynum}
+\item\label{basicdefsI} For any model $\Omega$, define $Th(\Omega)$:
+$$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega, (a,A)
+\VDash \phi \textup{ for all $(a,A) \in \Omega$}\}$$
+$Th(\Omega)$ is called \textbf{the theory of $\Omega$}.
+
+\item\label{basicdefsII} $A \subseteq_\omega B$ means that $A$ is a finite subset of $B$
+
+\item\label{basicdefsIII} Define $\Gamma \vdash_K \phi$ to mean:
+\[ \vdash_K \bigwedge \Delta \to \phi \textup{ for some $\Delta
+  \subseteq_\omega \Gamma$} \]
+If $\Gamma \vdash \phi$, we say that $\phi$ is \textbf{derivable from
+  $\Gamma$}.
+\end{mynum}
+\end{mydef}
+
+The following theorem equates belief in at a world in a model with
+possession of a derivation:
 \begin{prop}\label{central-prop}
- Let $A$ be finite and define $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega, (a,A) \VDash \phi \textup{ for all $(a,A) \in \Omega$\}}$$
-\ldots then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_K \phi$.
+ For all $A\subseteq_\omega \mathcal{L}_0(\Phi)$, then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_K \phi$.
 \end{prop}
 \begin{proof}
- To see left to right, just note that since $A$ is finite then if $\Omega, (a,A) \VDash \Box \phi$ evidently for all $(b,B)\in \Omega$ we have $\Omega, (b,B) \VDash \bigwedge A \to \phi$, which just means that $Th(\Omega) \cup A \vdash_K \phi$ by the deduction rule.
+The proof of the above hinges on two basic facts.  The first is the
+\emph{deduction theorem}:
+\begin{equation}
+A \cup B \vdash_K \phi \iff A \vdash_K \bigwedge B \to \phi \label{eq:deduction-theorem}
+\end{equation}
+\ldots provided that $B$ is finite.  It follows from Definition
+\ref{basicdefs} part \ref{basicdefsIII}, and is one of the standard result in
+modal logic.
 
-On the other hand if $Th(\Omega) \cup A \vdash_K \phi$, then we know that $Th(\Omega) \vdash_K \bigwedge A \to \phi$, and since $Th(\Omega)$ is sound for $\Omega$ we then have that for all $(b,B) \in \Omega$ that $\Omega,(b,B)\VDash \bigwedge A \to \phi$.  Since $A$ is finite we know that  $\Omega,(b,B) \VDash A$ if and only if $\Omega,(b,B) \VDash \bigwedge A$, and thus we can deduce that $\Omega,(a,A)\VDash \Box \phi$ by definition.
+The next observation is also rather basic:
+\begin{equation}
+Th(\Omega) \vdash_K \phi \iff \phi \in Th(\Omega) \label{eq:omegabasic}
+\end{equation}
+The proof of this follows from the fact that if $\vdash_K \phi$ then
+$\phi \in Th(\Omega)$, and $Th(\Omega)$ can be observed to be  closed under modus ponens.
+
+So assume that $A \subseteq_\omega
+\mathcal{L}_0$. With the above key facts we have the following chain
+of reasoning:
+\begin{align*}
+  Th(\Omega) \cup A \vdash_K \phi & \iff   Th(\Omega) \vdash \bigwedge A
+  \to \phi 
+   & \textup{by \eqref{eq:deduction-theorem}} 
+\\
+ & \iff \bigwedge A \to \phi \in Th(\Omega) & \textup{by
+   \eqref{eq:omegabasic}} \\
+ & \iff \Omega, (b,B) \VDash \bigwedge A \to \phi \textup{ for all
+   $(b,B) \in Th(\Omega)$} & \textup{by Def. \ref{basicdefs} part
+   \ref{basicdefsI}} \\
+ & \iff \Omega,(a,A) \VDash \Box \phi \textup{ for any $a$ where
+   $(a,A) \in \Omega$} & \textup{by Def. \ref{basicsemantics}}
+\end{align*}
+These equivalences suffice to prove the result.
 \end{proof}
 
-A natural way to read $Th(\Omega)$ is the background knowledge the agent has about the universe she lives in.  This approach presents an analysis of modal logic whereby an idealized agent is modeled as closed under deduction; this is the \emph{doxastic omniscience} I have mentioned earlier. Under this view, evidently the agent's beliefs correspond to those things for which she has proofs.  This shall be the basis of my future investigations.
+A natural way to read $Th(\Omega)$ is the background knowledge the agent has about the universe she lives in.  This approach presents an analysis of modal logic whereby an idealized agent is modeled as closed under deduction; this is the \emph{doxastic omniscience} I have mentioned previously. Under this view, evidently the agent's beliefs correspond to those things for which she has proofs.  This shall be the basis of my future investigations.
 
 \subsection{The Human Condition}\label{Human-Condition}
 To supplement to this basic framework, I shall try to illustrate how
@@ -1045,7 +1164,7 @@ developed ideas.  This shall be done in three movements:
 \subsubsection{Imagination}
 \subsubsection{$ImK_\Box$}
 
-\section{Mechanization}\label{formal}
+\section{Mechanization}\label{robots}\label{formal}
 %\addcontentsline{toc}{subsection}{20 pgs}
 %\subsection{Don't Believe in Math}
 %\addcontentsline{toc}{subsubsection}{5 pgs}
@@ -1053,7 +1172,7 @@ developed ideas.  This shall be done in three movements:
 \subsection{LCF Theorem Proving}
 \subsection{Formalizing the \textsc{EviL} Completeness Theorem}
 
-\section{Epilogue}\ref{epilogue}
+\section{Epilogue}\label{epilogue}
 %\addcontentsline{toc}{subsection}{10 pgs}
 \subsection{Comparison to Other Approaches}
 \subsection{Failures}
@@ -1067,10 +1186,13 @@ developed ideas.  This shall be done in three movements:
 \label{alternative}
 \input{alternate-semantics.tex}
 
-\section{Isabelle/HOL's Logic}
+\section{An Application of Pure Model Theory to \textsc{EviL} Semantics}
+\label{model-theory}
+\input{app-model-theory.tex}
+%\section{Isabelle/HOL's Logic}
 
 \pagebreak
 \addcontentsline{toc}{section}{References}
-\bibliographystyle{abbrvnat}
+\bibliographystyle{amsplain}
 \bibliography{zotero}
 \end{document}  

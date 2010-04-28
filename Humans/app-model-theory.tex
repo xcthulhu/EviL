@@ -1,0 +1,85 @@
+Recall that \ref{pV}, presented in Prop. \ref{evil_models} in
+\S\ref{kripke} states:
+\begin{proposition}
+  For any \textsc{EviL} model $\Omega$,  $\mho^{\Omega}$ has the
+  following property:
+
+ \hfil $(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
+    R^{\Omega}_X \subseteq (R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X)$
+    \hfil \ref{pV}
+\end{proposition}
+
+In other words, if $(a,A) R^{\Omega}_X (c,C)$ and $(a,A)
+\sqsupseteq^{\Omega}_X (b,B)$, then $(b,B) \sqsupseteq^{\Omega}_X (c,C)$
+
+Recall that along with this principle, the following philosophical
+reading was offered:
+
+\begin{center}
+``If the agent assumes fewer things, more things are imaginable,
+since it's easier for a world to be incompatible with an agent's evidence.''
+\end{center}
+
+In fact, in light of Theorem \ref{theorem-theorem}, the Theorem
+Theorem, \ref{pV} follows from a general model theoretic relationship.
+For a given Kripke structure $\mathbbm{M}$, define two operators $Mod^{\mathbbm{M}}
+: \powerset  \mathcal{L} (\Phi, \mathcal{A}) \rightarrow \powerset
+(W^{\mathbbm{M}})$ and $Th^{\mathbbm{M}} : \powerset
+(W^{\mathbbm{M}}) \rightarrow \powerset \mathcal{L} (\Phi, \mathcal{A})$
+\begin{align*}
+  Mod^{{\mathbbm{M}}}({\Delta}) &
+  =\{x{\in}W{\ }|{\ }{\forall}{\psi}{\in}{\Delta}.
+  {\mathbbm{M}},x{\Vdash}{\psi}\}\\
+  Th^{{\mathbbm{M}}}({\nabla}) & =\{{\psi}{\in}\mathcal{L}({\Phi},
+  \mathcal{A}){\ }|{\ }{\forall}x{\in}{\nabla}.
+  {\mathbbm{M}},x{\Vdash}{\psi}\}
+\end{align*}
+We then have, for any $\Delta \in \powerset  \mathcal{L}
+(\Phi, \mathcal{A})$ and $\nabla \in \powerset (W^{\mathbbm{M}})$:
+\[ \nabla \subseteq Mod^{\mathbbm{M}} (\Delta) \text{ if and only if }
+   \Delta \subseteq Th^{\mathbbm{M}} (\nabla) \]
+$\ldots$hence we these two operations form what is refered an
+\emph{antitone Galois connection}, between the lattice $\powerset
+(W^{\mathbbm{M}})$ and the lattice $\powerset \mathcal{L} (\Phi,
+\mathcal{A})$. It follows from the theory of Galois connections
+\citep[][chapter 3]{roman_lattices_2008} that
+the following two properties:
+\begin{align}
+  \text{If $\nabla \supseteq \nabla'$ then $Th^{\mathbbm{M}} (\nabla)
+  \subseteq Th^{\mathbbm{M}} (\nabla')$} \\
+  \text{If $\Delta \supseteq \Delta'$ then $Mod^{\mathbbm{M}} (\Delta)
+  \subseteq Mod^{\mathbbm{M}} (\Delta')$} \label{mod-antitone}
+\end{align}
+
+We can see that \ref{pV} follows from \eqref{mod-antitone}. 
+To see this, assume that $(a, A) \sqsupseteq_X^{\Omega} (b, B)$.  Then observe:
+\begin{align*}
+(a, A) \sqsupseteq_X^{\Omega} (b, B) & \ \implies a = b \textup{ and } A_X
+\supseteq B_X & \textup{by the definition of $\sqsupseteq_X^{\Omega}$} \\
+& \ \implies A_X \supseteq B_X & \textup{weakening} \\
+& \ \implies Mod^{\Omega}(A_X) \subseteq Mod^{\Omega}(B_X) &
+\textup{from \eqref{mod-antitone}} \\
+& \ \implies \textup{if } \Omega,(c,C)\models A_X\textup{ then }
+\Omega,(c,C)\models B_X &
+\textup{by the definition of $Mod^{\Omega}$} \\
+& \ \implies \textup{if } (a, A) R^{\Omega}_X (c,C)\textup{ then }
+(b, B) R^{\Omega}_X (c,C)  &
+\textup{by the definition of $R_X^\Omega$} \\
+\end{align*}
+
+The above line of reasoning illustrates that structural 
+features of \textsc{EviL} models are consequences of
+the decision to set $\Omega,(a,A) \VDash \Box \phi \iff Th(\Omega)
+\cup A \vdash \phi$.
+
+%  hence $A_X
+% \supseteq B_X$ and thus $Mod^{\Omega} (A_X) \subseteq
+% Mod^{\Omega} (B_X)$.  But it follows from semantics of \tmtextsc{EviL}
+% we have that $(c, C) \in Mod^{\Omega} (A_X)$ if and only if $(a, A)
+% R^{\Omega}_X (c, C)$, and likewise for $B_X$.  Hence if $(a, A) R^{\Omega}_X
+% (c, C)$ then $(b, B) R^{\Omega}_X (c, C)$.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

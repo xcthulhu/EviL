@@ -6,7 +6,8 @@
 
 From the definitions so far the following can be seen to hold:
 \begin{lemma}[Soundness]
-If $\vdash \phi$ then for any model $\mathfrak{M}$ and any $(a,A) \in \mathfrak{M}$ we have that $\mathfrak{M},(a,A) \models \phi$ 
+If $\vdash \phi$ then for any model $\mathfrak{M}$ and any 
+$(a,A) \in \mathfrak{M}$ we have that $\mathfrak{M},(a,A) \models \phi$ 
 \end{lemma}
 
 The proof of the converse, that is \emph{completeness}, proceeds by a three stage construction:
@@ -147,16 +148,17 @@ If $\mathbb{M}$ is partly \textsc{EviL} then $\invis^\mathbb{M}$ is partly \text
 \begin{mynum}[start=10,resume]
 \item If $w R^{\invis^\mathbb{M}}_{\Nec_X} w$ then $w\in P^{\invis^\mathbb{M}}_X$
 \end{mynum}
-Any partly \textsc{EviL} Kripke model that makes true this tenth property is said to be \textbf{completely \textsc{EviL}}
-
-
+Any partly \textsc{EviL} Kripke model that makes true this tenth property is said to be \textbf{completely \textsc{EviL}}.
 \end{lemma}
+
+\subsubsection{Abstract Completeness}
+\label{Abstract-Completeness}
 
 %\begin{mydef}
 %By abuse of notation, we shall abbreviate $\invis^{\Cross^\phi}$ as $\iCross^\phi$
 %
 %\end{mydef}
-\subsubsection{Translation}
+\subsubsection{Translation}\label{translation}
 
 In the subsequent discussion, it will be useful to exploit certain properties of \emph{partly \textsc{EviL}} models.  To this end we introduce the concept of a \emph{column}.
 
@@ -258,3 +260,7 @@ By similar arguments, \textsc{EviL} is a conservative extension of \textsc{EviL}
 \begin{proof}
 This follows trivially from the fact that \textsc{EviL} is a conservative extension of basic modal logic, and the decision problem for basic modal logic is \textsf{PSPACE} complete.
 \end{proof}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

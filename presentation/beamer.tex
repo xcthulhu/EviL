@@ -1,0 +1,112 @@
+\documentclass[hyperref={pdfpagelabels=false}]{beamer}
+%% hyperref's are off because of natbib ~Matt
+
+\usefonttheme[]{serif}
+
+\usepackage{geometry,wasysym,enumerate,bbm}
+\usepackage{graphicx}
+
+% I'm gonna use pxfonts 'cause they look alright ~Matt
+\usepackage[T1]{fontenc}
+\usepackage{pxfonts}
+
+% I hope everyone has MnSymbol... ~Matt
+\usepackage{fakeMnSymbol}
+\renewcommand{\wp}{\MNSpowerset}
+
+\usepackage{amsmath}
+
+
+%% We need stmaryrd.sty for crazy brackets ~Matt
+\usepackage{stmaryrd}
+
+%% Fucking \ll used by fucking applied mathematicians... I'm
+%% redefining it ~Matt
+\renewcommand{\ll}{\llbracket}
+%\renewcommand{\ll}{[\!\![}
+\newcommand{\rr}{\rrbracket}
+%\newcommand{\rr}{]\!\!]}
+
+%% To be stylistically coherent, we are only going to use varphi
+\renewcommand{\phi}{\varphi}
+
+%% I propose we use Henk Barendregt notation for the
+%% partial orders.  That means squaresubeq and friends ~Matt
+\newcommand{\sleq}{\sqsubseteq}
+\newcommand{\sgeq}{\sqsupseteq}
+
+%% To resolve conflicts, Daan and I have decided that we'll
+%% going to use the following symbol for gillies conditional ~Matt
+\newcommand{\gillies}{\Rrightarrow}
+
+%% Setting the QED Symbol ~Matt
+\renewcommand{\qedsymbol}{\textsquare}
+
+%% Set various symbols
+\renewcommand{\diamondsuit}{\MNSmeddiamond}
+\renewcommand{\oplus}{\MNSdiamondplus}
+\renewcommand{\ominus}{\MNSdiamondminus}
+
+%% The navigation bar is always useless in practice... and natbib
+%% breaks it anyway. I have turned it off.  
+%% We could turn it on again if people want. ~Matt
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%% Start TeXmacs macros
+\newcommand{\assign}{:=}
+\newcommand{\colons}{\,::\,}
+\newcommand{\tmem}[1]{{\em #1\/}}
+\newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+\newcommand{\tmtextbf}[1]{{\bfseries{#1}}}
+\newcommand{\tmtextit}[1]{{\itshape{#1}}}
+\newcommand{\tmtextsc}[1]{{\scshape{#1}}}
+\newcommand{\tmtextsf}[1]{{\sffamily{#1}}}
+\newenvironment{descriptiondash}{\begin{description} }{\end{description}}
+\newenvironment{enumeratenumeric}{\begin{enumerate}[1.] }{\end{enumerate}}
+\newenvironment{itemizedot}{\begin{itemize}}{\end{itemize}}
+\newenvironment{itemizeminus}{\begin{itemize}}{\end{itemize}}
+%%%%%%%%%% End TeXmacs macros
+
+%% I want to hide vspaces in article mode but show them in
+%% presentation mode, so here's a work-around ~Matt
+\newcommand{\mvspace}[1]{\vspace{#1}}
+
+\newcommand{\blitz}{\MNSlightning}
+
+%% Daan complained about this, so here's a hack to fix beamer's proof
+%% environment. Modified from original "beamerbasetheorems.sty" ~Matt
+\mode
+<presentation>
+{
+  \renewenvironment{proof}[1][\proofname]{%
+    \par
+%    \def\insertproofname{#1\@addpunct{.}}%
+    \pushQED{\qed}
+    {\color{structure}
+      \proofname}
+    \par
+    %\usebeamertemplate{proof begin}
+    %#2
+  }
+  {
+    \popQED
+    % \usebeamertemplate{proof end}
+  }
+}
+
+%% Miniheaders for proofs are annoying in article mode
+%% so hide them (made a dummy command for proof frametitles)
+%% But we should show them in beamer mode...
+%% ~Matt
+\newcommand{\proofframetitle}[1]{\frametitle{#1}}
+
+%% In the handout, we want to hide frametitles occasionally, so 
+%% I've marked the ones I don't think should show up
+%% I guess I could have skipped distinguishing between proofframetitles...
+%% ~Matt
+\newcommand{\hframetitle}[1]{\frametitle{#1}}
+
+%% Bibliography Stuff... ~Matt
+\usepackage[square, sort, numbers, authoryear]{natbib}
+
+\input{presentation.tex}

@@ -1,0 +1,946 @@
+% \documentclass{article}
+
+% \geometry{letterpaper}
+
+% \begin{document}
+
+\section{Introduction to Epistemic Logic}
+\begin{frame}[allowframebreaks]
+\frametitle{Introduction to Epistemic Logic}
+\begin{itemizedot}
+  \item Epistemic Logic (\tmtextsf{EL}) is a branch of applied modal logic
+  
+  \item Since its conception in Hintikka's , \tmtextsf{EL} traditionally takes
+  knowledge as a primitive notion
+  
+  \item The language of basic \tmtextsf{EL} is the common language of modal
+  logic:
+  \[ \phi \hspace{1em} \colons = \hspace{1em} p \in \Phi \hspace{1em} |
+     \hspace{1em} \phi \rightarrow \psi \hspace{1em} | \hspace{1em} \bot
+     \hspace{1em} | \hspace{1em} K \phi \]
+\end{itemizedot}
+\framebreak
+\begin{itemizedot}
+  \item Modern \tmtextsf{EL} can be thought of as a general intentional
+  framework for reasoning about information; that being the case it naturally
+  finds applications beyond philosophy. \ Specifically, \tmtextsf{EL} finds
+  application in:
+  \begin{itemizedot}
+    \item {\tmem{Computer Science}} -- in multi-agent systems and security
+    protocol analysis
+    
+    \item \tmtextit{Economics} -- \tmtextsf{EL} is particularly suited to game
+    theory; the notion of {\tmem{information states}} are shared between the
+    two frameworks
+  \end{itemizedot}
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{The Axioms of \tmtextsf{EL}}
+\begin{itemizedot}
+  \item Basic \tmtextsf{EL} of one agent is generally assumed to be the modal
+  logic \tmtextsf{S5}
+  
+  \item The axioms of \tmtextsf{S5} are:
+  \begin{itemizedot}
+    \item All classical propositional tautologies
+    
+    \item $K \phi \rightarrow \phi${\hspace*{\fill}}Axiom $T$
+    
+    \tmtextit{Truth: If the agent knows something, then its true}
+    
+    \item $K \phi \rightarrow K K \phi${\hspace*{\fill}}Axiom $4$
+    
+    \tmtextit{Positive Introspection: If the agent knows something, she knows
+    that she knows it}
+    
+    \item $\neg K \phi \rightarrow K \neg K \phi${\hspace*{\fill}}Axiom $5$
+    
+    \tmtextit{Negative Introspection: There are no unknown unknowns (despite
+    Donald Rumsfeld)}
+    
+    \item $K (\phi \rightarrow \psi) \rightarrow K \phi \rightarrow K
+    \psi${\hspace*{\fill}}Axiom $K$
+    
+    \tmtextit{Logical Omniscience: The agent knows all the logical
+    consequences of her knowledge}
+  \end{itemizedot}
+\end{itemizedot}
+\framebreak
+\begin{itemizedot}
+  \item \tmtextsf{EL} is also closed under the following rules:
+  
+  {\hspace*{\fill}}$\displaystyle \frac{\vdash \phi \hspace{1em} \vdash \phi \rightarrow
+  \psi}{\vdash \psi}${\hspace*{\fill}}$\displaystyle \frac{\vdash \phi}{\vdash K
+  \phi}${\hspace*{\fill}} \\
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{The Semantics of \tmtextsf{EL}}
+\begin{itemizedot}
+  \item The semantics of \tmtextsf{EL} are \tmtextit{Kripke Structures} with
+  equivalence relations
+  
+  \item An equivalence relation $\sim$ over a set $W$ satisfies the following
+  rules for all $x, y, z \in W$:
+  \begin{itemizedot}
+    \item $\sim$ is {\tmem{reflexive}} -- $x \sim x$
+    
+    \item $\sim$ is {\tmem{transitive}} -- if $x \sim y$ and $y \sim z$ then
+    $x \sim z$
+    
+    \item $\sim$ is \tmtextit{symmetric} -- if $x \sim y$ then $y \sim x$
+  \end{itemizedot}
+\end{itemizedot}
+\framebreak
+\begin{itemizedot}
+  \item Let $\mathbbm{M} \assign \langle W, \sim, V \rangle$ be a Kripke model
+  where $\sim$ is an equivalence relation.
+  
+  \item The semantic truth predicate $(\Vdash)$ of \tmtextsf{EL} is defined as
+  follows:
+  \begin{itemizedot}
+    \item $\mathbbm{M}, w \Vdash p \Longleftrightarrow p \in V (w)$
+    
+    \item $\mathbbm{M}, w \Vdash \phi \rightarrow \psi
+    \Longleftrightarrow$either $\mathbbm{M}, w \nVdash \phi$ or $\mathbbm{M},
+    w \Vdash \psi$
+    
+    \item $\mathbbm{M}, w \Vdash \bot$ never
+    
+    \item $\mathbbm{M}, w \Vdash K \phi \Longleftrightarrow$forall $v \in W$,
+    if $w \sim v$ then $\mathbbm{M}, v \Vdash \phi$
+  \end{itemizedot}
+  \item Such a model is called an \tmtextsf{S5} model
+\end{itemizedot}
+\end{frame}
+
+\begin{frame}
+\frametitle{Thermometer in a Box}
+\begin{itemizedot}
+  \item Basic \tmtextsf{EL} ascribes knowledge to inanimate objects as readily
+  as it models agents
+  
+  \item To understand this, consider the case of a thermometer in a $1$ m$^3$
+  box:
+  
+  \begin{figure}[h]
+\includegraphics[scale=.3]{../Humans/thermometer.pdf}
+    \caption{Thermometer in a Box\label{thermometer-picture}}
+  \end{figure}
+ 
+  \item If the thermometer reads 290 Kelvin, how many moles of gas are in the
+  chamber?
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{Ideal Gas Law}
+\begin{itemizedot}
+  \item There is no one answer for how many moles of gas are in the chamber. \
+  Rather, the answer is governed by the \tmtextit{ideal gas law}:
+  \[ P V = n R T \]
+  \item Here $P$ is the \tmtextit{pressure}, $V$ is the \tmtextit{volume}, $n$
+  stands for \tmtextit{moles}, $R$ is the \tmtextit{ideal gas constant}, and
+  $T$ is the \tmtextit{temperature}
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{Thermometer Models}
+\begin{itemizedot}
+  \item We may use epistemic logic to model the beliefs of this thermometer in
+  a box. \ The following minor adaptation of the basic epistemic logic grammar
+  is suited to this purpose:
+  \[ \phi \text{ } \colons = \text{ } x \text{ Pascals} \text{
+     } | \text{ } y \text{ moles} \text{ } | \text{ } z \text{ Pascals} \text{
+     } | \text{ } \phi \rightarrow \psi \text{ } | \text{ } \bot \text{ } |
+     \text{ } K \phi \]
+\end{itemizedot}
+\framebreak
+\begin{itemizedot}
+  \item With appropriate interpretation we can think of an \tmtextsf{EL} model
+  $\langle W, V, \sim \rangle$ for the thermometer in a box, expressed as
+  follows. Remember that the volume in constant!
+  \begin{itemizedot}
+    \item $W$ is pairs $(P, n)$ where $P$ is some positive pressure in
+    \tmtextit{Pascals} and $n$ is some number of moles
+    
+    \item $V$ is defined so:
+    \begin{itemizedot}
+      \item $(P, n) \in V (x \text{ Pascals})$ if $P = x$
+      
+      \item $(P, n) \in V (y \text{ moles})$ if $n = y$
+      
+      \item $(P, n) \in V (z \text{ Kelvin})$ if $z = \frac{P}{n \cdot R}$
+    \end{itemizedot}
+    \item Finally, $(P, n) \sim (P', n')$ if and only if $z = \frac{P}{n \cdot
+    R}$
+  \end{itemizedot}
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{Thermometer Models (Visualization)}
+\begin{itemizedot}
+  \item We can visualize the information states of the thermometer in a box as
+  follows:
+  
+  \begin{figure}[h]
+    \includegraphics[scale=.5]{../Humans/therm.pdf} 
+    \caption{Thermometer information states}
+  \end{figure}
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{Thermometers are People Too $\ldots$ Sort of}
+\begin{itemizedot}
+  \item The view suggests that, under the view put forward by modern
+  \tmtextsf{EL}, objects like thermometers have mental states just like
+  people.
+  
+  \item This view originates with Daniel Dennet in his book \tmtextit{The
+  Intentional Stance} (1989).  The principle difference is that Daniel
+Dennet uses thermostats in his thinking rather than thermometers:
+  
+%   \begin{quote}
+%     \tmtextit{It is not that we attribute (or should attribute) beliefs and
+%     desires only to things in which we find internal representations, but
+%     rather that when we discover some object for which the intentional
+%     strategy works, we endeavor to interpret some of its internal states or
+%     processes as internal representations. What makes some internal feature of
+%     a thing a representation could only be its role in regulating the behavior
+%     of an intentional system.}
+% \end{quote}
+    
+%     \framebreak
+\begin{quote}
+    Now the reason for stressing our kinship with the thermostat should be
+    clear. There is no magic moment in the transition from a simple thermostat
+    to a system that really has an internal representation of the world around
+    it. The thermostat has a minimally demanding representation of the world,
+    fancier thermostats have more demanding representations of the world,
+    fancier robots for helping around the house would have still more
+    demanding representations of the world. Finally you reach
+    us. (pg. 32)
+  \end{quote}
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{Unreasonable}
+\begin{itemizedot}
+  \item Sadly, while the above framework of \tmtextsf{EL} is a powerful system
+  for analyzing informational aspects of knowledge, it does not do a very good
+  job at modeling justifications
+  
+  \item \tmtextit{That is to say, \tmtextsf{S5} Kripke structures, like
+  thermometers, can convey the informational interplay of knowledge for an
+  epistemic agent, but they cannot adequately model anything recognizable as a
+  \tmtextbf{reason} for possessing knowledge}
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{Desiderata}
+\begin{itemizedot}
+  \item Roughly, one way model reasons in epistemic logic would be to enforce
+  the following:
+  
+  \begin{center}
+    $\mathbbm{M}, w \Vdash K \phi$ if and only if the agent has some kind of
+    proof of $\phi$ at $w$
+  \end{center}
+  
+  \item The purpose of \tmtextit{Evidentialist Logic}, or \tmtextsc{EviL}, is
+  to provide a framework which enforces this
+  
+  \item Analogous approaches are taken by \tmtextit{Justification Logic},
+  developed at CUNY, and in Fernando Velazquez-Quesada's PhD thesis
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{The Language of \tmtextsc{EviL}}
+\begin{itemizedot}
+  \item Define the language $\mathcal{L}_0$ as basic propositional logic over
+  an infinite set of proposition letters $\Phi$:
+  \[ \phi \text{ } \colons = \text{ } p \in \Phi \text{ } | \text{ } \phi
+     \rightarrow \psi \text{ } | \text{ } \bot \]
+  \item The language $\mathcal{L}_{\text{\textsc{EviL}}}$ extends this as
+  follows:
+  \[ \phi \colons = \text{ } p \in \Phi \text{ } | \text{ } \phi \rightarrow
+     \psi \text{ } | \text{ } \bot \text{ } | \text{ } \Box  \phi \text{ } |
+     \text{ } \boxminus \phi \text{ } | \text{ } \boxplus \phi \text{ } |
+     \text{ } \circlearrowleft \]
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{Reading the $\mathcal{L}_{\text{\textsc{EviL}}}$}
+\begin{itemizedot}
+  \item Before jumping into formal semantics, here is how to read these
+  operations:
+  \begin{itemizeminus}
+    \item[$\Box  \phi$ ] means the agent can deduce $\phi$ from her basic beliefs
+    
+    \item[$\circlearrowleft$ ] means that all of the agent's basic beliefs are
+    true
+    
+    \item[$\ominus \phi$ ] holds if there is a way the agent could cast some of
+    her experience and background assumptions into doubt, and after which
+    $\phi$ holds
+    
+    \item[$\oplus \phi$ ] holds if there is a way that the agent could extend her
+    beliefs (or perhaps remember something) in some way, after which $\phi$
+    holds
+  \end{itemizeminus}
+\end{itemizedot}
+\framebreak
+\begin{itemizedot}
+  \item The following deserves special attention:
+  \begin{itemizeminus}
+    \item[$\Box  \phi$ ] means the agent can deduce $\phi$ from her basic beliefs
+  \end{itemizeminus}
+  \item This is in line with a \tmtextit{foundationalist} epistemology -
+  namely that there are some beliefs that get the privilege of being
+  {\tmem{basic}} or {\tmem{grounded}}. \ Other beliefs are then deduced
+  appropriately from these basic beliefs.
+  
+  \item This is not so unreasonable -- to help develop one's intuitions
+  regarding this, here are some examples of Basic and Non-Basic beliefs which
+  some people might hold:
+  \framebreak
+   \begin{center}
+     \begin{tabular}{|l|l|}
+ \hline
+       Basic & Non-Basic\\
+\hline
+ \hline
+       I have a hand on the  & I cannot go to \\
+ end of my arm & Albert Heijn right now \\
+        & (because I'm in a Logic Tea talk)\\
+ \hline
+       Peano Arithmetic  & \tmtextsc{EviL} is consistent\\
+  is consistent &  \\
+ \hline
+       & God is not benevolent\\
+       God is benevolent & (because there is so \\
+     &  much suffering in the world) \\
+ \hline
+     \end{tabular}
+  \end{center}
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{Charlotte}
+\begin{itemizedot}
+  \item To get a feel of how \tmtextsc{EviL} works, consider an agent named
+  Charlotte. \ In this toy model, Charlotte has two basic beliefs:
+  
+  \begin{descriptiondash}
+    \item[$\checked$] If Abelard has tried to kill Alex, then Alex has
+    survived
+    
+    \item[$\checked$] Abelard has tried to kill Alex
+  \end{descriptiondash}
+  
+  \item Assume these two statements are true. \ Then we have that
+  \[ \circlearrowleft \wedge \Box  \text{``Alex has survived''} \]
+  \item Moreover, logical conclusions drawn from true premises are true. \ In
+  this little example, it is also the case that
+  \[ \text{``Alex has survived''} \]
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{A First Attempt at a Definition of Knowledge}
+\begin{itemizedot}
+  \item One first idea of how to define knowledge in this system would then
+  be:
+  \[ K \phi \assign \circlearrowleft \wedge \Box  \phi \]
+  \item This is not an adequate analysis, however
+\end{itemizedot}
+\begin{itemizedot}
+  \item But suppose that Charlotte also believes the following:
+  
+  \begin{descriptiondash}
+    \item[$\checked$] If Abelard has tried to kill Alex, then Alex has
+    survived
+    
+    \item[$\checked$] Abelard has tried to kill Alex
+    
+    \item[$\times$] Vietnam is south of Malaysia
+  \end{descriptiondash}
+  
+  \item The last statement is false$\ldots$
+  
+  \item Moreover, now not all of Charlotte's basic beliefs are true, so under
+  the previous definition we have
+  \[ \neg K \text{``Alex has survived''} \]
+\end{itemizedot}
+\framebreak
+
+\begin{itemizedot}
+  \item This is not in line with intuition however, since it seems like
+  Vietnam's position with relation to Malaysia is {\tmem{irrelevant}} to
+  conclusions Charlotte's might draw about Alex
+  
+  \item If Charlotte could {\tmem{cast into doubt}} the idea that ``Vietnam is
+  south of Malaysia'', and then carry on deducing with only relevant
+  information, she might reasonably be expected to have Knowledge
+  
+  \item A refined definition of knowledge that accomodates the above
+  observation is:
+  \[ K \phi \assign \ominus (\circlearrowleft \wedge \Box  \phi) \]
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{Logical Omniscience}
+\begin{itemizedot}
+  \item This definition of knowledge has the feature that the following is
+  \tmtextit{invalid} (known as logical omniscience):
+  \[ \frac{K \phi \text{ \ \ \ } K (\phi \rightarrow \psi)}{K \psi}
+  \times \]
+\item To understand this, it is instructive to go over an example
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{Biologist}
+
+  \begin{itemizeminus}
+    \item[$A$ ] It's the harvest season for cranberries
+    
+    \item[$B$ ] If it's the harvest season for cranberries, there is a risk of
+    bear attacks
+    
+    \item[$C$ ] A study in 2008 showed that black bear attacks in cranberry bogs
+    in New England have been in steady decline
+  \end{itemizeminus}
+
+Pretend that a field biologist holds the beliefs above.
+
+  She knows the first statement given her background in
+  botony, and the second statement given her background in biology
+
+\framebreak
+
+  \begin{itemizeminus}
+    \item[$\checked$ ] It's is the harvest season for cranberries
+    
+    \item[$\checked$ ] If it's the harvest season for cranberries, there is a
+    risk of bear attacks
+    
+    \item[$\times$ ] A study in 2008 showed that black bear attacks in cranberry
+    bogs in New England have been in steady decline
+  \end{itemizeminus}
+%\begin{itemize}
+%\item  
+Now assume that while the first two statements are true, the study
+  is in fact erroneous -- perhaps not enough evidence was
+  gathered
+%\end{itemize}
+
+\framebreak
+
+  \begin{itemizeminus}
+    \item[$A$ ] It's the harvest season for cranberries
+    
+    \item[$B$ ] If it's the harvest season for cranberries, bears will be
+    attracted, hence there is a risk of bear attacks
+    
+    \item[$C$ ] A study in 2008 showed that black bear attacks in cranberry bogs
+    in New England have been in steady decline
+  \end{itemizeminus}
+  And moreover, imagine that in the case of this biologist, she cannot think about bear attacks in
+  cranberry bogs in New England without appealing to the above 2008 study
+
+\vspace{.2cm}  
+
+  That is just to say, when thinking about bears in New England, 
+   she cannot cast the 2008 study into doubt and just use her other 
+   beliefs as a biologist
+
+\framebreak
+\begin{itemizedot}
+  \item The biologist will not have knowledge of the risk of bear attacks in
+  this scenario, only inconsistent ideas on the subject
+  
+  \item Despite the fact that she knows that it is harvest season for
+  cranberries and if it is harvest season for cranberries, there's a risk of
+  bear attacks, she cannot formulate a sound argument for there being a risk
+  of bear attacks
+\end{itemizedot}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{\tmtextsc{EviL} Semantics}
+\begin{itemizedot}
+  \item \tmtextsc{EviL} models are sets $\mathfrak{M} \subseteq \wp \Phi
+  \times \wp \mathcal{L}_0$; that is to say they are sets of pairs $(a, A)$
+  where:
+  \begin{itemizedot}
+    \item $a$ is a set of proposition letters
+    
+    \item $A$ is a set of proposition formulae -- the agent's basic beliefs
+  \end{itemizedot}
+\end{itemizedot}
+\framebreak
+\begin{itemizedot}
+  \item The \tmtextsc{EviL} truth predicate $\Vvdash$ is defined recursively
+  as follows:
+  \begin{itemizedot}
+    \item $\mathfrak{M}, (a, A) \Vvdash p \Longleftrightarrow p \in a$
+    
+    \item $\mathfrak{M}, (a, A) \Vvdash \phi \rightarrow \psi
+    \Longleftrightarrow$either $\mathfrak{M}, (a, A) \not{\Vvdash} \phi$ or
+    $\mathfrak{M}, (a, A) \Vvdash \psi$
+    
+    \item $\mathfrak{M}, (a, A) \Vvdash \bot$ never
+    
+    \item $\mathfrak{M}, (a, A) \Vvdash \Box  \phi \Longleftrightarrow \forall
+    (b, B) \in \mathfrak{M} .$ if $\mathfrak{M}, (b, B) \Vvdash \alpha$ for
+    all $\alpha \in A$, then $\mathfrak{M}, (b, B) \Vvdash \phi$
+    
+    \item $\mathfrak{M}, (a, A) \Vvdash \boxminus \phi \Longleftrightarrow
+    \forall (b, B) \in \mathfrak{M} .$ if $a = b$ and $A \supseteq B$, then
+    $\mathfrak{M}, (b, B) \Vvdash \phi$
+    
+    \item $\mathfrak{M}, (a, A) \Vvdash \boxplus \phi \Longleftrightarrow
+    \forall (b, B) \in \mathfrak{M} .$ if $a = b$ and $A \subseteq B$, then
+    $\mathfrak{M}, (b, B) \Vvdash \phi$
+    
+    \item $\mathfrak{M}, (a, A) \Vvdash \circlearrowleft
+    \Longleftrightarrow$if $\mathfrak{M}, (a, A) \Vvdash \alpha$ for all
+    $\alpha \in A$
+  \end{itemizedot}
+\end{itemizedot}
+\end{frame}
+\begin{frame}
+\frametitle{Theorem Theorem}
+\[ \mathfrak{M}, (a, A) \Vvdash \Box  \phi \Longleftrightarrow \tmop{Th} (
+   \mathfrak{M}) \cup A \vdash_{\text{\tmtextsc{EviL}}} \phi \]
+This illustrates that the semantics of \tmtextsc{EviL} reflect the intuitions
+previously presented
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conservative Extension}
+
+Let $K$ denote basic modal logic. \ \tmtextsc{EviL} is a
+\tmtextit{conservative extension} of $K$; that is, for any modal formula
+$\phi$
+\[ \vdash_K \phi \Longleftrightarrow \vdash_{\text{\tmtextsc{EviL}}} \phi \]
+But $K$ is not the same as \tmtextsc{EviL}, since in modal logic you do not
+have $\boxplus, \boxminus$ and $\circlearrowleft$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\tmtextsc{EviL} Is Not Compact}
+
+Suppose the set of proposition letters $\Phi$ is infinite. \ Consider the
+infinite set of formulae, $\tau [\Phi]$, where $\tau : \Phi \rightarrow
+\mathcal{L}_{\text{\tmtextsc{EviL}}}$ is:
+\[ \tau (p) \assign p \wedge \Box  p \wedge \diamondsuit \top \wedge \Box \Box 
+   \bot \]
+Every finite subset of $\tau [\Phi]$ is satisfiable in \tmtextsc{EviL}, but
+not the entirety
+
+\vspace{.2cm}
+
+Hence, \tmtextsc{EviL} is \tmtextit{not compact}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{\tmtextsc{EviL} Axioms}
+
+\textsc{EviL} is \tmtextit{not normal}; it is not closed under replacement
+of proposition letters with arbitrary formulae. \ Hence the axioms of
+\textsc{EviL} are schematic:
+
+\begin{center}
+  \begin{tabular}{ll}
+    $\vdash_{\text{\tmtextsc{EviL}}} \phi \rightarrow \psi \rightarrow \phi$ &
+    $\vdash_{\text{\textsc{EviL}}} p \rightarrow \boxplus p \hspace{1em}
+    (\ast)$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} (\phi \rightarrow \psi \rightarrow \chi)
+    \rightarrow (\phi \rightarrow \psi) \rightarrow \phi \rightarrow \chi$ &
+    $\vdash_{\text{\textsc{EviL}}} p \rightarrow \boxminus p \hspace{1em}
+    (\ast)$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} (\neg \phi \rightarrow \neg \psi)
+    \rightarrow \psi \rightarrow \phi$ & $\vdash_{\text{\textsc{EviL}}} \phi
+    \rightarrow \boxminus \oplus \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \Box(\phi \rightarrow \psi) \rightarrow
+    \Box \phi \rightarrow \Box \psi$ & $\vdash_{\text{\textsc{EviL}}} \phi
+    \rightarrow \boxplus \ominus \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus (\phi \rightarrow \psi)
+    \rightarrow \boxminus \phi \rightarrow \boxminus \psi$ &
+    $\vdash_{\text{\textsc{EviL}}} \Box \phi \rightarrow \Box \boxminus
+    \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxplus (\phi \rightarrow \psi)
+    \rightarrow \boxplus \phi \rightarrow \boxplus \psi$ &
+    $\vdash_{\text{\textsc{EviL}}} \Box \phi \rightarrow \Box \boxplus \phi$
+  \end{tabular}
+
+\end{center}
+\framebreak
+\begin{center}
+\begin{tabular}{l}
+  $\vdash_{\text{\textsc{EviL}}} \boxminus \phi \rightarrow \phi$\\
+  $\vdash_{\text{\textsc{EviL}}} \boxminus \phi \rightarrow \boxminus
+  \boxminus \phi$\\
+  $\vdash_{\text{\textsc{EviL}}} \Box \phi \rightarrow \boxplus \Box \phi$\\
+  $\vdash_{\text{\tmtextsc{EviL}}} \circlearrowleft \rightarrow \Box \phi
+  \rightarrow \phi$\\
+  $\vdash_{\text{\tmtextsc{EviL}}} \circlearrowleft \rightarrow \boxminus
+  \circlearrowleft$
+\end{tabular}
+
+\end{center}
+
+\framebreak
+$(\ast)$ indicates a non-normal axiom
+
+\textsc{EviL} is closed under modus ponens, and Necessitation for $\Box $,
+$\boxminus$ and $\boxplus$
+\end{frame}
+
+\begin{frame}
+\frametitle{\textsc{EviL} Soundness and Weak Completeness}
+
+For all formulae $\phi$ in $\mathcal{L}_{\text{\tmtextsc{EviL}}}$
+\begin{eqnarray*}
+  & \mathfrak{M,} (a, A) \Vvdash \phi \text{ for all \tmtextsc{EviL} models
+  $\mathfrak{M}$, for all $(a, A) \in \mathfrak{M}$} & \\
+  & \text{if and only if} & \\
+  & \vdash_{\text{\tmtextsc{EviL}}} \phi & 
+\end{eqnarray*}
+Moreover, \tmtextsc{EviL} has the finite model property (where all of the
+basic beliefs sets are finite too)
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Complexity}
+
+\tmtextsc{EviL} is decidable; specifically, we have the following bounds on
+its complexity:
+
+\begin{center}
+  PSPACE$\subseteq$\tmtextsc{EviL}$\subseteq$EXP2
+\end{center}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{Elimination Theorem}
+
+One way to read $\Box  \phi$ as ``the agent believes $\phi$'' and $\diamondsuit
+\phi$ as ``the agent can imagine $\phi$''
+
+\vspace{.2cm}
+
+It is well known that they are each other's \tmtextit{dual}, so they exhibit
+quite a bit of symmetry
+
+\vspace{.2cm}
+
+Since $\boxplus$ is associated with going up in basic beliefs, it may be
+thought of as sort of symmetrical to $\boxminus$, which is associated with
+going down in basic beliefs
+
+\framebreak
+
+This symmetry is exhibited in the following validities:
+
+\begin{center}
+  \begin{tabular}{ll}
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus p \leftrightarrow p$ &
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxplus p \leftrightarrow p$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus \neg p \leftrightarrow \neg p$
+    & $\vdash_{\text{\tmtextsc{EviL}}} \boxplus \neg p \leftrightarrow \neg
+    p$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus \diamondsuit \phi
+    \leftrightarrow \diamondsuit \phi$ & $\vdash_{\text{\tmtextsc{EviL}}}
+    \boxplus \Box  \phi \leftrightarrow \Box  \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \oplus \diamondsuit \phi \leftrightarrow
+    \diamondsuit \phi$ & $\vdash_{\text{\tmtextsc{EviL}}} \ominus \Box  \phi
+    \leftrightarrow \Box  \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus \boxminus \phi \leftrightarrow
+    \boxminus \phi$ & $\vdash_{\text{\tmtextsc{EviL}}} \boxplus \boxplus \phi
+    \leftrightarrow \boxplus \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus \oplus \phi \leftrightarrow
+    \oplus \phi$ & $\vdash_{\text{\tmtextsc{EviL}}} \boxplus \ominus \phi
+    \leftrightarrow \ominus \phi$\\
+    $\vdash_{\text{\tmtextsc{EviL}}} \boxminus \circlearrowleft
+    \leftrightarrow \circlearrowleft$ & $\vdash_{\text{\tmtextsc{EviL}}}
+    \boxplus \neg \circlearrowleft \leftrightarrow \neg \circlearrowleft$
+  \end{tabular}
+\end{center}
+
+Note that all of these validities are \tmtextit{reductions} -- the formula on
+left of the biimplication is always more complex than the formula on the right
+
+\framebreak
+
+Now consider the following two \tmtextit{dual} fragments of
+$\mathcal{L}_{\text{\tmtextsc{EviL}}}$:
+
+{\hspace*{\fill}}$\phi \text{ } \colons = \text{ } p \text{ } | \text{ } \neg
+p \text{ } | \text{ } \top \text{ } | \text{ } \bot \text{ } | \text{ }
+\circlearrowleft \text{ } | \text{ } \phi \vee \psi \text{ } | \text{ } \phi
+\wedge \psi \text{ } | \text{ } \diamondsuit \phi \text{ } | \text{ }
+\boxminus \phi \text{ } | \text{ } \oplus
+\phi${\hspace*{\fill}}($\mathcal{L}_A$)
+
+\vspace{.2cm}
+
+{\hspace*{\fill}}$\phi \text{ } \colons = \text{ } \neg p \text{ } | \text{ }
+p \text{ } | \text{ } \bot \text{ } | \text{ } \top \text{ } | \text{ } \neg
+\circlearrowleft \text{ } | \text{ } \phi \wedge \psi \text{ } | \text{ } \phi
+\vee \psi \text{ } | \text{ } \Box  \phi \text{ } | \text{ } \ominus \phi
+\text{ } | \text{ } \boxplus \phi${\hspace*{\fill}}($\mathcal{L}_B$)
+
+\vspace{.2cm}
+
+The observed reductions give rise to \tmtextit{elimination theorems} on these
+fragments
+
+\framebreak
+
+Specifically, recursively define an \tmtextit{elimination operation}
+$(\cdot)^{\ast}$ such that
+
+\begin{center}
+  \begin{tabular}{ll}
+    $p^{\ast} \assign p$ & $(\neg p)^{\ast} \assign \neg p$\\
+    $\top^{\ast} \assign \top$ & $\bot^{\ast} \assign \bot$\\
+    $\circlearrowleft^{\ast} \assign \circlearrowleft$ & $(\neg
+    \circlearrowleft)^{\ast} \assign \neg \circlearrowleft$\\
+    $(\phi \vee \psi)^{\ast} \assign \phi^{\ast} \vee \psi^{\ast}$ & $(\phi
+    \wedge \psi)^{\ast} \assign \phi^{\ast} \wedge \psi^{\ast}$\\
+    $(\diamondsuit \phi)^{\ast} \assign \diamondsuit (\phi^{\ast})$ & $(\Box 
+    \phi)^{\ast} \assign \Box (\phi^{\ast})$\\
+    $(\boxminus \phi)^{\ast} \assign \phi^{\ast}$ & $(\ominus \phi)^{\ast}
+    \assign \phi^{\ast}$\\
+    $(\oplus \phi)^{\ast} \assign \phi^{\ast}$ & $(\boxplus \phi)^{\ast}
+    \assign \phi^{\ast}$
+  \end{tabular}
+\end{center}
+
+\framebreak
+
+For $\phi \in \mathcal{L}_A \cup \mathcal{L}_B$ we have
+\[ \vdash_{\text{\tmtextsc{EviL}}} \phi \leftrightarrow \phi^{\ast} \]
+This is a consequence of the previous observed reductions, along with duality
+
+\framebreak
+
+This gives rise to the following \tmtextsc{EviL} validity
+
+\newcommand{\DP}{\MNSdiamondminus}
+\newcommand{\BM}{\MNSboxplus}
+\begin{eqnarray*}
+\vdash_{\text{\textsc{EviL}}} & \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\ \\ 
+& \DP\DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\DP\ \\ 
+& \DP\DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\DP\ \\ 
+& \DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\DP\Box\Box\Box\Box\Box\Box\Box\Box\DP\Box\Box\Box\BM\DP\ \\ 
+& \DP\BM\BM\Box\Box\DP\DP\DP\DP\DP\DP\DP\DP\Box\Box\BM\BM\DP\ \\ 
+&
+\DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\
+\\ 
+& \DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\  \\ 
+& \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\top & 
+\end{eqnarray*}
+\end{frame}
+
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{\tmtextsc{EviL} Intuitionism}
+
+In \tmtextit{Reason, Truth and History} (1981), Hilary Putnam writes:
+
+\begin{quote}
+  To claim a statement is true is to claim that it could be justified (pg. 56)
+\end{quote}
+
+This intuition presents two things:
+\begin{enumeratenumeric}
+  \item It suggests an anti-realist, constructivist perspective on truth
+  
+  \item Reading $\Box  p$ as ``$p$ can be justified'' is natural in
+  \tmtextsc{EviL}. This suggests that truth conditions in models for
+  intuitionistic logic can be translated into deductions an \tmtextsc{EviL}
+  agent might perform
+\end{enumeratenumeric}
+\framebreak
+
+Recall the grammar of intuitionistic logic:
+
+{\hspace*{\fill}}$\phi \text{ } \colons = \text{ } p \text{ } | \text{ } \bot
+\text{ } | \text{ } \phi \vee \psi \text{ } | \text{ } \phi \wedge \psi \text{
+} | \text{ } \phi \rightarrow
+\psi${\hspace*{\fill}}($\mathcal{L}_{\tmop{Int}}$)
+
+\vspace{.2cm}
+
+Define $(\cdot)^{\text{\tmtextsc{EviL}}} : \text{$\mathcal{L}_{\tmop{Int}}$}
+\rightarrow \mathcal{L}_{\text{\tmtextsc{EviL}}}$ to be a variation on the
+G\"{o}del Tarski McKinsey embedding:
+
+\begin{center}
+  \begin{tabular}{ll}
+    $p^{\text{\tmtextsc{EviL}}} \assign \Box p$ &
+    $\bot^{\text{\tmtextsc{EviL}}} \assign \bot$\\
+    $(\phi \vee \psi)^{\text{\tmtextsc{EviL}}} \assign
+    (\phi^{\text{\tmtextsc{EviL}}} \vee \psi^{\text{\tmtextsc{EviL}}})^{}$ &
+    $(\phi \wedge \psi)^{\text{\tmtextsc{EviL}}} \assign
+    (\phi^{\text{\tmtextsc{EviL}}} \wedge \psi^{\text{\tmtextsc{EviL}}})^{}$\\
+    $(\phi \rightarrow \psi)^{\text{\tmtextsc{EviL}}} \assign \boxplus
+    (\phi^{\text{\tmtextsc{EviL}}} \rightarrow \psi^{\text{\tmtextsc{EviL}}})$
+    & 
+  \end{tabular}
+\end{center}
+
+\framebreak
+
+We have the following:
+\[ \vdash_{\tmop{Int}} \phi \Longleftrightarrow
+   \vdash_{\text{\tmtextsc{EviL}}} \phi^{\text{\tmtextsc{EviL}}} \]
+Intuitionist Logic as \tmtextsc{EviL} Epistemic Logic
+
+\vspace{.2cm}
+
+The above embedding involves equating truth conditions in Intuitionistic
+Kripke Structures with beliefs in \tmtextsc{EviL} models
+
+\vspace{.2cm}
+
+It may be modified to $(\cdot)^{\text{\tmtextsc{EviiL}}} :
+\text{$\mathcal{L}_{\tmop{Int}}$} \rightarrow
+\mathcal{L}_{\text{\tmtextsc{EviL}}}$
+
+\vspace{.2cm}
+
+\begin{center}
+  \begin{tabular}{ll}
+    $p^{\text{\tmtextsc{EviiL}}} \assign K p$ &
+    $\bot^{\text{\tmtextsc{EviiL}}} \assign \bot$\\
+    $(\phi \vee \psi)^{\text{\tmtextsc{EviiL}}} \assign
+    (\phi^{\text{\tmtextsc{EviiL}}} \vee \psi^{\text{\tmtextsc{EviiL}}})^{}$ &
+    $(\phi \wedge \psi)^{\text{\tmtextsc{EviiL}}} \assign
+    (\phi^{\text{\tmtextsc{EviiL}}} \wedge
+    \psi^{\text{\tmtextsc{EviiL}}})^{}$\\
+    $(\phi \rightarrow \psi)^{\text{\tmtextsc{EviiL}}} \assign \boxplus
+    (\phi^{\text{\tmtextsc{EviiL}}} \rightarrow
+    \psi^{\text{\tmtextsc{EviiL}}})$ & 
+  \end{tabular}
+\end{center}
+
+Where $K \phi \assign \ominus (\circlearrowleft \wedge \Box  \phi)$, the
+formulation of knowledge previously suggested
+
+\framebreak
+
+One again, we have:
+\[ \vdash_{\tmop{Int}} \phi \Longleftrightarrow
+   \vdash_{\text{\tmtextsc{EviL}}} \phi^{\text{\tmtextsc{EviiL}}} \]
+Intuitionistic Logic as the Logic of Imagination
+
+\vspace{.2cm}
+
+One way to read $\Box  \phi$ is ``can deduce $\phi$'', and its dual
+$\diamondsuit \phi$ as ``can imagine $\phi$''
+
+\framebreak
+
+Because of the symmetry of $\boxplus$ and $\boxminus$, and their interplay
+with $\Box $ and $\diamondsuit$ as previously illustrated, we have yet another
+embedding $(\cdot)^{\text{\tmtextsc{EviiiL}}} :
+\text{$\mathcal{L}_{\tmop{Int}}$} \rightarrow
+\mathcal{L}_{\text{\tmtextsc{EviL}}}$ of intuitionistic logic into
+\tmtextsc{EviL}:
+
+\begin{center}
+  \begin{tabular}{l}
+    $p^{\text{\tmtextsc{EviiiL}}} \assign \diamondsuit p$\\
+    $\bot^{\text{\tmtextsc{EviiiL}}} \assign \bot$\\
+    $(\phi \vee \psi)^{\text{\tmtextsc{EviiiL}}} \assign
+    (\phi^{\text{\tmtextsc{EviiiL}}} \vee
+    \psi^{\text{\tmtextsc{EviiiL}}})^{}$ \\
+    $(\phi \wedge \psi)^{\text{\tmtextsc{EviiiL}}} \assign
+    (\phi^{\text{\tmtextsc{EviiiL}}} \wedge
+    \psi^{\text{\tmtextsc{EviiiL}}})^{}$\\
+    $(\phi \rightarrow \psi)^{\text{\tmtextsc{EviiiL}}} \assign \boxminus
+    (\phi^{\text{\tmtextsc{EviiiL}}} \rightarrow
+    \psi^{\text{\tmtextsc{EviiiL}}})$ 
+  \end{tabular}
+\end{center}
+
+As before, we have:
+\[ \vdash_{\tmop{Int}} \phi \Longleftrightarrow
+   \vdash_{\text{\tmtextsc{EviL}}} \phi^{\text{\tmtextsc{EviiiL}}} \]
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Modal Intuitionistic Logic}
+
+Furthermore, this embedding can be extended to the modal intuitionistic logic
+$\tmop{ImK}_{\Box }$:
+
+\vspace{.2cm}
+
+{\hspace*{\fill}}$\phi \text{ } \colons = \text{ } p \text{ } | \text{ } \bot
+\text{ } | \text{ } \phi \vee \psi \text{ } | \text{ } \phi \wedge \psi \text{
+} | \text{ } \phi \rightarrow \psi \text{ } | \text{ } \Box 
+\phi${\hspace*{\fill}}($\mathcal{L}_{\tmop{ImK}_{\Box }}$)
+
+\framebreak
+
+This gives rise to $(\cdot)^{\text{\tmtextsc{EixL}}} :
+\text{$\mathcal{L}_{\tmop{ImK}_{\Box }}$} \rightarrow
+\mathcal{L}_{\text{\tmtextsc{EviL}}}$
+
+\begin{center}
+  \begin{tabular}{ll}
+    $p^{\text{\tmtextsc{EixL}}} \assign \Box p$ &
+    $\bot^{\text{\tmtextsc{EixL}}} \assign \bot$\\
+    $(\phi \vee \psi)^{\text{\tmtextsc{EixL}}} \assign
+    (\phi^{\text{\tmtextsc{EixL}}} \vee \psi^{\text{\tmtextsc{EixL}}})^{}$ &
+    $(\phi \wedge \psi)^{\text{\tmtextsc{EixL}}} \assign
+    (\phi^{\text{\tmtextsc{EixL}}} \wedge \psi^{\text{\tmtextsc{EixL}}})^{}$\\
+    $(\phi \rightarrow \psi)^{\text{\tmtextsc{EixL}}} \assign \boxplus
+    (\phi^{\text{\tmtextsc{EixL}}} \rightarrow \psi^{\text{\tmtextsc{EixL}}})$
+    & $(\Box  \phi)^{\text{\tmtextsc{EixL}}} \assign \Box 
+    \phi^{\text{\tmtextsc{EixL}}}$
+  \end{tabular}
+\end{center}
+
+\vspace{.2cm}
+
+Not surprisingly, we have:
+\[ \vdash_{\tmop{ImK}_{\Box }} \phi \Longleftrightarrow
+   \vdash_{\text{\tmtextsc{EviL}}} \phi^{\text{\tmtextsc{EixL}}} \]
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion}
+
+\tmtextsc{EviL} admittedly presents a somewhat different perspective on
+knowledge than traditional epistemic logic
+
+\vspace{.5cm}
+
+Regardless, the tools of \tmtextsc{EviL} and \tmtextsf{EL} are the same; they
+are after all both modal logics
+
+\vspace{.5cm}
+
+It is my sincerest hope that \tmtextsc{EviL} will help the field to progress
+into new areas of investigation
+\end{frame}
+% \end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "beamer"
+%%% End: 

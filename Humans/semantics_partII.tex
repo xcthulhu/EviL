@@ -119,10 +119,10 @@ The following summarizes the structural properties of
     \sqsubseteq^{\Omega}_X w$
     \item If $w \sqsubseteq^{\Omega}_X v$ then $w \in V (p)$ if and only if $v
     \in V (p)$
-    \item \label{pV}$R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X \subseteq
-    R^{\Omega}_X \subseteq R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X$
-    \item \label{pVI} $\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X = R^{\Omega}_X =
-    \sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X$
+    \item \label{pV}$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
+    R^{\Omega}_X \subseteq (R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X)$
+    \item \label{pVI} $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) = R^{\Omega}_X =
+    (\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$
     \item\label{pVII} $w \in P_{\circlearrowleft}^{\Omega} (X)$ if and only if $w
     R^{\Omega}_X w$
   \end{myRoman}
@@ -132,23 +132,24 @@ The following summarizes the structural properties of
 \end{proposition}
 \begin{figure}[ht]
 \centering
-\subfigure[$R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X \subseteq
-R^{\Omega}_X$ and $R^{\Omega}_X \subseteq R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X$ ]{
+\subfigure[\ref{pV} - $(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
+R^{\Omega}_X$ and $R^{\Omega}_X \subseteq (R^{\Omega}_X \circ
+\sqsupseteq^{\Omega}_X)$ ]{
   \includegraphics[]{commutative/commutative1.pdf}
 %\caption{A fairly simple example}
 \label{fig:commut1}
 }
 \hspace{1cm}
-\subfigure[$\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X \subseteq
+\subfigure[\ref{pVI} - $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
 R^{\Omega}_X$ and \ \ \ \  $R^{\Omega}_X \subseteq
-\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X$]{
+(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$]{
 \includegraphics[]{commutative/commutative2.pdf}
 \label{fig:commut2}
 }
 \hspace{1cm}
-\subfigure[$\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X \subseteq
+\subfigure[\ref{pVI} - $(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
 R^{\Omega}_X $ and \ \ \ \  $R^{\Omega}_X \subseteq
-\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X$]{
+(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X)$]{
 \includegraphics[]{commutative/commutative3.pdf}
 \label{fig:commut3}
 }
@@ -173,8 +174,8 @@ A Kripke structure is called \textsc{EviL} if it makes true the
   above properties \ref{pI} through \ref{pVII} (with the exception of \ref{pantisym}, which is optional).
 \end{definition}
 
-These properties are definitive - as we shall demonstrate, \tmtextsc{EviL} is
-sound and weakly complete for \tmtextsc{EviL} models.
+These properties are definitive - as shall be demonstrated in \S\ref{Abstract-Completeness}, \tmtextsc{EviL} is
+sound and strongly complete for \tmtextsc{EviL} models.
 
 The Kripke semantics also serve to provide proper intuition behind
 \tmtextsc{EviL} models. I think of the defined relations given as follows:
@@ -189,49 +190,12 @@ Given this perspective, the proof of \ref{pV} can be understood in the
 following way - if the agent assumes fewer things, more things are imaginable,
 since it's easier for a world to be incompatible with an agent's evidence.
 
-In fact, in light of Theorem \ref{theorem-theorem}, the above follows
-from an underlying, order theoretic relationship present in model theory.  For a given
-Kripke structure $\mathbbm{M}$, define two operators $Mod^{\mathbbm{M}}
-: \powerset  \mathcal{L} (\Phi, \mathcal{A}) \rightarrow \powerset
-(W^{\mathbbm{M}})$ and $Th^{\mathbbm{M}} : \powerset
-(W^{\mathbbm{M}}) \rightarrow \powerset \mathcal{L} (\Phi, \mathcal{A})$
-\begin{align*}
-  Mod^{{\mathbbm{M}}}({\Delta}) &
-  =\{x{\in}W{\ }|{\ }{\forall}{\psi}{\in}{\Delta}.
-  {\mathbbm{M}},x{\Vdash}{\psi}\}\\
-  Th^{{\mathbbm{M}}}({\nabla}) & =\{{\psi}{\in}\mathcal{L}({\Phi},
-  \mathcal{A}){\ }|{\ }{\forall}x{\in}{\nabla}.
-  {\mathbbm{M}},x{\Vdash}{\psi}\}
-\end{align*}
-We then have, for any $\Delta \in \powerset  \mathcal{L}
-(\Phi, \mathcal{A})$ and $\nabla \in \powerset (W^{\mathbbm{M}})$:
-\[ \nabla \subseteq Mod^{\mathbbm{M}} (\Delta) \text{ if and only if }
-   \Delta \subseteq Th^{\mathbbm{M}} (\nabla) \]
-$\ldots$hence we these two operations form what is refered an
-\emph{antitone Galois connection}, between the lattice $\powerset
-(W^{\mathbbm{M}})$ and the lattice $\powerset \mathcal{L} (\Phi,
-\mathcal{A})$. It follows from the theory of Galois connections
-\citep[][chapter 3]{roman_lattices_2008} that
-the following two properties:
-\begin{itemizedot}
-  \item If $\nabla \supseteq \nabla'$ then $Th^{\mathbbm{M}} (\nabla)
-  \subseteq Th^{\mathbbm{M}} (\nabla')$
-  \item If $\Delta \supseteq \Delta'$ then $Mod^{\mathbbm{M}} (\Delta)
-  \subseteq Mod^{\mathbbm{M}} (\Delta')$
-\end{itemizedot}
-We can see that (\ref{pV}) follows from the second of these two properties. 
-To see this, assume that $(a, A) \sqsupseteq_X^{\Omega} (b, B)$, hence $A_X
-\supseteq B_X$ and thus $Mod^{\Omega} (A_X) \subseteq
-Mod^{\Omega} (B_X)$. \ But it follows from semantics of \tmtextsc{EviL}
-we have that $(c, C) \in Mod^{\Omega} (A_X)$ if and only if $(a, A)
-R^{\Omega}_X (c, C)$, and likewise for $B_X$. \ Hence if $(a, A) R^{\Omega}_X
-(c, C)$ then $(b, B) R^{\Omega}_X (c, C)$.
-
 Finally, while Prop. \ref{evil_models} presents itself as a sort of
 representation lemma, the relationship between \textsc{EviL} semantics
 and Kripke semantics is not reciprocal.  Not every Kripke model can be
-represented as an \textsc{EviL} model.  I can think of a fairly easy
-example of this failure of representation.  It turns on the following
+represented as an \textsc{EviL} model.  Example
+\ref{not-an-evil-model} presents an elementary example of 
+this failure of representation.  It turns on the following
 observation:
 
 \begin{lemma}
@@ -243,21 +207,19 @@ observation:
   This is an elementary result in the semantics of propositional logic.
 \end{proof}
 
-With this elementary observation, I propose the following:
-
-\begin{lemma}
+\begin{example}\label{not-an-evil-model}
 Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R,
   \sqsubseteq, \sqsupseteq, V, P \rangle$ where
 \begin{bul}
   \item $W := \{w,v\}$
   \item $R := \{(w,v)\}$
   \item $ \sqsubseteq := \sqsupseteq := \{(w,w),(v,v)\}$
-  \item $V := \lambda p. \varnothing$
+  \item $V(p) := \varnothing$ for all $p\in \Phi$
   \item $P := \varnothing$
 \end{bul}
 \ldots this structure is indicated in Fig. \ref{fig:notevil}.  No
 \textsc{EviL} model corresponds to $\mathbb{M}$.
-\end{lemma}
+%\end{lemma}
 \begin{figure}[ht]
 \centering
   \includegraphics[]{evil_pictures/third_fig.pdf}
@@ -265,8 +227,9 @@ Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R
 \label{fig:notevil}
 \caption{$\mathbb{M}$ is a Kripke Structure with no \textsc{EviL} representation}
 \end{figure}
-\begin{proof}
-  Observe that the above model makes true the following:
+%\begin{proof}
+
+Observe that the above model makes true the following:
 
 \begin{align}
   \mathbb{M},w & \Vdash \Pos \top \label{notevil:eq1}\\
@@ -297,7 +260,8 @@ the observations above:
 \end{mynum}
 This is absurd... since $a = b = \varnothing$ and $b \models A$
 then it must be that $a \models A$. $\lightning$
-\end{proof}
+%\end{proof}
+\end{example}
 
 The above one way correspondence is inconvenient - it means that while
 \textsc{EviL} only enjoys some features from modal logic, it is denied
@@ -310,7 +274,6 @@ rather than modal, I doubt I would have been tempted to call a logic
 at all.  The novelty of \textsc{EviL} is that it presents semantics
 that automatically connect truth and derivability (as expressed in
 Theorem \ref{theorem-theorem}, the Theorem Theorem).
-
 
 %%% Local Variables: 
 %%% mode: latex
