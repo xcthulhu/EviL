@@ -18,15 +18,19 @@ well-defined semantics.  This shall be achieved in two steps.
 \end{definition}
 Models for classical propositional logic can be thought of as sets $S
 \subseteq \Phi$;
-thus the truth predicate{\footnote{$\ldots$ where $\textup{\textsf{bool}} := \{True, False\}$.  This is more commonly written as
-$(\models) \colons \powerset \Phi \rightarrow (\mathcal{L}_0 (\Phi)
-\rightarrow \textup{\textsf{bool}})$ or $(\models) \colons \powerset \Phi \rightarrow
-\textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  The notation I
-present assumes that $\to$ associates to the left, following the
-convention for implication in logic. In general, my notation follows
-the typed functional programming languages \tmtextit{Haskell} 
-and \tmtextit{OCaml}.}} 
-$(\models) \colons \powerset \Phi \rightarrow \mathcal{L}_0 (\Phi)
+thus the truth predicate
+%{\footnote{Here we are assuming
+%    $\textup{\textsf{bool}} := \{True, False\}$.  
+% This is more commonly written as
+% $(\models) \colons \powerset \Phi \rightarrow (\mathcal{L}_0 (\Phi)
+% \rightarrow \textup{\textsf{bool}})$ or $(\models) \colons \powerset \Phi \rightarrow
+% \textup{\textsf{bool}}^{\mathcal{L}_0 (\Phi)}$.  The notation I
+% present assumes that $\to$ associates to the left, following the
+% convention for implication in logic. In general, my notation follows
+% the typed functional programming languages \tmtextit{Haskell} 
+% and \tmtextit{OCaml}.}
+%} 
+$(\models) \colons \powerset \Phi \times \mathcal{L}_0 (\Phi)
 \rightarrow \textup{\textsf{bool}}$ for classical 
 propositional logic can be given recursively as follows:
 \begin{definition}
@@ -66,13 +70,12 @@ $\Omega \subseteq \powerset \Phi \times \powerset \mathcal{L}_0
 \end{itemizedot}
 
 More concisely, this may be written as 
-\[ (\VDash) \colons \powerset  (\powerset \Phi \times \powerset \mathcal{L}_0 (\Phi)) \rightarrow \powerset \Phi
-   \times \powerset \mathcal{L}_0 (\Phi)
-   \rightarrow \mathcal{L} (\Phi) \rightarrow
+\[ (\VDash) \colons \powerset  (\powerset \Phi \times \powerset \mathcal{L}_0 (\Phi)) \times (\powerset \Phi
+   \times \powerset \mathcal{L}_0 (\Phi)) \times \mathcal{L} (\Phi) \rightarrow
    \textup{\textsf{bool}}. \]
 
-The following provides a definition of the semantics for 
-\textsc{EviL}:
+% The following provides a  of the semantics for 
+% \textsc{EviL}:
 
 \begin{definition}
  Define $(\VDash)$ recursively such that:
@@ -94,23 +97,28 @@ The following provides a definition of the semantics for
   {\Omega},(a,A){\VDash}{\circlearrowleft} & {\iff}
   {\forall}{\psi}{\in}A.a{\models}{\psi}
 \end{align*}
-I will write $\Omega \VDash \phi$ to mean $\Omega, (a,A) \VDash \phi$ for all $(a,A) \in \Omega$.  Further, I will write $\VDash \phi$ to mean $\Omega \VDash \phi$ for all $\Omega$.
 \end{definition}
+\begin{remark}
+I will write $\Omega \VDash \phi$ to mean $\Omega, (a,A) \VDash \phi$
+for all $(a,A) \in \Omega$.  Further, I will write $\VDash \phi$ to
+mean $\Omega \VDash \phi$ for all $\Omega$.
+\end{remark}
 These semantics are well defined, since apart from relying on the semantics
-for propositional logic they may be observed to be compositional.{\footnote{In
-fact, I have provided a formulation of these semantics in the same manner as
-above in the computer proof assistant Isabelle/HOL \citep{nipkow_isabelle/hol:proof_2002}; I shall
-give my remarks on formal verification in \S\ref{formal}.  In the case of
-Isabelle/HOL, the function $(\VDash)$ was defined inductively, and
-automatically proven to be well-defined.  Specifically, the conditions given
-above specify that $(\VDash)$ is determined by a \tmtextit{monotonic}
-predicate over suitable tupples, and similarly for $(\models)$.  Hence the
-result that $(\VDash)$ is well-defined ultimately relies on an application of
-the \tmtextit{Knaster-Tarski Fixpoint Theorem} \citep[chapter 12]{roman_lattices_2008}. Further,
-since I have given an inductive definition, these recursive definitions rely
-on the {\tmem{least}} fixpoint of their associated monotonic
-operators.  This is not really particular to \textsc{EviL}; rather, this is
-central to the basic ``logic engineering'' philosophy of Isabelle/HOL \citep{berghofer_meta-theory_2009}.}} 
+for propositional logic they may be observed to be compositional.
+% {\footnote{In
+% fact, I have provided a formulation of these semantics in the same manner as
+% above in the computer proof assistant Isabelle/HOL \citep{nipkow_isabelle/hol:proof_2002}; I shall
+% give my remarks on formal verification in \S\ref{formal}.  In the case of
+% Isabelle/HOL, the function $(\VDash)$ was defined inductively, and
+% automatically proven to be well-defined.  Specifically, the conditions given
+% above specify that $(\VDash)$ is determined by a \tmtextit{monotonic}
+% predicate over suitable tupples, and similarly for $(\models)$.  Hence the
+% result that $(\VDash)$ is well-defined ultimately relies on an application of
+% the \tmtextit{Knaster-Tarski Fixpoint Theorem} \citep[chapter 12]{roman_lattices_2008}. Further,
+% since I have given an inductive definition, these recursive definitions rely
+% on the {\tmem{least}} fixpoint of their associated monotonic
+% operators.  This is not really particular to \textsc{EviL}; rather, this is
+% central to the basic ``logic engineering'' philosophy of Isabelle/HOL \citep{berghofer_meta-theory_2009}.}} 
 Moreover, the following relationship can be observed:
 
 \begin{lemma}[Truthiness]\label{truthiness}
@@ -142,17 +150,23 @@ central intuition driving \textsc{EviL} - that beliefs are the
 consequences of logical deductions.  It is a peculiarity of
 \textsc{EviL} that these deductions are carried on in \textsc{EviL}
 itself.  This was achieved, primarily, by my previous flirtation with
-paradox.  And as a consequence, I have tried to design \textsc{EviL}
-to eat its own tail. This is my favorite kind of self-reference. As a
-modeler using logic, it establishes that the \textsc{EviL} agent is
-herself also a modeler just like me, using the same logic I am using
+paradox.  And as a consequence, we have tried to design \textsc{EviL}
+to eat its own tail. 
+% This is my favorite kind of self-reference. 
+It establishes that the \textsc{EviL} agent is
+herself also a modeler just like us, using the same logic we are using
 to think about her herself, to think about the state space she lives
-in.  It reminds me of a quote regarding the wonderful circularity of
-mathematics, due to \citet{browne_garden_1736}:
+in.  This sort of circularity brings to mind the alchemical love
+mathematics, exemplified by the following quote 
+due to \citet{browne_garden_1736}:
 \begin{quote}
 All things began in order, so shall they end, and so shall they begin
 again; according to the ordainer of order and mystical Mathematicks of
 the City of Heaven.\end{quote}
+
+We cannot stress enough, Theorem \ref{theorem-theorem} is what
+\textsc{EviL} is all about.  It is basically essential to the
+perspective of epistemology this essay is intended to investigate.
 
 %%% Local Variables: 
 %%% mode: latex

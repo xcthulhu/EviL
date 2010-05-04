@@ -76,6 +76,7 @@
 \usepackage{amsthm}
 \numberwithin{equation}{subsection}
 \newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{remark}[theorem]{Remark}
 \newtheorem{prop}[theorem]{Proposition}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -304,14 +305,14 @@ of these issues.  It shall conform to the following structure:
     \textsc{EviL}.  As a bit of serendipity, it shall be revealed that
     \emph{intuitionistic logic} is profoundly linked to the thoughts I
     develop.
-  \item[\S\ref{robots}]  Here, I discuss a side project I carried out
-    where I formalized the weak completeness theorem of
-    \S\ref{evil-semantics} in the computer proof
-    assistant Isabelle/HOL.  
-    % I did this principally because the proof was sufficiently
-    % challenging that I held many personal doubts of its correctness.
-    This section is intended to showcase how computer assisted verification can be
-    used as a vehicle for over-coming conceptual difficulties in mathematics.
+  % \item[\S\ref{robots}]  Here, I discuss a side project I carried out
+  %   where I formalized the weak completeness theorem of
+  %   \S\ref{evil-semantics} in the computer proof
+  %   assistant Isabelle/HOL.  
+  %   % I did this principally because the proof was sufficiently
+  %   % challenging that I held many personal doubts of its correctness.
+  %   This section is intended to showcase how computer assisted verification can be
+  %   used as a vehicle for over-coming conceptual difficulties in mathematics.
   \item[\S\ref{epilogue}]  Finally, I shall compare my framework to
     other approaches, and mention lingering philosophical concerns I
     feel must be addressed.
@@ -349,7 +350,7 @@ Where:
 
 Applying the ideal gas law, one can observe that the thermometer is effectively
 in something analogous to an epistemic space.  To be explicit,
-consider a basic modal language with the following grammar:
+consider a basic modal language with the following grammar $\mathcal{L}_{\textup{thermometer}}$:
 \[ \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi \]
 
 Interpreting this language appropriately, the
@@ -536,11 +537,11 @@ In this section I intend to give a very informal presentation of the
 basic elements I intend for the forthcoming analysis.  
 A formal development of the ideas sketched in this section shall be 
 given in \S\ref{evil-grammar}.  With this proviso, consider the basic
-modal language $\mathcal{L}(\Phi)$:
+modal language $\mathcal{L}_K(\Phi)$:
 \[ \phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi \]
 
 Further, let $\Omega \subseteq \powerset \Phi \times \powerset
-\mathcal{L}(\Phi)$, that is, let $\Omega$ be pairs of sets of letters
+\mathcal{L}_K(\Phi)$, that is, let $\Omega$ be pairs of sets of letters
 and formulae. Define the following truth predicate $\VDash$
 recursively:
 
@@ -593,7 +594,7 @@ propositions also represent, in a way, the agent's \emph{frame of
   proposition supervene on facts describing the evidence that the
   person has.
  \end{quote}
- $\ldots$ however, while our sympathies are with this perspective on
+ However, while our sympathies are with this perspective on
  epistemology, they differ foundationally - while evidentialism
  develops intuitions using analytical philosophy, our approach shall be
  founded in formal semantics like the one above.
@@ -606,23 +607,23 @@ in terms of \emph{imagination}.
 
 That is, if a proper foundation can be provided at all.  Admittedly,
 the above formulation of truth immediately runs into a \emph{paradox}
-- for instance, if 
+- for instance, let 
 \begin{bul}
 \item $a:=\varnothing$ 
 \item $A:=\{\Box \bot\}$
 \item and $\Omega:= \{(a,A)\}$
 \end{bul}
-\ldots then $\Omega,(a,A)\VDash \Box \bot$ has an indeterminate truth
-value.  So let $\mathcal{L}_0(\Phi)$ be the propositional fragment of
-$\mathcal{L}$; we shall restrict the truth value to $\Omega\subseteq
-\Phi \times \powerset \mathcal{L}_0(\Phi)$.  This suffices to make
-every truth value of this logic determinate.
+Under this assignment,  $\Omega,(a,A)\VDash \Box \bot$ has no
+determinate truth value.  So let $\mathcal{L}_0(\Phi)$ be the 
+propositional fragment of $\mathcal{L}_K$; we shall restrict the truth
+value to $\Omega\subseteq \Phi \times \powerset \mathcal{L}_0(\Phi)$.
+This suffices to make every truth value of this logic determinate.
 
 We may observe that the logic of these semantics is familiar:
 \begin{prop}
 Assuming that the set of proposition letters $\Phi$ is infinite
 $$\vdash_{K} \phi\textup{ if and only if } \Omega, (a,A) \VDash \phi \textup{ for all finite $\Omega$ for all $(a,A) \in \Omega$}$$
-\ldots where $K$ is basic modal logic.
+Here $K$ is basic modal logic.
 \end{prop}
 \begin{proof}
  Left to right is trivial, so we shall focus on right to left.  Assume
@@ -670,8 +671,8 @@ theory\footnote{This notation consciously imitates the notation
 \begin{mydef}\label{basicdefs}
 \begin{mynum}
 \item\label{basicdefsI} For any model $\Omega$, define $Th(\Omega)$:
-$$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega, (a,A)
-\VDash \phi \textup{ for all $(a,A) \in \Omega$}\}$$
+\[Th(\Omega) := \{ \phi \in \mathcal{L}_K(\Phi) \ |\ \Omega, (a,A)
+\VDash \phi \textup{ for all $(a,A) \in \Omega$}\}\]
 $Th(\Omega)$ is called \textbf{the theory of $\Omega$}.
 
 \item\label{basicdefsII} $A \subseteq_\omega B$ means that $A$ is a finite subset of $B$
@@ -691,12 +692,12 @@ possession of a derivation:
 \end{prop}
 \begin{proof}
 The proof of the above hinges on two basic facts.  The first is the
-\emph{deduction theorem}:
+\emph{deduction theorem} (provided that $B$ is finite):
 \begin{equation}
 A \cup B \vdash_K \phi \iff A \vdash_K \bigwedge B \to \phi \label{eq:deduction-theorem}
 \end{equation}
-\ldots provided that $B$ is finite.  It follows from Definition
-\ref{basicdefs} part \ref{basicdefsIII}, and is one of the standard result in
+The above follows from Definition
+\ref{basicdefs} part \ref{basicdefsIII}, and is one of the standard results in
 modal logic.
 
 The next observation is also rather basic:
@@ -739,8 +740,8 @@ extreme importance and interest to epistemology, seems not
 significantly to affect the object of epistemic logic, the question of
 the validity of certain epistemic-logical principles.
 \end{quote}
-\ldots quite to the contrary, I feel epistemic logic should not turn
-it's back on philosophy. Philosophy critically provides guidance for
+Quite to the contrary, we urge that epistemic logic should not turn
+its back on philosophy. Philosophy critically provides guidance for
 the intuitions behind how knowledge should be correctly modeled.  It
 also provides a solid grounding in a proper treatment of knowledge.
 However, engaging with philosophy is evidently not the thrust of
@@ -757,7 +758,7 @@ In contrast, I propose the following principle:
 \begin{quote}
  \textbf{The Human Condition}: \emph{The analysis of knowledge should strive for a basis in human experience}
 \end{quote}
-\ldots this principle indeed underpins the Justification Principle
+The above principle indeed underpins the Justification Principle
 provided in \S\ref{explicit}. This is because I feel that the belief
 in a proposition can be thought of human only if the agent has a
 reason associated with it.  Otherwise, it seems that in the absence of
@@ -1180,18 +1181,19 @@ developed ideas.  This shall be done in three movements:
 \subsubsection{Moore's Paradox}
 \subsubsection{Fitch's Paradox}
 \subsection{Intuitionistic Logic}
-\subsubsection{The G\"{o}del Embedding and $\mathcal{L}^\BB(\Phi)$}
+\subsubsection{The G\"{o}del Tarski McKinsensy Embedding}
 \subsubsection{Knowledge}
 \subsubsection{Imagination}
+\subsubsection{van Benthem \textsc{S4}}
 \subsubsection{$ImK_\Box$}
 
-\section{Mechanization}\label{robots}\label{formal}
+% \section{Mechanization}\label{robots}\label{formal}
 %\addcontentsline{toc}{subsection}{20 pgs}
 %\subsection{Don't Believe in Math}
 %\addcontentsline{toc}{subsubsection}{5 pgs}
 
-\subsection{LCF Theorem Proving}
-\subsection{Formalizing the \textsc{EviL} Completeness Theorem}
+% \subsection{LCF Theorem Proving}
+% \subsection{Formalizing the \textsc{EviL} Completeness Theorem}
 
 \section{Epilogue}\label{epilogue}
 %\addcontentsline{toc}{subsection}{10 pgs}
@@ -1203,6 +1205,32 @@ developed ideas.  This shall be done in three movements:
 % Having developed \textsc{EviL}, I feel it necessary to reengage the philosophical concerns presented in \S\ref{Human-Condition}.  \textsc{EviL} was a project to try to base an epistemic logic more on intuition and human nature, rather than the more mechanical foundation which forms the basis for mainstream epistemic logic.
 
 \appendix
+\section{Grammars}
+\label{Grammars}
+  \hfil
+$ \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z
+\textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi $ \hfil
+$\mathcal{L}_{\textup{thermometer}}$
+
+\hfil
+$\phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi$
+\hfil $\mathcal{L}_K(\Phi)$
+
+\hfil  $\phi\  {::=} \  p \  | \  \neg p
+     \  | \  \top \  | \  \bot
+     \  | \  \circlearrowleft \  | \ 
+     \phi \wedge \psi \  | \  \phi \vee \psi \ 
+     | \  \diamondsuit \phi \  | \  \boxminus
+     \phi \  | \  \DP \phi $
+\hfil $\mathcal{L}_A (\Phi)$
+
+  \hfil $\phi\  {::=} \  \neg p \  | \  p
+     \  | \  \bot \  | \  \top
+     \  | \  \neg \circlearrowleft \  |
+     \  \phi \vee \psi \  | \  \phi \wedge \psi
+     \  | \  \Box \phi \  | \  \DM \phi \  | \  \boxplus \phi \
+     $\hfil   $\mathcal{L}_B (\Phi)$
+
 \section{Alternate Semantics}
 \label{alternative}
 \input{alternate-semantics.tex}

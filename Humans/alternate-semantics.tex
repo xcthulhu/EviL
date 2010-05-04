@@ -3,20 +3,23 @@ proposed in \S\ref{explicit}.
 These semantics are inspired by game semantics for modal logic, 
 such as those in \citet[chapter 2]{van_benthem_modal_2010}.
 
-Consider structures of the form $\langle W, V, \beta, \iota \rangle$
+First, recall the basic modal grammar $\mathcal{L}_K(\Phi)$:
+\[ \phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi \]
+
+Next, consider structures of the form $\langle W, V, \beta, \iota \rangle$
 consisting of:
 \begin{itemizedot}
   \item A set of worlds $W$
   \item A propositional valuation function $V : \Phi \rightarrow \powerset
   W$
-  \item An belief function $\beta : W \rightarrow \powerset \mathcal{L}
+  \item An belief function $\beta : W \rightarrow \powerset \mathcal{L}_K
   (\Phi)$
    \item An imagination function $\iota : W \rightarrow \powerset W$
 \end{itemizedot}
 We shall call these \tmtextit{belief-imagination models}.   One can think of a
 model $\Omega$ sort of like a of tuples like in \S\ref{evil-semantics}; however
 in this case evidently it would have to be $\Omega \subseteq \powerset
-\Phi \times \powerset \mathcal{L} (\Phi) \times \powerset \Omega$, so
+\Phi \times \powerset \mathcal{L}_K (\Phi) \times \powerset \Omega$, so
 apparently it would have to be a non-wellfounded set.   This is somewhat natural,
 given a modal logic setting - see for instance \citep{barwise_vicious_1996} for an
 elaboration on these connections.
@@ -86,7 +89,7 @@ However, bivalence has a convenient semantic characterization:
 
 \begin{proof}
   $(\Longrightarrow)$  Assume that $\Vdash$ and $\Vvdash$ are bivalent and
-  consider any $\phi \in \mathcal{L} (\Phi)$.   The proof that $\Omega, w
+  consider any $\phi \in \mathcal{L}_K (\Phi)$.   The proof that $\Omega, w
   \Vdash \phi$ is equivalent to $\mathbbm{M}^{\Omega}, w \Vdash_{\Box} \phi$
   proceeds by induction.   The case for proposition letters, conjunction and
   disjunction are straightforward, so we shall only consider negation and
@@ -134,7 +137,7 @@ However, bivalence has a convenient semantic characterization:
 \begin{corollary}
   If $\Vdash$ and $\Vvdash$ are bivalent, then $\beta (w) \vdash^{\ast} \phi$
   for all $\phi \in \tmop{Th}_{\Vdash} (\Omega)$ for all $w \in W^{\Omega}$,
-  where $\tmop{Th}_{\Vdash} (\Omega) =\{\phi \in \mathcal{L} (\Phi)
+  where $\tmop{Th}_{\Vdash} (\Omega) =\{\phi \in \mathcal{L}_K (\Phi)
   \  | \  \Omega, w \Vdash \phi$ for all $w \in W^{\Omega}
   \}$.
 \end{corollary}
@@ -147,7 +150,7 @@ belief/imagination model $\Omega^{\mathbbm{M}} \assign \langle
 W^{\mathbbm{M}}, V^{\mathbbm{M}}, \beta^{\mathbbm{M}}, \iota^{\mathbbm{M}}
 \rangle$ where:
 \begin{eqnarray}
-  \beta^{\mathbbm{M}} (w) \assign & \{\phi \in \mathcal{L} (\Phi) \ 
+  \beta^{\mathbbm{M}} (w) \assign & \{\phi \in \mathcal{L}_K (\Phi) \ 
   | \  \mathbbm{M}, w \Vdash_{\Box} \Box \phi\} &  \nonumber\\
   \iota^{\mathbbm{M}} (w) \assign & \{v \in W^{\mathbbm{M}} \  |
   \  w R^{\mathbbm{M}} v\} &  \nonumber
@@ -173,7 +176,7 @@ everything they believe in their minds; this is about as bad as the thermometer 
 \begin{itemizedot}
   \item $\beta (w) \vdash^{\ast} \phi$ for all $\phi \in \tmop{Th}_{\Vdash}
   (\Omega)$ for all $w \in W^{\Omega}$, where $\tmop{Th}_{\Vdash} (\Omega)
-  =\{\phi \in \mathcal{L} (\Phi) \  | \  \Omega, w \Vdash
+  =\{\phi \in \mathcal{L}_K (\Phi) \  | \  \Omega, w \Vdash
   \phi$ for all $w \in W^{\Omega} \}$
   
   \item $\tmop{Mod}^{\Omega}_{{\nVvdash}} (\beta (w)) \subseteq \iota (w)$,
@@ -258,11 +261,11 @@ We may continue to obtain weak completeness for these semantics:
   \tau, \lambda x.R^{\mathbbm{M}'} [x] \rangle$ such that
   \[ \tau (w) \assign \tmop{Th} (\mathbbm{M}') \cup \left\{ \bigvee_{v \in
      R^{\mathbbm{M}'} [w]} \rho (v) \right\}, \]
-  where $\tmop{Th} (\mathbbm{M}') \assign \{\psi \in \mathcal{L}
+  where $\tmop{Th} (\mathbbm{M}') \assign \{\psi \in \mathcal{L}_K
   (\Phi) \  | \  \mathbbm{M}', v \Vdash \psi$ for all $v
   \in W^{\mathbbm{M}'} \}$.   A proof by induction on $\psi$ shows that
   $\mathbbm{M}', w \Vdash_{\Box} \psi$, $\Omega, w \Vdash \psi$ and $\Omega, v
-  {\nVvdash} \psi$ are equivalent for all $\psi \in \mathcal{L} (\Phi)$.  
+  {\nVvdash} \psi$ are equivalent for all $\psi \in \mathcal{L}_K (\Phi)$.  
   Thus we have that for all $v \in W^{\Omega}$ that $\Omega, v {\nVvdash}
   \psi$ for all $\psi \in \tmop{Th} (\mathbbm{M}')$.   Moreover, evidently $w
   R^{\mathbbm{M}'} v$ if and only if $\mathbbm{M}', v \Vdash_{\Box} \bigvee_{u
@@ -270,7 +273,7 @@ We may continue to obtain weak completeness for these semantics:
   v$ if and only if $\Omega, v {\nVvdash} \chi$ for all $\chi \in \tau
   (w)$. With this we can employ induction and establish that $\mathbbm{M}', w
   \Vdash_{\Box} \psi$ if and only if $\Omega, w \models \psi$ for all $\psi
-  \in \mathcal{L} (\Phi)$.   Since $\mathbbm{M}', w {\nVdash}_{\Box} \phi$,
+  \in \mathcal{L}_K (\Phi)$.   Since $\mathbbm{M}', w {\nVdash}_{\Box} \phi$,
   we have that $\Omega, w {\nmodels} \phi$.   Finally, note that in this
   model we have that $\tmop{Mod}^{\Omega}_{{\nVvdash}} (\beta (w)) =
   R^{\mathbbm{M}'} [w]$. With this and the definition of $\Omega$, we can see
