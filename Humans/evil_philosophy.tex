@@ -350,7 +350,7 @@ Where:
 
 Applying the ideal gas law, one can observe that the thermometer is effectively
 in something analogous to an epistemic space.  To be explicit,
-consider a basic modal language with the following grammar $\mathcal{L}_{\textup{thermometer}}$:
+consider a basic modal language with the following grammar \label{Ltherm}$\mathcal{L}_{\textup{therm}}$:
 \[ \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi \]
 
 Interpreting this language appropriately, the
@@ -537,7 +537,7 @@ In this section I intend to give a very informal presentation of the
 basic elements I intend for the forthcoming analysis.  
 A formal development of the ideas sketched in this section shall be 
 given in \S\ref{evil-grammar}.  With this proviso, consider the basic
-modal language $\mathcal{L}_K(\Phi)$:
+modal language \label{LK}$\mathcal{L}_K(\Phi)$:
 \[ \phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi \]
 
 Further, let $\Omega \subseteq \powerset \Phi \times \powerset
@@ -615,8 +615,10 @@ the above formulation of truth immediately runs into a \emph{paradox}
 \end{bul}
 Under this assignment,  $\Omega,(a,A)\VDash \Box \bot$ has no
 determinate truth value.  So let $\mathcal{L}_0(\Phi)$ be the 
-propositional fragment of $\mathcal{L}_K$; we shall restrict the truth
-value to $\Omega\subseteq \Phi \times \powerset \mathcal{L}_0(\Phi)$.
+propositional fragment of $\mathcal{L}_K$, with the following grammar\label{Lang0}:
+\[ \phi\ {::=} \  p \in \Phi \ |\ \phi \to \psi \ | \ \bot \]
+We shall restrict the truth value to 
+$\Omega\subseteq \Phi \times \powerset \mathcal{L}_0(\Phi)$.
 This suffices to make every truth value of this logic determinate.
 
 We may observe that the logic of these semantics is familiar:
@@ -1207,29 +1209,29 @@ developed ideas.  This shall be done in three movements:
 \appendix
 \section{Grammars}
 \label{Grammars}
-  \hfil
-$ \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z
-\textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi $ \hfil
-$\mathcal{L}_{\textup{thermometer}}$
-
-\hfil
-$\phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi$
-\hfil $\mathcal{L}_K(\Phi)$
-
-\hfil  $\phi\  {::=} \  p \  | \  \neg p
+\begin{eqnarray*}
+{\mathcal{L}_{\textup{therm}}} & \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z
+\textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi &
+\textup{pg. \pageref{Ltherm}} \\
+\mathcal{L}_K(\Phi)  & \phi\ {::=} \ p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi &
+\textup{pg. \pageref{LK}}\\
+{\mathcal{L}_{0}} & \phi\ {::=} \  p \in \Phi \ |\ \phi \to \psi \ | \ \bot
+&
+\textup{pg. \pageref{Lang0}} \\
+\mathcal{L}_A (\Phi) & \phi\  {::=} \  p \  | \  \neg p
      \  | \  \top \  | \  \bot
      \  | \  \circlearrowleft \  | \ 
      \phi \wedge \psi \  | \  \phi \vee \psi \ 
      | \  \diamondsuit \phi \  | \  \boxminus
-     \phi \  | \  \DP \phi $
-\hfil $\mathcal{L}_A (\Phi)$
-
-  \hfil $\phi\  {::=} \  \neg p \  | \  p
+     \phi \  | \  \DP \phi &  
+     \textup{pg. \pageref{Lang}} \\
+\mathcal{L}_B (\Phi) & \phi\  {::=} \  \neg p \  | \  p
      \  | \  \bot \  | \  \top
      \  | \  \neg \circlearrowleft \  |
      \  \phi \vee \psi \  | \  \phi \wedge \psi
-     \  | \  \Box \phi \  | \  \DM \phi \  | \  \boxplus \phi \
-     $\hfil   $\mathcal{L}_B (\Phi)$
+     \  | \  \Box \phi \  | \  \DM \phi \  | \  \boxplus \phi &
+      \textup{pg. \pageref{LangB}} \\
+ \end{eqnarray*}
 
 \section{Alternate Semantics}
 \label{alternative}
@@ -1244,4 +1246,4 @@ $\phi ::= p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi$
 \addcontentsline{toc}{section}{References}
 \bibliographystyle{amsplain}
 \bibliography{zotero}
-\end{document}  
+\end{document}

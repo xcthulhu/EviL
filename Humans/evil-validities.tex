@@ -1,12 +1,24 @@
 The previous philosophical readings of \textsc{EviL} immediately
-suggest certain validities will hold the semantics.  For instance, the
+suggest certain validities will hold in the semantics.  For instance, the
 assertion ``A set of premises is sound if and only if all of its
 subsets are sound.'' would be expressed as
 \begin{equation}
 \VDash \PP \IFF \BM \PP \label{ppequiv}
 \end{equation}
-Indeed, this is a validity of \textsc{EviL}.  There is
-another, related validity associated with $\PP$; namely that if the
+Indeed, this is a validity of \textsc{EviL}.  Schematically, it may be
+tempting to think that maybe the same is true for $\BP$.  However, we
+have that:
+\begin{equation}
+\nVDash \PP \to \BP \PP \label{notPPBPPP}
+\end{equation}
+Nor does this make much sense.  It asserts ``If the agent's basic beliefs
+are sound, then all extensions of her basic beliefs are sound too.''
+Soundness is a fragile thing -- it is rather easy to think of things
+to add to a sound set of basic beliefs which break soundness, such as
+``All logicians are centaurs''  and other such demonstrably false nonsense.
+
+Related to \eqref{ppequiv}, there is another related validity  
+associated with $\PP$; namely that if the
 \textsc{EviL} agent's assumptions are sound, then anything she
 concludes from them is true (employing the reading which naturally
 arises from Theorem \ref{theorem-theorem}).  This is expressed as
