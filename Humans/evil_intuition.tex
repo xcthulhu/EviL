@@ -1,14 +1,14 @@
-\label{evil-intuition}
-In this section, I shall illustrate how I intuitively read the operators in
+
+In this section, we shall illustrate how we intuitively read the operators in
 \tmtextsc{EviL}, and provide a number of validities.
 
-As per the traditional doxastic reading of $\Box  \phi$, I read this as
+As per the traditional doxastic reading of $\Box  \phi$, we read this as
 asserting ``The \tmtextsc{EviL} agent believes $\phi$''.  Because of Theorem
-\ref{theorem-theorem}, the Theorem Theorem, I shall freely conflate this with the assertion
-``The \tmtextsc{EviL} agent has an argument for $\phi$,'' which I take to be a
-proof.
+\ref{theorem-theorem}, the Theorem Theorem, we shall freely conflate this with the assertion
+``The \tmtextsc{EviL} agent has an argument for $\phi$,'' which we
+take to be a kind of proof.
 
-My intuition for how to read $\DM \phi$ was first mentioned in
+The intuition for how to read $\DM \phi$ was first mentioned in
 \S\ref{Descartes} with respect to Descartes' Meditation II -- it means ``If the
 \tmtextsc{EviL} agent were to set aside some of her beliefs, or cast some of
 her beliefs into doubt, then $\phi$ would hold.''  Dually, I tend to read
@@ -16,79 +16,102 @@ $\boxminus \phi$ as saying something like ``For all the ways that the
 \tmtextsc{EviL} agent might use her imagination, $\phi$ holds.''  I recognize
 that these interpretations might seem inconsistent -- however, I regard
 casting beliefs into doubt and embracing one's imagination as part of the same
-coin.  For, naturally, when one doubts more things, then for a fleeting moment their dreams take flight as the inconceivable turns around into the conceivable, if only for a little while.  To give an example, if I set aside for a moment my belief that
+coin.  For, naturally, when one doubts more things, then for a
+fleeting moment their dreams take flight as the inconceivable turns
+around into the conceivable, if only for a little while.  To give an
+example, if Marta sets aside for a moment her belief that
 
 {\hspace*{\fill}}the law of gravity is an exceptionless regularity of the
 universe, {\hspace*{\fill}}$(g)$
 
-then it seems natural to imagine that
+then it seems natural that she might imagine that
 
 {\hspace*{\fill}}a propulsion device exploiting some exception to gravitation might be constructable.{\hspace*{\fill}}$(p)$
 
-In the symbology of \tmtextsc{EviL} formulae, I would code this intuition as
-\[ \boxminus (\Box  \neg g \rightarrow \diamondsuit p) . \]
-To give another example, if I pretend that it isn't the case that:
+In the symbology of \tmtextsc{EviL} formulae, she would code this intuition as
+\begin{equation} 
+\boxminus (\Box  \neg g \rightarrow \diamondsuit p) . 
+\end{equation}
+To give another example, if Marta pretends that it is not the case that:
 
 {\hspace*{\fill}}the canals of Amsterdam are filthy{\hspace*{\fill}}$(f)$
 
-I might be able to imagine a scenario where
+She might be able to imagine a scenario where
 
-{\hspace*{\fill}}I am swimming comfortably in the Amstel
+{\hspace*{\fill}}she may swim comfortably in the Amstel
 river{\hspace*{\fill}}$(r)$
 
-But not really.  I really can't really swim at ease in the Amstel, not just
+But not really.  Marta really cannot really swim at ease in the Amstel, not just
 because it has tons of garbage, but also because
 
-{\hspace*{\fill}}I don't own a bathing suit,{\hspace*{\fill}}$(b)$
+{\hspace*{\fill}}she does not own a bathing suit,{\hspace*{\fill}}$(b)$
 
-Frankly, I am not so bold that I could go skinny dipping in Amstel without
-that being awkward.  Hence I would say in the language of \tmtextsc{EviL}
-that:
-\[ \neg \boxminus (\Box  \neg f \rightarrow \diamondsuit r) \]
-This is because I can cast into doubt the assumption of the filthiness of the
-canals of Amsterdam, while still retaining my belief that I don't have a
+Frankly, Marta is not so bold that she could go skinny dipping in
+Amstel without that being awkward for her.  
+In the language of \tmtextsc{EviL}, this thought
+experiment would be expressed as follows:
+\begin{equation}
+\neg \boxminus (\Box  \neg f \rightarrow \diamondsuit r) \label{awkward} 
+\end{equation}
+This is because Marta can cast into doubt the assumption of the filthiness of the
+canals of Amsterdam, while still retaining her belief that she does not have a
 bathingsuit, so swimming in Amstel would still be awkward for me.  In
-symbols, I would write express this sentiment as the following expression:
-\[ \DM (\diamondsuit \neg f \wedge \Box  b \wedge \neg \diamondsuit r)
-\]
-Further, my intuition for how to read $\DP \phi$ is ``If the
+symbols, she would write express this other sentiment as something of
+a refinement on \eqref{awkward}, which is expressed as follows:
+\begin{equation} 
+\DM (\diamondsuit \neg f \wedge \Box  b \wedge \neg \diamondsuit r)
+\end{equation}
+Further, the intuition for how to read $\DP \phi$ is ``If the
 \tmtextsc{EviL} agent were to remember something, then $\phi$ would hold.'' \
-For instance, I can think of an instance where I woke up and searched myself
-for my bike keys.  To my horror, they weren't there -- in I immediately
-assumed that I might have left my keys in the lock on my bike, and figured
-there was a fair likelihood that
+For instance, imagine a scenario where Marta wakes up and searches herself
+for her bike keys.  To her horror, the keys are not there -- and Marta
+immediately assumes that she might have left her keys in the lock on
+her bike, and figures there is a fair likelihood that
 
-{\hspace*{\fill}}my bike has been stolen because I left the keys in
-it.{\hspace*{\fill}}$(s)$
+{\hspace*{\fill}}the bike has been stolen because the keys were left
+in the lock.{\hspace*{\fill}}$(s)$
 
-But once I recalled that
+But once she recalls that
 
-{\hspace*{\fill}}I had lent my bike to a friend,{\hspace*{\fill}}$(l)$
+{\hspace*{\fill}}she lent her bike to a friend,{\hspace*{\fill}}$(l)$
 
-my fear subsided.  I would have said that prior to remembering, while
-I thought it might be possible that my bike was stolen due to my negligence,
-if I remembered what I had done then I no longer would have entertained that
-possibility.  I would express this observation as:
-\[ \diamondsuit s \wedge \boxplus (\Box  l \rightarrow \Box  \neg s) \]
-I consider $\boxminus$ and $\boxplus$ to be inverse modalities of each other,
+her fear subsides.  Prior to remembering, while
+Marta thought it might be possible that her bike was stolen due to her
+own negligence,
+if she remembered what she had done then she no longer would have
+entertained this possibility.  This observation is expressed as:
+\begin{equation} 
+\diamondsuit s \wedge \boxplus (\Box  l \rightarrow \Box  \neg s)
+\end{equation}
+We consider $\boxminus$ and $\boxplus$ to be inverse modalities of each other,
 in exactly the same way that \tmtextit{past} and \tmtextit{future} are inverse
 modalities in temporal logic. This is perhaps a little unusual; it is arguably
 more natural to think of \tmtextit{forgetting} as the inverse modality of
-remembering, and there doesn't appear to be an natural inverse operation
+remembering, and there does not appear to be an natural inverse operation
 corresponding to casting into doubt.  Following the idea of the \tmtextit{web
-of belief} due to Quine, as presented in \S\ref{quine}, I would extend a position
-asserting that remembering factive data is the same as embracing as much of
-one's evidence as possible.
+of belief} due to Quine, as presented in \S\ref{quine}, we would 
+extend a position asserting that remembering factive data is the 
+same as embracing as much of one's evidence as possible.
 
 In terms of the semantics outlined, $\boxminus$ corresponds to a subsetset
 relation while $\boxplus$ corresponds to a superset relation.  Because of
-this, I sometimes read $\boxminus \phi$ closer to the formal semantics, as
-saying something like ``for all subsets of the agent's beliefs, $\phi$ holds''
-and dually for $\boxplus \phi$.  This is admittedly even less natural than
-the reading of remembering as the opposite of casting into doubt.  So be it;
-I am comfortable with \tmtextsc{EviL} agents being at best twisted cartoon
-versions of actual people, who actually have minds and engage in remembering,
-imagining, and other similar activities.  After all, according to the
+this, we shall sometimes read $\boxminus \phi$ closer to the formal semantics, as
+saying something like ``for all subsets of the agent's basic beliefs
+or premises, $\phi$ holds'' and dually for $\boxplus \phi$.  
+This is admittedly even less natural than
+the reading of remembering as the opposite of casting into doubt.
+So be it; we shall have to be comfortable with \tmtextsc{EviL} 
+agents being at best twisted cartoon versions of actual people.
+Is this so unnatural?  Logic, in general, only affords at best cartoon
+versions of whatever we are trying to model with it.  Consider, for
+instance, Peano arithmetic, which is in general not powerful enough to
+prove a basic number theoretic fact like Goodstein's theorem
+\citep{kirby_accessible_1982}.  Or consider the stronger system 
+of second order arithmetic, which is in turn not strong enough to prove 
+% No logical framework for 
+% reasoning about epistemics can hope to who actually have minds and engage in remembering,
+% imagining, and other similar activities.  
+% After all, according to the
 semantics stipulated in \S\ref{evil-grammar}, \tmtextsc{EviL} agents apparently have sets
 for brains, which makes an \tmtextsc{EviL} agent a strange effigy for a person
 indeed -- with the possible exception of set theorists, whose brains are

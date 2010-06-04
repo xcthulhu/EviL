@@ -15,11 +15,13 @@ The proof of the converse, that is \emph{completeness}, proceeds by a three stag
 \item The first step is to construct a Kripke model $\Cross^\phi$ consisting of finite maximally consistent sets of formulae related to $\phi$ where $\Cross^\phi,w \nVdash \phi$ for some world $w \in W^{\Cross^\phi}$. This model will be shown to make true nine properties.
 \item The second step is to construct a model ${\iCross^{\Cross^\phi}}$ which is bisimular to $\Cross^\phi$. This model also makes true these nine properties as well as an additional tenth property.
 \item The final third step is to construct an \textsc{EviL} model ${\ipent^{\iCross^{\Cross^\phi}}_\phi}$.
-I shall then show that for each $w \in W^{\iCross^{\Cross^\phi}}$ there is a corresponding $(a,A) \in \ipent^{\iCross^{\Cross^\phi}}_\phi$ such that ${\iCross^{\Cross^\phi}}, w \Vdash \psi$ if and only if ${\ipent^{\iCross^{\Cross^\phi}}_\phi},(a,A) \models \psi$ for all subformulae $\psi$ of $\phi$.
+We shall show that for each $w \in W^{\iCross^{\Cross^\phi}}$ there is a corresponding $(a,A) \in \ipent^{\iCross^{\Cross^\phi}}_\phi$ such that ${\iCross^{\Cross^\phi}}, w \Vdash \psi$ if and only if ${\ipent^{\iCross^{\Cross^\phi}}_\phi},(a,A) \models \psi$ for all subformulae $\psi$ of $\phi$.
 \end{bul}
-These three steps together suffice to prove completeness.  I shall now proceed to demonstrate these constructions.
+These three steps together suffice to prove completeness.  we shall now proceed to demonstrate these constructions.
 \subsubsection{Subformula Model Construction}
-In this section we provide definitions and lemmas related to the subformula construction $\Cross^\phi$.  I consciously imitate \citet{boolos_logic_1995} in my approach, as well as the ``Fischer-Ladner Closure'' used in the completeness theorem of PDL \citep{blackburn_modal_2001}.
+In this section we provide definitions and lemmas related to the
+subformula construction $\Cross^\phi$.  We follow
+\citet{boolos_logic_1995} in our approach, as well as the ``Fischer-Ladner Closure'' used in the completeness theorem of PDL \citep{blackburn_modal_2001}.
 \begin{mydef}
 \begin{eqnarray*}
 \sim \phi := \begin{cases} \psi &\textup{ if $\phi = \neg\psi$} \\ \neg \phi & \textup{ o/w} \end{cases} &
@@ -79,7 +81,7 @@ For any subformula $\psi \in \Sigma(\delta(\phi),\phi)$ and any $w \in W^{\Cross
 \end{lemma}
 \begin{proof} The proof proceeds by induction on $\psi$.  Most of the steps are routine, with the exception of the right to left directions for the boxes.
 
-I shall demonstrate the right to left direction for $\BB_X$.  Assume that $\BB_X \psi \nin w$, then $w \nvdash \BB_X \psi$.  By Lemma \ref{equivs2} this is true if and only if $w \nvdash \pBB_X \psi$.  Now abbreviate:
+We shall demonstrate the right to left direction for $\BB_X$.  Assume that $\BB_X \psi \nin w$, then $w \nvdash \BB_X \psi$.  By Lemma \ref{equivs2} this is true if and only if $w \nvdash \pBB_X \psi$.  Now abbreviate:
 \begin{align*}
 A := & \bigcup \{ \{\chi,\pBB_X \chi\}\ |\ \pBB_X \chi \in w \}\\
 B := & \{ \sim \pBBI_X \chi \ | \ \pBBI_X \chi \in \Sigma(\delta(\phi),\phi) \wedge \sim\chi \in w \}
@@ -97,7 +99,7 @@ However, evidently $A' \cup B' \subseteq w$, hence $w \vdash \pBB_X \psi$, which
 
 Hence it must be that $\{\sim \psi\} \cup A \cup B \nvdash \bot$.  In addition, from the fact that $w \subseteq \Sigma(\delta(\phi),\phi)$ with Lemma  \ref{inclusions} and the hypothesis we have that $\{\sim \psi\} \cup A \cup B \subseteq \Sigma(\delta(\phi),\phi)$.  Hence by the Lindenbaum Lemma we have that there is some $v \in At(\Sigma(\delta(\phi),\phi))$ such that $\{\sim \psi\} \cup A \cup B \subseteq v$.  By the inductive hypothesis we have that $\Cross^\phi, v \nVdash \psi$.
 
-To complete the argument, we have to show that $w R^{\Cross^\phi}_{\BB_X} v$.  Since $A \subseteq v$ we just need to check that $\bigcup\{ \{\psi,\pBBI_X \psi\} \ |\ \pBBI_X \psi \in v\} \subseteq w$.  Suppose that $\pBBI_X \psi \in v$ but $\psi \nin w$.  Since $w$ is maximally consistent we have then that $\nin \psi \in w$.  Thus $\sim \pBBI_X \psi \in v$, which contradicts that $v$ is consistent. $\lightning$  Now suppose that $\pBBI_X \psi \in v$ but $\pBBI_X \psi \nin w$, hence $\sim \pBBI_X \psi \in w$ and thus $\sim \pBBI_X \pBBI_X \psi \in v$.  However we know from Lemma \ref{equivs2} that $\pBBI_X \pBBI_X \psi = \pBBI_X \psi$, which once again implies that $v$ is inconsistent. $\lightning$
+To complete the argument, we must show that $w R^{\Cross^\phi}_{\BB_X} v$.  Since $A \subseteq v$ we just need to check that $\bigcup\{ \{\psi,\pBBI_X \psi\} \ |\ \pBBI_X \psi \in v\} \subseteq w$.  Suppose that $\pBBI_X \psi \in v$ but $\psi \nin w$.  Since $w$ is maximally consistent we have then that $\nin \psi \in w$.  Thus $\sim \pBBI_X \psi \in v$, which contradicts that $v$ is consistent. $\lightning$  Now suppose that $\pBBI_X \psi \in v$ but $\pBBI_X \psi \nin w$, hence $\sim \pBBI_X \psi \in w$ and thus $\sim \pBBI_X \pBBI_X \psi \in v$.  However we know from Lemma \ref{equivs2} that $\pBBI_X \pBBI_X \psi = \pBBI_X \psi$, which once again implies that $v$ is inconsistent. $\lightning$
 \end{proof}
 
 \begin{lemma}[$\Cross^\phi$ is Partly \textsc{EviL}]\label{partly}
@@ -117,11 +119,11 @@ $\Cross^\phi$ makes true the following properties:
 
 \end{lemma}
 
-Unfortunately, while $\Cross^\phi$ is nearly what is necessary to derive completeness for my semantics, it is not perfect.  Another stage of the construction is necessary.
+Unfortunately, while $\Cross^\phi$ is nearly what is necessary to derive completeness for our semantics, it is not perfect.  Another stage of the construction is necessary.
 
 \subsubsection{Bisimulation}
 
-I first introduce a Backus-Naur form grammar for the $\mathsf{Either}$ type constructor, which may be viewed as a coproduct in category theory (in the category of Sets)\footnote{$\mathsf{Either}$ is taken from the functional programming language \texttt{Haskell}}:
+We first introduce a Backus-Naur form grammar for the $\mathsf{Either}$ type constructor, which may be viewed as a coproduct in category theory (in the category of Sets)\footnote{$\mathsf{Either}$ is taken from the functional programming language \texttt{Haskell}}\label{eitherdef}:
 \[ \mathsf{Either}\ a\ b ::= a_l \ |\ b_r \]
 %We shall now use this to make a definition.
 \begin{mydef}
@@ -162,7 +164,7 @@ Any partly \textsc{EviL} Kripke model that makes true this tenth property is sai
 
 In the subsequent discussion, it will be useful to exploit certain properties of \emph{partly \textsc{EviL}} models.  To this end we introduce the concept of a \emph{column}.
 
-\begin{mydef}Let $\mathbb{M}$ be a partly \textsc{EviL} Kripke structure.  I shall make the following definition:
+\begin{mydef}Let $\mathbb{M}$ be a partly \textsc{EviL} Kripke structure.  Let
 \[ \lcorners w\rcorners^\mathbb{M} := \{ v\ |\ w (R^{\mathbb{M}}_{\BB_X}\cup R^{\mathbb{M}}_{\BBI_X})^\ast v \}\]
 Here $R^\ast$ is the reflexive transitive closure of $R$.
 \end{mydef}
@@ -223,9 +225,11 @@ If $\nvdash \phi$ then there is some model $\mathfrak{M}$ and some $(a,A) \in \m
 
 \subsubsection{Conservativity, Decidability \& Complexity}
 
-In this section, we discuss basic computability results for \textsc{EviL}. I demonstrate that all of the fragments of \textsc{EviL} are decidable, and establish a lower bound on the computational complexity.
+In this section, we discuss basic computability results for
+\textsc{EviL}. All of the fragments of \textsc{EviL} are decidable;
+furthermore, we shall establish a lower bound on the computational complexity.
 
-I shall first prove the following lemma:
+We shall first prove the following lemma:
 
 \begin{lemma}
 \textsc{EviL}, \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$ with a single agent are all conservative extensions of the basic modal logic with just axiom $K$.  That is, if $\nvdash_K \phi$ then $\nvdash_{\textup{\textsc{EviL}}} \phi$ and similarly for the fragments \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$.

@@ -1,8 +1,9 @@
-In Table \ref{table:axioms}, I have provided a Hilbert-style axiom system for \textsc{EviL}.  In addition to giving each axiom, I have also provided my own philosophical reading of what each axiom says.  One unusual feature of this logic is that it is not \emph{normal}, that is it is not closed under variable substitution.
+In Table \ref{table:axioms}, we have provided a Hilbert-style axiom system for \textsc{EviL}.  In addition to giving each axiom, we have also provided our own philosophical reading of what each axiom says.  One unusual feature of this logic is that it is not \emph{normal}, that is it is not closed under variable substitution.
 
 \input{evil-axiom-table/evil-axiom-table.tex}
 
-This logic makes true a variety of relationships between the various modalities, which are given in the following lemma:
+This logic makes true a variety of relationships between the various
+modalities, which are given in the following lemma:
 \begin{lemma}\label{equivs}
 We have the following provable equivalences:
 \begin{eqnarray*} \vdash \Nec_X \phi \IFF \BB_X \Nec_X \phi & \hspace{1cm} \vdash \Nec_X \phi \IFF \Nec_X \BB_Y \phi \hspace{1cm}  & \vdash \Nec_X \phi \IFF \Nec_X \BBI_Y \phi \\
@@ -37,3 +38,8 @@ And define $\mathcal{L}^\boxplus (\Phi, \mathcal{A})$ as the fragment:
 
 Table \ref{table:axiomsII} gives the axioms systems for these two fragments.  For now, we shall observe that \textsc{EviL} extends \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$.  In \S\ref{conservative-extension} we shall make this precise. 
 \input{evil-axiom-table/evil_axioms_II.tex}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

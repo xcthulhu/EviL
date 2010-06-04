@@ -14,22 +14,22 @@ The following provides the definition of the language of multi-agent \textsc{Evi
    \  \Box_X \phi \  | \  \boxminus_X \phi
    \  | \  \boxplus_X \phi \  | \ 
    \circlearrowleft_X \]
-$\ldots$where $X \in \mathcal{A}$ and $\mathcal{A}$ is non-empty.
+Here $X \in \mathcal{A}$, and $\mathcal{A}$ is non-empty.
 \end{definition}
 
 As in the single agent case, multi-agent \tmtextsc{EviL} models are 
 sets $\Omega
-\subseteq \powerset \Phi \times (  (\powerset
-\mathcal{L}_0 (\Phi))^\mathcal{A})$ -- that is, $\Omega$ is a set of
+\subseteq \powerset \Phi \times   (\powerset
+\mathcal{L}_0 (\Phi))^\mathcal{A}$ -- that is, $\Omega$ is a set of
 pairs of sets of proposition letters, and indexed sets of
 propositional formulae.
  
 The semantic entailment relation for
 multi-agent \textsc{EviL} is 
-\[ (\VDash) \colons \powerset ( \powerset \Phi \times ( \mathcal{A}
-   \rightarrow \powerset \mathcal{L}_0 (\Phi))) \rightarrow \powerset \Phi
-   \times ( \mathcal{A} \rightarrow \powerset \mathcal{L}_0 (\Phi))
-   \rightarrow \mathcal{L} (\Phi, \mathcal{A}) \rightarrow
+\[ (\VDash) \colons \powerset ( \powerset \Phi \times  
+   (\powerset \mathcal{L}_0 (\Phi))^\mathcal{A}) \times \powerset \Phi
+   \times ( \powerset \mathcal{L}_0 (\Phi))^\mathcal{A}
+   \times \mathcal{L} (\Phi, \mathcal{A}) \rightarrow
    \textup{\textsf{bool}}. \]
 The input/output behavior of $(\VDash)$ is just as it was defined before in
 \S\ref{evil-grammar}, the only difference in this setting is that instead of
@@ -64,28 +64,36 @@ use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
 Just as in \S\ref{evil-grammar}, Lemma \ref{truthiness} and Theorem
 \ref{theorem-theorem} can be seen to obtain for the new generalized
 semantics.  Furthermore, all of the validities mentioned in \S\ref{validities}
-and \S\ref{elimination} hold, 
-along with Theorem \ref{vanishing}, where $\Box$, $\Pos$, $\BM$,
-$\BP$, $\DM$, $\DP$ and $\PP$ are all replaced with $\Box_X$, $\Pos_X$, $\BM_X$, $\BP_X$,
-$\DM_X$, $\DP_X$ and $\PP_X$ respectively, for any fixed $X \in \mathcal{A}$.
-Furthermore, compactness still fails, just as presented in \S\ref{non-compactness}.
+and \S\ref{elimination} hold, along with Theorem \ref{vanishing}, 
+where $\Box$, $\Pos$, $\BM$,$\BP$, $\DM$, $\DP$ and $\PP$ 
+are all replaced with $\Box_X$, $\Pos_X$, $\BM_X$, $\BP_X$,
+$\DM_X$, $\DP_X$ and $\PP_X$ respectively, for any fixed 
+$X \in \mathcal{A}$.
+Furthermore, compactness still fails, just as presented in 
+\S\ref{non-compactness}.
 
 Finally, there is are two novel validities that these semantics give
 rise to:
+
 \begin{eqnarray*} & \VDash \Box_X \phi \to \Box_X \BM_Y \phi \\
 & \VDash \Box_X \phi \to \Box_X \BP_Y \phi 
  \end{eqnarray*}
-This is just to say, that as the \textsc{EviL} agent's deliberative process was opaque
-to her beliefs in the single agent case, as expressed by
-\eqref{dontcare1} and \eqref{dontcare2} in \S\ref{validities}, 
-in a similar fashion she cannot read anyone else's mind, nor anyone
+
+This is just to say, that the \textsc{EviL} agent's deliberative
+process is opaque to other's beliefs, just as in the single agent
+case. This was expressed by
+\eqref{dontcare1} and \eqref{dontcare2} in \S\ref{validities}. 
+The agent cannot read anyone else's mind, nor anyone
 else hers.
 
-I will admit that little use shall be made of \textsc{EviL} generalized
-this way, since the single agent case is far more natural to think
-about for me.  However, it will be of interest to the main theorems of
-\textsc{EviL}, which I shall present in \S\ref{army-of-darkness}, that they be proved
-in the widest generality.
+% I will admit that little use shall be made of \textsc{EviL} generalized
+% this way, since the single agent case is far more natural to think
+% about for me.  
+
+Using the multi-agent semantics we have developed here, 
+the proof theory for \textsc{EviL} that shall be presented in 
+\S\ref{army-of-darkness} can now be given in higher generality.
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"

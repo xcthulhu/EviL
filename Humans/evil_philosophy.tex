@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{amssymb,amsmath}
 \usepackage{bussproofs}
-\usepackage[round, authoryear, comma]{natbib}
+\usepackage{natbib}
 \usepackage{hyperref}
  \hypersetup{
      colorlinks,%
@@ -87,6 +87,10 @@
 \renewcommand{\qedsymbol}{\small QED}
 
 %%%%%%% Symbols
+
+% Hack to get bibtex to get page references right using zotero
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2013}{--}
 
 % Yeah, I use a lot of crazy symbols, now that I reflect on this.
 % Upon reflection, this section has evolved into quite a spectacular mess.
@@ -561,31 +565,33 @@ recursively:
 
 \par 
 Since the semantics like the above shall be the principle objects of
-study, I will give how I read them philosophically.  In these
-semantics, instead of thinking of every world individually, I think of
+study, we will give how to read them philosophically.  In these
+semantics, instead of thinking of every world individually, we think of
 every world as containing facts and a part of the agent's mind.  
-This part of the agent's mind is represented by what I shall refer to as
-propositions which she ascents to. I shall refer to these
+This part of the agent's mind is represented by what we shall refer to as
+propositions which she ascents to. We shall refer to these
 interchangeably as \emph{premises}, \emph{assumptions}, \emph{basic
   beliefs}, \emph{experiences}, or \emph{evidence}.  These sets of
 propositions also represent, in a way, the agent's \emph{frame of
-  mind}; I shall return to developing this perspective in
+  mind}; we shall return to developing this perspective in
 \S\ref{irrational}. For now we will stick to the former readings.
 
  To understand $\box \phi$, we think of the agent as producing
  derivations in a logical calculus on the basis of her evidence.  
- So I alternately read  as \emph{the agent believes $phi$}, 
+ So we alternately read  as \emph{the agent believes $phi$}, 
  \emph{the agent can deduce $\phi$} or
- \emph{can compose an argument for $\phi$}.
-  Like the original formulation of epistemic
- logic in \cite{hintikka_knowledge_1969}, I assume that 
+ \emph{can compose an argument for $\phi$}.  We shall make further
+ reference to this reading explicitly again in \S. 
+ 
+ Like the original formulation of epistemic
+ logic in \cite{hintikka_knowledge_1969}, we assume that 
  agents are \emph{doxastically omniscient} - that is they 
- believe all of the consequences of their beliefs.  I prefer to 
- think of this particular idealization as thinking about 
+ believe all of the consequences of their beliefs.  We shall 
+ prefer to think of this particular idealization as thinking about 
  what an agent might conclude \emph{eventually}.
 
  By focusing on basic items of evidence as forming the foundation for
- belief, I consider this approach to be roughly in line with the 
+ belief, we consider this approach to be roughly in line with the 
  \emph{evidentialist} view on  epistemology, which 
  \citet{conee_evidentialism_2004} describe as follows:
  \begin{quote}
@@ -641,7 +647,10 @@ subformulae of $\phi$, and let $q : W
   this vein, I shall abbreviate $q(w)$ as $q_w$. Note
   that because $PropVars_\phi$ are \emph{finite} and $\Phi$ is assumed
 to be \emph{infinite}, such an inject always exists.  This is a
-consequence of \emph{The Axiom of Choice}.}.  Define $\theta:W^\mathbb{M}\to \powerset\Phi \times \powerset \mathcal{L}_0(\Phi)$ as follows\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
+consequence of \emph{The Axiom of Choice}.}.  Define
+$\theta:W^\mathbb{M}\to \powerset\Phi \times \powerset
+\mathcal{L}_0(\Phi)$ as follows
+%\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
 $$ \theta(x) := (\{p\in \Phi \ |\ \mathbb{M},w\VDash p\} \cup
 \{q_w\}, \{ \bigvee_{v \in R[w]} q_v  \} ) $$
 % \begin{center}
@@ -666,7 +675,7 @@ accessibility relation.  A far more elaborate construction, based on
 the similar principles, shall be presented in \S\ref{translation}.
 
 Armed with this, we can see that these semantics are adequate for
-modeling agents according to my declared intentions.
+modeling agents according to our declared intentions.
 Recall the following definitions from basic logic and modal model
 theory\footnote{This notation consciously imitates the notation
   employed in \citep{blackburn_modal_2001}.}:
@@ -877,9 +886,9 @@ the following:
 \begin{quote}
  \textbf{Emerson's Principle}: \emph{One can be inconsistent and still have knowledge}
 \end{quote}
-Permit me illustrate how the framework I have given accommodates
-this. My treatment is further inspired by a friend and contemporary of
-Emerson's, the poet \emph{Walt Whitman}. In \emph{Leaves of Grass}
+We may observe how the framework so far developed accommodates this. 
+My treatment is further inspired by a friend and contemporary of
+Emerson's, the poet Walt Whitman. In \emph{Leaves of Grass}
 \citep{whitman_leaves_2008}, he writes:
 \begin{center}{  Do I contradict myself?\\
   Very well then I contradict myself,\\
@@ -1141,8 +1150,9 @@ developed ideas.  This shall be done in three movements:
  \item[\S\ref{dead-by-dawn}]  In the second section I develop several
    topics in the pure theory of \textsc{EviL} which I consider a bit
    beyond the bare essentials.
-  \item[\S\ref{army-of-darkness}]  In this section, completeness and
-    decidability is discussed in relation to \textsc{EviL} and two sublogics.
+  \item[\S\ref{army-of-darkness}]  In this section, logics for
+    \textsc{EviL} are presented, along with completeness 
+     and decidability.
 \end{description}
 
 % from that section provided by the previous section into a provide an outline
@@ -1154,7 +1164,7 @@ developed ideas.  This shall be done in three movements:
 \subsection{Basic \textsc{EviL}}\label{basic-evil}
 \subsubsection{Grammar \& Semantics}\label{evil-grammar}
 \input{semantics_introduction.tex}
-\subsubsection{Intuitions}
+\subsubsection{Intuitions}\label{evil-intuition}
 \input{evil_intuition.tex}
 \subsubsection{Validities}
 \label{validities}
@@ -1186,7 +1196,7 @@ developed ideas.  This shall be done in three movements:
 \subsubsection{The G\"{o}del Tarski McKinsensy Embedding}
 \subsubsection{Knowledge}
 \subsubsection{Imagination}
-\subsubsection{van Benthem \textsc{S4}}
+\subsubsection{van Benthem $S4$}
 \subsubsection{$ImK_\Box$}
 
 % \section{Mechanization}\label{robots}\label{formal}
@@ -1213,24 +1223,26 @@ developed ideas.  This shall be done in three movements:
 {\mathcal{L}_{\textup{therm}}} & \phi ::= x \textup{ Pascals}  \ |\ y \textup{ moles}  \ |\ z
 \textup{ Kelvin}  \ |\ \phi \to \psi \ |\ \bot \ |\ \Box \phi &
 \textup{pg. \pageref{Ltherm}} \\
-\mathcal{L}_K(\Phi)  & \phi\ {::=} \ p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi &
-\textup{pg. \pageref{LK}}\\
 {\mathcal{L}_{0}} & \phi\ {::=} \  p \in \Phi \ |\ \phi \to \psi \ | \ \bot
 &
 \textup{pg. \pageref{Lang0}} \\
+\mathcal{L}_K(\Phi)  & \phi\ {::=} \ p \in \Phi \ |\ \phi \to \psi \ | \ \bot \ |\ \Box \phi &
+\textup{pg. \pageref{LK}}\\
 \mathcal{L}_A (\Phi) & \phi\  {::=} \  p \  | \  \neg p
      \  | \  \top \  | \  \bot
      \  | \  \circlearrowleft \  | \ 
      \phi \wedge \psi \  | \  \phi \vee \psi \ 
      | \  \diamondsuit \phi \  | \  \boxminus
      \phi \  | \  \DP \phi &  
-     \textup{pg. \pageref{Lang}} \\
+     \textup{pg. \pageref{LangA}} \\
 \mathcal{L}_B (\Phi) & \phi\  {::=} \  \neg p \  | \  p
      \  | \  \bot \  | \  \top
      \  | \  \neg \circlearrowleft \  |
      \  \phi \vee \psi \  | \  \phi \wedge \psi
      \  | \  \Box \phi \  | \  \DM \phi \  | \  \boxplus \phi &
       \textup{pg. \pageref{LangB}} \\
+    & \mathsf{Either}\ a\ b ::= a_l \ |\ b_r 
+    & \textup{pg. \pageref{eitherdef}} \\
  \end{eqnarray*}
 
 \section{Alternate Semantics}
@@ -1244,6 +1256,6 @@ developed ideas.  This shall be done in three movements:
 
 \pagebreak
 \addcontentsline{toc}{section}{References}
-\bibliographystyle{amsplain}
+\bibliographystyle{alpha}
 \bibliography{zotero}
 \end{document}

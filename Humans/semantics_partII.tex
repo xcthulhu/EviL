@@ -1,7 +1,7 @@
 The language of \textsc{EviL} is evidently modal, and in previous
 sections the semantics have largely suggested that there are clear
 connections to conventional Kripke semantics.  
-In this section, I will demonstrate that every \textsc{EviL} model
+In this section, we will demonstrate that every \textsc{EviL} model
 corresponds to some highly structured Kripke model, with a minor
 modification on the standard definition.  However, it will turn out
 that this correspondence is one way - the class of Kripke models for
@@ -9,15 +9,17 @@ which \textsc{EviL} is strongly complete do not, in general,
 possess corresponding \textsc{EviL} models.
 
 To elucidate my intuition for understanding \textsc{EviL} models as
-Kripke models, I would like to return to the visualization technique for
-\textsc{EviL} models I introduced in \S\ref{contradictions}.  This involved, roughly,
-thinking of the \textsc{EviL} models as \emph{posets} with arrows,
-as I first presented in Fig. \ref{fig:example1}.  I have given
-additional examples in Figs. \ref{fig:example2} and
-\ref{fig:example3}.  
-In all of these depictions, the implicit relational structure of \textsc{EviL} models is given
-visual expression.  So it seems only natural to me that this graphically perceived structure
+Kripke models, we would like to return to the visualization technique for
+\textsc{EviL} models we introduced in \S\ref{contradictions}.  This
+involved, roughly, thinking of the \textsc{EviL} models as 
+\emph{posets} with arrows, as we first presented in 
+Fig. \ref{fig:example1}.  we have given additional examples in 
+Figs. \ref{fig:example2} and \ref{fig:example3}.  
+In all of these depictions, the implicit relational structure of 
+\textsc{EviL} models is given visual expression.  So it seems 
+only natural that this graphically perceived structure
 could also find formal expression.
+
 \begin{figure}[ht]
 \centering
 \subfigure[A fairly simple example]{
@@ -39,12 +41,11 @@ developments this section will assume multiple agents.
   A \textbf{Kripke structure} is a state transition system $\mathbb{M}=\langle W^{\mathbb{M}}, R^{\mathbb{M}},
   \sqsubseteq^{\mathbb{M}}, \sqsupseteq^{\mathbb{M}}, V^{\mathbb{M}},
   P^{\mathbb{M}}_{\circlearrowleft} \rangle$ where\footnote{Where
-    the context is clear, I shall drop $\mathbb{M}$ from the
-    superscripts I am employing.}:
+    the context is clear, we shall drop $\mathbb{M}$}:
   \begin{itemizedot}
     \item $W^{\mathbb{M}}$ is a set of worlds    
     \item $R^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$, $\sqsubseteq^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$, and $\sqsupseteq^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$ are
-    $\mathcal{A}$-indexed sets of relations\footnote{I will abbreviate
+    $\mathcal{A}$-indexed sets of relations\footnote{we shall abbreviate
       $R(X)$, $\sqsubseteq(X)$ and $\sqsupseteq(X)$ as $R(X)$,
       $\sqsubseteq(X)$ and $\sqsupseteq(X)$ as $R_X$, $\sqsubseteq_X$
       and $\sqsupseteq_X$ respectively.}
@@ -156,7 +157,7 @@ R^{\Omega}_X $ and \ \ \ \  $R^{\Omega}_X \subseteq
 \caption{Visualizations of the relationships in Proposition \ref{evil_models}}
 \end{figure}
 \begin{proof}
-  Everything except \ref{pV} follows directly from the definitions - so I shall only
+  Everything except \ref{pV} follows directly from the definitions - so we shall only
   demonstrate $R^{\Omega}_X \subseteq R^{\Omega}_X \circ
   \sqsupseteq^{\Omega}_X$.
   
@@ -178,7 +179,7 @@ These properties are definitive - as shall be demonstrated in \S\ref{Abstract-Co
 sound and strongly complete for \tmtextsc{EviL} models.
 
 The Kripke semantics also serve to provide proper intuition behind
-\tmtextsc{EviL} models. I think of the defined relations given as follows:
+\tmtextsc{EviL} models. We think of the defined relations given as follows:
 \begin{itemizedot}
   \item If $x R^{\Omega}_X y$, then at world $x$ the agent $X$ can imagine $y$
   is true, since $y$ is compatible with what the agent believes 
@@ -239,23 +240,23 @@ Observe that the above model makes true the following:
   \mathbb{M},w & \Vdash \neg \Pos \Pos \top \label{notevil:eq3} 
 \end{align}
 
-Armed with these observations, I can assert that it is impossible for
+Armed with these observations, we can assert that it is impossible for
 there to be an \textsc{EviL} structure $\mathfrak{M}$ with a world
 $(a,A)$ such that $\mathbb{M},w \Vdash \phi$ if and only if
 $\mathfrak{M}, (a,A) \VDash \phi$.
 
-For suppose there were, then I could deduce the following facts, using
+For suppose there were, then we could deduce the following facts, using
 the observations above:
 \begin{mynum}
 \item\label{notevil:1} From \eqref{notevil:eq1}, there must be some pair $(b,B)
    \in \mathfrak{M}$ such that $b\models A$.  Hence, $A$ must be
    \emph{consistent}.
-\item From \eqref{notevil:eq4}, I know that for the $b$ mentioned in
+\item From \eqref{notevil:eq4}, we know that for the $b$ mentioned in
   \ref{notevil:1}, it must be that $b = \varnothing$ -- this is a
   direct consequence of Lemma \ref{truthiness}, the Truthiness Lemma.
  \item From \eqref{notevil:eq2}, evidently $a = \varnothing$
   \item From \eqref{notevil:eq3}, it must be
-    that $a \nmodels A$, since otherwise I would have
+    that $a \nmodels A$, since otherwise we would have
     $\mathfrak{M},(a,A) \VDash \Pos \Pos \top$
 \end{mynum}
 This is absurd... since $a = b = \varnothing$ and $b \models A$
@@ -265,13 +266,11 @@ then it must be that $a \models A$. $\lightning$
 
 The above one way correspondence is inconvenient - it means that while
 \textsc{EviL} only enjoys some features from modal logic, it is denied
-others.  Despite this, I hold that \textsc{EviL} enjoys \emph{most} of the
+others.  Despite this, \textsc{EviL} enjoys \emph{most} of the
 benefits of basic modal logic.  Furthermore, even though \textsc{EviL}
 is quite formal in nature, it might rightly be considered an
 application  of traditional modal logic rather than a novel logic
-in of itself.  If the language of \textsc{EviL} had been first order
-rather than modal, I doubt I would have been tempted to call a logic
-at all.  The novelty of \textsc{EviL} is that it presents semantics
+in of itself.   The novelty of \textsc{EviL} is that it presents semantics
 that automatically connect truth and derivability (as expressed in
 Theorem \ref{theorem-theorem}, the Theorem Theorem).
 

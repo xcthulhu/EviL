@@ -1,4 +1,4 @@
-In this section, I shall present an alternative work to the framework
+In this section, we shall present an alternative work to the framework
 proposed in \S\ref{explicit}. 
 These semantics are inspired by game semantics for modal logic, 
 such as those in \citet[chapter 2]{van_benthem_modal_2010}.
@@ -60,18 +60,19 @@ elaboration on these connections.
   \end{empt}
 \end{definition}
 
-I feel it is necessary to motivate the intuition behind these semantics.  
-Informally, I think of these two truth relations correspond to two players, whom I call the
+It is necessary to motivate the intuition behind these semantics.  
+Informally, we think of these two truth relations correspond to two
+players, whom we shall call the
 {\tmem{logician}} and the {\tmem{philosopher}}.   The logician wields a set
 beliefs given by $\beta$ and tries to compose compelling arguments, and the
 philosopher employs a corpus of thought experiments given by $\iota$ to thwart
 the logician's arguments.   Of course, the logician and the philosopher are
-really just two aspects of a single epistemic agent I am trying to model; I
-imagine epistemic agents modeled by this system to be embroiled in internal
-conflict. I feel this sort of dissension between reason and imagination rages
-on within us all -- it's fundamental to human nature.
+really just two aspects of a single epistemic agent we are trying to model; we
+shall imagine epistemic agents modeled by this system to be embroiled in internal
+conflict.  This sort of dissension between reason and imagination rages
+on within us all -- it is fundamental to human nature.
 
-These semantics are not naturally bivalent; that is it doesn't hold that
+These semantics are not naturally bivalent; that is it does not hold that
 either $\Omega, w \Vdash \phi$ or $\Omega, w \Vvdash \phi$, exclusively. To
 see this consider a model where $\beta (w) = \iota (w) = \varnothing$; then
 evidently $\Omega, w {\nVdash} \Box p$ and $\Omega, w {\nVvdash} \Box p$.
@@ -169,9 +170,11 @@ semantics:
   $\Omega^{\mathbbm{K}}$. 
 \end{proof}
 
-However, reflecting on my remarks in \S\ref{thermometers}, I think that it's wrong for agents to be able to have
-everything they believe in their minds; this is about as bad as the thermometer theory of knowledge
- in my opinion.   However, this is evidently not entirely necessary. Call a belief/imagination model
+However, recalling on the remarks presented in \S\ref{thermometers},
+it is wrong for agents to be able to have everything they believe in 
+their minds; this is about as bad as the thermometer theory of knowledge.   
+However, this is evidently not entirely necessary. 
+Call a belief/imagination model
 \tmtextit{reasonable} if the following two constraints are satisfied:
 \begin{itemizedot}
   \item $\beta (w) \vdash^{\ast} \phi$ for all $\phi \in \tmop{Th}_{\Vdash}
@@ -203,7 +206,7 @@ Evidently, forcing these requirements suffices to force bivalence:
 
 \begin{proof}
   The propositional, disjunctive and conjunctive cases are all
-  straightforward; I shall focus on negation and modality.
+  straightforward; we shall focus on negation and modality.
   
   Negation: In the case of (\tmtextit{i}), we know that \
   \begin{eqnarray}
@@ -282,8 +285,10 @@ We may continue to obtain weak completeness for these semantics:
 \end{proof}
 
 Now, while reasonable models attain the goal of modeling agents that have
-proofs for the things they believe, I do not consider them adequate. These models are only reasonable in the
+proofs for the things they believe, they should not be considered adequate. These models are only reasonable in the
 sense that they indeed model agents providing nontrivial proofs for their beliefs.
-However, they aren't reasonable in the sense that they are simple
-to reckon with.   So while the semantics provided in \S\ref{evil-semantics} requires a grammar
-restriction, which might be considered inelegant, I have settled on it, rather than the formulation given above, precisely because I consider this to be less manageable.
+However, they are not reasonable in the sense that they are simple
+to reckon with.   So while the semantics provided in
+\S\ref{evil-semantics} requires a grammar restriction, it should be
+preferred over the formulation given above,
+precisely because it is more manageable.
