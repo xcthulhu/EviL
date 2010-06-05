@@ -197,7 +197,7 @@ Let $\ipent^\mathbb{M}_\phi := \kl_\phi^\mathbb{M}[W^\mathbb{M}]$
 
 \end{mydef}
 
-\begin{lemma}\label{translation}
+\begin{lemma}\label{translation-lemma}
 Let $\mathbb{M}$ be a completely \textsc{EviL} Kripke structure.  Then for any subformula $\psi$ of $\phi$ and any $w \in W^\mathbb{M}$, we have $\mathbb{M},w \Vdash \psi$ if and only if $\ipent^\mathbb{M}_\phi, \kl_\phi^\mathbb{M}(w) \models \psi$
 
 \end{lemma}
@@ -220,7 +220,7 @@ If $\nvdash \phi$ then there is some model $\mathfrak{M}$ and some $(a,A) \in \m
 	Assume $\nvdash \phi$, then by Lemmas \ref{truth} and \ref{partly} we have some partly \textsc{EviL} Kripke 
 	structure and world such that $\mathbb{A},a \nVdash \phi$.  By Lemma \ref{bisimulation} we have that there is a 
 	completely \textsc{EviL} Kripke structure $\mathbb{B}$ such that $\mathbb{A}\ \underline{\IFF}{}\ \mathbb{B}$, thus there is some world $b$ such that $\mathbb{B},b \nVdash \phi$.  
-	Finally by Lemma \ref{translation} we have that there's a model $\mathfrak{C}$ in \textsc{EviL} semantics and a pair $(c,C) \in \mathfrak{C}$ such that $\mathfrak{C},(c,C) \nmodels \phi$.
+	Finally by Lemma \ref{translation-lemma} we have that there's a model $\mathfrak{C}$ in \textsc{EviL} semantics and a pair $(c,C) \in \mathfrak{C}$ such that $\mathfrak{C},(c,C) \nmodels \phi$.
 \end{proof}
 
 \subsubsection{Conservativity, Decidability \& Complexity}
@@ -242,7 +242,7 @@ Assume that $\nvdash_K \phi$, then we know from modal logic that there's a finit
 	\item $P := \{(v,v)\ |\ v R v\}$
 	\item $R_\BB := R_\BBI := \{(w,w)\ |\ w \in W\}$
 \end{bul}
-This model is trivially completely \textsc{EviL}. Moreover we know that $\mathbb{M}$ is an elementary submodel of $\mathbb{M}'$, so $\mathbb{M}', w\nvdash \phi$.  Hence by the Lemma \ref{translation} we have a model $\mathfrak{M}$ and $(a,A) \in \mathfrak{M}$ such that $\mathfrak{M},(a,A) \nmodels \phi$; so by soundness for \textsc{EviL} we have the desired result.
+This model is trivially completely \textsc{EviL}. Moreover we know that $\mathbb{M}$ is an elementary submodel of $\mathbb{M}'$, so $\mathbb{M}', w\nvdash \phi$.  Hence by the Lemma \ref{translation-lemma} we have a model $\mathfrak{M}$ and $(a,A) \in \mathfrak{M}$ such that $\mathfrak{M},(a,A) \nmodels \phi$; so by soundness for \textsc{EviL} we have the desired result.
 
 Similarly, if we $\nvdash_{\textup{\textsc{EviL}}_\mathcal{A}} \phi$ then by completeness can find a witnessing $\mathfrak{M}$ and $(a,A) \in \mathfrak{M}$ such that $\mathfrak{M},(a,A) \nmodels \phi$.  But then we can embed $\mathfrak{M}$ into $\mathfrak{M}'$ for agents $\mathcal{B} \supseteq \mathcal{A}$ where $\mathfrak{M}' := \{(a,A') \ |\ (a,A) \in \mathfrak{M}\}$ and
 $$ A'_X := \begin{cases} A_X & X \in\mathcal{A} \\ \varnothing & X \nin \mathcal{A}\end{cases} $$

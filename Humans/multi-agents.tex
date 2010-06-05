@@ -1,11 +1,12 @@
-In this section I turn to extending the semantics for
+In this section we extend the semantics for
 \tmtextsc{EviL} from a single agent, as presented in \S\ref{evil-grammar}, to
 accommodate multiple agents.  This is primarily of interest since further
 results in \textsc{EviL}, namely completeness, can naturally be
-abstracted beyond the single agent case.  But I will freely admit that
-my \textsc{EviL} intuitions are principally grounded in the single
-agent case -- I recommend thinking about the multi-agent case as just
-a generalization of the single agent case.
+abstracted beyond the single agent case.  
+% But I will freely admit that
+% my \textsc{EviL} intuitions are principally grounded in the single
+% agent case -- I recommend thinking about the multi-agent case as just
+% a generalization of the single agent case.
 
 The following provides the definition of the language of multi-agent \textsc{EviL}:
 \begin{definition} Define $\mathcal{L} (\Phi, \mathcal{A})$ by the following Backus-Naur grammar:
@@ -36,8 +37,8 @@ The input/output behavior of $(\VDash)$ is just as it was defined before in
 taking a pair as an input, where the second element is a
 set, it takes an indexed set.
 
-I shall now provide a formal definition of the semantics for the multi-agent $(\VDash)$:
-{\footnote{Where $X \in \mathcal{A}$, I
+We now provide a formal definition of the semantics for the multi-agent $(\VDash)$:
+{\footnote{Where $X \in \mathcal{A}$, 
 use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
 \powerset \mathcal{L}_0 (\Phi)$}}
 \begin{definition}

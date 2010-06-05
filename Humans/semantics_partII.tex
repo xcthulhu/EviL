@@ -8,13 +8,24 @@ that this correspondence is one way - the class of Kripke models for
 which \textsc{EviL} is strongly complete do not, in general,
 possess corresponding \textsc{EviL} models.
 
-To elucidate my intuition for understanding \textsc{EviL} models as
-Kripke models, we would like to return to the visualization technique for
+In order to understand \textsc{EviL} models as
+Kripke models, we return to the visualization technique for
 \textsc{EviL} models we introduced in \S\ref{contradictions}.  This
-involved, roughly, thinking of the \textsc{EviL} models as 
+involved thinking of the \textsc{EviL} models as 
 \emph{posets} with arrows, as we first presented in 
-Fig. \ref{fig:example1}.  we have given additional examples in 
-Figs. \ref{fig:example2} and \ref{fig:example3}.  
+Fig. \ref{fig:example1} in \S\ref{contradictions}.  We also saw 
+additional examples of this visualization technique below in 
+Figs. \ref{fig:example2}  and \ref{fig:example3}.  Recall that these
+figures should be read as follows:
+\begin{bul}
+ \item if one point $(a,A)$ is above another point $(b,B)$ and
+   connected by a densely dotted line 
+   \tikz \draw[densely dotted,semithick](0pt,0pt) -- (20pt,6pt);, 
+   this means that $a = b$ and $B \subset A$.
+  \item if one point $(a,A)$ is connected to another point $(b,B)$ by
+    a line with an arrow \tikz \draw[->,>=latex,semithick](0pt,0pt) --
+    (20pt,6pt);, this means that $\Omega,(b,B) \VDash A$
+\end{bul}
 In all of these depictions, the implicit relational structure of 
 \textsc{EviL} models is given visual expression.  So it seems 
 only natural that this graphically perceived structure
@@ -79,8 +90,9 @@ as usual, granted the exceptional behavior of $P_{\circlearrowleft}$.
     P_{\circlearrowleft}^{\mathbbm{M}} (X)
   \end{eqnarray*}
 \end{definition}
-Kripke structures can be observe to have a lot less structure than
-\tmtextsc{EviL} models.  However, \tmtextsc{EviL} models can be understood as
+Kripke structures can be observed to typically have a lot less structure than
+\tmtextsc{EviL} models.  On the other hand, 
+\tmtextsc{EviL} models can be understood as
 Kripke structures in disguise.  To illustrate this, observe the following
 lemma:
 \begin{definition}[$\mho^\Omega$ Translation]
@@ -133,23 +145,30 @@ The following summarizes the structural properties of
 \end{proposition}
 \begin{figure}[ht]
 \centering
-\subfigure[\ref{pV} - $(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
-R^{\Omega}_X$ and $R^{\Omega}_X \subseteq (R^{\Omega}_X \circ
+\subfigure[\ --\ \ref{pV}\ --\ \newline 
+$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
+R^{\Omega}_X$ and 
+\newline $R^{\Omega}_X \subseteq (R^{\Omega}_X \circ
 \sqsupseteq^{\Omega}_X)$ ]{
   \includegraphics[]{commutative/commutative1.pdf}
 %\caption{A fairly simple example}
 \label{fig:commut1}
 }
 \hspace{1cm}
-\subfigure[\ref{pVI} - $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
-R^{\Omega}_X$ and \ \ \ \  $R^{\Omega}_X \subseteq
-(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$]{
+\subfigure[\ --\ \ref{pVI}\ --\ \newline 
+ $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
+ R^{\Omega}_X$ 
+and \newline
+ $R^{\Omega}_X \subseteq (\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$
+]{
 \includegraphics[]{commutative/commutative2.pdf}
 \label{fig:commut2}
 }
 \hspace{1cm}
-\subfigure[\ref{pVI} - $(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
-R^{\Omega}_X $ and \ \ \ \  $R^{\Omega}_X \subseteq
+\subfigure[\ --\ \ref{pVI}\ --\ \newline  
+$(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
+R^{\Omega}_X $ and \newline
+ $R^{\Omega}_X \subseteq
 (\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X)$]{
 \includegraphics[]{commutative/commutative3.pdf}
 \label{fig:commut3}
@@ -170,13 +189,13 @@ R^{\Omega}_X $ and \ \ \ \  $R^{\Omega}_X \subseteq
   suffices to show the claim.
 \end{proof}
 
-\begin{definition}
+\begin{definition}\label{evil-kripke-structures}
 A Kripke structure is called \textsc{EviL} if it makes true the
-  above properties \ref{pI} through \ref{pVII} (with the exception of \ref{pantisym}, which is optional).
+  above properties \ref{pI} through \ref{pVII}.
 \end{definition}
 
-These properties are definitive - as shall be demonstrated in \S\ref{Abstract-Completeness}, \tmtextsc{EviL} is
-sound and strongly complete for \tmtextsc{EviL} models.
+% These properties are definitive - as shall be demonstrated in \S\ref{Abstract-Completeness}, \tmtextsc{EviL} is
+% sound and strongly complete for \tmtextsc{EviL} models.
 
 The Kripke semantics also serve to provide proper intuition behind
 \tmtextsc{EviL} models. We think of the defined relations given as follows:
@@ -189,17 +208,17 @@ The Kripke semantics also serve to provide proper intuition behind
 \end{itemizedot}
 Given this perspective, the proof of \ref{pV} can be understood in the
 following way - if the agent assumes fewer things, more things are imaginable,
-since it's easier for a world to be incompatible with an agent's evidence.
+since it is easier for a world to be incompatible with an agent's evidence.
 
 Finally, while Prop. \ref{evil_models} presents itself as a sort of
 representation lemma, the relationship between \textsc{EviL} semantics
 and Kripke semantics is not reciprocal.  Not every Kripke model can be
-represented as an \textsc{EviL} model.  Example
+represented as an \textsc{EviL} model.  Proposition
 \ref{not-an-evil-model} presents an elementary example of 
 this failure of representation.  It turns on the following
 observation:
 
-\begin{lemma}
+\begin{lemma}\label{helper-lemma}
   For a given \textsc{EviL} model $\mathfrak{M}$, for any
   $\{(a,A),(b,B),(c,C)\} \subseteq \mathfrak{M}$, if $a = b$ then $a
   \models C$ if and only if $b \models C$
@@ -208,30 +227,24 @@ observation:
   This is an elementary result in the semantics of propositional logic.
 \end{proof}
 
-\begin{example}\label{not-an-evil-model}
+\begin{proposition}[Failure of Representation]
+\label{not-an-evil-model}
 Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R,
   \sqsubseteq, \sqsupseteq, V, P \rangle$ where
-\begin{bul}
-  \item $W := \{w,v\}$
-  \item $R := \{(w,v)\}$
-  \item $ \sqsubseteq := \sqsupseteq := \{(w,w),(v,v)\}$
-  \item $V(p) := \varnothing$ for all $p\in \Phi$
-  \item $P := \varnothing$
-\end{bul}
-\ldots this structure is indicated in Fig. \ref{fig:notevil}.  No
+\begin{center}
+\begin{tabular}{ l c l }
+ \quad $W := \{w,v\}$ & & $\sqsubseteq := \sqsupseteq := \{(w,w),(v,v)\}$ \\
+ \quad $R := \{(w,v)\}$ & & $V(p) := \varnothing$ for all $p\in \Phi$ \\
+   & $P := \varnothing$ & \\
+\end{tabular}
+\end{center}
+This structure is depicted in Fig. \ref{fig:notevil}.  No
 \textsc{EviL} model corresponds to $\mathbb{M}$.
+\end{proposition}
 %\end{lemma}
-\begin{figure}[ht]
-\centering
-  \includegraphics[]{evil_pictures/third_fig.pdf}
-%\caption{A fairly simple example}
-\label{fig:notevil}
-\caption{$\mathbb{M}$ is a Kripke Structure with no \textsc{EviL} representation}
-\end{figure}
 %\begin{proof}
-
+\begin{proof}
 Observe that the above model makes true the following:
-
 \begin{align}
   \mathbb{M},w & \Vdash \Pos \top \label{notevil:eq1}\\
   \mathbb{M},w & \Vdash \Nec \neg p \textup{ for all $p \in
@@ -239,7 +252,6 @@ Observe that the above model makes true the following:
   \mathbb{M},w & \Vdash \neg p \textup{ for all $p \in \Phi$} \label{notevil:eq2} \\
   \mathbb{M},w & \Vdash \neg \Pos \Pos \top \label{notevil:eq3} 
 \end{align}
-
 Armed with these observations, we can assert that it is impossible for
 there to be an \textsc{EviL} structure $\mathfrak{M}$ with a world
 $(a,A)$ such that $\mathbb{M},w \Vdash \phi$ if and only if
@@ -252,27 +264,95 @@ the observations above:
    \in \mathfrak{M}$ such that $b\models A$.  Hence, $A$ must be
    \emph{consistent}.
 \item From \eqref{notevil:eq4}, we know that for the $b$ mentioned in
-  \ref{notevil:1}, it must be that $b = \varnothing$ -- this is a
+  \ref{notevil:1}, it must be that $b = \varnothing$. This is a
   direct consequence of Lemma \ref{truthiness}, the Truthiness Lemma.
  \item From \eqref{notevil:eq2}, evidently $a = \varnothing$
   \item From \eqref{notevil:eq3}, it must be
-    that $a \nmodels A$, since otherwise we would have
+    that $a \nmodels A$. Otherwise by the semantics of
+    \textsc{EviL} as defined in \S\ref{evil-grammar} we would have
     $\mathfrak{M},(a,A) \VDash \Pos \Pos \top$
 \end{mynum}
-This is absurd... since $a = b = \varnothing$ and $b \models A$
-then it must be that $a \models A$. $\lightning$
+Since $a = b = \varnothing$ and $b \models A$
+then by Lemma \ref{helper-lemma} it must be that $a \models A$. But this
+clearly is absurd! $\lightning$
 %\end{proof}
-\end{example}
+\end{proof}
 
-The above one way correspondence is inconvenient - it means that while
-\textsc{EviL} only enjoys some features from modal logic, it is denied
-others.  Despite this, \textsc{EviL} enjoys \emph{most} of the
-benefits of basic modal logic.  Furthermore, even though \textsc{EviL}
-is quite formal in nature, it might rightly be considered an
-application  of traditional modal logic rather than a novel logic
-in of itself.   The novelty of \textsc{EviL} is that it presents semantics
-that automatically connect truth and derivability (as expressed in
-Theorem \ref{theorem-theorem}, the Theorem Theorem).
+\begin{figure}[ht]
+\centering
+  \includegraphics[]{evil_pictures/third_fig.pdf}
+%\caption{A fairly simple example}
+\caption{A Kripke Structure with no \textsc{EviL} representation}
+\label{fig:notevil}
+\end{figure}
+
+The above one way correspondence is admittedly inconvenient - 
+it means that while \textsc{EviL} only enjoys some features from
+traditional epistemic logic, it is denied others.  Despite this,
+\textsc{EviL} enjoys \emph{most} of the benefits of basic modal logic.
+Indeed, we shall see in \S\ref{Abstract-Completeness} that
+\textsc{EviL} is strongly complete for Kripke models with the
+properties described in Proposition \ref{evil_models}.  
+
+Perhaps the most important formal feature that 
+\textsc{EviL} semantics lacks in comparison to 
+abstract Kripke semantics is that, as a consequence of the
+observations made in
+Proposition \label{not-an-evil-model}, \textsc{EviL} is not compact.
+
+\begin{theorem}[Failure of Compactness]If the set of proposition
+  letters $\Phi$ is infinite, then
+\textsc{EviL} is not compact for \textsc{EviL} semantics, as defined
+in from
+\S\ref{evil-grammar}.
+\end{theorem}
+\begin{proof}
+We shall prove this result for the single agent case (the multiple
+agent case is a obvious generalization).  
+Consider the function $\tau : \Phi \to \mathcal{L}(\Phi)$, defined as
+follows:
+\[ \tau(p) := (\Pos \top) \wedge (\Nec \neg p) \wedge (\neg p) \wedge
+(\neg \Pos \Pos \top) \]
+We shall see that $\tau[\Phi]$ is finitely satisfiable, but not
+in its entirely.
+
+Clearly not all of $\tau[\Phi]$ is satisfiable in \textsc{EviL}
+semantics, by the arguments presented in the proof of Proposition \ref{not-an-evil-model}.
+
+Now consider some finite subset of $S  \subseteq_\omega \tau[\Phi]$.
+We shall construct a model that makes $S$ true. 
+Since $\tau$ is injective, we know there is 
+some $\Psi \subseteq \Phi$ such that $S = \tau[\Psi]$.  
+Since $\Phi$ is infinite, we know there is some $\rho \in \Phi \bs \Psi$.  
+Now consider a model $\mathfrak{M} = \{(\{\rho\}, \{\neg \rho\}),
+(\varnothing, \{\bot\})\}$.  This is depicted in
+Fig. \ref{fig:failureofcompactness}.  It is straightforward to verify
+that $\mathfrak{M},(\{\rho\}, \{\neg
+  \rho\}) \VDash \tau[\Psi]$, so $\mathfrak{M}$ is a suitable witness.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[]{evil_pictures/forth_fig.pdf}
+%\caption{A fairly simple example}
+\caption{A model $\mathfrak{M}$ where $\mathfrak{M}, (\{\rho\}, \{\neg
+  \rho\}) \VDash \tau[\Psi]$ for $\Psi \subseteq_\omega \Phi$ and $\rho \nin \Psi$}
+\label{fig:failureofcompactness}
+\end{figure}
+
+A consequence of the failure of compactness, while strong
+completeness can be obtained for \textsc{EviL} using Kripke semantics,
+to achieve completeness for \textsc{EviL} semantics a finitary proof
+must be carried out.
+
+We shall now turn to showing completeness for \textsc{EviL}.
+
+% Furthermore, even though \textsc{EviL}
+% is quite formal in nature, it might rightly be considered an
+% application  of traditional modal logic rather than a novel logic
+% in of itself.   The novelty of \textsc{EviL} is that it presents semantics
+% that automatically connect truth and derivability (as expressed in
+% Theorem \ref{theorem-theorem}, the Theorem Theorem).
 
 %%% Local Variables: 
 %%% mode: latex

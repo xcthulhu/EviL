@@ -1,15 +1,16 @@
-In this section I turn to developing the formal semantics for
-\tmtextsc{EviL} with a single agent.  I imagine the object of study in
-\textsc{EviL} is an agent, which I call the \textsc{EviL} agent.  In
+In this section we turn to developing the formal semantics for
+\tmtextsc{EviL} with a single agent.  We shall imagine the object of study in
+\textsc{EviL} is an agent, which we shall call the \textsc{EviL} agent.  In
 \S\ref{multi-agent}, the semantic framework offered here is extended to
 incorporate multiple agents. In Appendix \ref{alternative}, yet another
 framework is offered employing gamelike semantics, which avoids the
 grammar restriction suggested in \S\ref{sketch}.
 
 The grammar restriction imposed on \textsc{EviL} was introduced to
-avoid paradoxes. That being the case, I shall discard the previous
-definition of $(\VDash)$ I suggested, in favor of demonstrably
-well-defined semantics.  This shall be achieved in two steps.
+avoid paradoxes. That being the case, we shall discard the previous
+definition of $(\VDash)$ that was suggested in \S\ref{sketch}, in
+favor of demonstrably well-defined semantics.  
+This shall be achieved in two steps.
 
 \begin{definition} Let $\mathcal{L}_0 (\Phi)$ be the language of
   classical propositional logic, defined by the following Backus-Naur form grammar:
@@ -99,38 +100,24 @@ More concisely, this may be written as
 \end{align*}
 \end{definition}
 \begin{remark}
-I will write $\Omega \VDash \phi$ to mean $\Omega, (a,A) \VDash \phi$
-for all $(a,A) \in \Omega$.  Further, I will write $\VDash \phi$ to
+We will write $\Omega \VDash \phi$ to mean $\Omega, (a,A) \VDash \phi$
+for all $(a,A) \in \Omega$.  Further, we will write $\VDash \phi$ to
 mean $\Omega \VDash \phi$ for all $\Omega$.
 \end{remark}
 These semantics are well defined, since apart from relying on the semantics
 for propositional logic they may be observed to be compositional.
-% {\footnote{In
-% fact, I have provided a formulation of these semantics in the same manner as
-% above in the computer proof assistant Isabelle/HOL \citep{nipkow_isabelle/hol:proof_2002}; I shall
-% give my remarks on formal verification in \S\ref{formal}.  In the case of
-% Isabelle/HOL, the function $(\VDash)$ was defined inductively, and
-% automatically proven to be well-defined.  Specifically, the conditions given
-% above specify that $(\VDash)$ is determined by a \tmtextit{monotonic}
-% predicate over suitable tupples, and similarly for $(\models)$.  Hence the
-% result that $(\VDash)$ is well-defined ultimately relies on an application of
-% the \tmtextit{Knaster-Tarski Fixpoint Theorem} \citep[chapter 12]{roman_lattices_2008}. Further,
-% since I have given an inductive definition, these recursive definitions rely
-% on the {\tmem{least}} fixpoint of their associated monotonic
-% operators.  This is not really particular to \textsc{EviL}; rather, this is
-% central to the basic ``logic engineering'' philosophy of Isabelle/HOL \citep{berghofer_meta-theory_2009}.}} 
 Moreover, the following relationship can be observed:
 
 \begin{lemma}[Truthiness]\label{truthiness}
   Let $\phi \in \mathcal{L}_0 (\Phi)$.  Then:
   \[ a \models \phi \Longleftrightarrow \Omega, (a, A) \VDash \phi \]
-  $\ldots$for any $\Omega$ and $A$.
+  for any $\Omega$ and $A$.
 \end{lemma}
 \begin{proof}
   This may be seen immediately by induction on $\phi$.
 \end{proof}
 
-$\ldots$with this, we have the following, mirroring Prop. \ref{central-prop}:
+With this, we have the following, mirroring Prop. \ref{central-prop}:
 \begin{definition}  Define the following:
  $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega \VDash \phi \}$$
 \end{definition}
@@ -138,6 +125,10 @@ $\ldots$with this, we have the following, mirroring Prop. \ref{central-prop}:
 \begin{theorem}[Theorem Theorem]\label{theorem-theorem}
   If $A$ is finite, then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_{\text{\textsc{EviL}}} \phi$.
 \end{theorem}
+\begin{proof}
+  The proof proceeds the exactly as the proof of Proposition
+  \ref{central-prop} from \S\ref{sketch}.
+\end{proof}
 
 I shall present $\vdash_{\text{\textsc{EviL}}}$, the logical consequence turnstile for \textsc{EviL}, in \S\ref{evil-axioms}.
 
@@ -149,24 +140,58 @@ the central desiderata outlined in \S\ref{close} is achieved by
 central intuition driving \textsc{EviL} - that beliefs are the
 consequences of logical deductions.  It is a peculiarity of
 \textsc{EviL} that these deductions are carried on in \textsc{EviL}
-itself.  This was achieved, primarily, by my previous flirtation with
-paradox.  And as a consequence, we have tried to design \textsc{EviL}
+itself.  This was achieved, primarily, by flirting heavily with
+paradox, as was illustrated in \S\ref{sketch}.  
+As a consequence, we have tried to design \textsc{EviL}
 to eat its own tail. 
-% This is my favorite kind of self-reference. 
 It establishes that the \textsc{EviL} agent is
 herself also a modeler just like us, using the same logic we are using
 to think about her herself, to think about the state space she lives
-in.  This sort of circularity brings to mind the alchemical love
-mathematics, exemplified by the following quote 
-due to \citet{browne_garden_1736}:
+in.
+
+This sort of self referential circularity is a celebrated theme in
+mathematics. It is similar, in a way, to the old alchemical conception
+of mathematics, exemplified by the following quote 
+due to Sir Thomas Browne:
 \begin{quote}
 All things began in order, so shall they end, and so shall they begin
 again; according to the ordainer of order and mystical Mathematicks of
-the City of Heaven.\end{quote}
+the City of Heaven.\citet[chapter 5]{browne_garden_1736}\end{quote}
+Another, related notion of self reference was championed by Douglas
+Hofstadter in his book \emph{G\"odel, Escher, Bach: An Eternal Golden
+  Braid}, in what he calls ``Strange Loops'':
+\begin{quote}
+The flexibility of intelligence comes from the enormous number of
+different rules, and levels of rules. The reason that so many rules on
+so many different levels must exist is that in life, a creature is
+faced with millions of situations of completely different types. In
+some situations, there are stereotyped responses which require "just
+plain" rules. Some situations are mixtures of stereotyped
+situations-thus they require rules for deciding which of the ``just
+plain'' rules to apply. Some situations cannot be classified-thus
+there must exist rules for inventing new rules \ldots and on and
+on. Without doubt, Strange Loops involving rules that change
+themselves, directly or indirectly, are at the core of
+intelligence. Sometimes the complexity of our minds seems so
+overwhelming that one feels that there can be no solution to the
+problem of understanding intelligence-that it is wrong to think that rules of any sort govern a creature's behavior, even if one takes ``rule''
+in the multilevel sense described above. \cite[pg. 24]{hofstadter_godel_1979}
+\end{quote}
+In the setting of \textsc{EviL}, the strange loop is as follows: the
+rules of the logic affect, indirectly, the truths of the semantics,
+which in turn affect the rules of the logic.  It is perhaps dangerous
+to engage in this sort of modeling, since it invites paradox.
+However, the central goal of epistemic logic is to
+provide a logic which models agents with knowledge.  This is because we are
+ourselves agents with knowledge; epistemic logic's ultimate purpose is
+to say ourselves by studying the subject.  \textsc{EviL} was designed
+with to make true the Theorem Theorem, precisely with this final
+reason in mind.
 
-We cannot stress enough, Theorem \ref{theorem-theorem} is what
-\textsc{EviL} is all about.  It is basically essential to the
-perspective of epistemology this essay is intended to investigate.
+It cannot be stressed enough, Theorem \ref{theorem-theorem} is central
+to the conceptual backing behind \textsc{EviL}.  
+It provides the conceptual backbone of the perspective on 
+epistemic logic this essay is intended to investigate.
 
 %%% Local Variables: 
 %%% mode: latex

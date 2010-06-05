@@ -1,0 +1,25 @@
+\documentclass[]{article}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+\begin{document}
+	\begin{tikzpicture}[shorten >=1pt,auto,node distance=3cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=black,draw=none,text=black, circle,minimum size=.5pt]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[empt] (aA1) {$(\{\rho\}, \{\neg \rho\})$};
+%\node[empt] (aA2) [below of=aA1] {$(\{p\},\{\neg p \vee q\})$};
+\node[empt] (bB1) [right of=aA1] {$(\varnothing, \{\bot\})$};
+\path % (aA1) edge [densely dotted] node [auto,swap] {}  (aA2)
+ (aA1) edge [->,>=latex] node {} (bB1)
+ %(aA2) edge [<->,>=latex,bend right=45] node {} (bB1)
+;
+%\draw [->] (bB1) to [loop below] node {} (bB1);
+\end{scope}
+\end{tikzpicture}
+\end{document}
