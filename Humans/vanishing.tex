@@ -46,18 +46,19 @@ observe that \textsc{EviL} makes true the usual substitution rule:
 Next, consider two sublanguages of the main language of \tmtextsc{EviL}:
 
 \begin{definition}
-  Define the following fragments:\footnote{I was inspired to look at the fragment
-    $\mathcal{L}_A(\Phi)$ by thinking about the continuous fragment of
-    $\mu \tmop{PML}$ \citep{fontaine_continuous_2008}.}
+  Define the following fragments:\footnote{We were inspired to look at
+    the fragment $\mathcal{L}_A(\Phi)$ by thinking about the
+    continuous fragment of $\mu \tmop{PML}$
+    \citep{fontaine_continuous_2008}.}
   
-\label{LangA}  $\mathcal{L}_A (\Phi)$:
+\label{LangA}  $\mathcal{L}_A (\Phi):$
   \[ \phi\  {::=} \  p \  | \  \neg p
      \  | \  \top \  | \  \bot
      \  | \  \circlearrowleft \  | \ 
      \phi \wedge \psi \  | \  \phi \vee \psi \ 
      | \  \diamondsuit \phi \  | \  \boxminus
      \phi \  | \  \DP \phi \]
-\label{LangB}  $\mathcal{L}_B (\Phi)$:
+\label{LangB}  $\mathcal{L}_B (\Phi):$
   \[ \phi\  {::=} \  \neg p \  | \  p
      \  | \  \bot \  | \  \top
      \  | \  \neg \circlearrowleft \  |
@@ -228,14 +229,13 @@ q \]
 & \DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\BM\DP\ \\ 
 & \DP\BM\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\BM\DP\ \\ 
 & \DP\BM\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\DP\DP\Box\Box\Box\Box\BM\DP\ \\ 
-& \DP\BM\Box\Box\DP\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\DP\Box\Box\BM\DP\ \\ 
+& \DP\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\DP\ \\ 
 & \DP\BM\Box\Box\Box\DP\Box\Box\Box\Box\Box\Box\Box\Box\DP\Box\Box\Box\BM\DP\ \\ 
-& \DP\BM\BM\BM\Box\Box\DP\DP\DP\DP\DP\DP\DP\DP\Box\Box\BM\BM\BM\DP\ \\ 
+&\DP\DP\BM\BM\Box\Box\DP\DP\DP\DP\DP\DP\DP\DP\Box\Box\BM\BM\DP\DP \\ 
 &
-\DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\
-\\ 
-& \DP\DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP\DP\  \\ 
-& \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\top & 
+\DP\DP\DP\BM\BM\Box\Box\Box\Box\Box\Box\Box\Box\Box\Box\BM\BM\DP\DP\DP\\ 
+& \DP\DP\DP\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\BM\DP\DP\DP \\ 
+& \DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\DP\top & 
 \end{eqnarray*}
 \end{example}
 \renewcommand{\DP}{\diamondplus}

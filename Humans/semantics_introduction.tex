@@ -1,10 +1,10 @@
 In this section we turn to developing the formal semantics for
-\tmtextsc{EviL} with a single agent.  We shall imagine the object of study in
-\textsc{EviL} is an agent, which we shall call the \textsc{EviL} agent.  In
-\S\ref{multi-agent}, the semantic framework offered here is extended to
-incorporate multiple agents. In Appendix \ref{alternative}, yet another
-framework is offered employing gamelike semantics, which avoids the
-grammar restriction suggested in \S\ref{sketch}.
+\tmtextsc{EviL} with a single agent.  We shall imagine the 
+object of study in \textsc{EviL} is an agent, which we shall call the
+\textsc{EviL} agent.  In \S\ref{multi-agent}, the semantic framework
+offered here is extended to incorporate multiple agents. In Appendix
+\ref{alternative}, yet another framework is offered employing gamelike
+semantics, which avoids the grammar restriction suggested in \S\ref{sketch}.
 
 The grammar restriction imposed on \textsc{EviL} was introduced to
 avoid paradoxes. That being the case, we shall discard the previous
@@ -34,7 +34,7 @@ thus the truth predicate
 $(\models) \colons \powerset \Phi \times \mathcal{L}_0 (\Phi)
 \rightarrow \textup{\textsf{bool}}$ for classical 
 propositional logic can be given recursively as follows:
-\begin{definition}
+\begin{definition}\label{classical-semantics}
 Define $(\models)$ such that
 \begin{align*}
   S{\models}p & {\iff}p{\in}S\\
@@ -78,7 +78,7 @@ More concisely, this may be written as
 % The following provides a  of the semantics for 
 % \textsc{EviL}:
 
-\begin{definition}
+\begin{definition}\label{evil-semantics-def}
  Define $(\VDash)$ recursively such that:
 \begin{align*}
   {\Omega},(a,A){\VDash} p & {\iff}p{\in}a\\
@@ -117,8 +117,8 @@ Moreover, the following relationship can be observed:
   This may be seen immediately by induction on $\phi$.
 \end{proof}
 
-With this, we have the following, mirroring Prop. \ref{central-prop}:
-\begin{definition}  Define the following:
+With this, we have the following result:
+\begin{definition}
  $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega \VDash \phi \}$$
 \end{definition}
 
@@ -156,7 +156,7 @@ due to Sir Thomas Browne:
 \begin{quote}
 All things began in order, so shall they end, and so shall they begin
 again; according to the ordainer of order and mystical Mathematicks of
-the City of Heaven.\citet[chapter 5]{browne_garden_1736}\end{quote}
+the City of Heaven.\cite[chapter 5]{browne_garden_1736}\end{quote}
 Another, related notion of self reference was championed by Douglas
 Hofstadter in his book \emph{G\"odel, Escher, Bach: An Eternal Golden
   Braid}, in what he calls ``Strange Loops'':

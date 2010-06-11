@@ -1,0 +1,43 @@
+\documentclass[]{article}
+\usepackage{amssymb}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+\begin{document}
+	\begin{tikzpicture}[shorten >=1pt,node distance=3.5cm,
+                    semithick, bend angle=45,
+                    description/.style={fill=white,inner sep=2pt}]
+  \tikzstyle{state}=[fill=white,draw,text=black, circle,minimum size=20pt]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[state] (aA2) 
+{$v$};
+\node[state] (aA1) at ++(90:3.5cm) [label=right :$\Vdash \circlearrowleft_X$] {$w$};
+%\node[empt] (aA2) [below of=aA1] {$(\{p\},\{\neg p \vee q\})$};
+\node[state] (bB11) at ++(-120:3.5cm) {$w_l$};
+\node[state] (bB12) at ([shift={(270:3.5cm)}] bB11.south)  {$v_l$};
+\node[state] (bB21) at ++(-60:3.5cm) {$w_r$};
+\node[state] (bB22) at ([shift={(270:3.5cm)}] bB21.south) {$v_r$};
+\path 
+
+    (aA1) edge [<->,>=latex,  dotted, bend right=30] node {} (bB11)
+             edge [<->,>=latex,  dotted, bend left=30] node {}
+             (bB21)
+             edge [->,>=latex] node[description] {$X$} (aA2)
+    (aA2) edge [<->,>=latex,  dotted, bend right=45] node {} (bB12)
+             edge [<->,>=latex,  dotted, bend left=45] node {}
+             (bB22)
+    (bB11) edge [->,>=latex] node[description] {$X$} (bB12)
+              edge [->,>=latex] node[description] {$X$} (bB22)
+    (bB21) edge [->,>=latex] node[description] {$X$} (bB22)
+              edge [->,>=latex] node[description] {$X$} (bB12)
+  %  (bB1) edge [->,>=latex, bend right] node[description] {$\xcancel{X}$} (bB2)
+  %  (bB2) edge [->,>=latex, bend right] node[description] {$\xcancel{X}$} (bB1)
+;
+\end{scope}
+\end{tikzpicture}
+\end{document}

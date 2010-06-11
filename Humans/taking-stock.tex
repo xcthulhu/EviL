@@ -1,0 +1,74 @@
+In the previous sections, we showed that the logic of \textsc{EviL} we
+presented in \ref{evil-axioms} was complete for \textsc{EviL} Kripke
+models.  In this section we pause for a moment to discuss why we must
+go further, and reason what further needs to be shown in order to
+establish completeness.
+
+First, recall the semantics we developed in
+Definition \ref{evil-semantics-def} in \S\ref{evil-grammar}.
+These semantics were carefully crafted to make true the mystical
+Theorem \ref{theorem-theorem}, the \emph{Theorem Theorem}.  This
+equated $\Box \phi$ with a proof of $\phi$, in the following manner:
+
+\[ \mathfrak{M},(a,A) \VDash \Box_X \phi \iff Th(\mathfrak{M}) \cup A_X \vdash_{\textsc{EviL}} \phi \]
+
+In the above, we assume that $A_X$ is finite. This above property of \textsc{EviL} was enforced to accommodate the \emph{Justification
+  Principle} from \S\ref{explicit}, which says that when an agent
+believes something, she must have a reason.
+
+This critical insight, driven by our philosophical perspective on
+the nature of knowledge, is lost in the abstracta of Kripke
+semantics.  The Kripke semantics perspective on
+\textsc{EviL} is basically meaningless on its own; 
+for why would anyone ever care about \textsc{EviL} Kripke structures,
+without the light of the fact that they somehow 
+abstract \textsc{EviL} semantics?  
+We know that not every \textsc{EviL} Kripke structure 
+can be represented by a \textsc{EviL} structure by Proposition
+\ref{not-an-evil-model}.  How do we know that \textsc{EviL} Kripke
+structures are faithfully abstracting our concrete semantics at all?
+
+The connection of \textsc{EviL} Kripke structures to \textsc{EviL} has
+not yet been entirely revealed, but it is as follows: 
+\begin{quote}
+\emph{\textsc{EviL} models are finitary, concrete objects, and
+  \textsc{EviL} Kripke structures are their potentially infinite, abstract idealizations.}
+\end{quote}
+Succinctly, this relationship is expressed as follows:
+\begin{equation} 
+\Gamma \Vdash_{\textsc{EviL}} \phi \iff \Gamma \VDash \phi \label{relationship}
+\end{equation}
+\ldots for all $\phi$ and finite $\Gamma$.
+
+The relationship is important, since Kripke Semantics are the natural
+semantics for modal logics, and hence enable one to rapidly reason
+about them.  Equation \eqref{relationship} allows us to see  
+that, when thinking about \textsc{EviL}, one 
+may freely employ strong completeness and neglect
+concerns about failure of compactness, with the understanding that
+when we restrict ourselves to  finitary circumstances the abstract
+semantics and the concrete semantics coincide.
+
+Sections \S\ref{small-model} through \S\ref{translation} shall be
+devoted to establishing this relationship between the abstract and
+concrete semantics for \textsc{EviL}.
+Since we know that the logic of \textsc{EviL} models is not compact
+from Theorem \ref{noncompact}, we shall establish a
+\emph{small model property} for partly \textsc{EviL} and \textsc{EviL}
+Kripke structures in \S\ref{small-model}.  
+By modifying the translation system for finite Kripke structures to
+\textsc{EviL} modifying we originally gave in the proof of
+Proposition \ref{translation-sketch} from \S\ref{sketch}, we shall
+show how to translate finite \textsc{EviL} Kripke structures into
+\textsc{EviL} models in \S\ref{translation}.  We shall find need to
+make use of the concept of \emph{islands}, which we shall introduce in \S\ref{islands}.
+
+After the above developments, we shall once again take stock of our
+observations in \S\ref{taking-stockII}.  We shall prove the equation
+\eqref{relationship}, and make use of our previous results to
+establish complexity bounds on the decision procedure for \textsc{EviL}.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

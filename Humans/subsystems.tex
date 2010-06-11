@@ -1,0 +1,32 @@
+In this section, investigate subsystems and super-systems of
+\textsc{EviL}.
+
+In addition to the main system presented above, it can be understood to contain two subsystems, corresponding to two fragments of the main grammar:
+\begin{definition}
+Define $\mathcal{L}^\boxminus (\Phi, \mathcal{A})$ as the fragment:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \  |
+   \  \Box_X \phi \  | \  \boxminus_X \phi
+%   \  | \  \boxplus_X \phi
+ \  | \ 
+   \circlearrowleft_X \]
+
+And define $\mathcal{L}^\boxplus (\Phi, \mathcal{A})$ as the fragment:
+%Define $\mathcal{L}^\boxminus (\Phi, \mathcal{A})$ as the fragment:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \  |
+   \  \Box_X \phi 
+%\  | \  \boxminus_X \phi
+   \  | \  \boxplus_X \phi
+ \  | \ 
+   \circlearrowleft_X \]
+\end{definition}
+
+Table \ref{table:axiomsII} gives the axioms systems for these two fragments.  For now, we shall observe that \textsc{EviL} extends \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$.  In \S\ref{conservative-extension} we shall make this precise. 
+\input{evil-axiom-table/evil_axioms_II.tex}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

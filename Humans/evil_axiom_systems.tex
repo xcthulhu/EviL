@@ -1,46 +1,38 @@
-In this section, we shall present the axiom system which represents
-the validities of \textsc{EviL} semantics as provided in . 
-
-Table \ref{table:axioms}, provides a Hilbert-style axiom system for \textsc{EviL}.  In addition to giving each axiom, we have also provided our own philosophical reading of what each axiom says.  One unusual feature of this logic is that it is not \emph{normal}, that is it is not closed under variable substitution.
+In this section, we shall present the axiomatics for multi-agent
+\textsc{EviL}. The axioms of \textsc{EviL} are presented in 
+Table \ref{table:axioms}, which comprises a Hilbert systems for
+$\vdash_{\textsc{EviL}}$\footnote{By abuse of notation, we shall omit
+  subscripts where they are thought to not be ambiguous}.  In addition
+to giving each axiom, we provide a philosophical reading of what each
+axiom says.  As remarked in \S\ref{validities}, \textsc{EviL} is not
+\emph{normal}, that is it is not closed under variable substitution.
 
 \input{evil-axiom-table/evil-axiom-table.tex}
 
-This logic makes true a variety of relationships between the various
-modalities, which are given in the following lemma:
-\begin{lemma}\label{equivs}
-We have the following provable equivalences:
-\begin{eqnarray*} \vdash \Nec_X \phi \IFF \BB_X \Nec_X \phi & \hspace{1cm} \vdash \Nec_X \phi \IFF \Nec_X \BB_Y \phi \hspace{1cm}  & \vdash \Nec_X \phi \IFF \Nec_X \BBI_Y \phi \\
- \vdash \BB_X \phi \IFF \BB_X \BB_X \phi & \vdash \BBI_X \phi \IFF \BBI_X \BBI_X \phi & \vdash \PP_X \IFF \BB_X \PP_X\end{eqnarray*}
-%&\vdash \PP_X \IFF \DDI_X \PP_X \\
-%&\vdash \phi \IFF \psi \textup{ implies } \vdash \chi \IFF \chi[\phi/\psi]
-%\end{eqnarray*}
-%\ldots where $\chi[\phi/\psi]$ is the same as $\chi$ but every occurrence of $\phi$ as a subformula is replaced by $\psi$.
-%$\hfill\dashv$
-\end{lemma}
+Needless to say, these axioms shall be the focus of study for all of
+our future investigations in \S\ref{army-of-darkness}.
 
-In addition to the main system presented above, it can be understood to contain two subsystems, corresponding to two fragments of the main grammar:
-\begin{definition}
-Define $\mathcal{L}^\boxminus (\Phi, \mathcal{A})$ as the fragment:
-\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
-   \rightarrow \psi \  | \  \bot \  |
-   \  \Box_X \phi \  | \  \boxminus_X \phi
-%   \  | \  \boxplus_X \phi
- \  | \ 
-   \circlearrowleft_X \]
+% We immediately have the following theorem:
+% \begin{theorem}[Soundness]
+% If $\vdash \phi$ then for any model $\mathfrak{M}$ and any 
+% $(a,A) \in \mathfrak{M}$ we have that $\mathfrak{M},(a,A) \models \phi$ 
+% \end{theorem}
 
-And define $\mathcal{L}^\boxplus (\Phi, \mathcal{A})$ as the fragment:
-%Define $\mathcal{L}^\boxminus (\Phi, \mathcal{A})$ as the fragment:
-\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
-   \rightarrow \psi \  | \  \bot \  |
-   \  \Box_X \phi 
-%\  | \  \boxminus_X \phi
-   \  | \  \boxplus_X \phi
- \  | \ 
-   \circlearrowleft_X \]
-\end{definition}
+% This logic makes true a variety of relationships between the various
+% modalities, which are given in the following lemma:
+% \begin{lemma}\label{equivs}
+% We have the following provable equivalences:
+% \begin{eqnarray*} \vdash \Nec_X \phi \IFF \BB_X \Nec_X \phi & \hspace{1cm} \vdash \Nec_X \phi \IFF \Nec_X \BB_Y \phi \hspace{1cm}  & \vdash \Nec_X \phi \IFF \Nec_X \BBI_Y \phi \\
+%  \vdash \BB_X \phi \IFF \BB_X \BB_X \phi & \vdash \BBI_X \phi \IFF
+%  \BBI_X \BBI_X \phi & \vdash \PP_X \IFF \BB_X \PP_X\end{eqnarray*}
 
-Table \ref{table:axiomsII} gives the axioms systems for these two fragments.  For now, we shall observe that \textsc{EviL} extends \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$.  In \S\ref{conservative-extension} we shall make this precise. 
-\input{evil-axiom-table/evil_axioms_II.tex}
+% &\vdash \PP_X \IFF \DDI_X \PP_X \\
+% &\vdash \phi \IFF \psi \textup{ implies } \vdash \chi \IFF \chi[\phi/\psi]
+% \end{eqnarray*}
+% \ldots where $\chi[\phi/\psi]$ is the same as $\chi$ but every occurrence of $\phi$ as a subformula is replaced by $\psi$.
+% $\hfill\dashv$
+% \end{lemma}
+
 
 %%% Local Variables: 
 %%% mode: latex

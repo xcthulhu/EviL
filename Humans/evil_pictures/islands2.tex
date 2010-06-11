@@ -1,0 +1,25 @@
+\documentclass[]{article}
+\usepackage{amssymb}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+\begin{document}
+	\begin{tikzpicture}[shorten >=1pt,node distance=3.5cm,
+                    semithick, bend angle=45,
+                    description/.style={fill=white,inner sep=2pt}]
+  \tikzstyle{state}=[fill=white,draw,text=black, circle,minimum size=20pt]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[state] (aA1) {};
+\node[state] (aA2) [below left of=aA1] {$w$};
+\node[state] (aA3) [below right of=aA1] {$v$};
+\path 
+   (aA1) edge [densely dotted] node[description] {$X$} (aA2)
+            edge [densely dotted] node[description] {$Y$} (aA3);
+\end{scope}
+\end{tikzpicture}
+\end{document}

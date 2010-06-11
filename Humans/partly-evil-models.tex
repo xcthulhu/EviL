@@ -1,0 +1,179 @@
+In this section, we define what it means for a model to be
+\emph{partly \textsc{EviL}}.  We should note that partly \textsc{EviL}
+models are exactly the same as \textsc{EviL} models as defined in Definition
+  \ref{evil-kripke-structures} from \S\ref{kripke}, only property
+  \ref{pVII} has been weakened to \ref{ppVII} and \ref{ppIX}.
+
+\begin{definition}[Partly \textsc{EviL}]\label{partly-evil}
+A Kripke structure $\mathbb{M}=\langle W, R, \sqsubseteq, \sqsupseteq, V, P \rangle$ is called \textbf{partly
+  \textsc{EviL}} whenever it makes true the following properties, for
+all agents $\{X,Y\} \subseteq \mathcal{A}$:
+  \begin{enumerate}[label=\textup{(\emph{\Roman*})$'$}, topsep=0.0in, parsep=0.075in]
+    \item\label{ppI} $\sqsubseteq_X$ is reflexive
+    \item \label{pptrans} $\sqsubseteq_X$ is transitive 
+    \item \label{ppantisym} $\sqsubseteq$ is a partial order
+    \item \label{ppreverse} $w \sqsubseteq_X v$ if and only if $v
+    \sqsupseteq_X w$
+    \item \label{islandiff} If $w \sqsubseteq_X v$ then ($w \in V (p)$ if and only if $v
+    \in V (p)$)
+    \item \label{ppV}$(R_X \circ \sqsubseteq_X) \subseteq
+    R_X \subseteq (R_X \circ \sqsupseteq_X)$
+    \item \label{ppVI} $(\sqsubseteq_Y \circ R_X) = R_X =
+    (\sqsupseteq_Y \circ R_X)$
+    \item\label{ppVII} If $w \in P_X$ then $w
+    R_X w$
+    \item\label{ppIX} If $w \in P_X$ and $w \sqsupseteq_X v$ then $v
+    \in P_X$
+  \end{enumerate}
+\end{definition}
+
+Note that it is elementary that every \textsc{EviL} structure is
+partly \textsc{EviL} as well.
+
+These properties are exactly the properties enforced
+by the axioms of \textsc{EviL} given in Table \ref{table:axioms} in
+\S\ref{evil-axioms}. We can see this by observing the following
+theorem:
+
+\begin{definition}\label{pEviL-Vdash}
+We shall write
+\[ \Gamma \Vdash_{\textup{p\textsc{EviL}}} \phi \]
+to mean that for all partly \textsc{EviL} Kripke structures
+$\mathbb{M} = \langle W, R, \sqsubseteq, \sqsupseteq, V, P \rangle$,
+for all worlds $w \in W$ if $\mathbb{M},w \Vdash \Gamma$ then $\mathbb{M} \Vdash \phi$.
+\end{definition}
+
+\begin{theorem}[Partly \textsc{EviL} Strong Soundness and
+  Completeness]\label{partly-evil-completeness}
+
+$$\Gamma \vdash_{\textsc{EviL}} \phi\textup{ if and only if }\Gamma
+\Vdash_{\textup{p\textsc{EviL}}} \phi$$
+
+\end{theorem}
+\begin{proof}
+The left to right direction, \emph{soundness}, is trivial (one should
+use induction).  So we shall focus on the right to left direction; 
+to do this we shall consider the contrapositive.  We shall make heavy
+use of \emph{correspondence} theory, namely the \emph{Sahlqvist
+  Correspondence Theorem} \cite[Theorem 4.42,
+pg. 212]{blackburn_modal_2001}.  We note that the axioms
+\eqref{reflAx}, \eqref{transAx}, \eqref{downConceive}, \eqref{islandDown},
+\eqref{islandUp}, \eqref{soundness}, \eqref{downsound},
+\eqref{reverseAx1} and
+\eqref{reverseAx2} are all
+\emph{Sahlqvist formulae}.  When we say that a particular fact corresponds to an
+axiom, we mean that from the Sahlqvist correspondence theorem and
+first order logic one may be employed to show the fact in question.
+
+So assume $\Gamma \nvdash \phi$, 
+we must show that $\Gamma \nVdash \phi$.  
+To see this, we carry out the canonical model construction as
+described in \cite[chapter 4,
+pgs. 198--422]{blackburn_modal_2001}\footnote{It is important to note
+  that the results obtained in \cite{blackburn_modal_2001} are technically for any \emph{normal} modal logic,
+  but they may be generalized to non-normal logics such as the
+  \textsc{EviL} logic under consideration.}.  Let $\mathcal{E}$ be the set of maximally
+  consistent sets of formulae for \textsc{EviL}. Define the
+  \emph{canonical model}
+  $$\mathscr{E} := 
+\langle \mathcal{E}, R, \sqsubseteq, \sqsupseteq, V, P \rangle$$
+where, for all $\{w,v\} \subseteq \mathcal{E}$:
+\begin{bul}
+  \item $w R_X v$ if and only if $\{ \phi\ |\ \Nec_X \phi \in w\}
+    \subseteq v$
+  \item $w \sqsubseteq_X v$ if and only if $\{ \phi\ |\ \BP_X \phi \in w\}
+    \subseteq v$
+  \item $w \sqsupseteq_X v$ if and only if $\{ \phi\ |\ \BM_X \phi \in w\}
+    \subseteq v$
+  \item $V(p) := \{ w \ |\ p \in w\}$
+  \item $P_X := \{ w \ |\ \PP_X \in w \}$
+\end{bul}
+
+We know from the \emph{Lindenbaum Lemma} that $\Gamma$ may be extended
+to some maximally consistent $\gamma$ such that $\Gamma \subseteq
+\gamma$, $\gamma \in \mathcal{E}$ and $\phi \nin
+\gamma$ \cite[Lemma 4.17,
+pg. 199]{blackburn_modal_2001}.  By the \emph{Truth Lemma} we may establish
+$\mathscr{E}, \gamma \nVdash \phi$ and $\mathscr{E}, \gamma \Vdash \Gamma$ \cite[Lemma 4.21,
+pgs. 201]{blackburn_modal_2001}.  So it suffices to establish
+that $\mathscr{E}$ is partly \textsc{EviL}, by establishing that it
+satisfies the properties given in Definition \ref{partly-evil}.
+
+  \begin{description}
+    \item[\ref{ppI}] ``$\sqsubseteq_X$ is reflexive''
+      corresponds from axiom \eqref{reflAx}.
+    \item[\ref{pptrans}] ``$\sqsubseteq_X$ is transitive''
+      corresponds to axiom \eqref{transAx}.
+    \item[\ref{ppreverse}] ``$\sqsubseteq_X$ is the
+      reverse $\sqsupseteq_X$'' corresponds to axioms \eqref{reverseAx1} and
+      \eqref{reverseAx2}.
+    \item[\ref{islandiff}] Assume $w \sqsubseteq_X v$, we shall show
+      that 
+$$w \in V (p)\textup{ if and only if }v \in V (p)$$
+     Now assume that $w \in V(p)$, then $\mathscr{E}, w \Vdash p$.
+      By axiom \eqref{letterAx2} and the Truth Lemma we have that $\BP_X
+      p \in w$, whence $p \in v$ by definition.  The other direction
+      is similar, however it uses axiom \eqref{letterAx1} instead.
+    \item[\ref{ppV}] 
+The assertion
+$$(R_X \circ \sqsubseteq_X) \subseteq
+    R_X \subseteq (R_X \circ \sqsupseteq_X)$$
+corresponds to axiom \eqref{downConceive} 
+(noting that one should reason given \ref{ppreverse}). 
+% This is because axiom \eqref{downConceive} is a Sahlqvist
+% formula and together with \ref{ppreverse} it codes for exactly this assertion.
+
+    \item[\ref{ppIX}] ``If $w \in P_X$ and $w \sqsupseteq_X
+      v$ then $v \in P_X$'' corresponds to axiom \eqref{downsound}.
+
+     \item[\ref{ppantisym}] We have deferred the proof that
+      $\sqsubseteq$ is a partial order, since it depends on the above
+      results.  We know that it is reflexive and transitive by
+      \ref{ppI} and \ref{pptrans}.  All that is left is to show that
+      it is anti-symmetric.  Assume that $w \sqsubseteq v$ and $v
+      \sqsubseteq w$.  By the Truth Lemma it suffices to show that
+      $\mathscr{E}, w \Vdash \phi$ if and only if $\mathscr{E}, v
+      \Vdash \phi$, since then $\phi \in w$ if and only if $\phi \in v$.  We shall show this by induction on $\phi$.
+      \begin{description}
+        \item[$p \in \Phi$ --]  We have this step from the assumption
+          that $w \sqsubseteq v$ and \ref{islandiff}.
+        \item[$\bot$ --]  This case is trivially true.
+        \item[$\BP_X \phi$ and $\BM_X\phi$ --]  These steps follows from
+          \ref{pptrans}, \ref{ppreverse} and the assumption.
+        \item[$\Box_X \phi$ --]  This case follows from \ref{ppV} and
+          the assumption.
+        \item[$\PP_X$ --] This step follows from \ref{ppIX} and the assumption.
+        \item[$\phi \to \psi$ --]  The final step follows trivially from the inductive hypothesis.
+      \end{description}
+
+    %   Assume that $x \sqsubseteq_X 
+
+% First assume that $w R_X \circ \sqsubseteq_X v$, we must show that $w
+% R_X v$.  First observe that we have that there is some
+% $u$ such that $w \sqsubseteq_X u$, and $u R_X v$.
+%   Now suppose towards a contradiction that $\neg w R_X v$, then there
+%   must be some $\Nec_X \phi \in w$ where $\phi \nin v$.  We know
+%   that since $u R_X v$ that $\Pos_X \neg \phi \in u$ by the Truth lemma.  However, from axiom
+%   \eqref{downConceive} we then have that $\Pos_X \neg \phi \in w$, which
+%   violates that $w$ is maximally consistent. $\lightning$
+
+% Now assume that $w R_X v$ and $w \sqsupseteq_X u$.  We must show that
+% $u R_X v$.  But we know from $w \sqsupseteq_X u $ and \ref{ppreverse}
+% that $u \sqsubseteq_X w$, and with $w R_X v$ we have that $u R_X \circ
+% \sqsubseteq_X v$, hence by the above we have $u R_X v$, as desired.
+
+
+    \item[\ref{ppVI}] Given \ref{ppreverse}, the fact that
+    $$(\sqsubseteq_Y \circ R_X) = R_X = (\sqsupseteq_Y \circ R_X)$$
+corresponds to axioms \eqref{islandDown} and \eqref{islandUp}.
+
+    \item[\ref{ppVII}] ``If $w \in P (X)$ then $w R_X w$'' corresponds
+      to axiom \eqref{soundness}.
+
+  \end{description}
+
+\end{proof}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

@@ -1,0 +1,546 @@
+In this section we provide definitions and lemmas related to the
+subformula construction $\Cross^\phi$.  We follow
+\cite[chapter 5, pgs. 78--84]{boolos_logic_1995} in our approach, 
+as well as the
+``Fischer-Ladner Construction'' used in the completeness theorem of PDL
+\cite[chapter 4, pgs. 241--248]{blackburn_modal_2001}.
+
+We first recall the definition of \emph{pseudo-negation} from the
+Fischer-Ladner construction for the completeness of PDL \cite[chapter
+4, pgs. 243]{blackburn_modal_2001}.  We shall also introduce
+\emph{pseudo-boxes}, which are defined as follows:
+\begin{mydef}
+\begin{eqnarray*}
+\sim \phi := \begin{cases} \psi &\textup{ if $\phi = \neg\psi$} \\ \neg \phi & \textup{ o/w} \end{cases} &
+\hspace{1cm} \pBB_X \phi := \begin{cases} \phi &\textup{ if $\phi = \BB_X \psi$} \\ \BB_X \phi & \textup{ o/w} \end{cases} \hspace{1cm} &
+\pBBI_X \phi := \begin{cases} \phi &\textup{ if $\phi = \BBI_X \psi$} \\ \BBI_X \phi & \textup{ o/w} \end{cases}
+\end{eqnarray*}
+\end{mydef}
+Like pseudo-negation, the idea of pseudo-boxes
+is that they raise the semantic behavior of operators to the syntactic
+level.  This is summarized in the following lemma:
+\begin{lemma}\label{equivs2} 
+\begin{eqnarray*} 
+\vdash \sim \phi \IFF \neg \phi &
+\hspace{1cm} \vdash \pBB_X \phi \IFF \BB_X \phi \hspace{1cm} &
+\vdash \pBBI_X \phi \IFF \BBI_X \phi
+\end{eqnarray*}
+\begin{align*}
+\pBB_X \phi = \pBB_X\pBB_X \phi & & \pBBI_X\phi = \pBBI_X \pBBI_X \phi \hfill
+\end{align*}
+\end{lemma}
+\begin{proof}
+We remind the reader that $\vdash$ here abbreviates $\vdash_\textsc{EviL}$.
+\begin{description}
+  \item[$\vdash \sim \phi \IFF \neg \phi$ --] Assume that $\phi$ is
+    unnegated, then $\sim \phi = \neg \phi$ and hence we know that
+    $\vdash \neg \phi \IFF \neg \phi$, which suffices.  If $\phi =
+    \neg \psi$, then we know that $\sim \phi = \psi$, and since in
+    classical logic we have that $\vdash \psi \IFF \neg \neg \psi$ we
+    have the result.
+  \item[$\vdash \pBB_X \phi \IFF \BB_X \phi$ --] If $\phi$ is not
+    boxed with $\BB_x$, the result is trivial.  So assume that $\phi =
+    \BB_X \psi$, then $\pBB_X \phi = \BB_X \psi$. 
+   
+   Note that for 
+    \textsc{EviL} Kripke structures, for which $\BB_X$ corresponds to
+    $\sqsupseteq_X$, then from \textsc{EviL}ness we know that
+    $\sqsupseteq_X$ is transitive and reflexive, hence
+    $\Vdash_{\textsc{EviL}} \BB_X \psi \IFF \BB_X \BB_X \psi$.  By
+    completeness, we know that $\vdash \BB_X \psi \IFF \BB_X \BB_X
+    \psi$.  But this suffices exactly what we wanted to prove.
+
+  \item[$\vdash \pBP_X \phi \IFF \BP_X \phi$ --] This result follows
+    using exactly the same reasoning as above, only it uses the fact
+    that the \emph{dual} of $\sqsupseteq_X$, which is $\sqsubseteq_X$, is
+    reflexive and transitive too.
+
+  \item[$\pBM_X \phi = \pBM_X \pBM_X \phi$ --] First assume that $\phi$
+     is a $\BM_X$ boxed formula.  Then 
+   $\pBM_X \phi = \pBM_X \pBM_X \phi = \phi$.  Next assume that $\phi$
+   is not a $\BM_X$ boxed formula, then $\pBM_X \phi = \BM_X \phi$,
+   and hence 
+\begin{align*}
+\pBM_X \pBM_X \phi & = \pBM_X \BM_X \phi \\
+& = \BM_X \phi \\
+& = \pBM_X \phi
+\end{align*}
+  \item[$\pBP_X \phi = \pBP_X \pBP_X \phi$ --] The proof of this
+    assertion is exactly the same as the proof for $\pBM_X$.
+\end{description}
+\end{proof}
+
+We shall use these operations above in the subformula construction we
+will carry out.  Next, we introduce an operation which will 
+allow us to restrict our subformulae to
+precisely the finitary number of agents that shall be relevant.
+
+\begin{mydef} Let $\delta(\phi) \subseteq \mathcal{A}$
+% , ``the \textbf{dudes} mentioned by $\phi$'', 
+be the set of agents that  occur in $\phi$\end{mydef}
+
+We now employ primitive recursion to define the finite set of formulae
+that we shall use in our construction, which we have labeled
+$\Sigma$.  This operation behaves as follows:
+\begin{bul}
+\item $\Sigma$ takes as input:
+\begin{bul}
+  \item A set of agents $\Delta$
+   \item A formula $\phi$ where $\phi \in \mathcal{L}(\mathcal{A},\Phi)$ 
+\end{bul}
+\item $Sigma$ outputs a set $S$ of $\mathcal{L}(\mathcal{A},\Phi)$
+  formulae (that is, $S \subseteq \mathcal{L}(\mathcal{A},\Phi)$)
+\end{bul}
+We may summarize this concisely as the following type signature:
+\[ \Sigma : (\powerset \mathcal{A}) \times
+\mathcal{L}(\mathcal{A},\Phi) \to \powerset
+\mathcal{L}(\mathcal{A},\Phi) \]
+
+\begin{mydef}\label{EviLSigma}Define $\Sigma( \Delta,\phi)$ using primitive 
+recursion as follows:
+\begin{align*}
+\Sigma(\Delta,p) := &   \{ p, \neg p, \bot, \neg\bot \} \cup \\
+& \{ \BB_X p, \neg\BB_X p, \BBI_X p, \neg\BBI_X p  \ |\ X \in \Delta
+\} \\
+\Sigma(\Delta,\bot) :=  & \{ \bot, \neg\bot \} \\
+% \Sigma(\Delta,\PP_X) :=  & \{ \PP_X, \neg\PP_X, \BB_X \PP_X, \neg
+% \BB_X \PP_X, \bot, \neg\bot \} \\
+\Sigma(\Delta,\PP_X) :=  & \{ \PP_X, \neg\PP_X, \BB_X \PP_X, \neg
+\BB_X \PP_X, \bot, \neg\bot \} \\
+\Sigma(\Delta,\phi\to\psi) := & \{ \phi\to\psi,\neg(\phi\to\psi) \}
+\cup   \Sigma(\Delta,\phi) \cup \Sigma(\Delta,\psi)\\
+\Sigma(\Delta,\Nec_X \phi) := & \{ \Nec_X \phi, \neg \Nec_X \phi,
+\BBI_X \Nec_X \phi, \neg\BBI_X\Nec_X \phi \} \cup \\
+& \{\Nec_X \pBB_Y \phi, \neg\Nec_X \pBB_Y \phi, \\
+&\ \; \Nec_X \pBBI_Y \phi, \neg\Nec_X \pBBI_Y \phi, \\
+&\ \; \pBB_Y \phi, \neg \pBB_Y \phi, \\
+&\ \; \pBBI_Y \phi, \neg\pBBI_Y \phi\ |\ Y \in \Delta \} \cup \\
+& \Sigma(\Delta,\phi) \\
+\Sigma(\Delta,\BB_X \phi) := & \{ \BB_X \phi, \neg\BB_X \phi\} \cup \Sigma(\Delta,\phi) \\
+\Sigma(\Delta,\BBI_X \phi) := & \{ \BBI_X \phi, \neg\BBI_X \phi\} \cup \Sigma(\Delta,\phi)
+\end{align*}
+\end{mydef}
+
+To understand how the above operates, we assume that the reader has
+some background in recursive programming.  Recall how ``subformulae''
+are defined for the Fischer-Ladner construction for the completeness
+proof of PDL. We can see that authors describe the set of subformulae
+$\neg FL(\Sigma)$ as follows:
+\begin{quote}  We defined $\neg FL(\Sigma)$, the \emph{closure of
+    $\Sigma$}, as the smallest set containing which is Fischer-Ladner
+  closed and closed under single negations \cite[pg. 243]{blackburn_modal_2001}.
+\end{quote}
+Here Fischer-Ladner closed means the construction satisfies certain
+subformula properties, such as ``if $\langle \pi_1 ; \pi_2 \rangle
+\phi \in \neg FL(\Sigma)$ then $\langle \pi_1 \rangle \langle \pi_2
+\rangle \phi \in \neg FL(\Sigma)$.'' We ask the reader who knows a
+little about computers, how would one go about programming 
+the Fischer-Ladner closure?  
+The easiest way to program the Fischer-Ladner closure, in
+languages like \textsf{Haskell} or \textsf{OCaml}, would
+be to use pattern recognition and (primitive) recursion.  
+This is just as we have done, informally, for the \textsc{EviL} subformulae construction.
+
+We argue that writing a concise, programmatic recursive
+characterization as we have done for $\Sigma$ is the easiest way to
+express the set with the features we desire. 
+For one thing, the closure properties we shall
+want depend at the top-level on a constant set of agents,
+which are calculated at the beginning of the construction.  
+Moreover, as we shall see, we shall need some formulae boxed
+in certain ways to ensure certain partly \textsc{EviL} properties and
+certain formulae boxed in other ways to ensure other partly \textsc{EviL}
+properties.  Worse yet -- since we have multiple kinds of pseudo
+operators, we cannot enforce closure for all of them.  Managing
+the priorities of when a formula should be closed for which operations
+roughly amounts to giving the algorithmic characterization we have
+carried out above.
+
+In our subsequent proofs, we shall capitalize on combinatoric
+properties that our subformulae operation obeys.  Some of these
+features are summarized in the following proposition.  
+% The proof of these
+% assertions is offered as an exercise to our readers. 
+%, who we hope are
+%rather fond of inductive proofs and sudoku-like activities:
+
+\begin{proposition}\label{inclusions}
+$\Sigma(\delta(\phi),\phi)$ is finite.  Moreover, we have the following:
+\begin{bul}
+        \item $\phi \in \Sigma(\delta(\phi),\phi)$
+	\item If $\psi \in \Sigma(\delta(\phi),\phi)$ and $\chi$ is a subformula of $\psi$, then $\chi \in \Sigma(\delta(\phi),\phi)$
+	\item If $\psi \in \Sigma(\delta(\phi),\phi)$ then $\sim \psi \in \Sigma(\delta(\phi),\phi)$
+	\item If $\BB_X \phi \in \Sigma(\delta(\phi),\phi)$ then $\pBB_X \phi \in \Sigma(\delta(\phi),\phi)$
+	\item If $\BBI_X \phi \in \Sigma(\delta(\phi),\phi)$ then $\pBBI_X \phi \in \Sigma(\delta(\phi),\phi)$
+\end{bul}
+\end{proposition}
+
+We follow \cite[pg. 243]{blackburn_modal_2001} in our definition of
+the set of (relativized) maximally consistent sets:
+
+\begin{mydef}[Atoms] Let $At(\Psi)$ denote the maximally consistent subsets of $\Psi$
+\end{mydef}
+We next have the Lindenbaum Lemma:
+\begin{lemma}[Lindenbaum Lemma]If $\Gamma \nvdash \phi$ and $\Gamma\subseteq \Sigma(\delta(\phi),\phi)$, then there is a $\gamma \in At(\Sigma(\delta(\phi),\phi))$ such that $\Gamma \subseteq \gamma$ and $\gamma \nvdash \phi$
+\end{lemma}
+\begin{proof}
+The proof of this assertion follows the same proof of the 
+finitary Lindenbaum Lemma offered in \cite[Lemma 4.83, pg. 244]{blackburn_modal_2001} and \cite[pgs. 79]{boolos_logic_1995}.
+\end{proof}
+
+We now turn to defining the \textsc{EviL} subformula model we shall
+use in the subsequent finitary completeness theorem:
+
+\begin{mydef}
+Define 
+$$\Cross^\phi := \langle W, R, \sqsubseteq, \sqsupseteq, V, P \rangle$$
+Where:
+\begin{align*}
+W := & At(\Sigma(\delta(\phi),\phi)) \\
+V(p) := & \{ w \in W \ |\ p \in w \} \\
+P_X := & \{ w \in W \ |\ \PP_X \in w \} \cup \{ w\in W \ | \ X \nin \delta(A)\}\\
+R_X := & \{(w,v) \in W \times W \ |\ \{ \psi\ |\ \Box_X \psi \in w\}
+\subseteq v \} \\
+\sqsupseteq_X  := & \begin{cases} \{(w,v) \in W \times W \ |\
+  \{\psi,\pBB_X \psi \ |\ \pBB_X \psi \in w\} \subseteq v\ \& &
+  \multirow{2}{*}{\textup{when $X \in \delta(\phi)$}} \\
+ \hspace{3cm}\ \;\;  \{\psi,\pBBI_X \psi \ |\ \pBBI_X \psi \in v\}
+ \subseteq w \} \} \\
+\{ (w,w) \ |\ w \in W\} & \textup{o/w}
+\end{cases} 
+\\
+\sqsubseteq_X  := & \begin{cases} \{(v,w) \in W \times W \ |\
+  \{\psi,\pBB_X \psi \ |\ \pBB_X \psi \in w\} \subseteq v\ \& &
+  \multirow{2}{*}{\textup{when $X \in \delta(\phi)$}} \\
+ \hspace{3cm}\ \;\;  \{\psi,\pBBI_X \psi \ |\ \pBBI_X \psi \in v\}
+ \subseteq w \} \} \\
+\{ (w,w) \ |\ w \in W\} & \textup{o/w}
+\end{cases} 
+\end{align*}
+\end{mydef}
+
+In the above construction, we note that the definition of $V(p)$,
+$P_X$ and $R_X$ are defined as usual.  Only $\sqsupseteq_X$ and
+$\sqsubseteq_X$ have are unusual; we are consciously imitating the
+completeness techniques given in \cite[chapter 5,
+pgs. 78--84]{boolos_logic_1995} for \textsc{EviL}.
+
+We shall now show that $\Cross^\phi$ satisfies the \emph{Truth lemma}.
+Once again, the method of the proof of the following theorem is adapted
+from \cite[chapter 5, pgs. 78--84]{boolos_logic_1995}.
+
+\begin{lemma}[Truth Lemma]\label{truth}
+For any subformula $\psi \in \Sigma(\delta(\phi),\phi)$ and any $w \in
+W^{\Cross}$, we have that 
+\[\Cross^\phi, w \Vdash \psi \iff \psi \in w\]
+\end{lemma}
+\begin{proof} The proof proceeds by induction on $\psi$.
+\begin{description}
+\item[$p \in \Phi$, $\PP_X$, $\bot$ --] These steps are elementary.
+\item[$\phi \to \psi$ --] Since we know that $\Sigma(\delta(\phi),\phi)$
+   is closed under subformulae, from the inductive hypothesis we have
+   that $\Cross^\phi, w \Vdash \phi \iff \phi \in w$ and $\Cross^\phi,
+   w \Vdash \phi \iff \phi \in w$.  The rest of the step involves
+   reasoning by cases, using the fact that $\Sigma(\delta(\phi),\phi)$ is
+   closed under pseudo-negation, $w$ is maximal and pseudo-negation 
+   logically equivalent to negation.
+\item[$\Box_X\phi$ --]  
+  The right to left direction follows by the fact
+  that $\Sigma(\delta(\phi),\phi)$ is closed under subformulae, and
+  the inductive hypothesis.  Hence we shall concern ourselves with the
+  left to right direction.
+
+So assume that $\Box_X \psi \nin w$ we shall show that there is a $v$
+such that $w R_x v$ and $\Cross^\phi, v \nVdash \psi$.  Consider the
+set 
+\[ \Xi := \{ \sim \psi \} \cup \{\chi \ |\ \Box_X \chi \in w\}\]
+Note that $\Xi \subseteq \Sigma(\delta(\phi),\phi)$.  If $\Xi$ is consistent, then $\Xi \nvdash \phi$ and we know from the
+Lindenbaum Lemma that $\Xi$ may be extended to the $v$ we desire.  
+
+So suppose towards a contradiction that $\Xi$ is not consistent.
+Then $\vdash \neg \bigwedge \Xi$, which means by classical logic that: 
+$$\vdash \left(\bigwedge_{\Box_X \chi \in w} \chi\right) \to \psi$$
+But then we know by modal logic that:
+$$\vdash \left(\bigwedge_{\Box_X \chi \in w} \Box_X \chi\right) \to \Box_X \psi$$
+This means that since $w \vdash \bigwedge_{\Box_X \chi \in w} \Box_X
+\chi$, then we have that $\Box_X \psi \in w$ by maximality after all. This is
+ridiculous! $\lightning$
+
+\item[$\BM_X\phi$ --]  This case is similar to the case for $\Box_X \phi$,
+  but harder to understand.  
+
+We shall demonstrate the left to right direction, since right to left
+is elementary.  
+Assume that $\BB_X \psi \nin w$, then we shall find a $v$ such that $w
+\sqsupseteq_x v$ and $\Cross^\phi, v \nVdash \phi$.  Since $w$ is
+maximal and $\vdash \pBM_X\psi \IFF \BM_X \psi$, we have that $w
+\nvdash \pBB_X \psi$.  
+
+Now abbreviate:
+\begin{align*}
+A := &  \{\chi,\pBB_X \chi \ |\ \pBB_X \chi \in w \}\\
+B := & \{ \sim \pBBI_X \chi \ | \ \pBBI_X \chi \in \Sigma(\delta(\phi),\phi)\ \&\ \sim\chi \in w \}
+\end{align*}
+As before, if $\{\sim \psi\} \cup A \cup B$ consistent then it extends
+to the desired $v$.
+
+So suppose towards a contradiction that $\{\sim \psi\} \cup A \cup B
+\vdash \bot$.  Then $A \cup B \vdash \psi$, and furthermore by the
+equivalences in Lemma \ref{equivs2} and rule \eqref{BMnec} and the
+axioms we have that\footnote{Here $\pBB_X S$ is shorthand for $\{
+  \pBB_X \chi \ |\ \chi \in S\}$.} $$\pBB_X A \cup \pBB_X B \vdash
+\pBB_X \psi.$$ So let 
+\begin{align*}
+A' := & \{ \pBB_X \chi\ |\ \pBB_X \chi \in w \}\\
+B' := & \{ \sim \chi \ | \  \sim\chi \in w \}
+\end{align*}
+Since $\pBB_X \pBB_X \chi = \pBB_X \chi$ by Lemma \ref{equivs2}, we have $A' = \pBB_X A$.  Moreover, by Lemma \ref{equivs2}, axiom \eqref{reverseAx1}, and classical logic we can see that
+\[ \vdash \sim \chi \to \pBB_X \sim \pBBI_X \chi \]
+Thus for every $\beta \in \pBB_X B$ we have that $B' \vdash \beta$.  Hence by $n$ applications of the Cut rule we can arrive at 
+\[ A' \cup B' \vdash \pBB_X \chi \]
+However, evidently $A' \cup B' \subseteq w$, hence $w \vdash \pBB_X
+\psi$, which is a contradiction! $\lightning$
+
+To complete the argument, we must show that $w \sqsupseteq_X
+v$.  Since $A \subseteq v$ we just need to check that $\{\psi,\pBBI_X \psi \ |\ \pBBI_X \psi \in v\} \subseteq w$.  Suppose
+that $\pBBI_X \psi \in v$ but $\psi \nin w$.  Since $w$ is maximally
+consistent we have then that $\sim \psi \in w$, hence $ \sim \pBP_X
+\in B$ by definition and thus $\sim \pBBI_X
+\psi \in v$, since $B \subseteq v$.  This contradicts that $v$ is consistent. $\lightning$
+
+Now suppose that $\pBBI_X \psi \in v$ but $\pBBI_X \psi \nin w$, hence
+$\sim \pBBI_X \psi \in w$ and thus $\sim \pBBI_X \pBBI_X \psi \in v$.
+However we know from Lemma \ref{equivs2} that $\pBBI_X \pBBI_X \psi =
+\pBBI_X \psi$, which once again implies that $v$ is
+inconsistent. $\lightning$
+\item[$\BP_X\phi$ --]  This is exactly as in the case of $\BM_X\phi$,
+  only the appropriate dual assertions of all of the statements used 
+are employed.
+\end{description}
+\end{proof}
+
+We shall now turn to establishing that our finite model is indeed a
+partly \textsc{EviL} Kripke structure, following the manner that we
+used to show the same result for the
+canonical \textsc{EviL} model $\mathscr{E}$.
+
+\begin{lemma}[$\Cross^\phi$ is Partly \textsc{EviL}]\label{cross-is-partly}
+$\Cross^\phi$ is a finite partly \textsc{EviL} Kripke structure.
+\end{lemma}
+\begin{proof}
+The fact that $\Cross^\phi$ is finite follows from the fact that
+$W^\Cross \subseteq \Sigma(\delta(\phi),\phi)$ and
+$\Sigma(\delta(\phi),\phi)$ is itself finite, as we established in Lemma \ref{equivs2}.
+
+The remainder of the proof is devoted to establishing the partly
+\textsc{EviL} properties for $\Cross^\phi$.
+  \begin{description}
+    \item[\ref{ppI}]We must show ``$\sqsubseteq_X$ is reflexive.''
+We first note that if $X \nin \delta(\phi)$, then this is true immediately by the
+construction of $\Cross^\phi$. 
+
+ So assume that $X \in \delta(\phi)$. We need to show two facts:
+\begin{eqnarray*} 
+&   \{\psi,\pBB_X \psi \ |\ \pBB_X \psi \in w\} \subseteq w \\
+ &  \& \\
+&\{\psi,\pBBI_X \psi \ |\ \pBBI_X \psi \in w\}
+\subseteq w
+\end{eqnarray*}
+
+However, these facts follow from Lemma \ref{equivs2}, the maximality
+of $w$ and the fact that we know \textsc{EviL} logic proves:
+\begin{eqnarray*}
+& \vdash \BB_X \psi \to \psi\\
+&\textup{ and } \\
+& \vdash \BBI_X \psi \to \psi
+\end{eqnarray*}
+
+We know that \textsc{EviL} proves these facts from our
+previous completeness theorem, Theorem \ref{evil-completeness}, and 
+the fact that $\sqsubseteq_X$ is reflexive for \textsc{EviL} models.
+
+\item[\ref{pptrans}] A quick glance at the definition of
+      $\Cross^\phi$ reveals that ``$\sqsubseteq_X$ is transitive''
+is immediate by construction.
+
+    \item[\ref{ppreverse}]
+Once again, the assertion
+``$\sqsubseteq_X$ is the reverse $\sqsupseteq_X$'' 
+follows immediately by construction.
+
+    \item[\ref{islandiff}] Assume $w \sqsubseteq_X v$, we shall show
+      that 
+$$w \in V (p)\textup{ if and only if }v \in V (p)$$
+
+If $X \nin \delta(\phi)$ then we know that $w = v$, so the above is true.
+
+     So assume that $X \in \delta(\phi)$.  
+    Now assume that $w \in V(p)$, then $\mathscr{E}, w \Vdash p$.
+     This means that $p \in w$, whence $p \in
+     \Sigma(\delta(\phi),\phi)$.  
+    By Definition \ref{EviLSigma} we have that 
+    $\BP_X p = \pBP_X p \in \Sigma(\delta(\phi),\phi)$. 
+     By axiom \eqref{letterAx2} and 
+     the Truth Lemma (Lemma \ref{truth}),  we have that $\pBP_X
+      p \in w$, whence $p \in v$ by construction of $\Cross^\phi$.  The other direction
+      is similar, however it uses axiom \eqref{letterAx1} instead.
+
+    \item[\ref{ppV}] 
+To prove the assertion
+$$ (R_X \circ \sqsubseteq_X) \subseteq
+    R_X \subseteq (R_X \circ \sqsupseteq_X)$$
+We first note that if $X\nin\delta(\phi)$, then $R_X \circ
+\sqsubseteq_X = R_X$ by construction.
+
+So assume $X \in \delta(\phi)$.  
+We shall show only show that 
+$$ (R_X \circ \sqsubseteq_X) \subseteq R_X $$
+Since the other inclusion follows from \ref{ppreverse}, which we have
+previously established.
+
+So assume that $w \sqsubseteq_X u$ and $u R_X v$, we need to show that
+$w R_X v$.  In order to do this, by construction we need to show that
+if $\Box_X \phi \in w$ then $\phi \in v$. However, we know that
+$\vdash \Box_X \phi \to \pBP_X \Box_X \phi$ by the logic of
+\textsc{EviL}, and by the definition of \ref{EviLSigma} we know
+that if $\Box_X \phi \in \Sigma(\delta(\phi),\phi)$ then $\pBP_X\Box_X
+\phi \in \Sigma(\delta(\phi),\phi)$ too, so $\pBP_X \Box_X \phi \in w$
+by maximality.  However, we then have that $\Box_X \phi \in u$ by
+construction, and thus $\phi \in v$ as desired. 
+
+    \item[\ref{ppIX}] We must show``If $w \in P_X$ and $w \sqsupseteq_X
+      v$ then $v \in P_X$.''  If $w \in P_x$ then by construction we
+      know that $\PP_X \in w$.  Note that this can only happen if $X
+      \in \delta(\phi)$.  As in the case of \ref{islandiff} we
+      know by the definition of $\Sigma$, \textsc{EviL} logic 
+      and maximality we have that $ \BM_X \PP_X \in w$.  
+      Whence we have $\PP_X \in v$ as desired. 
+
+     \item[\ref{ppantisym}] Just as in the proof of
+       \ref{partly-evil-completeness} from
+       \S\ref{partly-evil-strong-soundness-and-completeness}, 
+      we have intentionally deferred the proof that
+      $\sqsubseteq$ is a partial order, since it depends on the above
+      results.  As before, that it is reflexive and transitive by
+      \ref{ppI} and \ref{pptrans}.  
+       Moreover, the exact same inductive proof, along with the 
+      Truth Lemma, may be used to establish anti-symmetry.
+
+    \item[\ref{ppVI}] We must show:
+    $$(\sqsubseteq_Y \circ R_X) = R_X = (\sqsupseteq_Y \circ R_X)$$
+Given \ref{ppI}, we know that 
+$$ (\sqsubseteq_Y \circ R_X) \supseteq R_X \subseteq (\sqsupseteq_Y
+\circ R_X) $$
+So we shall show that $\sqsubseteq_Y \circ R_X \subseteq R_X$, since
+$\sqsupseteq_Y$ is analogous.
+
+First, observe that we may assume that $Y \in \delta(\phi)$, 
+since if not then $\sqsubseteq_Y \circ R_X = R_X$ as we want.  
+Now assume that $\Nec_X \phi \in w$, $w R_X v$ and $v \sqsubseteq_Y
+u$; we must show that $\phi \in u$.  
+Since $Y \in \delta(\phi)$ then by the construction of $\Sigma$, 
+along with the \textsc{EviL} fact that 
+$\vdash \Nec_X \phi \to \Nec_X \pBP_X\phi $, we know that 
+$Nec_X \pBP_Y \phi \in w$, whence $pBP_Y \phi \in v$.  Since $v
+\sqsubseteq_Y u$, we have that $\phi \in u$ as desired.
+%corresponds to axioms \eqref{islandDown} and \eqref{islandUp}.
+
+    \item[\ref{ppVII}] To show ``If $w \in P (X)$ then $w R_X w$,''
+    assume $\PP_X \in w$ and $\Nec_X \phi \in w$.  Then we know by
+    \textsc{EviL} and maximality that $\phi \in w$, which suffices to
+    show that $w R_X w$. 
+\end{description}
+\end{proof}
+
+We may combine the results above with what we have shown previously in
+\S\ref{completely-evil} to give the following series of results:
+
+\begin{theorem}[Abstract Finite \textsc{EviL} Soundness and Weak
+  Completeness]\label{abst-finite-completeness}\ 
+\begin{center}
+\textsc{EviL} is weakly sound and complete for finite \textsc{EviL}
+models.
+\end{center}
+\end{theorem}
+\begin{proof}
+Since soundness is straightforward, we only prove completeness.
+
+Assume that $\nvdash \phi$, in other words we have $\varnothing \vdash
+\phi$.  This means by the Lindenbaum Lemma that $\varnothing$ may be
+extended to some $w \in At(\delta(\phi),\phi)$ such that 
+$\Cross^\phi,w\nVdash \phi$.  We know that $\Cross^\phi$ is partly
+\textsc{EviL} from Theorem \ref{cross-is-partly}, so from Theorem
+\ref{EviL-Completion} we have that $\invis^\Cross$ is an \textsc{EviL}
+model, and since it is bisimilar to $\Cross$ we know that
+$\invis^\Cross, w_l \nVdash \phi$.
+Now note that for $\invis$ obeys the following rule:  If $|W|$ is
+finite then $|W^\invis| = 2 \times |W|$ (since all that $\invis$ is
+doing is making duplicates of all of the worlds).  Hence we know that
+$\invis^\Cross$ is indeed finite, which means it is a suitable witness.
+\end{proof}
+
+\begin{theorem}[\textsc{EviL} Small Model Property]\label{small-model-property}\ 
+If $\phi$ is satisfiable by some \textsc{EviL} Kripke structure, then $\phi$ is
+satisfied by some finite \textsc{EviL} Kripke structure $\mathbb{M}$ where
+$|\mathbb{M}| \in O(EXP2(|\phi|))$
+\end{theorem}
+\begin{proof}
+Assume that $\phi$ is satisfiable in some \textsc{EviL} Kripke
+structure, then we know by soundness that $\nvdash \phi$, hence
+$\invis^\phi , w \nVdash \phi$ for some $w$ extending $\varnothing$.
+So it suffices to show that $|\invis^\phi| \in O(EXP2(|\phi|))$.
+
+Note that $\invis^\phi \subseteq
+\powerset(\Sigma(\delta(\phi),\phi))$.  We shall show that
+$|\Sigma(\delta(\phi),\phi)| \in O(EXP(|\phi|))$, then we would know
+that $|\powerset(\Sigma(\delta(\phi),\phi))| \in O(EXP2(|\phi|))$,
+which would suffice to show the result.
+
+First observe that $|\delta(\phi)| \in O(EXP(|\phi|))$.  This is
+because in a worst case scenario, $\phi$ is constantly branching into
+$\psi \to \chi$ formulae, and adding two new agents every time it
+branches.  However, it cannot have more than $3^{|\phi|}$ agents even
+in this worst case scenario, so we know that $|\delta(\phi)| \in
+O(EXP(|\phi|))$.
+
+ Since every non-branching step (ie. every time $\Sigma$ processes a
+ formula not of the form $\psi \to \chi$) of
+$\Sigma(\delta(\phi), \zeta)$ introduces at worst $O(|\delta(\phi)|) \in O(EXP(|\phi|))$
+many formulae, we may again do a worst-case analysis.  In a worst case
+scenario $\Sigma(\delta(\phi),\phi)$ must branch $O(EXP({|\phi|}))$
+times and each time perform a $O(EXP(|\phi|))$ operation.  Even in
+this worst case scenario, the complexity is still $O(EXP(|\phi|))$,
+which is as we claimed.
+\end{proof}
+
+\begin{theorem}[\textsc{EviL} Decidability]\label{evil-decidability}\ 
+\textsc{EviL} is decidable; moreover, the decision problem for
+\textsc{EviL} is at worst $O(EXP3)$
+\end{theorem}
+\begin{proof}
+ We know
+that $\Cross^\phi \in \powerset (\powerset
+(\Sigma(\delta(\phi),\phi)))$,
+We know that
+ $\phi$ is not a tautology of \textsc{EviL} if and only if there is a
+ suitable \textsc{EviL} witnessing Kripke structure in $\powerset
+ (\powerset (\Sigma(\delta(\phi),\phi)))$, defined in the manner of $\Cross$.
+So a decision procedure to check if $\phi$ is an \textsc{EviL}
+tautology 
+is to check every member of
+$\powerset (\powerset (\Sigma(\delta(\phi),\phi)))$ to see it gives
+rise to an \textsc{EviL} model with some world which disproves
+$\phi$. Since, as we saw in the proof of Theorem \ref{small-model-property}, we know
+that $|\Sigma(\delta(\phi),\phi)| = O(EXP(|\phi|))$, this procedure takes $O(EXP3(|\phi|))$ many steps to complete.
+\end{proof}
+
+We shall now move on to showing how we may
+recover a concrete \textsc{EviL} model from a finite \textsc{EviL}
+Kripke structure.  The above results shall ensure completeness of
+\textsc{EviL} for its intended semantics.  Before proceeding 
+we shall first need to introduce the concept of a \emph{island}.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

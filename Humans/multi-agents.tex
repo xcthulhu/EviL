@@ -39,7 +39,7 @@ set, it takes an indexed set.
 
 We now provide a formal definition of the semantics for the multi-agent $(\VDash)$:
 {\footnote{Where $X \in \mathcal{A}$, 
-use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
+we shall use $A_X$ to denote $A (X)$ provided that $A \colons \mathcal{A} \rightarrow
 \powerset \mathcal{L}_0 (\Phi)$}}
 \begin{definition}
 \begin{align*}
@@ -70,13 +70,12 @@ where $\Box$, $\Pos$, $\BM$,$\BP$, $\DM$, $\DP$ and $\PP$
 are all replaced with $\Box_X$, $\Pos_X$, $\BM_X$, $\BP_X$,
 $\DM_X$, $\DP_X$ and $\PP_X$ respectively, for any fixed 
 $X \in \mathcal{A}$.
-Furthermore, compactness still fails, just as presented in 
-\S\ref{non-compactness}.
+% Furthermore, compactness still fails, as shall be  presented in 
+% \S\ref{non-compactness}.
 
-Finally, there is are two novel validities that these semantics give
-rise to:
-
-\begin{eqnarray*} & \VDash \Box_X \phi \to \Box_X \BM_Y \phi \\
+Finally, there are two novel validities that arise in these semantics:
+\begin{eqnarray*} 
+& \VDash \Box_X \phi \to \Box_X \BM_Y \phi \\
 & \VDash \Box_X \phi \to \Box_X \BP_Y \phi 
  \end{eqnarray*}
 

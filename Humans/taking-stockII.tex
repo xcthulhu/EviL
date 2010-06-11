@@ -1,0 +1,80 @@
+In this section, we take stock of what we have illustrated so far in
+our investigations into the completeness of \textsc{EviL}.  We discuss
+how the nature of the abstract semantics for \textsc{EviL} in
+relationship to its concrete semantics, and we view this relationship
+from a wider mathematical perspective.
+
+We shall begin by substantiating the relationship we established in
+\S\ref{taking-stock}, which we expressed in \eqref{relationship}.
+
+\begin{lemma} For finite $\Gamma$:
+\[
+\Gamma \Vdash_{\textsc{EviL}} \phi \iff \Gamma \VDash \phi
+\]
+\end{lemma}
+\begin{proof}
+We may observe that since $\Gamma$ is finite, then by classical logic
+and our previous completeness theorems we have the following chain of reasoning:
+\begin{align*}
+  \Gamma \Vdash_{\textsc{EviL}} \phi & \iff  \Vdash_{\textsc{EviL}} \bigwedge \Gamma
+  \to \phi \\
+   & \iff \vdash_{\textsc{EviL}} \bigwedge \Gamma
+  \to \phi \\
+   & \iff \VDash \bigwedge \Gamma
+  \to \phi \\
+   & \iff  \Gamma \VDash \phi
+\end{align*}
+\end{proof}
+
+As a further remark, we feel the need to discuss the nature of the
+relationship between the \emph{concrete} and \emph{abstract} semantics
+that \textsc{EviL} exhibits.  We began with \textsc{EviL} models,
+which were intended to model intuitions we had regarding the nature of
+epistemology.  In so doing, we used the language of traditional 
+epistemic logic, even though we modified the semantics heavily.  We
+found this gave rise to relational models that are the traditional
+object of study of modal logic, however we found that while we could
+abstract to traditional Kripke structures, this was not symmetric --
+we could not abstract back.
+
+We argue that this particular relationship is common place in
+mathematics.  For instance, it is natural to think of the integers as
+a concrete object.  After all, every mathematics student at some point
+learns Kronicker's legendary quote ``God created the integers, all
+else is the creation of man'' \cite[pg. 477]{bell_men_1986}.
+However, it is by these concrete origins, we may recognize the
+integers as concrete Noetherian ring.  Indeed, it is by understanding
+the integers that the theory of Noetherian rings proceeds.  For
+instance, the fact that every ideal in a Noetherian ring is equal to a finite
+intersection of primary ideals is a pure abstraction of 
+Euclid's prime decomposition theorem\cite[Lemmas 7.11 and 7.12,
+pg. 83]{atiyah_introduction_1994}.  This is part of the character of
+mathematics; abstraction is guided by intuition drawn from more
+concrete objects.  In  the same manner we may regard Stone
+Representation Theorem as abstracting
+Birkoff's theorem \cite[chapters 11 and 5, respectively]{davey_introduction_2002}, and the Yoneda Lemma abstracting Cayley's
+theorem \cite[chapters 4 and 1, respectively]{smith_post-modern_1999}.
+
+Despite the order of presentation given here, we should make things
+clear - we did not derive the abstract completeness theorem in
+\S\ref{abstraction} until we were convinced that \textsc{EviL} Kripke
+structures generalized our concrete structures.  The process by which
+\textsc{EviL} was developed involved finding the results in
+\S\ref{small-model} first, and letting those properties we deemed 
+necessary to coerce a Kripke structure into a \textsc{Evil} 
+model define the logic.  
+Abstract completeness was an afterthought.  Of course, just as in the
+case of complex analysis and trigonometry, our abstract formalism
+is far easier to manipulate than our original \textsc{EviL} models.
+
+Since \textsc{EviL} Kripke structures really are abstract
+idealizations of concrete \textsc{EviL} models, as we have
+illustrated, we are granted a particularly comfortable situation.  
+On the one hand, we have concrete semantics by
+which we may sharpen our intuition. On the other hand, we 
+have well behaved abstract semantics which faithfully provide an 
+idealized domain for us to carry out formal work with relative ease.
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

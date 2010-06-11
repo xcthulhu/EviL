@@ -49,57 +49,62 @@ Following the modified semantics provided in \S\ref{multi-agent}, the
 developments this section will assume multiple agents.
 \begin{definition}
   Let $\Phi$ be a set of letters and let $\mathcal{A}$ be a set of agents. 
-  A \textbf{Kripke structure} is a state transition system $\mathbb{M}=\langle W^{\mathbb{M}}, R^{\mathbb{M}},
-  \sqsubseteq^{\mathbb{M}}, \sqsupseteq^{\mathbb{M}}, V^{\mathbb{M}},
-  P^{\mathbb{M}}_{\circlearrowleft} \rangle$ where\footnote{Where
-    the context is clear, we shall drop $\mathbb{M}$}:
+  A \textbf{Kripke structure} is a state transition system
+  $\mathbb{M}=\langle W^\mathbb{M}, R^\mathbb{M},
+  \sqsubseteq^\mathbb{M}, \sqsupseteq^\mathbb{M}, V^\mathbb{M},
+  P \rangle$ where\footnote{Where
+    the context is clear, we shall drop the superscript $\mathbb{M}$.}:
   \begin{itemizedot}
-    \item $W^{\mathbb{M}}$ is a set of worlds    
-    \item $R^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$, $\sqsubseteq^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$, and $\sqsupseteq^{\mathbb{M}} : \mathcal{A} \rightarrow \powerset (W \times W)$ are
-    $\mathcal{A}$-indexed sets of relations\footnote{we shall abbreviate
-      $R(X)$, $\sqsubseteq(X)$ and $\sqsupseteq(X)$ as $R(X)$,
-      $\sqsubseteq(X)$ and $\sqsupseteq(X)$ as $R_X$, $\sqsubseteq_X$
-      and $\sqsupseteq_X$ respectively.}
+    \item $W$ is a set of worlds    
+    \item $R : \mathcal{A} \rightarrow \powerset (W \times W)$, $\sqsubseteq : \mathcal{A} \rightarrow \powerset (W \times W)$, and $\sqsupseteq : \mathcal{A} \rightarrow \powerset (W \times W)$ are
+    $\mathcal{A}$-indexed sets of relations\footnote{We shall abbreviate
+      $R(X)$, $\sqsubseteq(X)$, $\sqsupseteq(X)$, $P(X)$ as $R_X$,
+      $\sqsubseteq_X$, $\sqsupseteq_X$ and $P_X$ respectively}
     \item $V : \Phi \rightarrow \powerset (W)$ is a predicate letter valuation
-    \item $P_{\circlearrowleft} : \mathcal{A} \rightarrow \powerset
+    \item $P : \mathcal{A} \rightarrow \powerset
       (W)$ are sets of worlds indexed by agents
   \end{itemizedot}
   Let $\mathcal{K}_{\Phi, \mathcal{A}, I}$ denote the class of Kripke structures for letters $\Phi$, agents $\mathcal{A}$, and where $W \subseteq I$.
 \end{definition}
+\begin{definition}
+By a minor abuse of notation, 
+we shall write $w \sqsubseteq v$ to mean that $w
+\sqsubseteq_X v$ for all agents $X$.
+\end{definition}
+
 Kripke semantics given by $(\Vdash) : \mathcal{K}_{\Phi, \mathcal{A}, I} \to I
 \rightarrow \text{\tmtextsf{bool}}$ for these models are defined recursively
-as usual, granted the exceptional behavior of $P_{\circlearrowleft}$.
+as usual, granting the exceptional behavior of $P$.
 \begin{definition}
-  Let $\mathbbm{M}$ be in the class $\mathcal{K}_{\Phi, \mathcal{A}, I}$
+  Let $\mathbbm{M}$ be a Kripke structure:
   \begin{eqnarray*}
-    \mathbbm{M}, w \Vdash p & \Longleftrightarrow & w \in V^{\mathbbm{M}}
+    \mathbbm{M}, w \Vdash p & \Longleftrightarrow & w \in V
     (p)\\
     \mathbbm{M}, w \Vdash \phi \rightarrow \psi & \Longleftrightarrow &
     \mathbbm{M}, w \Vdash \phi \text{ implies } \mathbbm{M}, w \Vdash \psi\\
     \mathbbm{M}, w \Vdash \bot & \Longleftrightarrow & \text{False}\\
     \mathbbm{M}, w \Vdash \Box_X \phi & \Longleftrightarrow & \forall v \in
-    W^{\mathbbm{M}} . w R^{\mathbbm{M}}_X v \text{ implies } \mathbbm{M}, v
+    W . w R_X v \text{ implies } \mathbbm{M}, v
     \Vdash \phi\\
     \mathbbm{M}, w \Vdash \boxminus_X \phi & \Longleftrightarrow & \forall v
-    \in W^{\mathbbm{M}} . w \sqsupseteq^{\mathbbm{M}}_X v \text{ implies }
+    \in W . w \sqsupseteq_X v \text{ implies }
     \mathbbm{M}, v \Vdash \phi\\
     \mathbbm{M}, w \Vdash \boxplus_X \phi & \Longleftrightarrow & \forall v
-    \in W^{\mathbbm{M}} . w \sqsubseteq^{\mathbbm{M}}_X v \text{ implies }
+    \in W . w \sqsubseteq_X v \text{ implies }
     \mathbbm{M}, v \Vdash \phi\\
     \mathbbm{M}, w \Vdash \circlearrowleft_X & \Longleftrightarrow & w \in
-    P_{\circlearrowleft}^{\mathbbm{M}} (X)
+    P_X
   \end{eqnarray*}
 \end{definition}
 Kripke structures can be observed to typically have a lot less structure than
-\tmtextsc{EviL} models.  On the other hand, 
-\tmtextsc{EviL} models can be understood as
-Kripke structures in disguise.  To illustrate this, observe the following
-lemma:
-\begin{definition}[$\mho^\Omega$ Translation]
+\tmtextsc{EviL} models.  On the other hand,  \tmtextsc{EviL} models
+can be understood as Kripke structures in disguise.  To illustrate
+this, observe the following lemma:
+\begin{definition}[$\mho^\Omega$ Translation]\label{omega-translation}
 Let $\Omega$ be an \tmtextsc{EviL} model.  Define
   $\mho^{\Omega} \assign \langle \Omega, R^{\Omega},
   \sqsubseteq^{\Omega}, \sqsupseteq^{\Omega}, V^{\Omega},
-  P_{\circlearrowleft}^{\Omega} \rangle$, where
+  P^{\Omega} \rangle$, where
   \[ \begin{array}{llll}
        \bullet & \text{$(a, A) R^{\Omega}_X (b, B) \Longleftrightarrow \forall
        \psi \in A_X .b \models \psi$} & \bullet & (a, A)
@@ -107,13 +112,16 @@ Let $\Omega$ be an \tmtextsc{EviL} model.  Define
        A_X \subseteq B_X\\
        \bullet & (a, A) \sqsupseteq^{\Omega}_X (b, B) \Longleftrightarrow a =
        b \text{ and } A_X \supseteq B_X & \bullet & (a, A) \in
-       P_{\circlearrowleft}^{\Omega} (X) \Longleftrightarrow \forall \psi \in
-       A_X .a \models \psi
+       P^{\Omega} (X) \Longleftrightarrow \forall \psi \in
+       A_X .a \models \psi \\
+\multicolumn{4}{c}{\bullet\ \ \ V(p) := \{ (a,A) \in \mathfrak{M} \ |\ \mathfrak{M},(a,A)\VDash p\}}
      \end{array} \]
 \end{definition}
 \begin{lemma}
-  \label{tranlemma1} For all $\Omega$ and all $(a, A) \in \Omega$,  $\Omega, (a, A) \VDash
-  \phi$ if and only if $\mho^{\Omega}, (a, A) \Vdash \phi$
+  \label{tranlemma1} For all $\Omega$ and all $(a, A) \in \Omega$,  
+\begin{center} 
+$\Omega, (a, A) \VDash \phi$ if and only if $\mho^{\Omega}, (a, A) \Vdash \phi$.
+\end{center}
 \end{lemma}
 \begin{proof}
   This follows from a straightforward induction on $\phi$.
@@ -122,21 +130,23 @@ The following summarizes the structural properties of
 \tmtextsc{EviL} models, when transformed into Kripke structures:
 \begin{proposition}\label{evil_models}
   For any \textsc{EviL} model $\Omega$,  $\mho^{\Omega}$ has the following
-  properties{\footnote{Note that in this we have that $\{w,v\} \subseteq \powerset \Phi
-      \times \powerset \mathcal{L}_0$ in the subsequent discussion}}:
+  properties, for all agents $\{X,Y\} \subseteq \mathcal{A}$:
+% {\footnote{Note that in this we have that $\{w,v\} \subseteq \powerset
+%     \Phi \times \powerset \mathcal{L}_0$ in the subsequent discussion}}
+:
   \begin{myRoman}
-    \item\label{pI} $\sqsupseteq^{\Omega}_X$ is reflexive
-    \item $\sqsupseteq^{\Omega}_X$ is transitive 
-    \item \label{pantisym}$\sqsupseteq^{\Omega}_X$ is anti-symmetric
-    \item $w \sqsupseteq^{\Omega}_X v$ if and only if $v
-    \sqsubseteq^{\Omega}_X w$
-    \item If $w \sqsubseteq^{\Omega}_X v$ then $w \in V (p)$ if and only if $v
-    \in V (p)$
+    \item\label{pI} $\sqsubseteq^{\Omega}_X$ is reflexive
+    \item\label{pII} $\sqsubseteq^{\Omega}_X$ is transitive 
+   \item \label{pantisym} $\sqsubseteq^{\Omega}$ is a partial order
+    \item \label{preverse} $w \sqsubseteq^{\Omega}_X v$ if and only if 
+     $v \sqsupseteq^{\Omega}_X w$
+    \item \label{pislandiff} If $w \sqsubseteq^{\Omega}_X v$ then ($w
+      \in V (p)$ if and only if $v \in V (p)$)
     \item \label{pV}$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
     R^{\Omega}_X \subseteq (R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X)$
     \item \label{pVI} $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) = R^{\Omega}_X =
     (\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$
-    \item\label{pVII} $w \in P_{\circlearrowleft}^{\Omega} (X)$ if and only if $w
+    \item\label{pVII} $w \in P^{\Omega} (X)$ if and only if $w
     R^{\Omega}_X w$
   \end{myRoman}
   \ldots the situation in \ref{pV} can be visualized in
@@ -176,9 +186,10 @@ R^{\Omega}_X $ and \newline
 \caption{Visualizations of the relationships in Proposition \ref{evil_models}}
 \end{figure}
 \begin{proof}
-  Everything except \ref{pV} follows directly from the definitions - so we shall only
-  demonstrate $R^{\Omega}_X \subseteq R^{\Omega}_X \circ
-  \sqsupseteq^{\Omega}_X$.
+  Everything except \ref{pV} follows directly from the definitions -
+  so we shall only demonstrate 
+$R^{\Omega}_X \subseteq R^{\Omega}_X \circ
+  \sqsupseteq^{\Omega}_X$ (since the other part \ref{pV} follows from \ref{preverse}).
   
   Suppose that $(a, A) R^{\Omega}_X (b, B)$, then evidently $\forall \psi \in
   A_X .b \models \psi$. 
@@ -197,14 +208,12 @@ A Kripke structure is called \textsc{EviL} if it makes true the
 % These properties are definitive - as shall be demonstrated in \S\ref{Abstract-Completeness}, \tmtextsc{EviL} is
 % sound and strongly complete for \tmtextsc{EviL} models.
 
-The Kripke semantics also serve to provide proper intuition behind
+The Kripke semantics provide proper intuition behind
 \tmtextsc{EviL} models. We think of the defined relations given as follows:
 \begin{itemizedot}
-  \item If $x R^{\Omega}_X y$, then at world $x$ the agent $X$ can imagine $y$
-  is true, since $y$ is compatible with what the agent believes 
-  \item If $x \sqsubseteq^{\Omega}_X y$, then at world $x$, agent $X$'s
-  assumptions (or the experiences they are taking under consideration) are
-  contained in her evidence at $y$
+  \item If $x R^{\Omega}_X y$, then at world $x$ the agent $X$ can imagine $y$ is true, since $y$ is compatible with what the agent believes 
+  \item If $x \sqsubseteq^{\Omega}_X y$, then agent $X$'s
+  assumptions at world $x$ (or the experiences they are taking under consideration) are  contained in her evidence at $y$
 \end{itemizedot}
 Given this perspective, the proof of \ref{pV} can be understood in the
 following way - if the agent assumes fewer things, more things are imaginable,
@@ -212,23 +221,31 @@ since it is easier for a world to be incompatible with an agent's evidence.
 
 Finally, while Prop. \ref{evil_models} presents itself as a sort of
 representation lemma, the relationship between \textsc{EviL} semantics
-and Kripke semantics is not reciprocal.  Not every Kripke model can be
-represented as an \textsc{EviL} model.  Proposition
-\ref{not-an-evil-model} presents an elementary example of 
-this failure of representation.  It turns on the following
-observation:
+and Kripke semantics is not reciprocal.  Proposition
+\ref{not-an-evil-model} shows that not every Kripke model can be
+represented as an \textsc{EviL} model, 
+by presenting an elementary example of  this failure of
+representation.  It turns on the following observation:
 
 \begin{lemma}\label{helper-lemma}
   For a given \textsc{EviL} model $\mathfrak{M}$, for any
   $\{(a,A),(b,B),(c,C)\} \subseteq \mathfrak{M}$, if $a = b$ then $a
-  \models C$ if and only if $b \models C$
+  \models C$ if and only if $b \models C$.
 \end{lemma}
 \begin{proof}
-  This is an elementary result in the semantics of propositional logic.
+  Recall that the semantics for $\models$, as defined in Definition
+  \ref{classical-semantics} in \S\ref{evil-grammar} are the usual
+  semantics for classical propositional logic. Remembering this, the
+  above is an elementary result in basic logic.
 \end{proof}
 
 \begin{proposition}[Failure of Representation]
 \label{not-an-evil-model}
+ Not every \textsc{EviL} Kripke structure has a representative \textsc{EviL} model.
+\end{proposition}
+%\end{lemma}
+%\begin{proof}
+\begin{proof}
 Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R,
   \sqsubseteq, \sqsupseteq, V, P \rangle$ where
 \begin{center}
@@ -238,13 +255,11 @@ Consider a single agent \textsc{EviL} Kripke structure $\mathbb{M}:=\langle W, R
    & $P := \varnothing$ & \\
 \end{tabular}
 \end{center}
-This structure is depicted in Fig. \ref{fig:notevil}.  No
-\textsc{EviL} model corresponds to $\mathbb{M}$.
-\end{proposition}
-%\end{lemma}
-%\begin{proof}
-\begin{proof}
-Observe that the above model makes true the following:
+This structure is depicted in Fig. \ref{fig:notevil}.  We shall show
+that $\mathbb{M}$ is not represented 
+by any \textsc{EviL} model.
+
+Observe that $\mathbb{M}$ makes true the following:
 \begin{align}
   \mathbb{M},w & \Vdash \Pos \top \label{notevil:eq1}\\
   \mathbb{M},w & \Vdash \Nec \neg p \textup{ for all $p \in
@@ -263,8 +278,7 @@ the observations above:
 \item\label{notevil:1} From \eqref{notevil:eq1}, there must be some pair $(b,B)
    \in \mathfrak{M}$ such that $b\models A$.  Hence, $A$ must be
    \emph{consistent}.
-\item From \eqref{notevil:eq4}, we know that for the $b$ mentioned in
-  \ref{notevil:1}, it must be that $b = \varnothing$. This is a
+\item From \eqref{notevil:eq4}, we know that for the $b$ mentioned above it must be that $b = \varnothing$. This is a
   direct consequence of Lemma \ref{truthiness}, the Truthiness Lemma.
  \item From \eqref{notevil:eq2}, evidently $a = \varnothing$
   \item From \eqref{notevil:eq3}, it must be
@@ -282,7 +296,7 @@ clearly is absurd! $\lightning$
 \centering
   \includegraphics[]{evil_pictures/third_fig.pdf}
 %\caption{A fairly simple example}
-\caption{A Kripke Structure with no \textsc{EviL} representation}
+\caption{A Kripke structure $\mathbb{M}$ with no \textsc{EviL} representation}
 \label{fig:notevil}
 \end{figure}
 
@@ -291,30 +305,27 @@ it means that while \textsc{EviL} only enjoys some features from
 traditional epistemic logic, it is denied others.  Despite this,
 \textsc{EviL} enjoys \emph{most} of the benefits of basic modal logic.
 Indeed, we shall see in \S\ref{Abstract-Completeness} that
-\textsc{EviL} is strongly complete for Kripke models with the
-properties described in Proposition \ref{evil_models}.  
+\textsc{EviL} is strongly complete for \textsc{EviL} Kripke models.  
 
 Perhaps the most important formal feature that 
 \textsc{EviL} semantics lacks in comparison to 
 abstract Kripke semantics is that, as a consequence of the
 observations made in
-Proposition \label{not-an-evil-model}, \textsc{EviL} is not compact.
+Proposition \ref{not-an-evil-model}, \textsc{EviL} is not compact.
 
-\begin{theorem}[Failure of Compactness]If the set of proposition
+\begin{theorem}[Failure of Compactness]\label{noncompact}If the set of proposition
   letters $\Phi$ is infinite, then
-\textsc{EviL} is not compact for \textsc{EviL} semantics, as defined
-in from
-\S\ref{evil-grammar}.
+\textsc{EviL} is not compact for \textsc{EviL} semantics.
 \end{theorem}
 \begin{proof}
 We shall prove this result for the single agent case (the multiple
-agent case is a obvious generalization).  
+agent case is an obvious generalization).  
 Consider the function $\tau : \Phi \to \mathcal{L}(\Phi)$, defined as
 follows:
 \[ \tau(p) := (\Pos \top) \wedge (\Nec \neg p) \wedge (\neg p) \wedge
 (\neg \Pos \Pos \top) \]
 We shall see that $\tau[\Phi]$ is finitely satisfiable, but not
-in its entirely.
+in its entirety.
 
 Clearly not all of $\tau[\Phi]$ is satisfiable in \textsc{EviL}
 semantics, by the arguments presented in the proof of Proposition \ref{not-an-evil-model}.
@@ -343,9 +354,11 @@ that $\mathfrak{M},(\{\rho\}, \{\neg
 A consequence of the failure of compactness, while strong
 completeness can be obtained for \textsc{EviL} using Kripke semantics,
 to achieve completeness for \textsc{EviL} semantics a finitary proof
-must be carried out.
+must be carried out.  Recall that this was exactly the strategy used
+in our original sketch of \textsc{EviL} that we gave in Proposition
+\ref{translation-sketch} in \S\ref{sketch}.
 
-We shall now turn to showing completeness for \textsc{EviL}.
+The next section is devoted to studying completeness for \textsc{EviL}.
 
 % Furthermore, even though \textsc{EviL}
 % is quite formal in nature, it might rightly be considered an

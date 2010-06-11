@@ -1,0 +1,35 @@
+\documentclass[]{article}
+\usepackage{amssymb}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,shadows,arrows}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength{\imagewidth}
+\newlength{\imagescale}
+\begin{document}
+	\begin{tikzpicture}[shorten >=1pt,node distance=3.5cm,
+                    semithick, bend angle=45,
+                    description/.style={fill=white,inner sep=2pt}]
+  \tikzstyle{state}=[fill=white,draw,text=black, circle,minimum size=20pt]
+  \tikzstyle{empt} = [draw=none,fill=none]
+\begin{scope}
+\node[state] (A) {};
+\node[state] (B1) [below right of=A] {};
+\node[state] (B2) [below left of=A] {};
+\node[state] (C1) [below right of=B1] {$v$};
+\node[state] (C2) [below left of=B2] {};
+\node[state] (D2) [below left of=C2] {};
+\node[state] (E2) [below left of=D2] {$w$};
+
+\path 
+   (A) edge [densely dotted] node[description] {$X$} (B1)
+            edge [densely dotted] node[description] {$Z$} (B2)
+    (B2)        edge [densely dotted] node[description] {$X$} (C2)
+    (B1)         edge [densely dotted] node[description] {$Q$} (C1)
+    (C2)         edge [densely dotted] node[description] {$Y$} (D2)
+    (D2)         edge [densely dotted] node[description] {$X$} (E2)
+;
+\end{scope}
+\end{tikzpicture}
+\end{document}

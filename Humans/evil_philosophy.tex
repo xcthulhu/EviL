@@ -126,8 +126,30 @@
 % UTF code for Boxslash
 \DeclareUnicodeCharacter{303C}{\boxslash}
 
+% \DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+% \SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+% \DeclareMathSymbol\lightning\mathord{stmry}{"20}
+
+% Script Fonts are nice
+\usepackage{mathrsfs}
+
+% We will want zodiac symbols maybe
+\usepackage{wasysym}
+
+% Smiley :)
+\newcommand{\mvs}{\fontfamily{mvs}\fontencoding{U}%
+\fontseries{m}\fontshape{n}\selectfont}
+\newcommand{\mvchr}[1]{{\mvs\char#1}}
+\newcommand{\textmvs}[1]{{\mvs #1}}
+\newcommand\Smiley{\mvchr{169}}
+
 % stdmaryrd has the best lightning symbol
-\usepackage{stmaryrd}
+%\usepackage{stmaryrd}
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+\my@undefine{\lightning}
+\DeclareMathSymbol\lightning\mathord{stmry}{"20}
+\DeclareMathSymbol\leftrightarroweq\mathrel{stmry}{"2D}
 
 % Mathabx Font has cool corner symbols
 %\usepackage{mathabx}
@@ -177,9 +199,10 @@
                                            \fontseries{m}\fontshape{n}\selectfont}
 \newcommand{\Pisymbol}[2]{{\Pifont{#1}\char#2}}
 \newcommand{\ding}{\Pisymbol{pzd}}
-\renewcommand{\Cross}{\textrm{\ding{61}}}
-\newcommand{\iCross}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\Cross}}}\!}
-\newcommand{\invis}{\iCross}
+%\renewcommand{\Cross}{\textrm{\ding{61}}}
+\renewcommand{\Cross}{\textrm{\Large\Smiley}}
+\newcommand{\iCross}{\mathord{\reflectbox{\rotatebox[origin=c]{180}{\Cross}}}}
+\newcommand{\invis}{{\small\ensuremath{\cancer}}}
 \newcommand{\lhookrightarrow}{\hookrightarrow}
 %\newcommand{\nmodels}{\nvDash}
 \renewcommand{\diamondsuit}{\Diamond}
@@ -189,7 +212,7 @@
 \renewcommand{\Omega}{\mathfrak{M}}
 \newcommand{\ra}{\rangle}
 \newcommand{\la}{\langle}
-\newcommand{\ipent}{\mathrel{\reflectbox{\rotatebox[origin=c]{180}{\ensuremath{\largepentagram}}}}\!\!\!}
+\newcommand{\ipent}{\mathord{\reflectbox{\rotatebox[origin=c]{180}{\ensuremath{\largepentagram}}}}}
 \newcommand{\ang}{\Lambda}
 \newcommand{\DD}{\diamondminus}
 \newcommand{\DDI}{\diamondplus}
@@ -205,8 +228,10 @@
 \newcommand{\nin}{\not\in}
 \newcommand{\BB}{\boxminus}
 \newcommand{\pBB}{\boxslash}
+\newcommand{\pBM}{\boxslash}
 \newcommand{\BBI}{\boxplus}
 \newcommand{\pBBI}{\boxtimes}
+\newcommand{\pBP}{\boxtimes}
 \newcommand{\NM}{\boxminus}
 \newcommand{\PP}{\circlearrowleft}
 \newcommand{\DP}{\diamondplus}
@@ -221,7 +246,8 @@
 \newcommand{\mo}[2]{\ensuremath{\mathfrak{M},( #1, #2 )}}
 \newcommand{\pr}[2]{\ensuremath{( #1, #2 )}}
 \newcommand{\rel}[1]{\ensuremath{R_{#1}}}
-\newcommand{\kl}{\theta}
+\newcommand{\kl}{\vartheta}
+\renewcommand{\phi}{\varphi}
 
 \def\implies{\ \mathrel{\joinrel=\joinrel\Rightarrow}}
 
@@ -636,7 +662,7 @@ $\Omega\subseteq \Phi \times \powerset \mathcal{L}_0(\Phi)$.
 This suffices to make every truth value of this logic determinate.
 
 We may observe that the logic of these semantics is familiar:
-\begin{prop}
+\begin{prop}[Translation]\label{translation-sketch}
 Assuming that the set of proposition letters $\Phi$ is infinite
 $$\vdash_{K} \phi\textup{ if and only if } \Omega, (a,A) \VDash \phi \textup{ for all finite $\Omega$ for all $(a,A) \in \Omega$}$$
 Here $K$ is basic modal logic.
@@ -647,20 +673,21 @@ Here $K$ is basic modal logic.
  finite model property that there's some finite model
  $\mathbb{M}=\langle W, V, R \rangle$ and world $w \in W$ such that $\mathbb{M},w \nVdash \phi$ (see \citet[chapters 2 \& 4]{blackburn_modal_2001} for details of these facts).
 
-Now let $PropVars_\phi$ be the proposition letters that occur as
-subformulae of $\phi$, and let $q : W
-\hookrightarrow \Phi \bs PropVars_\phi$ be an injection. In
-  other words $q$ assigns \emph{fresh letters} to worlds in the
-  model \footnote{ In
-  this vein, we shall abbreviate $q(w)$ as $q_w$. Note
-  that because $PropVars_\phi$ are \emph{finite} and $\Phi$ is assumed
-to be \emph{infinite}, such an inject always exists.  This is a
+Now let $L(\phi)$ be the proposition letters that occur as
+subformulae of $\phi$, and let $p : W
+\hookrightarrow \Phi \bs L(\phi)$ be an injection. In
+  other words $p$ assigns \emph{fresh letters} to worlds in the
+  model \footnote{In
+  this vein, we shall abbreviate $p(w)$ as $p_w$. Note
+  that because $L(\phi)$ is \emph{finite} and $\Phi$ is assumed
+to be \emph{infinite}, such an injection always exists.  This is a
 consequence of \emph{The Axiom of Choice}.}.  Define
 $\theta:W^\mathbb{M}\to \powerset\Phi \times \powerset
 \mathcal{L}_0(\Phi)$ as follows
-%\footnote{I am indebted to Johan van Benthem for the invention of this particular function.}
-$$ \theta(x) := (\{p\in \Phi \ |\ \mathbb{M},w\VDash p\} \cup
-\{q_w\}, \{ \bigvee_{v \in R[w]} q_v  \} ) $$
+\footnote{The invention of this particular function should properly be
+  attributed to Johan van Benthem.}
+$$ \theta(x) := (\{q\in \Phi \ |\ \mathbb{M},w\VDash q\} \cup
+\{p_w\}, \{ \bigvee_{v \in R[w]} p_v  \} ) $$
 % \begin{center}
 % \begin{minipage}{3in}
 % \begin{tabbing}
@@ -908,11 +935,11 @@ So consider the model $\Omega$ in Fig. \ref{fig:example1}; this is
 intended to be a toy model of how one might interpret Walt Whitman in the
 above stanza. This figure should be read as follows:
 \begin{bul}
- \item if one point $(a,A)$ is above another point $(b,B)$ and
+ \item If one point $(a,A)$ is above another point $(b,B)$ and
    connected by a densely dotted line 
    \tikz \draw[densely dotted,semithick](0pt,0pt) -- (20pt,6pt);, 
    this means that $a = b$ and $B \subset A$.
-  \item if one point $(a,A)$ is connected to another point $(b,B)$ by
+  \item If one point $(a,A)$ is connected to another point $(b,B)$ by
     a line with an arrow \tikz \draw[->,>=latex,semithick](0pt,0pt) --
     (20pt,6pt);, this means that $\Omega,(b,B) \VDash A$
 \end{bul}
@@ -1161,9 +1188,8 @@ developed ideas.  This shall be done in three movements:
  \item[\S\ref{dead-by-dawn}]  In the second section we develop several
    topics in the pure theory of \textsc{EviL} which are considered a bit
    beyond the bare essentials.
-  \item[\S\ref{army-of-darkness}]  In this section, logics for
-    \textsc{EviL} are presented, along with completeness 
-     and decidability.
+  \item[\S\ref{army-of-darkness}]  In this final section, completeness for
+    \textsc{EviL} is investigated.
 \end{description}
 
 % from that section provided by the previous section into a provide an outline
@@ -1187,18 +1213,11 @@ developed ideas.  This shall be done in three movements:
 \input{vanishing.tex}
 \subsubsection{Multiple Agents}\label{multi-agent}
 \input{multi-agents.tex}
-\subsubsection{Kripke Structures}
+\subsubsection{Kripke Structures \& Failure of Compactness}
 \label{kripke} 
 \label{non-compactness}
 \input{semantics_partII.tex}
 \subsection{\textsc{EviL} Completeness}\label{army-of-darkness}
-In this section, we turn to providing a complete axiomatization of
-multi-agent \textsc{EviL}, as well as subsystems. 
-%\subsubsection{Failure of Compactness}
-%\label{non-compactness}
-%\input{evil_noncompactness.tex}
-\subsubsection{Axiom Systems}\label{evil-axioms}
-\input{evil_axiom_systems.tex}
 \input{evil-formal-crap.tex}
 
 \section{Applications}\label{applications}
@@ -1208,7 +1227,7 @@ multi-agent \textsc{EviL}, as well as subsystems.
 \subsubsection{Moore's Paradox}
 \subsubsection{Fitch's Paradox}
 \subsection{Intuitionistic Logic}
-\subsubsection{The G\"{o}del Tarski McKinsensy Embedding}
+\subsubsection{The G\"{o}del Tarski McKinsy Embedding}
 \subsubsection{Knowledge}
 \subsubsection{Imagination}
 \subsubsection{van Benthem $S4$}

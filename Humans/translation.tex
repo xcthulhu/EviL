@@ -1,0 +1,374 @@
+In this section, we turn to showing that every finite \textsc{EviL}
+Kripke structure $\mathbb{M}$ has a corresponding \textsc{EviL} model
+$\ipent$ which is an (almost)-homomorphic projection\footnote{Note
+  that we shall not provide a formal definition of
+  what it means for a map to be (almost)-homomorphic, since we
+  consider this concept more intuitive than formal.  Intuitively, two objects
+  are \emph{(almost)-homomorphic} when they are homomorphic for all
+  intents and purposes.}.  Assuming that $\Phi$ is infinite and $\Psi
+\subseteq_{\omega} \Phi$, then we shall show that $\mathbb{M}$
+and $\ipent$ agree on the language $\mathcal{L}(\Psi,\mathcal{A})$.  
+The method of the proof of this correspondence generalizes the
+ elementary argument presented in Proposition
+\ref{translation-sketch} from \S\ref{sketch}.  From this
+correspondence, we shall obtain a weak completeness theorem for
+\textsc{EviL} and its intended semantics.
+
+Recall that in the proof of Proposition \ref{translation-sketch}
+ we assumed an infinite store of unused letters, and assigned 
+them to worlds in order to control the accessibility in the 
+\textsc{EviL} model we constructed.  This was embodied by a function
+$p : W \hookrightarrow \Phi \bs L(\phi)$; for each world $w$, $p_w$
+was the \emph{name} we assigned to it.  In our construction here, we
+shall extend this metaphor, using a generic finite set
+$\Psi\subseteq_\omega \Phi$. 
+
+Recall that among the three principle ways we described for thinking
+about think about islands, one way to think of $\lcorners w \rcorners$ 
+was as $w$'s extended family.  So along with 
+\emph{personal names}, we shall also want to assign family 
+names or \emph{surnames}.
+
+With these above considerations in mind, we offer the following definition:
+
+\begin{mydef}
+Assume the set of letters $\Phi$ is infinite, and fix a finite $\Psi \subseteq_\omega
+\Phi$, a finite \textsc{EviL} Kripke
+model $\mathbb{M}$
+\begin{bul}
+\item Let $L$ be a finite set of proposition letters.
+% as in the proof of Proposition \ref{translation-sketch} from \S\ref{sketch}
+\item Let $$\ang := \{\{w\}, \lcorners w\rcorners \ |\ w
+  \in W\}$$
+That is, $\ang$ is the set of worlds and islands.
+\item Let $p: \ang \rightarrowtail \Phi \bs L$ be an
+  injection, assigning names to worlds and surnames to
+  islands\footnote{Subsequently, we shall abbreviate $p(\{w\})$ as $p_w$ and
+    $p(\lcorners w \rcorners)$ as $p_{\lcorners w \rcorners}$}.
+\item Let $\kl : W \to \powerset \Phi \times
+  (\powerset(\mathcal{L}_0(\Phi)))^\mathcal{A}$ be defined such that:
+\[ \kl(w) := (\kl_1(w),\kl_2(w)) \]
+Where:
+\begin{bul}
+  \item $\kl_1 : W \to \powerset \Phi$ is defined to be:
+\[ \kl_1(w) := \{q \in \Psi \ |\ \mathbb{M},w \Vdash q\} \cup
+\{p_{\lcorners w\rcorners }\} \]
+\item $\kl_2 : W \to \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
+\[\kl_2(w) := \prod_{X \in \mathcal{A}} \kl_{2A}(w,X) \cup
+\kl_{2B}(w,X) \]
+Where:
+\begin{bul}
+  \item $\kl_{2A} : W \times \mathcal{A} \to
+    \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
+\[ \kl_{2A}(w,X) :=\{ \neg p_{\lcorners v
+  \rcorners} \ |\ \neg w R_X v\} \]
+ \item $\kl_{2B} : W \times \mathcal{A} \to
+   \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
+\[\kl_{2B}(w,X) := \{ \bot \to p_{v}\ |\ w \sqsupseteq_X v\} \]
+\end{bul}
+\end{bul}
+
+\item Let $\ipent := \kl[W]$
+
+\end{bul}
+\end{mydef}
+
+Certain remarks must be made regarding the above definition.  
+
+For one, note that we are ensured by the axiom of choice that $p_w$ is well
+defined, since by hypothesis we have that $W$ is finite, whence
+$\powerset W$ is finite and such $\Lambda \subseteq \powerset W$ we
+know that $\Lambda$ is finite as well.  Since we know that $\Phi$ is
+infinite then $\Phi \bs L$ is infinite as well, and there always
+exists an embedding of a finite set into an infinite set.
+
+To be completely explicit about our intentions, $\ipent$ is an \textsc{EviL}
+model we are constructing which shall preserve the truth of $\phi$ for
+all of the worlds in $\mathbb{M}$.  Our goal is that $\ipent$ should
+be an \emph{(almost)-homomorphic projection of
+  $\mathbb{M}$ under $\kl$} with respect to a language
+$\mathcal{L}(L,\mathcal{A})$, where $L$ is a finite set of letters.  
+This is precisely why we have set $\ipent$ to
+be the image of $W$ under $\kl$. Permit us to explain what ``almost
+homomorphic'' means exactly.
+
+% First, observe that  
+% Since the worlds in \textsc{EviL} models are pairs, $\kl$ is broken 
+% up into  two operations $\kl_1$ and $\kl_2$ that give each 
+% component of each pair.
+
+% The two operations $\kl_1$ and $\kl_2$ deserve some extra motivation,
+% since they may be challenging to understand. To see what is going on, 
+Recall the definition of $\mho^{\ipent}$ from Definition
+\ref{omega-translation} from \S\ref{kripke}. This defines
+$\sqsubseteq^{\ipent}$, $\sqsupseteq^{\ipent}$, and $R^{\ipent}$.  To ensure
+that $\ipent$ is (almost)-homomorphic to $\mathbb{M}$, 
+we shall want to enforce the following relationships:
+
+\begin{align}
+q \in \Psi \Longrightarrow (\mathbb{M},w\Vdash q \iff &
+\ipent,\kl(w)\VDash q) \label{lettersforce}\\
+\mathbb{M},w\Vdash \PP_X \iff & \ipent,\kl(w)\VDash \PP_X \label{Pforce} \\
+w \sqsubseteq^\mathbb{M}_X v \iff &  \kl(w) \sqsubseteq^{\ipent}_X
+\kl(v) \label{subforce}\\
+w \sqsupseteq^\mathbb{M}_X v \iff & \kl(w) \sqsupseteq^{\ipent}_X
+\kl(v) \label{supforce}\\
+v \in \lcorners w \rcorners^\mathbb{M} \iff &  \kl(v) \in \lcorners \kl(w) \rcorners^{\ipent} \label{islandforce}\\
+w R^\mathbb{M}_X v \iff & \kl(w) R^{\ipent}_X
+\kl(v) \label{relforce}
+\end{align}
+
+So in order for $\ipent$ to ``solve'' the above equations, we have
+various logical constraints on our definitions,  which we have used to 
+determined the design choices we have made.  We shall show that
+$\ipent$ solves the above equations in Lemma \ref{ipentsolution}.
+
+Before we go ahead and prove results about $\ipent$, we shall try to
+brush up certain natural questions one may naturally ask about $\ipent$.
+\begin{bul}
+\item   \emph{Why does $\kl_1(w)$
+encode $w$'s surname but not her full name?  That is, why is it that
+$p_{\lcorners w\rcorners} \in
+\kl_1(w)$ but $p_{w} \nin
+\kl_1(w)$?}
+
+Note that in our construction of $\ipent$ we have been trying to enforce
+that \eqref{subforce}, \eqref{supforce} and \eqref{islandforce}.
+From definition
+\ref{omega-translation} from \S\ref{kripke} we know that if $\kl(w) \sqsubseteq^{\ipent}_X \kl(v)$ then
+$\kl_1(w) = \kl_1(v)$. Hence we must define $\kl_1$ in such a manner
+where if $p_w \in \kl_1(w)$ then $p_w \in \kl_1(v)$.  In fact, since
+we are enforcing \eqref{islandforce}, then we know that we cannot encode any information in $\kl_1(w)$ without
+putting it into $\kl_1(v)$ for any $v \in \lcorners
+w\rcorners^\mathbb{M}$.  However, knowing that we intend to
+preserve columns in our construction, we may safely encode 
+information about column membership in $\kl_1$, as we have done.
+\item \emph{Why does $\kl_2(w)$
+encode $\neg p_{\lcorners v \rcorners}$, that is the negation of $v$'s
+surname, when $\neg w R_X v$, as opposed to her full name?}  
+
+Recall that we want to enforce that \eqref{relforce}.  We want to make
+sure that $\kl(w)$ can ``see'' $\kl(v)$ in all and only those
+situations when it is supposed to.  We accomplish this by encoding
+surname information into $\kl_1(v)$, and ``blacklisting'' certain
+surnames in $\kl_2(w)$ we do not want $w$ to ``see'' using
+$R^{\ipent}_X$.  Here we are very consciously exploiting the Lemma
+\ref{island}\ref{islandR2}, which asserts if one member of an island is
+not accessible to $w$ then nobody on that island is.
+
+\item \emph{Why does $\kl_2(w)$ encode the ``vacuous'' information that $\bot \to p_{v}$ when $w \sqsupseteq_X v$?}
+In order to enforce \eqref{subforce} and \eqref{supforce}, we need to
+encode information regarding $\sqsubseteq_X^\mathbb{M}$ and $\sqsupseteq_X^\mathbb{M}$
+somewhere.  We cannot encode this information
+in $\kl_1$, for the reason that it can only safely encode information
+at the island level using surnames.  
+Hence we must encode this information in $\kl_2$; 
+it is for this reason that we have chosen to include 
+$\bot \to p_{v} \in \kl_{2B}(w,X)$.
+
+However, we do not want the information we encode in $\kl_{2B}(w,X)$ to
+interfere with $R^{\ipent}_X$, so one way to ensure that ``harmless''
+information is encoded is to use tautologies, as we have done.
+\end{bul}
+
+Hopefully the reader has some intuition about the engineering choices
+we made in the construction of $\ipent$.  We now turn to proving
+that $\ipent$ satisfies our design criteria.
+
+\begin{lemma}\label{ipentsolution}
+Provided that $\mathbb{M}$ is \textsc{EviL}, our definition of
+$\ipent$ suffices \eqref{lettersforce} through \eqref{relforce}.
+\end{lemma}
+\begin{proof} \ 
+  \begin{bul}
+    \item \eqref{lettersforce} 
+\begin{align*}
+q \in \Psi \Longrightarrow (\mathbb{M},w\Vdash q \iff &
+\ipent,\kl(w)\VDash q)
+\end{align*}
+Let $q \in \Psi $.   We have two directions we must reason:
+\begin{description}
+\item[$\Longrightarrow$]
+First assume that $\mathbb{M},w\Vdash q$.  We know that 
+\begin{align*}
+\ipent,\kl(w)\VDash q & \iff q \in \kl_1(w) \\
+& \iff q \in \{q \in \Psi \ |\ \mathbb{M},w \Vdash q\} \cup
+\{p_{\lcorners w\rcorners }\}
+\end{align*}
+Hence $\ipent,\kl(w)\VDash q$ as desired.
+
+\item[$\Longleftarrow$]
+Assume that $\ipent,\kl(w)\VDash q$, we to show $\mathbb{M},w\Vdash
+q$. By our assumption we have either $q \in \{q \in
+L \ |\ \mathbb{M},w \Vdash q\}$ or $q \in \{p_{\lcorners
+  w\rcorners }\}$.  In the former case we are done, and the latter case is impossible since $p_{\lcorners w \rcorners} \in \Phi \bs
+L $ 
+by definition, hence it is impossible for $q \in
+\{p_{\lcorners w\rcorners }\}$ by hypothesis.
+\end{description}
+
+\item \eqref{Pforce} 
+
+\begin{align*}
+\mathbb{M},w\Vdash \PP_X \iff & \ipent,\kl(w)\VDash \PP_X
+\end{align*}
+
+Since $\mathbb{M}$ is \textsc{EviL}, and
+      $\ipent, \kl(w) \VDash \PP_X$ if and only if $\kl(w)
+      R^{\ipent}_X \kl(w)$, by virtue of \ref{pVI}  it suffices 
+     to prove \eqref{relforce} below.
+
+
+\item \eqref{subforce}
+\begin{align*}
+w \sqsubseteq^\mathbb{M}_X v \iff &  \kl(w) \sqsubseteq^{\ipent}_X
+\kl(v)
+\end{align*}  
+We have two directions to show:
+\begin{description}
+\item[$\Longrightarrow$] Assume that $w \sqsubseteq^\mathbb{M}_X v$.
+  To ensure $\kl(w) \sqsubseteq^{\ipent}_X \kl(v)$ we need to ensure
+  two things:
+\begin{myroman}
+\item $\kl_1(w) = \kl_1(v)$ --  In order for this to be the case, we
+  must have: 
+\[ \underbrace{\{q \in \Psi \ |\ \mathbb{M},w \Vdash q\}}_A \cup
+\underbrace{\{p_{\lcorners w\rcorners }\}}_B = \underbrace{\{q \in \Psi \ |\ \mathbb{M},v \Vdash q\}}_C \cup
+\underbrace{\{p_{\lcorners v\rcorners }\}}_D\]
+Note that by hypothesis, $w$ and $v$ are on the same island, which
+means that $B = D$.   Since if two worlds in an \textsc{Evil} model
+are on the same island,
+%  (ie. $w \sqsubseteq_X^\mathbb{M} v
+% \Longrightarrow \lcorners w \rcorners = \lcorners v \rcorners$) 
+then by the Island Lemma they make the same proposition letters true, hence $A =
+C$, which suffices.
+\item $(\kl_2(w))_X \subseteq  (\kl_2(v))_X$ --  Since $(\kl_2(u))_X =
+  \kl_{2A}(u,X) \cup \kl_{2B}(u,X)$, it suffices to show that
+  $\kl_{2A}(w,X) \subseteq \kl_{2A}(v,X)$ and $\kl_{2B}(w,X) \subseteq
+  \kl_{2B}(v,X)$:
+\begin{bul}
+\item $\kl_{2A}(w,X) \subseteq \kl_{2A}(v,X)$ --  Assume that $x \in
+  \kl_{2A}(w,X)$.  Then $x = \neg p_{\lcorners u\rcorners}$ for some $u \in W$
+  where $\neg w R_X^{\mathbb{M}} u$. It suffices to show that $\neg v R_X^{\mathbb{M}} u$.  
+
+Suppose towards a contradiction that $v R_X^{\mathbb{M}} u$, 
+then by hypothesis we have that $w
+  R_X^{\mathbb{M}} \circ \sqsubseteq_X^{\mathbb{M}} u$.  However, we know that since
+  $\mathbb{M}$ is \textsc{EviL} then by \ref{pV} we have that $R_X^{\mathbb{M}}
+  \circ \sqsubseteq_X^{\mathbb{M}} \subseteq R_X^{\mathbb{M}}$, which
+  means that $w R_X^{\mathbb{M}} u$ after all. $\lightning$ 
+\item $\kl_{2B}(w,X) \subseteq \kl_{2B}(v,X)$ --  Assume that $x \in
+  \kl_{2B}(w,X)$, then $x = \bot \to p_u$ for some $u$ such that $u
+  \sqsubseteq_X^{\mathbb{M}} w$.  Then by transitivity we have that $u
+  \sqsubseteq_X^{\mathbb{M}} v$, which means that $\bot \to p_u \in \kl_{2B}(v,X)$  as desired.
+\end{bul}  
+\end{myroman}
+
+\item[$\Longleftarrow$]  Assume that $\kl(w) \sqsubseteq_X^{\ipent}
+  \kl(v)$.  We know that since $\mathbb{M}$ is \textsc{EviL} then
+  $\sqsubseteq^\mathbb{M}_X$ is reflexive, so $w \sqsubseteq_X^\mathbb{M} w$, whence $\bot \to
+  p_w \in \kl_{2B}(w)$.  Thus $\bot \to p_w \in (\kl_2(v))_X$, which means
+  that either $\bot \to p_w \in \kl_{2A}(v,X)$ or $\bot \to p_w \in
+  \kl_{2B}(v,X)$.  We can see that $\bot \to p_w \neq \neg
+  p_{\lcorners u\rcorners}$ for all $u$ since these formulae are of different forms, so it must be that $\bot \to p_w \in \kl_{2B}(v)$.  This means that $w
+  \sqsubseteq_X^\mathbb{M} v$, as desired.
+\end{description}
+\item \eqref{supforce} 
+\begin{align*}
+w \sqsupseteq^\mathbb{M}_X v \iff & 
+\kl(w) \sqsupseteq^{\ipent}_X \kl(v) \\
+\end{align*}
+
+This
+  follows from \eqref{subforce} and the fact that both $\mathbb{M}$ and $\ipent$ are
+  \textsc{EviL}, hence $x \sqsubseteq_X y \iff y \sqsupseteq_X x$ for
+  both structures.
+
+\item \eqref{islandforce}  
+\begin{align*}
+v \in \lcorners w \rcorners^\mathbb{M} \iff &  \kl(v) \in \lcorners \kl(w) \rcorners^{\ipent}
+\end{align*}
+
+The fact that islands in both structures
+  correspond follows from the correspondences between $\sqsubseteq_X$ and
+  $\sqsupseteq_X$, as we already saw in \eqref{subforce} and \eqref{supforce}.
+\item\eqref{relforce} 
+\begin{align*}
+w R^\mathbb{M}_X v \iff & \kl(w) R^{\ipent}_X \kl(v)
+\end{align*}
+\begin{description}
+\item[$\Longrightarrow$]
+First assume that $w R^\mathbb{M}_X v$, we want to show $\kl(w) R^{\ipent}_X
+\kl(v)$.  
+This means that we must show $\kl_1(v) \models
+(\kl_2(w))_X$.  
+Since $(\kl_2(w))_X = \kl_{2A}(w,X) \cup
+\kl_{2B}(w,X)$, we have two steps:
+\begin{description}
+  \item[$\kl_1(v) \models \kl_{2A}(w,X)$ --]  Assume that $\kl_1(v)
+    \nmodels \kl_{2A}(w,X)$, then it must be that there is some $u\in
+    W^\mathbb{M}$ where $p_{\lcorners u\rcorners} \in
+    \kl_1(u)$ and $\neg p_{\lcorners u\rcorners} \in \kl_{2A}(w)$,
+    which means that $\neg w R^{\mathbb{M}}_X u$.
+    Since $p_{\lcorners u\rcorners} \nin L(\Phi)$ it must be that
+    $p_{\lcorners u\rcorners} = p_{\lcorners v\rcorners}$, hence $\lcorners u \rcorners = \lcorners v \rcorners$. Then by the
+     Island Lemma we have $\neg w R^{\mathbb{M}}_X v$ after
+    all. $\lightning$
+  \item[$\kl_1(v) \models \kl_{2B}(w,X)$ --]  Simply note that
+    everything in $\kl_{2B}(w,X)$ is a tautology, by construction, 
+    so this step follows vacuously.
+\end{description}
+\item[$\Longleftarrow$]  Assume $\kl(w) R^{\ipent}_X \kl(v)$, in other words
+  $\kl_1(v) \models (\kl(w))_X$.  We shall show $w R^\mathbb{M}_X v$.
+  So suppose to the contrary that $\neg w R^\mathbb{M}_X v$, then
+  $\neg p_{\lcorners v\rcorners} \in \kl_{2A}(w)$.  However we know
+  that $p_{\lcorners
+    v\rcorners} \in \kl_1(v)$, hence $\kl_1 \models p_{\lcorners
+    v\rcorners}$, which means that $\kl_1(v) \nmodels (\kl(w))_X$,
+  which contradicts our assumption. $\lightning$
+\end{description}
+\end{bul}
+\end{proof}
+
+Having established that $\ipent$ is indeed (almost)-homomorphic to
+$\mathbb{M}$, we may use this to show that $\mathbb{M}$ and $\ipent$
+are logically the same over $\mathcal{L}(\Psi, \mathcal{A})$.
+
+\begin{lemma}[\textsc{EviL} Translation]\label{translation-lemma}
+Let $\mathbb{M}$ be an \textsc{EviL} Kripke structure.  For any
+formula $\phi \in \mathcal{L}(\Psi)$, and any $w \in W$, we have
+\[ \mathbb{M},w \Vdash \phi \iff \ipent, \kl(w) \VDash \phi \]
+\end{lemma}
+\begin{proof}
+Using induction, and Lemma \ref{ipentsolution}, the result follows
+from the fact that $\ipent$ and $\mathbb{M}$ correspond in all of the
+ways relevant to this problem. 
+\end{proof}
+
+Hence, from the above, we may prove a central result of \textsc{EviL}:
+
+\begin{theorem}[\textsc{EviL} Soundness and Weak Completeness]
+\label{evil-completeness}
+\[ \vdash_{\textsc{EviL}} \phi \iff \VDash \phi \]
+\end{theorem}
+\begin{proof}
+Soundness is trivial, so we shall only prove completeness.
+
+Assume that $\nvdash \phi$. We know from Theorem
+\ref{abst-finite-completeness} that there is a finite $\mathbb{M}$
+such that $\mathbb{M},w \nVdash \phi$ for some $w \in W$.
+
+Now let $\Psi = L(\phi)$, where $L(\phi)$ is the letters that occur in
+$\phi$, just as we originally defined in Proposition \ref{translation-sketch} 
+from \S\ref{sketch}.  Since 
+$\phi \in \mathcal{L}(L(\phi),\mathcal{A})$, from lemma
+\ref{translation-lemma} we have that $\ipent, \kl(w) \nVDash \phi$.
+Then evidently $\ipent$ is our desired counter model, hence we have
+the theorem.
+\end{proof}
+
+With this, we may conclude the proof of completeness of \textsc{EviL}.
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 
