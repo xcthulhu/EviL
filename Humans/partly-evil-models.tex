@@ -16,10 +16,9 @@ all agents $\{X,Y\} \subseteq \mathcal{A}$:
     \sqsupseteq_X w$
     \item \label{islandiff} If $w \sqsubseteq_X v$ then ($w \in V (p)$ if and only if $v
     \in V (p)$)
-    \item \label{ppV}$(R_X \circ \sqsubseteq_X) \subseteq
-    R_X \subseteq (R_X \circ \sqsupseteq_X)$
-    \item \label{ppVI} $(\sqsubseteq_Y \circ R_X) = R_X =
-    (\sqsupseteq_Y \circ R_X)$
+    \item \label{ppV} $(R_X \circ \sqsubseteq_X) \subseteq R_X$
+    \item \label{ppVI} $(\sqsubseteq_Y \circ R_X) \subseteq R_X$ and \\
+    $(\sqsupseteq_Y \circ R_X) \subseteq R_X$
     \item\label{ppVII} If $w \in P_X$ then $w
     R_X w$
     \item\label{ppIX} If $w \in P_X$ and $w \sqsupseteq_X v$ then $v
@@ -101,7 +100,7 @@ satisfies the properties given in Definition \ref{partly-evil}.
 
   \begin{description}
     \item[\ref{ppI}] ``$\sqsubseteq_X$ is reflexive''
-      corresponds from axiom \eqref{reflAx}.
+      corresponds to axiom \eqref{reflAx}.
     \item[\ref{pptrans}] ``$\sqsubseteq_X$ is transitive''
       corresponds to axiom \eqref{transAx}.
     \item[\ref{ppreverse}] ``$\sqsubseteq_X$ is the
@@ -116,8 +115,14 @@ $$w \in V (p)\textup{ if and only if }v \in V (p)$$
       is similar, however it uses axiom \eqref{letterAx1} instead.
     \item[\ref{ppV}] 
 The assertion
-$$(R_X \circ \sqsubseteq_X) \subseteq
-    R_X \subseteq (R_X \circ \sqsupseteq_X)$$
+\begin{eqnarray*}
+& (R_X \circ \sqsubseteq_X) \subseteq
+    R_X 
+% \\
+% & \& \\
+% & (R_X \circ \sqsupseteq_X) \subseteq
+%     R_X 
+\end{eqnarray*}
 corresponds to axiom \eqref{downConceive} 
 (noting that one should reason given \ref{ppreverse}). 
 % This is because axiom \eqref{downConceive} is a Sahlqvist
@@ -164,7 +169,11 @@ corresponds to axiom \eqref{downConceive}
 
 
     \item[\ref{ppVI}] Given \ref{ppreverse}, the fact that
-    $$(\sqsubseteq_Y \circ R_X) = R_X = (\sqsupseteq_Y \circ R_X)$$
+    \begin{eqnarray*}
+& (\sqsubseteq_Y \circ R_X) \subseteq R_X \\
+& \& \\
+&  (\sqsupseteq_Y \circ R_X) \subseteq R_X
+\end{eqnarray*}
 corresponds to axioms \eqref{islandDown} and \eqref{islandUp}.
 
     \item[\ref{ppVII}] ``If $w \in P (X)$ then $w R_X w$'' corresponds

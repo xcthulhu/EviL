@@ -18,7 +18,7 @@ Recall that in the proof of Proposition \ref{translation-sketch}
  we assumed an infinite store of unused letters, and assigned 
 them to worlds in order to control the accessibility in the 
 \textsc{EviL} model we constructed.  This was embodied by a function
-$p : W \hookrightarrow \Phi \bs L(\phi)$; for each world $w$, $p_w$
+$p : W \rightarrowtail \Phi \bs L(\phi)$; for each world $w$, $p_w$
 was the \emph{name} we assigned to it.  In our construction here, we
 shall extend this metaphor, using a generic finite set
 $\Psi\subseteq_\omega \Phi$. 
@@ -36,36 +36,45 @@ Assume the set of letters $\Phi$ is infinite, and fix a finite $\Psi \subseteq_\
 \Phi$, a finite \textsc{EviL} Kripke
 model $\mathbb{M}$
 \begin{bul}
-\item Let $L$ be a finite set of proposition letters.
+\item Let $\Psi$ be a finite set of proposition letters.
 % as in the proof of Proposition \ref{translation-sketch} from \S\ref{sketch}
 \item Let $$\ang := \{\{w\}, \lcorners w\rcorners \ |\ w
-  \in W\}$$
+  \in W^{\mathbb{M}}\}$$
 That is, $\ang$ is the set of worlds and islands.
-\item Let $p: \ang \rightarrowtail \Phi \bs L$ be an
+\item Let $p: \ang \rightarrowtail \Phi \bs \Psi$ be an
   injection, assigning names to worlds and surnames to
   islands\footnote{Subsequently, we shall abbreviate $p(\{w\})$ as $p_w$ and
     $p(\lcorners w \rcorners)$ as $p_{\lcorners w \rcorners}$}.
-\item Let $\kl : W \to \powerset \Phi \times
+\item Let $\kl : W^{\mathbb{M}} \to \powerset \Phi \times
   (\powerset(\mathcal{L}_0(\Phi)))^\mathcal{A}$ be defined such that:
 \[ \kl(w) := (\kl_1(w),\kl_2(w)) \]
 Where:
 \begin{bul}
-  \item $\kl_1 : W \to \powerset \Phi$ is defined to be:
+  \item $\kl_1 : W^{\mathbb{M}} \to \powerset \Phi$ is defined to be:
 \[ \kl_1(w) := \{q \in \Psi \ |\ \mathbb{M},w \Vdash q\} \cup
 \{p_{\lcorners w\rcorners }\} \]
-\item $\kl_2 : W \to \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
+We may understand $\kl_1$ as providing a propositional valuation to
+worlds in $W^{\mathbb{M}}$
+\item $\kl_2 : W^{\mathbb{M}} \to \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
 \[\kl_2(w) := \prod_{X \in \mathcal{A}} \kl_{2A}(w,X) \cup
 \kl_{2B}(w,X) \]
 Where:
 \begin{bul}
-  \item $\kl_{2A} : W \times \mathcal{A} \to
+  \item $\kl_{2A} : W^{\mathbb{M}} \times \mathcal{A} \to
     \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
 \[ \kl_{2A}(w,X) :=\{ \neg p_{\lcorners v
   \rcorners} \ |\ \neg w R_X v\} \]
- \item $\kl_{2B} : W \times \mathcal{A} \to
+ \item $\kl_{2B} : W^{\mathbb{M}} \times \mathcal{A} \to
    \powerset(\mathcal{L}_0(\Phi))$ is defined to be:
 \[\kl_{2B}(w,X) := \{ \bot \to p_{v}\ |\ w \sqsupseteq_X v\} \]
 \end{bul}
+We may understand $\kl_2$ as providing, for each agent, a
+corresponding set of propositional formulae, that constitute their 
+the set of basic beliefs as we originally introduced in
+\S\ref{sketch}.
+
+$\kl_{2A}$ and $\kl_{2B}$ each constitute a component that goes into
+the basic belief set we assign to a particular agent.
 \end{bul}
 
 \item Let $\ipent := \kl[W]$
@@ -75,22 +84,25 @@ Where:
 
 Certain remarks must be made regarding the above definition.  
 
-For one, note that we are ensured by the axiom of choice that $p_w$ is well
-defined, since by hypothesis we have that $W$ is finite, whence
-$\powerset W$ is finite and such $\Lambda \subseteq \powerset W$ we
-know that $\Lambda$ is finite as well.  Since we know that $\Phi$ is
-infinite then $\Phi \bs L$ is infinite as well, and there always
+For one, note that we are ensured by the axiom of choice that 
+$p_w$ is well defined, since by hypothesis we have that 
+$W$ is finite, whence
+$\powerset W$ is finite and since $\Lambda \subseteq \powerset W$ 
+we know that $\Lambda$ is finite as well.  
+Since we know that $\Phi$ is infinite then 
+$\Phi \bs \Psi$ is infinite as well, and there always
 exists an embedding of a finite set into an infinite set.
 
-To be completely explicit about our intentions, $\ipent$ is an \textsc{EviL}
-model we are constructing which shall preserve the truth of $\phi$ for
-all of the worlds in $\mathbb{M}$.  Our goal is that $\ipent$ should
+To be completely explicit about our intentions, $\ipent$ is an 
+\textsc{EviL} model we are constructing which shall preserve 
+the truth of $\phi$ for all of the worlds in $\mathbb{M}$.  
+Our goal is that $\ipent$ should
 be an \emph{(almost)-homomorphic projection of
   $\mathbb{M}$ under $\kl$} with respect to a language
 $\mathcal{L}(L,\mathcal{A})$, where $L$ is a finite set of letters.  
 This is precisely why we have set $\ipent$ to
-be the image of $W$ under $\kl$. Permit us to explain what ``almost
-homomorphic'' means exactly.
+be the image of $W$ under $\kl$. Permit us to explain what 
+``almost homomorphic'' means exactly.
 
 % First, observe that  
 % Since the worlds in \textsc{EviL} models are pairs, $\kl$ is broken 
@@ -201,8 +213,8 @@ Hence $\ipent,\kl(w)\VDash q$ as desired.
 Assume that $\ipent,\kl(w)\VDash q$, we to show $\mathbb{M},w\Vdash
 q$. By our assumption we have either $q \in \{q \in
 L \ |\ \mathbb{M},w \Vdash q\}$ or $q \in \{p_{\lcorners
-  w\rcorners }\}$.  In the former case we are done, and the latter case is impossible since $p_{\lcorners w \rcorners} \in \Phi \bs
-L $ 
+  w\rcorners }\}$.  In the former case we are done, and the latter
+case is impossible since $p_{\lcorners w \rcorners} \in \Phi \bs \Psi $ 
 by definition, hence it is impossible for $q \in
 \{p_{\lcorners w\rcorners }\}$ by hypothesis.
 \end{description}
@@ -215,7 +227,8 @@ by definition, hence it is impossible for $q \in
 
 Since $\mathbb{M}$ is \textsc{EviL}, and
       $\ipent, \kl(w) \VDash \PP_X$ if and only if $\kl(w)
-      R^{\ipent}_X \kl(w)$, by virtue of \ref{pVI}  it suffices 
+      R^{\ipent}_X \kl(w)$, by virtue of property 
+      \ref{pVI} of \textsc{EviL} Kripke models it suffices 
      to prove \eqref{relforce} below.
 
 
@@ -342,7 +355,7 @@ formula $\phi \in \mathcal{L}(\Psi)$, and any $w \in W$, we have
 \begin{proof}
 Using induction, and Lemma \ref{ipentsolution}, the result follows
 from the fact that $\ipent$ and $\mathbb{M}$ correspond in all of the
-ways relevant to this problem. 
+ways relevant to $\mathcal{L}(\Psi,\mathcal{A})$. 
 \end{proof}
 
 Hence, from the above, we may prove a central result of \textsc{EviL}:
@@ -359,7 +372,7 @@ Assume that $\nvdash \phi$. We know from Theorem
 such that $\mathbb{M},w \nVdash \phi$ for some $w \in W$.
 
 Now let $\Psi = L(\phi)$, where $L(\phi)$ is the letters that occur in
-$\phi$, just as we originally defined in Proposition \ref{translation-sketch} 
+$\phi$, just as we originally defined in the proof of Proposition \ref{translation-sketch} 
 from \S\ref{sketch}.  Since 
 $\phi \in \mathcal{L}(L(\phi),\mathcal{A})$, from lemma
 \ref{translation-lemma} we have that $\ipent, \kl(w) \nVDash \phi$.

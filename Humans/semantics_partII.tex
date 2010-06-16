@@ -35,7 +35,6 @@ could also find formal expression.
 \centering
 \subfigure[A fairly simple example]{
   \includegraphics[]{evil_pictures/first_fig.pdf}
-%\caption{A fairly simple example}
 \label{fig:example2}
 }
 \subfigure[A more complex example]{
@@ -142,14 +141,15 @@ The following summarizes the structural properties of
      $v \sqsupseteq^{\Omega}_X w$
     \item \label{pislandiff} If $w \sqsubseteq^{\Omega}_X v$ then ($w
       \in V (p)$ if and only if $v \in V (p)$)
-    \item \label{pV}$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
-    R^{\Omega}_X \subseteq (R^{\Omega}_X \circ \sqsupseteq^{\Omega}_X)$
-    \item \label{pVI} $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) = R^{\Omega}_X =
-    (\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$
+    \item \label{pV}$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq R^{\Omega}_X$
+    \item \label{pVI} $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X)
+      \subseteq R^{\Omega}_X$ and\\
+    $(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq R^{\Omega}_X$
     \item\label{pVII} $w \in P^{\Omega} (X)$ if and only if $w
     R^{\Omega}_X w$
   \end{myRoman}
-  \ldots the situation in \ref{pV} can be visualized in
+  The situation in \ref{pV} can be visualized in a commutative diagram
+  depicted in
   \ref{fig:commut1}, while \ref{pVI} can be split into
   Figs. \ref{fig:commut2} and \ref{fig:commut3}.
 \end{proposition}
@@ -157,9 +157,7 @@ The following summarizes the structural properties of
 \centering
 \subfigure[\ --\ \ref{pV}\ --\ \newline 
 $(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq
-R^{\Omega}_X$ and 
-\newline $R^{\Omega}_X \subseteq (R^{\Omega}_X \circ
-\sqsupseteq^{\Omega}_X)$ ]{
+R^{\Omega}_X$]{
   \includegraphics[]{commutative/commutative1.pdf}
 %\caption{A fairly simple example}
 \label{fig:commut1}
@@ -168,8 +166,6 @@ R^{\Omega}_X$ and
 \subfigure[\ --\ \ref{pVI}\ --\ \newline 
  $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
  R^{\Omega}_X$ 
-and \newline
- $R^{\Omega}_X \subseteq (\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X)$
 ]{
 \includegraphics[]{commutative/commutative2.pdf}
 \label{fig:commut2}
@@ -177,27 +173,44 @@ and \newline
 \hspace{1cm}
 \subfigure[\ --\ \ref{pVI}\ --\ \newline  
 $(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
-R^{\Omega}_X $ and \newline
- $R^{\Omega}_X \subseteq
-(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X)$]{
+R^{\Omega}_X $]{
 \includegraphics[]{commutative/commutative3.pdf}
 \label{fig:commut3}
 }
 \caption{Visualizations of the relationships in Proposition \ref{evil_models}}
 \end{figure}
 \begin{proof}
-  Everything except \ref{pV} follows directly from the definitions -
-  so we shall only demonstrate 
-$R^{\Omega}_X \subseteq R^{\Omega}_X \circ
-  \sqsupseteq^{\Omega}_X$ (since the other part \ref{pV} follows from \ref{preverse}).
+  Everything except \ref{pV} and \ref{pVI} follows directly
+  immediately from the definitions:
+\begin{description}
+  \item[\ref{pV}] We must show
+$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq R^{\Omega}_X$.
   
-  Suppose that $(a, A) R^{\Omega}_X (b, B)$, then evidently $\forall \psi \in
-  A_X .b \models \psi$. 
-  Now assume that $(a, A) \sqsupseteq_X^{\Omega} (c,
-  C)$.  Then we know that $A_X \supseteq C_X$.
-  But then $\forall \psi \in
-  C_X .b \models \psi$, so $(c, C) R^{\Omega}_X (b, B)$, which
-  suffices to show the claim.
+  Assume that $(a, A) \sqsubseteq_X^{\Omega} (b, B) R_X^{\Omega} (c,C) $, then evidently $\forall \psi \in
+  B_X .c \models \psi$. Since $A_X \subseteq B_X$ then evidently $\forall \psi \in
+  A_X .c \models \psi$.  This means that $(a,A) R^{\Omega}_X (c,C)$,
+  which suffices the claim.
+  
+\item[\ref{pVI}] We must show:
+\begin{eqnarray*}
+ & (\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X)
+       \subseteq R^{\Omega}_X\\
+& \& \\
+&  (\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq R^{\Omega}_X 
+\end{eqnarray*}
+
+So assume either of the following:
+\begin{eqnarray*}
+&(a,A) R^{\Omega}_X (b,B) \sqsubseteq^{\Omega}_X (c,C)\\
+&\textup{or} \\
+&(a,A) R^{\Omega}_X (b,B) \sqsupseteq^{\Omega}_X (c,C)
+\end{eqnarray*}
+
+In either case we have that $\forall \psi \in
+  A_X .b \models \psi$, and moreover $b =c$.  Hence $\forall \psi \in
+  A_X .c \models \psi$, which means that $(a,A) R^{\Omega}_X (c,C)$,
+  which was what was to be shown.
+\end{description}
 \end{proof}
 
 \begin{definition}\label{evil-kripke-structures}
