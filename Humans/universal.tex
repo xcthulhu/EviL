@@ -1,4 +1,133 @@
+In this section, we show how \textsc{EviL} may be extended with a
+universal modality.  Just as the previous section illustrated that
+looking at fragments of \textsc{EviL} added complexity to the
+completeness theorem, so too do natural extensions to the calculus.
 
+In this section, we shall provide sketches rather than elaborate
+proofs as we have so far provided.  This is because we really intend
+for the results in this section to be minor modifications of our
+previous results.  Our intention is to indicate what modifications are
+to be made to accommodate our proposed extension.
+
+The following gives the extended grammar of \textsc{EviL} with an added
+universal modality:
+$\mathcal{L}^U (\Phi,\mathcal{A})$ is the fragment:
+\[ \phi \ {::=} \  p \in \Phi \  | \  \phi
+   \rightarrow \psi \  | \  \bot \  |
+   \  \Box_X \phi \  | \  \boxminus_X \phi
+   \  \BP_X \phi \  | \  U \phi
+ \  | \ 
+   \circlearrowleft \]
+It is important to note that our other fragments may be similarly extended.
+
+Universal modality has the following semantics for Kripke structures: 
+\[ \mathbb{M}, w \Vdash U \phi \iff \mathbb{M}, v \Vdash \phi\textup{
+  for all $v \in W$} \]
+Likewise, it has corresponding semantics for \textsc{EviL}
+models:
+\[ \Omega, w \VDash U \phi \iff \Omega, v \VDash \phi\textup{
+  for all $v \in \Omega$} \]
+
+As noted in \cite[pg. 67, Chapter 6]{van_benthem_modal_2010},
+universal modality is closely related to the modal logic $S5$. Below,
+we state the axioms for the univesal modality in \textsc{EviL}, which
+are recognizably the axioms for $S5$, along with other axioms asserting
+that the other relations are subrelations of $U$.
+
+\begin{table}
+\centering
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabular}{|ll|}
+\hline
+   (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash U \phi \rightarrow  \phi$\\
+  (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash U \phi \to U U \phi$\\
+  (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \neg U \phi \to U
+  \neg U \phi$\\
+  (\refstepcounter{rownum}U\arabic{rownum})\label{BoxU}&$ \vdash U
+  \phi \to \Box_X \phi$\\
+  (\refstepcounter{rownum}U\arabic{rownum})\label{BMU}&$ \vdash U
+  \phi \to \BM_X \phi$\\
+  (\refstepcounter{rownum}U\arabic{rownum})\label{BPU}&$ \vdash U
+  \phi \to \BP_X \phi$\\
+\hline
+\end{tabular}
+\caption{Axioms for Universal Modality}
+\label{table:axiomsII}
+\end{table}
+
+We can think of the universal modality axioms (appropriately
+restricted) as extending any of the
+three systems we have looked at so far; \textsc{EviL} extends to
+U\textsc{EviL},
+\textsc{EviL}$^\BM$ extends to U\textsc{EviL}$^\BM$, and
+\textsc{EviL}$^\BP$ extends to U\textsc{EviL}$^\BP$.  Abstract completeness
+for all three systems is achieved in a similar manner.
+
+\begin{theorem}[Universal \textsc{EviL} Completeness]\ \\
+\begin{align*}
+\Gamma \vdash_{U\textup{\textsc{EviL}}} \phi & \iff \Gamma\Vdash_{\textup{\textsc{EviL}}}
+\phi \\
+\Gamma \vdash_{U\textup{\textsc{EviL}$^\BM$}} \phi & \iff \Gamma\Vdash_{\textup{\textsc{EviL}}}
+\phi \\
+\Gamma \vdash_{U\textup{\textsc{EviL}}^\BP} \phi & \iff \Gamma\Vdash_{\textup{\textsc{EviL}}}
+\phi 
+\end{align*}
+\end{theorem}
+\begin{proof}
+Soundness in all cases is straightforward.
+
+For completeness, in each case we carry out the canonical model
+construction, 
+which will enforce that the accessibility relation associated with $U$ forms
+a partition on the canonical model, and at every point within a
+given partition, the other relations are a subrelation of the
+candidate universal relation.  In each case the canonical model construction will
+provide a world $w$ which witnesses $\Gamma$ but does not witness
+$\phi$; to complete the construction, one need only take a \emph{point
+  generated submodel} around $w$ \cite[chapter 2]{blackburn_modal_2001}, which preserves the truth of all
+formulae at $w$ but establishes $U$ a universal modality.
+
+From there, it is straightforward to verify that all of the bisimilar
+model completions we have investigated preserve universal modality.
+In each case, these may be used just as before to establish the
+abstract completeness theorem desired.
+\end{proof}
+
+Just as the above proof illustrates our previous abstract completeness
+theorems may be adapted, our finitary approaches may be modified to
+accommodate universal modality as well.
+
+\begin{theorem}[Small Model Property for Universal \textsc{EviL}]\ \\
+For any universal \textsc{EviL} formula $\phi$, if it satifiable then
+it is satisfiable in an \textsc{EviL} model with $O(EXP2(|\phi|))$
+many worlds.
+\end{theorem}
+\begin{proof}
+To see this, simply adapt the finite canonical model construction
+$\invis$ we
+previously saw in \ref{small-model}.  An important modification to
+this construction is to define:
+\[ w U v \iff (U \phi \in w \iff U \phi \in v)\]
+
+This will enforce that $U$ forms an $S5$ modality; see \cite[chapter
+5, pgs. 81--82]{boolos_logic_1995} for details.  
+
+To ensure that the other relations are subrelations of $U$, 
+one needs to ensure that $\Sigma$ is defined as follows:
+\begin{align*}
+\Sigma(\Delta,U \phi) := &   \{ U \phi, \neg U \phi \} \cup \\
+& \{ \Nec_X \phi,\neg \Nec_X \phi, \\
+& \ \BB_X \phi, \neg\BB_X \phi, \\
+& \ \BBI_X \phi, \neg\BBI_X \phi  \ |\ X \in \Delta
+\}
+\end{align*}
+Given $\Sigma$ constructed in this fashion, one may readily verify
+that the Universal
+\textsc{EviL} axioms enforce the other relations  
+\end{proof}
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"

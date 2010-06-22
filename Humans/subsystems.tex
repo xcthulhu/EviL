@@ -7,16 +7,13 @@ Define $\mathcal{L}^\boxminus (\Phi)$ as the fragment:
 \[ \phi \ {::=} \  p \in \Phi \  | \  \phi
    \rightarrow \psi \  | \  \bot \  |
    \  \Box \phi \  | \  \boxminus \phi
-%   \  | \  \boxplus \phi
  \  | \ 
    \circlearrowleft \]
 
 Define $\mathcal{L}^\boxplus (\Phi)$ as the fragment:
-%Define $\mathcal{L}^\boxminus (\Phi, \mathcal{A})$ as the fragment:
 \[ \phi \ {::=} \  p \in \Phi \  | \  \phi
    \rightarrow \psi \  | \  \bot \  |
    \  \Box \phi 
-%\  | \  \boxminus \phi
    \  | \  \boxplus \phi
  \  | \ 
    \circlearrowleft \]
@@ -66,10 +63,9 @@ the above axiom systems.
     \sqsubseteq w$
    \item \label{Mislandiff} If $w \sqsupseteq v$ then ($w \in V (p)$ if and only if $v \in V (p)$)
      \item \label{MpV} $(R^{} \circ \sqsubseteq^{}) \subseteq
-    R^{} \subseteq (R^{} \circ \sqsupseteq^{})$
+    R^{} $
      \item \label{MpVI} $(\sqsupseteq^{} \circ R^{}) \subseteq
-R^{} \subseteq
-(\sqsubseteq^{} \circ R^{})$
+R^{}$
      \item\label{MpVII} 
 If $w \sqsupseteq v$ and $v \in P$ then $v R w$
 
@@ -89,9 +85,9 @@ If $w \sqsupseteq v$ and $v \in P$ then $v R w$
     \item \label{Ppreverse} $w \sqsubseteq v$ if and only if $v \sqsupseteq w$
    \item \label{Pislandiff} If $w \sqsubseteq v$ then ($w \in V (p)$ if and only if $v \in V (p)$)
      \item \label{PpV}  $(R^{} \circ \sqsubseteq^{}) \subseteq
-    R^{} \subseteq (R^{} \circ \sqsupseteq^{})$
+    R^{} $
      \item \label{PpVI} $(\sqsubseteq^{} \circ R^{}) \subseteq
- R^{} \subseteq (\sqsupseteq^{} \circ R^{})$
+ R^{}$
      \item\label{PpVII} If $w \sqsubseteq v$ and $v \in P$ then $v
        R w$
 
@@ -107,10 +103,12 @@ properties in commutative diagrams:
 \begin{bul}
 %\item Properties \ref{MpV} and \ref{PpV} are depicted in
 %Fig. \ref{fig:dupcommut1}
+\item  Properties \ref{MpV} and \ref{PpV} are depicted as
+Fig. \ref{fig:dupcommut1}, which is the same as Fig. \ref{fig:commut1}
 \item  Property \ref{MpVI} is depicted as
 Fig. \ref{fig:dupcommut2}, which is the same as Fig. \ref{fig:commut2}
 \item  Property \ref{PpVI} is depicted as
-Fig. \ref{fig:dupcommut2}, which is the same as Fig. \ref{fig:commut3}
+Fig. \ref{fig:dupcommut3}, which is the same as Fig. \ref{fig:commut3}
 \end{bul}
 
 \begin{figure}[ht]
@@ -121,6 +119,10 @@ Fig. \ref{fig:dupcommut2}, which is the same as Fig. \ref{fig:commut3}
 % \label{fig:dupcommut1}
 % }
 % \hspace{1cm}
+\subfigure[--\ \ref{MpVI} \& \ref{PpVI} \ -- ]{
+\includegraphics[]{commutative/commutative1.pdf}
+\label{fig:dupcommut1}
+}
 \subfigure[--\ \ref{MpVI}\ -- ]{
 \includegraphics[]{commutative/commutative3.pdf}
 \label{fig:dupcommut2}
@@ -166,7 +168,7 @@ Before turning to bisimulation, we shall first prove abstract
 completeness for \textsc{EviL}$^\BM$ and \textsc{EviL}$^\BP$ and their
 respective classes of Kripke structures.
 
-\begin{definition}\label{pEviL-Vdash}
+\begin{definition}\label{BM-BPEviL-Vdash}
 We shall write
 \[ \Gamma \Vdash_{\BM\textup{\textsc{EviL}}} \phi \]
 to mean that for all $\BM$\textsc{EviL}  Kripke structures
@@ -180,7 +182,7 @@ to mean the same for all $\BP$\textsc{EviL}  Kripke structures.
 \end{definition}
 
 \begin{theorem}[${\BM/\BP}$\textsc{EviL} 
-Strong Soundness and Completeness]
+Strong Soundness and Completeness]\label{BMBPbadcompleteness}
 \begin{eqnarray*}
 & \Gamma \vdash_{\textsc{EviL}^\BM} \phi\textup{ if and only if }\Gamma
 \Vdash_{\BM\textup{\textsc{EviL}}} \phi \\
@@ -271,7 +273,10 @@ where:
  W^\ominus & := &  \sqsupseteq^{\mathbb{M}} \\
  V^\ominus(p) & := &  \{(w,v) \in   W^\ominus \ |\ v \in V^{\mathbb{M}} \}\\
  P^\ominus & := & \{(w,v) \in   W^\ominus \ |\ v \in V^{\mathbb{M}} \} \\
- R^\ominus & := &  \{((w,v), (t,u)) \in   (W^\ominus)^2 \ |\ v R^\mathbb{M} u \}  \\
+ R^\ominus & := &  \{((w,v), (t,u)) \in   (W^\ominus)^2 \ |\ v
+ R^\mathbb{M} t\ \&\ \\
+& & \hspace{4.36cm} v
+ R^\mathbb{M} u \}  \\
  \sqsupseteq^\ominus & := &  \{((w,v), (w,u)) \in   (W^\ominus)^2 \ |\ v \sqsupseteq^{\mathbb{M}} u \}  \\
  \sqsubseteq^\ominus & := &  \{((w,v), (w,u)) \in   (W^\ominus)^2 \ |\ v \sqsubseteq^{\mathbb{M}} u \}  
  \end{eqnarray*}
@@ -285,7 +290,8 @@ where:
  W^\oplus & := &  \sqsubseteq^{\mathbb{M}} \\
  V^\oplus(p) & := &  \{(w,v) \in   W^\oplus \ |\ v \in V^{\mathbb{M}} \}\\
  P^\oplus & := & \{(w,v) \in   W^\oplus \ |\ v \in V^{\mathbb{M}} \} \\
- R^\oplus & := &  \{((w,v), (t,u)) \in   (W^\oplus)^2 \ |\ v R^\mathbb{M} u \}  \\
+ R^\oplus & := &  \{((w,v), (t,u)) \in   (W^\oplus)^2 \ |\ v
+ R^\mathbb{M} t\ \&\ v R^\mathbb{M} u \}  \\
  \sqsupseteq^\oplus & := &  \{((w,v), (w,u)) \in   (W^\oplus)^2 \ |\ v \sqsupseteq^{\mathbb{M}} u \}  \\
  \sqsubseteq^\oplus & := &  \{((w,v), (w,u)) \in   (W^\oplus)^2 \ |\ v \sqsubseteq^{\mathbb{M}} u \}  
  \end{eqnarray*}
@@ -383,9 +389,9 @@ $\sqsubseteq$, but not necessarily $\sqsupseteq$.
 
 The following is a trivial consequence of \emph{The Fundamental
   Theorem of Bisimulations}, Theorem \ref{fundamental-bisim-theorem},
-that we gave in \ref{completely-evil}.
+that we gave in \ref{completely-evil}:
 
-\begin{proposition}
+\begin{proposition}\label{bmbpbisimprop}
 If $Z:\mathbb{M}\leftrightarroweq^\BM\mathbb{M}'$, then if $\phi \in
 \mathcal{L}^\BM(\Phi)$ and $w Z v$ then $\mathbb{M},w \Vdash \phi \iff
 \mathbb{M}',v \Vdash \phi$.
@@ -397,15 +403,15 @@ If $Z:\mathbb{M}\leftrightarroweq^\BP\mathbb{M}'$, then if $\phi \in
 As asserted, $\ominus$ and $\oplus$ each give rise to
 $\BM$-bisimilar and $\BP$-bisimilar Kripke structures, respectively:
 
-\begin{lemma}
+\begin{lemma}\label{bmbpbisimlemma}
 Let $\mathbb{M}$ be a Kripke structure.
 
 If $\sqsupseteq$ is reflexive and transitive, then $Z: \mathbb{M}
-\leftrightarroweq^\BM \ominus^\mathbb{M}$ where$w Z (u,w)$ for all $u \in \mathbb{M}$
+\leftrightarroweq^\BM \ominus^\mathbb{M}$ where $w Z (u,w)$ for all $u \in \mathbb{M}$
 
 In the same vain, if $\sqsupseteq$ is reflexive and transitive, then
 again $Z: \mathbb{M}
-\leftrightarroweq^\BP \ominus^\mathbb{M}$ where$w Z (u,w)$ for all $u \in \mathbb{M}$
+\leftrightarroweq^\BP \ominus^\mathbb{M}$ where $w Z (u,w)$ for all $u \in \mathbb{M}$
 \end{lemma}
 \begin{proof}
 The two proofs are entirely analogous, so we shall only prove for
@@ -432,7 +438,7 @@ And similarly for $P$
 
 We now show that $\ominus$ and $\oplus$ really are adequate completions:
 
-\begin{lemma}
+\begin{lemma}[$\BM/\BP$ Completion]\label{bm-bp completion}\ \\
 If $\mathbb{M}$ is $\BM$\textsc{Evil}, then $\ominus$ is
 partly \textsc{EviL}
 
@@ -469,28 +475,211 @@ only proving for $\ominus$, since $\oplus$ is similar.
   if and only if $v \in V (p)$).''  This follows by construction and
   \ref{Mislandiff} for $\mathbb{M}$.
 \item asserts  \[(R^{\ominus} \circ \sqsubseteq^{\ominus}) \subseteq
-    R^{\ominus} \subseteq (R^{\ominus} \circ \sqsupseteq^{\ominus}).\]
+    R^{\ominus}.\]
 As above, $\ominus$ inherits this property from $\mathbb{M}$, which
 obeys \ref{MpV}.
 
 \item asserts 
-$$(\sqsubseteq^\ominus \circ R) = R^\ominus =
-    (\sqsupseteq^\ominus \circ R^\ominus).$$
+\begin{eqnarray*}
+& (\sqsubseteq^\ominus \circ R) \subseteq R^\ominus \\
+& \& \\
+&    (\sqsupseteq^\ominus \circ R^\ominus) \subseteq R^\ominus.
+\end{eqnarray*}
 Since $\mathbb{M}$ obeys \ref{MpVI}, we have that 
-\[ ( \sqsubseteq^{\ominus} \circ R^{\ominus}) \subseteq
-    R^{\ominus} \subseteq (R^{\ominus} \circ \sqsupseteq^{\ominus})\]
+\[ ( \sqsupseteq^{\ominus} \circ R^{\ominus}) \subseteq R^{\ominus} \]
 
-By \ref{ppreverse}, all that is left to show is that 
-\[ R^{\ominus} \subseteq (R^{\ominus} \circ \sqsubseteq^{\ominus}) \]
+So it suffices to show that if $(s,w) R^\ominus (t,u) \sqsupseteq^\ominus (t,v)$
+then $w R^\ominus v$.  We can see by the definition of $\ominus$ that
+all we have to show is that $w R^\mathbb{M} v$.  
+With our assumptions, we can see by construction that we know the following two things:
+\begin{eqnarray*}
+ & w R^\mathbb{M} t   \\
+& \& \\
+& v \in \downarrow t
+\end{eqnarray*}  
+However, we know from Lemma
+\ref{downset-upset-lemma}, the Downset/Upset Lemma, that if $w
+R^\mathbb{M} t$ then $ w R^\mathbb{M} \downarrow t$, which means that
+$w R^\mathbb{M} v$ as desired.
+\item We must show ``If $(v,w) \in P^\ominus$ then $(v,w)
+    R^\ominus (v,w)$.''  So assume that $(v,w) \in P^\ominus$.  By
+    construction we must show that $w R^{\mathbb{M}} v$ and $w R^{\mathbb{M}} w$
 
-So assume that 
+Since $(v,w) \in W^\ominus$ then by construction we know $w
+\sqsubseteq^\mathbb{M} v$.   Since $(v,w) \in P^\ominus$, then
+evidently $w
+    \in P^{\mathbb{M}}$.  So by \ref{MpVII} we know that $w
+    R^{\mathbb{M}} v$.  
 
+We may also note by \ref{MpI} that $w
+    \sqsubseteq w$, so applying our assumptions and \ref{MpVII}
+    again we have that $w R^\mathbb{M} w$, which suffices.
+\item The last thing to show is ``If $w \in P_X^\ominus$ and $w \sqsupseteq_X^\ominus v$ then $v
+    \in P_X^\ominus$.'' However, this follows immediately by
+    construction from \ref{MpIX}.
 \end{enumerate}
-
 \end{proof}
 
-We note that we cannot generalize the above to multiple agents.  This
-because ...
+With the above, we have what we need to prove the central result
+regarding these subsystems:
+
+\begin{theorem}[$\BM/\BP$ Embedding, Soundness and
+  Completenesses]\label{lotsocompleteness}\ \\
+\begin{minipage}[b]{0.5\linewidth}
+Assume $\Gamma \cup \{\phi\} \subseteq \mathcal{L}^\boxminus(\Phi,\mathcal{A})$. The following are equivalent:
+\begin{align*}
+\Gamma \vdash_{\textsc{EviL}^\BM} \phi & \iff \Gamma
+\Vdash_{\BM\textup{\textsc{EviL}}} \phi \\
+ & \iff \Gamma \Vdash_{p\textup{\textsc{EviL}}} \phi \\
+ & \iff \Gamma \Vdash_{\textup{\textsc{EviL}}} \phi \\
+ & \iff \Gamma \vdash_{\textup{\textsc{EviL}}} \phi
+\end{align*}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+Assume $\Gamma \cup \{\phi\} \subseteq \mathcal{L}^\BP(\Phi,\mathcal{A})$. The following are equivalent:
+\begin{align*}
+\Gamma \vdash_{\textsc{EviL}^\BP} \phi & \iff \Gamma
+\Vdash_{\BP\textup{\textsc{EviL}}} \phi \\
+ & \iff \Gamma \Vdash_{p\textup{\textsc{EviL}}} \phi \\
+ & \iff \Gamma \Vdash_{\textup{\textsc{EviL}}} \phi \\
+ & \iff \Gamma \vdash_{\textup{\textsc{EviL}}} \phi
+\end{align*}
+\end{minipage}
+\end{theorem}
+\begin{proof}
+As before, we only show the result for \textsc{EviL}$^\BM$.
+
+The only nontrivial equality is $\Gamma \vdash_{\textsc{EviL}^\BM} \phi \iff \Gamma
+\Vdash_{p\textup{\textsc{EviL}}} \phi$. It is straightforward to verify that $\Gamma \vdash_{\textsc{EviL}^\BM} \phi \Longrightarrow \Gamma
+\Vdash_{p\textup{\textsc{EviL}}} \phi$, since this is just a
+soundness result.  To show the converse, we shall establish the
+contrapositive.  Assume that $\Gamma \nvdash_{\textsc{EviL}^\BM}
+\phi$. By Theorem \ref{BMBPbadcompleteness}, there is some $\BM\textsc{EviL}$ Kripke structure
+$\mathbb{M}$ with a world $w$ such that $\mathbb{M},w \Vdash \Gamma$
+and $\mathbb{M},w \nVdash \phi$.  Since
+$\mathbb{M}\leftrightarroweq^\BM\ominus^\mathbb{M}$, then by our
+grammar restriction assumptions, Proposition \ref{bmbpbisimprop} and
+Lemma \ref{bmbpbisimlemma} we have $\ominus^\mathbb{M},(w,w) \Vdash
+\Gamma$ and $\ominus^\mathbb{M},(w,w) \nVdash
+\phi$.  By \ref{bm-bp completion} we know that $\ominus$ is partly
+\textsc{EviL}. which suffices our claim.
+
+Hence we have:
+
+\begin{align*}
+\Gamma \vdash_{\textsc{EviL}^\BM} \phi & \iff \Gamma
+\Vdash_{\BM\textup{\textsc{EviL}}} \phi & \text{by Theorem \ref{BMBPbadcompleteness}}\\
+ & \iff \Gamma \Vdash_{p\textup{\textsc{EviL}}} \phi & \textup{by our
+   reasoning above}\\
+ & \iff \Gamma \vdash_{\textup{\textsc{EviL}}} \phi & \textup{by
+   Theorem \ref{partly-evil-completeness} from \S\ref{abstraction}}\\
+ & \iff \Gamma \Vdash_{\textup{\textsc{EviL}}} \phi & \textup{by
+   Theorem \ref{evil-completeness} from \S\ref{Abstract-Completeness}}
+\end{align*}
+\end{proof}
+
+With the above abstract completeness result, by the reasoning we
+provided in \S\ref{taking-stockII}, we can employ our abstract semantics
+to avoid dealing directly with the \textsc{EviL} concrete semantics,
+and easily arrive at couple lemmas:  
+% The above also
+% affords us numerous lemmas regarding these fragments:
+
+\begin{lemma}[$\BM/\BP$ Weak Soundness and Completeness] \ \\
+If $\Gamma\subseteq_\omega \mathcal{L}^\boxminus(\Phi,\mathcal{A})$ is
+finite, then 
+\begin{align*}
+\Gamma \vdash_{\textsc{EviL}^\BM} \phi & \iff \Gamma
+\VDash \phi
+\end{align*}
+
+Likewise, if $\Gamma\subseteq_\omega \mathcal{L}^\BP(\Phi,\mathcal{A})$ is finite, then 
+\begin{align*}
+\Gamma \vdash_{\textsc{EviL}^\BP} \phi & \iff \Gamma
+\VDash \phi
+\end{align*}
+\end{lemma}
+\begin{proof}
+This follows by Theorem \ref{lotsocompleteness} above and Lemma \ref{coincide} in \S{taking-stockII}.
+\end{proof}
+
+\begin{theorem}[$\BM/\BP$ Small Model Property]
+If $\phi$ is ${\BM\textsc{EviL}}$ or ${\BP\textsc{EviL}}$ satisfiable,
+ then it is finitely satisfiable in a \textsc{EviL} Kripke structure
+ with $O(EXP2(|\phi|))$ worlds.
+\end{theorem}
+\begin{proof}
+This follows by Theorem \ref{lotsocompleteness} above and our previous
+small model property we established in Theorem
+\ref{small-model-property} in \S\ref{small-model}.
+\end{proof}
+
+\begin{theorem}[$\BM/\BP$ Decidability]
+The decision problems for $\vdash_{\textsc{EviL}^\BM} \phi$ and
+$\vdash_{\textsc{EviL}^\BP} \phi$ have time complexity bounded
+above by $O(EXP3(|\phi|))$.
+\end{theorem}
+\begin{proof}
+As before, this is an application of Theorem \ref{lotsocompleteness} 
+and Theorem \ref{evil-decidability}.
+\end{proof}
+
+As a final note, we should mention why these results do not generalize
+to more than one agent.  The central issue is precisely that the
+observation that downsets and upsets can play the role of islands, as
+we asserted in Lemma \ref{downset-upset-lemma}, the Downset/Upset
+Lemma, do not generalize to multiple agents.   
+
+The central issue is that intuitions about how $\PP$ functions in the
+single agent case do not extend to multiple agents. Specifically,
+consider the plausible extension of $\textsc{EviL}^\BM$ and $\textsc{EviL}^\BP$
+with the following two axioms from ordinary multi-agent \textsc{EviL}:
+\begin{eqnarray*} 
+& \vdash \Box_X \phi \to \Box_X\BM_Y\phi \\
+& \& \\
+& \vdash \Box_X \phi \to \Box_X\BP_Y\phi 
+\end{eqnarray*}
+
+We may then plausibly extend our notion of downset and upset
+\begin{align*}
+\downarrow^\ast w & := \left\{ v \in W\ \left| \ w \left(\bigcup_{X\in
+    \mathcal{A}}\sqsupseteq_X\right)^\ast\right. v\right\}\\
+\uparrow^\ast w & := \left \{ v \in W\ \left| \ w \left(\bigcup_{X\in
+    \mathcal{A}}\sqsubseteq_X\right)^\ast\right. v\right\}
+\end{align*}
+With this, we would indeed get that ``if $wR_Xv$ then $w R_X
+\downarrow^\ast v$'' for $\BM$\textsc{EviL} Kripke structures and the
+dual for $\BP$\textsc{EviL} Kripke structures.  
+
+We stumble when we try
+to enforce ``if $w \in \downarrow^\ast v$ and $w \in P_X$ then $w
+R_X \downarrow^\ast v$.''  Somehow, we would need to enforce that if
+there is any path from $v$ to $w$, and $w$ makes true $\PP_X$, then
+$w$ can see $v$.  One way to do this would be to introduce special
+shorthand for \emph{vectors} of agents, where 
+$$\vec{v} = \langle Y_1, Y_2, \ldots Y_n\rangle $$
+For $\{Y_1, Y_2, \ldots, Y_n \} \subseteq \mathcal{A}$.  Along with
+this would could employ shorthand for vector modalities:
+\begin{align*}\BM_{\vec{v}}\phi & := \BM_{Y_1}\BM_{Y_2}\cdots
+  \BM_{Y_n}\phi\\
+\BP_{\vec{v}}\phi & := \BP_{Y_1}\BP_{Y_2}\cdots \BP_{Y_n}
+\end{align*}
+
+In each system we could then postulate
+\emph{path} axioms, corresponding to every vector of agents:
+\begin{eqnarray*} 
+& \vdash \phi \to \BM_{\vec{v}}(\PP_X \to \Pos_X \phi) \\
+& \& \\
+& \vdash \Box_X \phi \to \BM_{\vec{v}}(\PP_X \to \Pos_X \phi) 
+\end{eqnarray*}
+We state without proof that the details sketched here could be
+formalized to give multi-agent fragments of \textsc{EviL}.  On the
+other hand, we observe that while single agent intuition generalizes
+to multiple agents in a straightforward manner for the main
+\textsc{EviL} calculus, this is not so for the fragments of the calculus.
+It is for lack of logical parsimony that we have restricted ourselves
+to single agent \textsc{EviL} for the fragments presented here.
 
 %%% Local Variables: 
 %%% mode: latex

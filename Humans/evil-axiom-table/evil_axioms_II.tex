@@ -14,19 +14,19 @@
   \rightarrow \psi) \rightarrow \phi \rightarrow \chi$\\
   (\refstepcounter{rownum}\arabic{rownum})&$ \vdash (\neg \phi \rightarrow \neg \psi) \rightarrow \psi \rightarrow
   \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{Mrefl}&$ \vdash \boxminus_X \phi \rightarrow \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{Mtrans}&$ \vdash \boxminus_X \phi \rightarrow \boxminus_X \boxminus_X \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{Misland1}&$ \vdash p \rightarrow \boxminus_X p$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{Misland2}&$ \vdash \neg p \rightarrow \boxminus_X \neg p$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{Mdownconceive}& $  \vdash \diamondsuit_X \phi \rightarrow \boxminus_X \diamondsuit_X \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{MaxpVI}&$ \vdash \Box_X \phi \rightarrow \Box_X \boxminus_Y \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{MaxpVII}&$ \vdash \phi \rightarrow \boxminus_X (\circlearrowleft_X \rightarrow
-  \diamondsuit_X \phi)$\\
-  (\refstepcounter{rownum}\arabic{rownum})\label{MaxpIX}&$ \vdash \circlearrowleft_X \rightarrow \boxminus_X \circlearrowleft_X$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box_X (\phi \rightarrow \psi) \rightarrow \Box_X \phi \rightarrow
-  \Box_X \psi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxminus_X (\phi \rightarrow \psi) \rightarrow \boxminus_X \phi
-  \rightarrow \boxminus_X \psi$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{Mrefl}&$ \vdash \boxminus \phi \rightarrow \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{Mtrans}&$ \vdash \boxminus \phi \rightarrow \boxminus \boxminus \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{Misland1}&$ \vdash p \rightarrow \boxminus p$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{Misland2}&$ \vdash \neg p \rightarrow \boxminus \neg p$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{Mdownconceive}& $  \vdash \diamondsuit \phi \rightarrow \boxminus \diamondsuit \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{MaxpVI}&$ \vdash \Box \phi \rightarrow \Box \boxminus \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{MaxpVII}&$ \vdash \phi \rightarrow \boxminus (\circlearrowleft \rightarrow
+  \diamondsuit \phi)$\\
+  (\refstepcounter{rownum}\arabic{rownum})\label{MaxpIX}&$ \vdash \circlearrowleft \rightarrow \boxminus \circlearrowleft$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box (\phi \rightarrow \psi) \rightarrow \Box \phi \rightarrow
+  \Box \psi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxminus (\phi \rightarrow \psi) \rightarrow \boxminus \phi
+  \rightarrow \boxminus \psi$\\
 (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
  $\AxiomC{$\vdash \phi \to \psi$}
 \AxiomC{$\vdash \phi$}
@@ -34,15 +34,15 @@
 \DisplayProof$ \\ %& Modus Ponens\\[10pt]
 (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
  $\AxiomC{$\vdash \phi$}
-\UnaryInfC{$\vdash \Box_X \phi$}
+\UnaryInfC{$\vdash \Box \phi$}
 \DisplayProof$ \\ %& \multirow{3}{8.5cm}{Variations on necessitation}\\
 (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
  $\AxiomC{$\vdash \phi$}
-\UnaryInfC{$\vdash \BB_X \phi$}
+\UnaryInfC{$\vdash \BB \phi$}
 \DisplayProof$   \\
 % (\addtocounter{rownum2}{1}\Roman{rownum2}) &
 %  $\AxiomC{$\vdash \phi$}
-% \UnaryInfC{$\vdash \BBI_X \phi$}
+% \UnaryInfC{$\vdash \BBI \phi$}
 % \DisplayProof$  \\% [10pt]
 \hline
 \end{tabular}
@@ -63,20 +63,20 @@
   \rightarrow \psi) \rightarrow \phi \rightarrow \chi$\\
   (\refstepcounter{rownum}\arabic{rownum})&$ \vdash (\neg \phi \rightarrow \neg \psi) \rightarrow \psi \rightarrow
   \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxplus_X \phi \rightarrow \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxplus_X \phi \rightarrow \boxplus_X \boxplus_X \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash p \rightarrow \boxplus_X p$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \neg p \rightarrow \boxplus_X \neg p$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box_X \phi \rightarrow \boxplus_X \Box_X \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box_X \phi \rightarrow \Box_X \boxplus_Y \phi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \phi \rightarrow \boxplus_X (\circlearrowleft_X \rightarrow
-  \diamondsuit_X \phi)$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \neg \circlearrowleft_X \rightarrow \boxplus_X \neg
-  \circlearrowleft_X$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box_X (\phi \rightarrow \psi) \rightarrow \Box_X \phi \rightarrow
-  \Box_X \psi$\\
-  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxplus_X (\phi \rightarrow \psi) \rightarrow \boxplus_X \phi
-  \rightarrow \boxplus_X \psi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxplus \phi \rightarrow \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxplus \phi \rightarrow \boxplus \boxplus \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash p \rightarrow \boxplus p$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \neg p \rightarrow \boxplus \neg p$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box \phi \rightarrow \boxplus \Box \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box \phi \rightarrow \Box \boxplus \phi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \phi \rightarrow \boxplus (\circlearrowleft \rightarrow
+  \diamondsuit \phi)$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \neg \circlearrowleft \rightarrow \boxplus \neg
+  \circlearrowleft$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \Box (\phi \rightarrow \psi) \rightarrow \Box \phi \rightarrow
+  \Box \psi$\\
+  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \boxplus (\phi \rightarrow \psi) \rightarrow \boxplus \phi
+  \rightarrow \boxplus \psi$\\
 (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
  $\AxiomC{$\vdash \phi \to \psi$}
 \AxiomC{$\vdash \phi$}
@@ -84,15 +84,15 @@
 \DisplayProof$ \\ %& Modus Ponens\\[10pt]
 (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
  $\AxiomC{$\vdash \phi$}
-\UnaryInfC{$\vdash \Box_X \phi$}
+\UnaryInfC{$\vdash \Box \phi$}
 \DisplayProof$ \\ %& \multirow{3}{8.5cm}{Variations on necessitation}\\
 % (\addtocounter{rownum2}{1}\Roman{rownum2}) & 
 %  $\AxiomC{$\vdash \phi$}
-% \UnaryInfC{$\vdash \BB_X \phi$}
+% \UnaryInfC{$\vdash \BB \phi$}
 % \DisplayProof$   \\
 (\addtocounter{rownum2}{1}\Roman{rownum2}) &
  $\AxiomC{$\vdash \phi$}
-\UnaryInfC{$\vdash \BBI_X \phi$}
+\UnaryInfC{$\vdash \BBI \phi$}
 \DisplayProof$  \\% [10pt]
 \hline
 \end{tabular}

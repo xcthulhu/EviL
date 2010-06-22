@@ -199,8 +199,11 @@ Where:
 W := & At(\Sigma(\delta(\phi),\phi)) \\
 V(p) := & \{ w \in W \ |\ p \in w \} \\
 P_X := & \{ w \in W \ |\ \PP_X \in w \} \cup \{ w\in W \ | \ X \nin \delta(A)\}\\
-R_X := & \{(w,v) \in W \times W \ |\ \{ \psi\ |\ \Box_X \psi \in w\}
-\subseteq v \} \\
+R_X := & \begin{cases} \{(w,v) \in W \times W \ |\ \{ \psi\ |\ \Box_X \psi \in w\}
+\subseteq v \} & \textup{when $X \in \delta(\phi)$}\\
+\varnothing & \textup{o/w}
+\end{cases}
+ \\
 \sqsupseteq_X  := & \begin{cases} \{(w,v) \in W \times W \ |\
   \{\psi,\pBB_X \psi \ |\ \pBB_X \psi \in w\} \subseteq v\ \& &
   \multirow{2}{*}{\textup{when $X \in \delta(\phi)$}} \\
@@ -221,9 +224,10 @@ R_X := & \{(w,v) \in W \times W \ |\ \{ \psi\ |\ \Box_X \psi \in w\}
 
 In the above construction, we note that the definition of $V(p)$,
 $P_X$ and $R_X$ are defined as usual.  Only $\sqsupseteq_X$ and
-$\sqsubseteq_X$ have are unusual; we are consciously imitating the
+$\sqsubseteq_X$ have are unusual. Here we are consciously imitating the
 completeness techniques given in \cite[chapter 5,
-pgs. 78--84]{boolos_logic_1995} for \textsc{EviL}.
+pgs. 78--84]{boolos_logic_1995}, and using 
+them for \textsc{EviL}.
 
 We shall now show that $\Cross^\phi$ satisfies the \emph{Truth lemma}.
 Once again, the method of the proof of the following theorem is adapted
@@ -388,17 +392,11 @@ If $X \nin \delta(\phi)$ then we know that $w = v$, so the above is true.
     \item[\ref{ppV}] 
 To prove the assertion
 $$ (R_X \circ \sqsubseteq_X) \subseteq
-    R_X \subseteq (R_X \circ \sqsupseteq_X)$$
+    R_X $$
 We first note that if $X\nin\delta(\phi)$, then $R_X \circ
-\sqsubseteq_X = R_X$ by construction.
+\sqsubseteq_X = R_X$ by construction.  Hence we may safely assume $X \in \delta(\phi)$.  
 
-So assume $X \in \delta(\phi)$.  
-We shall show only show that 
-$$ (R_X \circ \sqsubseteq_X) \subseteq R_X $$
-Since the other inclusion follows from \ref{ppreverse}, which we have
-previously established.
-
-So assume that $w \sqsubseteq_X u$ and $u R_X v$, we need to show that
+Next assume that $w \sqsubseteq_X u$ and $u R_X v$, we need to show that
 $w R_X v$.  In order to do this, by construction we need to show that
 if $\Box_X \phi \in w$ then $\phi \in v$. However, we know that
 $\vdash \Box_X \phi \to \pBP_X \Box_X \phi$ by the logic of
@@ -427,15 +425,17 @@ construction, and thus $\phi \in v$ as desired.
       Truth Lemma, may be used to establish anti-symmetry.
 
     \item[\ref{ppVI}] We must show:
-    $$(\sqsubseteq_Y \circ R_X) = R_X = (\sqsupseteq_Y \circ R_X)$$
-Given \ref{ppI}, we know that 
-$$ (\sqsubseteq_Y \circ R_X) \supseteq R_X \subseteq (\sqsupseteq_Y
-\circ R_X) $$
-So we shall show that $\sqsubseteq_Y \circ R_X \subseteq R_X$, since
+    \begin{eqnarray*}
+&(\sqsubseteq_Y \circ R_X) \subseteq R_X \\
+& \& \\
+& (\sqsupseteq_Y \circ R_X) \subseteq R_X
+\end{eqnarray*}
+
+We shall only show that $\sqsubseteq_Y \circ R_X \subseteq R_X$, since
 $\sqsupseteq_Y$ is analogous.
 
 First, observe that we may assume that $Y \in \delta(\phi)$, 
-since if not then $\sqsubseteq_Y \circ R_X = R_X$ as we want.  
+since if not then $\sqsubseteq_Y \circ R_X = R_X$ which suffices.  
 Now assume that $\Nec_X \phi \in w$, $w R_X v$ and $v \sqsubseteq_Y
 u$; we must show that $\phi \in u$.  
 Since $Y \in \delta(\phi)$ then by the construction of $\Sigma$, 
@@ -516,7 +516,7 @@ which is as we claimed.
 \begin{theorem}[\textsc{EviL} Decidability]\label{evil-decidability}\ 
 \textsc{EviL} is decidable and 
 the time complexity of the decision problem for \textsc{EviL} is
-bounded above by $O(EXP3)$
+bounded above by $O(EXP3(|\phi|))$
 \end{theorem}
 \begin{proof}
  We know
