@@ -7,8 +7,8 @@ as well as the
 
 We first recall the definition of \emph{pseudo-negation} from the
 Fischer-Ladner construction for the completeness of PDL \cite[chapter
-4, pgs. 243]{blackburn_modal_2001}.  We shall also introduce
-\emph{pseudo-boxes}, which are defined as follows:
+4, pg. 243]{blackburn_modal_2001}.  We shall also introduce
+\emph{pseudo-boxes}.  All of these are defined as follows:
 \begin{mydef}
 \begin{eqnarray*}
 \sim \phi := \begin{cases} \psi &\textup{ if $\phi = \neg\psi$} \\ \neg \phi & \textup{ o/w} \end{cases} &
@@ -88,7 +88,7 @@ $\Sigma$.  This operation behaves as follows:
   \item A set of agents $\Delta$
    \item A formula $\phi$ where $\phi \in \mathcal{L}(\mathcal{A},\Phi)$ 
 \end{bul}
-\item $Sigma$ outputs a set $S$ of $\mathcal{L}(\mathcal{A},\Phi)$
+\item $\Sigma$ outputs a set $S$ of $\mathcal{L}(\mathcal{A},\Phi)$
   formulae (that is, $S \subseteq \mathcal{L}(\mathcal{A},\Phi)$)
 \end{bul}
 We may summarize this concisely as the following type signature:
@@ -180,12 +180,13 @@ the set of (relativized) maximally consistent sets:
 
 \begin{mydef}[Atoms] Let $At(\Psi)$ denote the maximally consistent subsets of $\Psi$
 \end{mydef}
-We next have the Lindenbaum Lemma:
-\begin{lemma}[Lindenbaum Lemma]If $\Gamma \nvdash \phi$ and $\Gamma\subseteq \Sigma(\delta(\phi),\phi)$, then there is a $\gamma \in At(\Sigma(\delta(\phi),\phi))$ such that $\Gamma \subseteq \gamma$ and $\gamma \nvdash \phi$
+We next have the Finitary Lindenbaum Lemma:
+\begin{lemma}[Finitary Lindenbaum Lemma]If $\Gamma \nvdash \phi$ and $\Gamma\subseteq \Sigma(\delta(\phi),\phi)$, then there is a $\gamma \in At(\Sigma(\delta(\phi),\phi))$ such that $\Gamma \subseteq \gamma$ and $\gamma \nvdash \phi$
 \end{lemma}
 \begin{proof}
 The proof of this assertion follows the same proof of the 
-finitary Lindenbaum Lemma offered in \cite[Lemma 4.83, pg. 244]{blackburn_modal_2001} and \cite[pgs. 79]{boolos_logic_1995}.
+finitary Lindenbaum Lemma offered in \cite[Lemma 4.83,
+pg. 244]{blackburn_modal_2001} and \cite[chapter 5, pg. 79]{boolos_logic_1995}.
 \end{proof}
 
 We now turn to defining the \textsc{EviL} subformula model we shall
@@ -340,7 +341,7 @@ The remainder of the proof is devoted to establishing the partly
 \textsc{EviL} properties for $\Cross^\phi$.
   \begin{description}
     \item[\ref{ppI}]We must show ``$\sqsubseteq_X$ is reflexive.''
-We first note that if $X \nin \delta(\phi)$, then this is true immediately by the
+We first note that if $X \nin \delta(\phi)$, then this is true trivially by the
 construction of $\Cross^\phi$. 
 
  So assume that $X \in \delta(\phi)$. We need to show two facts:
@@ -393,8 +394,9 @@ If $X \nin \delta(\phi)$ then we know that $w = v$, so the above is true.
 To prove the assertion
 $$ (R_X \circ \sqsubseteq_X) \subseteq
     R_X $$
-We first note that if $X\nin\delta(\phi)$, then $R_X \circ
-\sqsubseteq_X = R_X$ by construction.  Hence we may safely assume $X \in \delta(\phi)$.  
+We first note that if $X \nin\delta(\phi)$, then $R_X \circ
+\sqsubseteq_X = R_X = \varnothing$ by construction.  
+Hence we may safely assume $X \in \delta(\phi)$.  
 
 Next assume that $w \sqsubseteq_X u$ and $u R_X v$, we need to show that
 $w R_X v$.  In order to do this, by construction we need to show that
@@ -405,25 +407,15 @@ that if $\Box_X \phi \in \Sigma(\delta(\phi),\phi)$ then $\pBP_X\Box_X
 \phi \in \Sigma(\delta(\phi),\phi)$ too, so $\pBP_X \Box_X \phi \in w$
 by maximality.  However, we then have that $\Box_X \phi \in u$ by
 construction, and thus $\phi \in v$ as desired. 
-
-    \item[\ref{ppIX}] We must show ``If $w \in P_X$ and $w \sqsupseteq_X
-      v$ then $v \in P_X$.''  If $w \in P_x$ then by construction we
-      know that $\PP_X \in w$.  Note that this can only happen if $X
-      \in \delta(\phi)$.  As in the case of \ref{islandiff} we
-      know by the definition of $\Sigma$, \textsc{EviL} logic 
-      and maximality we have that $ \BM_X \PP_X \in w$.  
-      Whence we have $\PP_X \in v$ as desired. 
-
-     \item[\ref{ppantisym}] Just as in the proof of
-       \ref{partly-evil-completeness} from
-       \S\ref{partly-evil-strong-soundness-and-completeness}, 
-      we have intentionally deferred the proof that
-      $\sqsubseteq$ is a partial order, since it depends on the above
-      results.  As before, that it is reflexive and transitive by
-      \ref{ppI} and \ref{pptrans}.  
-       Moreover, the exact same inductive proof, along with the 
-      Truth Lemma, may be used to establish anti-symmetry.
-
+     % \item[\ref{ppantisym}] Just as in the proof of
+     %   \ref{partly-evil-completeness} from
+     %   \S\ref{partly-evil-strong-soundness-and-completeness}, 
+     %  we have intentionally deferred the proof that
+     %  $\sqsubseteq$ is a partial order, since it depends on the above
+     %  results.  As before, that it is reflexive and transitive by
+     %  \ref{ppI} and \ref{pptrans}.  
+     %   Moreover, the exact same inductive proof, along with the 
+     %  Truth Lemma, may be used to establish anti-symmetry.
     \item[\ref{ppVI}] We must show:
     \begin{eqnarray*}
 &(\sqsubseteq_Y \circ R_X) \subseteq R_X \\
@@ -435,7 +427,8 @@ We shall only show that $\sqsubseteq_Y \circ R_X \subseteq R_X$, since
 $\sqsupseteq_Y$ is analogous.
 
 First, observe that we may assume that $Y \in \delta(\phi)$, 
-since if not then $\sqsubseteq_Y \circ R_X = R_X$ which suffices.  
+since if not then $\sqsubseteq_Y = id$, the identity relation, so 
+$\sqsubseteq_Y \circ R_X = R_X$ which suffices.  
 Now assume that $\Nec_X \phi \in w$, $w R_X v$ and $v \sqsubseteq_Y
 u$; we must show that $\phi \in u$.  
 Since $Y \in \delta(\phi)$ then by the construction of $\Sigma$, 
@@ -443,12 +436,18 @@ along with the \textsc{EviL} fact that
 $\vdash \Nec_X \phi \to \Nec_X \pBP_X\phi $, we know that 
 $Nec_X \pBP_Y \phi \in w$, whence $pBP_Y \phi \in v$.  Since $v
 \sqsubseteq_Y u$, we have that $\phi \in u$ as desired.
-%corresponds to axioms \eqref{islandDown} and \eqref{islandUp}.
 
     \item[\ref{ppVII}] To show ``If $w \in P (X)$ then $w R_X w$,''
     assume $\PP_X \in w$ and $\Nec_X \phi \in w$.  Then we know by
     \textsc{EviL} and maximality that $\phi \in w$, which suffices to
     show that $w R_X w$. 
+    \item[\ref{ppIX}] We must show ``If $w \in P_X$ and $w \sqsupseteq_X
+      v$ then $v \in P_X$.''  If $w \in P_x$ then by construction we
+      know that $\PP_X \in w$.  Note that this can only happen if $X
+      \in \delta(\phi)$.  As in the case of \ref{islandiff} we
+      know by the definition of $\Sigma$, \textsc{EviL} logic 
+      and maximality we have that $ \BM_X \PP_X \in w$.  
+      Whence we have $\PP_X \in v$ as desired. 
 \end{description}
 \end{proof}
 
@@ -503,10 +502,12 @@ branches.  However, it cannot have more than $3^{|\phi|}$ agents even
 in this worst case scenario, so we know that $|\delta(\phi)| \in
 O(EXP(|\phi|))$.
 
- Since every non-branching step (ie. every time $\Sigma$ processes a
- formula not of the form $\psi \to \chi$) of
-$\Sigma(\delta(\phi), \zeta)$ introduces at worst $O(|\delta(\phi)|) \in O(EXP(|\phi|))$
-many formulae, we may again do a worst-case analysis.  In a worst case
+To finish the argument, we again perform a worst-case analysis. Every
+non-branching step 
+(ie. every time $\Sigma$ processes a
+ formula not of the form $\psi \to \chi$) 
+of $\Sigma(\delta(\phi), \zeta)$ introduces at worst $O(|\delta(\phi)|) \in O(EXP(|\phi|))$
+many formulae.  In a worst case
 scenario $\Sigma(\delta(\phi),\phi)$ must branch $O(EXP({|\phi|}))$
 times and each time perform a $O(EXP(|\phi|))$ operation.  Even in
 this worst case scenario, the complexity is still $O(EXP(|\phi|))$,
@@ -522,7 +523,7 @@ bounded above by $O(EXP3(|\phi|))$
  We know
 that $\Cross^\phi \in \powerset (\powerset
 (\Sigma(\delta(\phi),\phi)))$,
-We know that
+we know that
  $\phi$ is not a tautology of \textsc{EviL} if and only if there is a
  suitable \textsc{EviL} witnessing Kripke structure in $\powerset
  (\powerset (\Sigma(\delta(\phi),\phi)))$, defined in the manner of $\Cross$.

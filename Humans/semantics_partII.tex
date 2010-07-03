@@ -71,8 +71,8 @@ we shall write $w \sqsubseteq v$ to mean that $w
 \sqsubseteq_X v$ for all agents $X$.
 \end{definition}
 
-Kripke semantics given by $(\Vdash) : \mathcal{K}_{\Phi, \mathcal{A}, I} \to I
-\rightarrow \text{\tmtextsf{bool}}$ for these models are defined recursively
+Kripke semantics given by $(\Vdash) \colons \mathcal{K}_{\Phi, \mathcal{A}, I} \to I
+\rightarrow \mathcal{L}(\Phi, \mathcal{A}) \to \text{\tmtextsf{bool}}$ for these models are defined recursively
 as usual, granting the exceptional behavior of $P$.
 \begin{definition}
   Let $\mathbbm{M}$ be a Kripke structure:
@@ -136,7 +136,7 @@ The following summarizes the structural properties of
   \begin{myRoman}
     \item\label{pI} $\sqsubseteq^{\Omega}_X$ is reflexive
     \item\label{pII} $\sqsubseteq^{\Omega}_X$ is transitive 
-   \item \label{pantisym} $\sqsubseteq^{\Omega}$ is a partial order
+%   \item \label{pantisym} $\sqsubseteq^{\Omega}$ is a partial order
     \item \label{preverse} $w \sqsubseteq^{\Omega}_X v$ if and only if 
      $v \sqsupseteq^{\Omega}_X w$
     \item \label{pislandiff} If $w \sqsubseteq^{\Omega}_X v$ then ($w
@@ -144,7 +144,8 @@ The following summarizes the structural properties of
     \item \label{pV}$(R^{\Omega}_X \circ \sqsubseteq^{\Omega}_X) \subseteq R^{\Omega}_X$
     \item \label{pVI} $(\sqsubseteq^{\Omega}_Y \circ R^{\Omega}_X)
       \subseteq R^{\Omega}_X$ and\\
-    $(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq R^{\Omega}_X$
+    $(\sqsupseteq^{\Omega}_Y \circ R^{\Omega}_X) \subseteq
+    R^{\Omega}_X$
     \item\label{pVII} $w \in P^{\Omega} (X)$ if and only if $w
     R^{\Omega}_X w$
   \end{myRoman}

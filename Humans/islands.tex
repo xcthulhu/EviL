@@ -4,12 +4,12 @@ understand how to visualize \textsc{EviL} models.
 
 % In the subsequent discussion, it will be useful to exploit certain properties of \emph{partly \textsc{EviL}} models.  To this end we introduce the concept of an \emph{island}.
 
-\begin{mydef}Let $\mathbb{M}$ be a partly \textsc{EviL} Kripke structure.  Let
+\begin{mydef}Let $\mathbb{M}$ be a partly \textsc{EviL} Kripke structure.  Define:
 \[ \lcorners w\rcorners := \left\{ v\ \left|\ w \left(\bigcup_{X \in
         \mathcal{A}}\sqsubseteq_X \cup \sqsupseteq_X\right)^\ast\right. v
      \right\}\]
 Here $\leadsto^\ast$ is the reflexive transitive closure of a relation
-$\leadsto$.  We say that $\lcorners w \rcorners$ is the island that
+$\leadsto$.  We say that $\lcorners w \rcorners$ is the \textbf{island} that
 $w$ belongs to.
 \end{mydef}
 
@@ -91,7 +91,7 @@ We have depicted the Christmas tree analogy in this in Fig. \ref{fig:christmas_i
 In many ways, \emph{islands} behave as a single entity;  this is
 precisely in accordance with reading \ref{thirdway} above.
 We summarize the ways they behave in the following lemma:
-\pagebreak
+%\pagebreak
 \begin{lemma}[Island Lemma]\label{island}
 The following hold if $\mathbb{M}$ is partly \textsc{EviL}:
 \begin{mynum}

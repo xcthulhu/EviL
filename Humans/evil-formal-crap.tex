@@ -9,10 +9,10 @@ We have organized this section in the following manner:
    system for \textsc{EviL}.
 
  \item[\S\ref{abstraction}] Next, we give a definition of the
-   class of \emph{partly \textsc{EviL}} Kripke models.  
+   class of \emph{partly \textsc{EviL}} Kripke structures.  
 
    We then reveal that \textsc{EviL} is sound and strongly complete
-   for the class of partly \textsc{EviL} models. 
+   for the class of partly \textsc{EviL} structures. 
    Completeness rests on the observation that the
    axioms of \textsc{EviL} are all in the \emph{Sahlqvist fragment},
    or have obvious meanings in terms of the traditional canonical
@@ -22,14 +22,14 @@ We have organized this section in the following manner:
    \emph{correspondence theory} for modal logic.
 
 \item[\S\ref{completely-evil}]  In this section we recall the definition of an
-  \emph{\textsc{EviL} Kripke Model}, as we gave in Definition
+  \emph{\textsc{EviL} Kripke structure}, as we gave in Definition
   \ref{evil-kripke-structures} from \S\ref{kripke}, and show that
-  every \emph{partly \textsc{EviL}} Kripke model may be
+  every \emph{partly \textsc{EviL}} Kripke structure may be
   ``completed'' by constructing a bisimilar \emph{\textsc{EviL}} 
-   model.
+   structure.
 
    This has, as a consequence, that \textsc{EviL} is complete for
-   \textsc{EviL} Kripke Models.
+   \textsc{EviL} Kripke structures.
 
 \item[\S\ref{taking-stock}]  In this section, we discuss why the abstract
   completeness proof developed in the previous sections, while
@@ -40,11 +40,13 @@ We have organized this section in the following manner:
 
 \item[\S\ref{small-model}]  In this section we show that
   \textsc{EviL} has a small model property for \emph{partly
-    \textsc{EviL}} Kripke models. This is accomplished by constructing
-     a Kripke model consisting of finite maximally
+    \textsc{EviL}} Kripke structure. This is accomplished by constructing
+     a Kripke structure consisting of finite maximally
      consistent sets in the manner of the Fischer-Ladner closure style
      completeness proof of PDL 
      \cite[chapter 4, pgs. 241--248]{blackburn_modal_2001}.
+We also discuss how our results give rise to complexity observations for
+  the \textsc{EviL} decision problem.
 
 % \item[\S\ref{decidability}] 
 %    From our construction in the previous section, we obtain a decidability
@@ -53,14 +55,14 @@ We have organized this section in the following manner:
 
   \item[\S\ref{islands}] In this section, we introduce the concept of an
     \emph{island}, which are special equivalence classes for
-    \textsc{EviL} models.  
+    \textsc{EviL} structures.  
    We shall prove several properties, which take the
     form of various irreducibilities. 
 
 \item[\S\ref{translation}]Following the proof of Proposition
   \ref{translation-sketch} in \S\ref{sketch}, we shall show that every
   finite \textsc{EviL} Kripke structure is \emph{(almost)-homomorphic} to another,
-  \textsc{EviL} model we shall call $\ipent$, provided that we have an
+  \textsc{EviL} structure we shall call $\ipent$, provided that we have an
   infinite number of letters in $\Phi$.  
   We shall show that there is a map $\kl$ of worlds in $\mathbb{M}$ to
   worlds in $\ipent$ that preserves formulae in a language
@@ -72,7 +74,7 @@ $\Psi \subseteq_\omega \Phi$.
   \emph{names} and \emph{surnames}.
 
 We have, as a consequence of the above, we shall be able to show that
-$\textsc{EviL}$ is weakly complete for $\textsc{EviL}$ models.
+$\textsc{EviL}$ is weakly complete for $\textsc{EviL}$ structures.
 
   % \item[\S\ref{skarmy-of-darkness}]  In this section, we employ our
   %   previous results to remark that \textsc{EviL} is weakly complete for
@@ -80,15 +82,15 @@ $\textsc{EviL}$ is weakly complete for $\textsc{EviL}$ models.
 
 \item[\S\ref{taking-stockII}]  In this section, we once again pause to
   take stock of the results we have established in previous sections.
-  We discuss how our results give rise to complexity observations for
-  \textsc{EviL}, and discuss the relationship between the abstract
+  Here we discuss the relationship between the abstract
   completeness we have previously established and our concrete 
   completeness.
 
   \item[\S\ref{subsystems}] We next introduce two
     subsystems of \textsc{EviL}, corresponding to the $\BP$ and $\BM$
     only fragments. We briefly go over the completeness theorems and
-    finite model property for these systems.  In each case, a special
+    the small model property for these systems, as well as
+    decidability results.  In each case, a special
     bisimulation theorem is in order to achieve completeness.
 
   \item[\S\ref{supersystems}] We provide an extension to
@@ -102,51 +104,51 @@ $\textsc{EviL}$ is weakly complete for $\textsc{EviL}$ models.
    various levels of this lattice.
 \end{description}
 
-%\subsubsection{Failure of Compactness}
+%\subsection{Failure of Compactness}
 %\label{non-compactness}
 %\input{evil_noncompactness.tex}
 
-\subsubsection{Axioms of \textsc{EviL}}\label{evil-axioms}
+\subsection{Axioms of \textsc{EviL}}\label{evil-axioms}
 \input{evil_axiom_systems.tex}
 
 \pagebreak
 
-\subsubsection{Partly \textsc{EviL} Kripke Structures \& Strong Completeness}\label{abstraction}\label{partly-evil-strong-soundness-and-completeness}
+\subsection{Partly \textsc{EviL} Kripke Structures \& Strong Completeness}\label{abstraction}\label{partly-evil-strong-soundness-and-completeness}
 \input{partly-evil-models.tex}
 
-\subsubsection{Bisimulation \& \textsc{EviL} Strong Completeness}\label{completely-evil}\label{Abstract-Completeness}
+\subsection{Bisimulation \& \textsc{EviL} Strong Completeness}\label{completely-evil}\label{Abstract-Completeness}
 \input{bisimulation.tex}
 
-\subsubsection{Taking Stock I}\label{taking-stock}
+\subsection{Taking Stock I}\label{taking-stock}
 \input{taking-stock.tex}
 
-\subsubsection{Small Model Construction}\label{small-model}
+\subsection{Small Model Construction}\label{small-model}
 \input{small-model.tex}
 
-\subsubsection{Islands}\label{islands}
+\subsection{Islands}\label{islands}
 \input{islands.tex}
 
-\subsubsection{Translation \& \textsc{Evil} Completeness}
+\subsection{Translation \& \textsc{Evil} Completeness}
 \label{translation}
 \input{translation.tex}
-% \subsubsection{\textsc{EviL} Completeness}\label{skarmy-of-darkness} 
+% \subsection{\textsc{EviL} Completeness}\label{skarmy-of-darkness} 
 % \input{completeness.tex}
 
-\subsubsection{Taking Stock II}\label{taking-stockII}
+\subsection{Taking Stock II}\label{taking-stockII}
 \input{taking-stockII.tex}
 
-\subsubsection{Subsystems of \textsc{EviL}}\label{subsystems}
+\subsection{Subsystems of \textsc{EviL}}\label{subsystems}
 \input{subsystems.tex}
 
-\subsubsection{Universal Modality}\label{supersystems}
+\subsection{Universal Modality}\label{supersystems}
 \input{universal.tex}
 
-\subsubsection{Lattice of Logics \& Complexity}\label{lattice}\label{conservative-extension}
+\subsection{Lattice of Logics \& Complexity}\label{lattice}\label{conservative-extension}
 \input{lattice.tex}
 
-%\subsubsection{Completeness}\label{conservative-extension}
+%\subsection{Completeness}\label{conservative-extension}
 
-%\subsubsection{Conservativity, Decidability \& Complexity}
+%\subsection{Conservativity, Decidability \& Complexity}
 
 
 %%% Local Variables: 

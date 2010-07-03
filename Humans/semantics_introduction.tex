@@ -118,7 +118,7 @@ Moreover, the following relationship can be observed:
 \end{proof}
 
 With this, we have the following result:
-\begin{definition}
+\begin{definition}\label{EvilTheorydef}
  $$Th(\Omega) := \{ \phi \in \mathcal{L}(\Phi) \ |\ \Omega \VDash \phi \}$$
 \end{definition}
 
@@ -126,18 +126,54 @@ With this, we have the following result:
   If $A$ is finite, then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_{\text{\textsc{EviL}}} \phi$.
 \end{theorem}
 \begin{proof}
+I shall present $\vdash_{\text{\textsc{EviL}}}$, the logical
+consequence turnstile for \textsc{EviL}, in \S\ref{evil-axioms}.  For
+now, I will freely make use of important properties it possesses.
+
   The proof proceeds the exactly as the proof of Proposition
-  \ref{central-prop} from \S\ref{sketch}.
+  \ref{central-prop} from \S\ref{sketch}.  We shall repeat it here.
+  We shall assume that \textsc{EviL} makes true the \emph{deduction theorem} of classical logic:
+\begin{equation}
+\Gamma \cup \Delta \vdash_{\text{\textsc{EviL}}} \phi 
+   \iff A \vdash_{\text{\textsc{EviL}}} \bigwedge B \to \phi 
+     \label{eq:deduction-theorem2}
+\end{equation}
+
+Next, we use the following fact:
+\begin{equation}
+Th(\Omega) \vdash_{\text{\textsc{EviL}}} \phi \iff \phi \in Th(\Omega) \label{eq:omegabasic2}
+\end{equation}
+
+This follows from the \emph{soundness} of \textsc{EviL}, and the fact
+that $Th(\Omega)$ is closed under modus ponens.  We shall establish the
+soundness of \textsc{EviL} in \S\ref{translation}, in Theorem
+\ref{evil-completeness}, the \textsc{EviL} soundness and weak
+completeness theorem.
+
+So assume that $A \subseteq_\omega \mathcal{L}_0$.  Just as in
+Proposition \ref{central-prop}, we have:
+\begin{align*}
+  Th(\Omega) \cup A \vdash_K \phi & \iff   Th(\Omega) \vdash \bigwedge A
+  \to \phi 
+   & \textup{by \eqref{eq:deduction-theorem2}} 
+\\
+ & \iff \bigwedge A \to \phi \in Th(\Omega) & \textup{by
+   \eqref{eq:omegabasic2}} \\
+ & \iff \Omega, (b,B) \VDash \bigwedge A \to \phi \textup{ for all
+   $(b,B) \in Th(\Omega)$} & \textup{by Def. \ref{EvilTheorydef}} \\
+ & \iff \Omega,(a,A) \VDash \Box \phi \textup{ for any $a$ where
+   $(a,A) \in \Omega$} & \textup{by Def. \ref{evil-semantics-def}}
+\end{align*}
+
 \end{proof}
 
-I shall present $\vdash_{\text{\textsc{EviL}}}$, the logical consequence turnstile for \textsc{EviL}, in \S\ref{evil-axioms}.
 
-I chose the name ``Theorem Theorem'' because it means that for every
-belief the \textsc{EviL} agent has, it is a theorem she has derived
-from her premises. Theorem \ref{theorem-theorem} establishes one of
-the central desiderata outlined in \S\ref{close} is achieved by
-\textsc{EviL}.  With this result the foundation is set for the the
-central intuition driving \textsc{EviL} - that beliefs are the
+We have chosen the name ``Theorem Theorem'' because it means 
+that for every belief the \textsc{EviL} agent has, it is a theorem  
+she has derived from her premises. Theorem \ref{theorem-theorem} 
+establishes one of the central desiderata outlined in \S\ref{close} 
+is achieved by \textsc{EviL}.  With this result the foundation is 
+set for the the central intuition driving \textsc{EviL} - that beliefs are the
 consequences of logical deductions.  It is a peculiarity of
 \textsc{EviL} that these deductions are carried on in \textsc{EviL}
 itself.  This was achieved, primarily, by flirting heavily with

@@ -58,7 +58,7 @@ the above axiom systems.
   \begin{enumerate}[label=\textup{(\emph{\Roman*})$^\BM$}, topsep=0.0in, parsep=0.075in]
     \item \label{MpI} $\sqsupseteq$ is reflexive
     \item \label{Mptrans} $\sqsupseteq$ is transitive 
-    \item \label{Mpantisym} $\sqsupseteq$ is anti-symmetric
+%    \item \label{Mpantisym} $\sqsupseteq$ is anti-symmetric
     \item \label{Mpreverse} $w \sqsupseteq v$ if and only if $v
     \sqsubseteq w$
    \item \label{Mislandiff} If $w \sqsupseteq v$ then ($w \in V (p)$ if and only if $v \in V (p)$)
@@ -81,7 +81,7 @@ If $w \sqsupseteq v$ and $v \in P$ then $v R w$
   \begin{enumerate}[label=\textup{(\emph{\Roman*})$^\BP$}, topsep=0.0in, parsep=0.075in]
     \item \label{PpI} $\sqsubseteq$ is reflexive
     \item \label{Pptrans} $\sqsubseteq$ is transitive 
-    \item \label{Ppantisym} $\sqsubseteq$ is anti-symmetric
+%    \item \label{Ppantisym} $\sqsubseteq$ is anti-symmetric
     \item \label{Ppreverse} $w \sqsubseteq v$ if and only if $v \sqsupseteq w$
    \item \label{Pislandiff} If $w \sqsubseteq v$ then ($w \in V (p)$ if and only if $v \in V (p)$)
      \item \label{PpV}  $(R^{} \circ \sqsubseteq^{}) \subseteq
@@ -174,7 +174,7 @@ We shall write
 to mean that for all $\BM$\textsc{EviL}  Kripke structures
 $\mathbb{M} = \langle W, R, \sqsubseteq, \sqsupseteq, V, P \rangle$,
 for all worlds $w \in W$ if $\mathbb{M},w \Vdash \Gamma$ then
-$\mathbb{M} \Vdash \phi$.
+$\mathbb{M},w\Vdash \phi$.
 
 Moreover, we shall write
 \[ \Gamma \Vdash_{\BP\textup{\textsc{EviL}}} \phi \]
@@ -217,10 +217,10 @@ Strong Soundness and Completeness]\label{BMBPbadcompleteness}
      axiom \eqref{Mdownconceive}
     \item \ref{MpIX} corresponds to the \textsc{EviL}$^\BM$
      axiom \eqref{MaxpIX}
-    \item \ref{Mpantisym} -- 
-     Just as in the case of the proof of Theorem 
-    \ref{partly-evil-completeness}, this step follows from the above
-  properties, the Truth Lemma, and an inductive argument
+  %   \item \ref{Mpantisym} -- 
+  %    Just as in the case of the proof of Theorem 
+  %   \ref{partly-evil-completeness}, this step follows from the above
+  % properties, the Truth Lemma, and an inductive argument
      \item \ref{MpVI} corresponds to the \textsc{EviL}$^\BM$
      axiom \eqref{MaxpVI}
      \item \ref{MpVII} corresponds to the \textsc{EviL}$^\BM$
@@ -244,10 +244,10 @@ Strong Soundness and Completeness]\label{BMBPbadcompleteness}
      axiom \eqref{Mdownconceive}
     \item \ref{PpIX} corresponds to the \textsc{EviL}$^\BP$
      axiom \eqref{MaxpIX}
-    \item \ref{Ppantisym} -- 
-     Just as in the case of the proof of Theorem 
-    \ref{partly-evil-completeness}, this step follows from the above
-  properties, the Truth Lemma, and an inductive argument
+  %   \item \ref{Ppantisym} -- 
+  %    Just as in the case of the proof of Theorem 
+  %   \ref{partly-evil-completeness}, this step follows from the above
+  % properties, the Truth Lemma, and an inductive argument
      \item \ref{PpVI} corresponds to the \textsc{EviL}$^\BP$
      axiom \eqref{MaxpVI}
      \item \ref{PpVII} corresponds to the \textsc{EviL}$^\BP$
@@ -456,19 +456,19 @@ only proving for $\ominus$, since $\oplus$ is similar.
 \item asserts $\sqsubseteq^\ominus$ is transitive.  This follows by
   construction since $\sqsubseteq^\mathbb{M}$ is transitive, as per
   \ref{Mptrans} and \ref{Mpreverse}.
-% \item follows from the fact that $\mathbb{M}$ makes true \ref{Mptrans}, hence
-%   $\sqsubseteq^\ominus$ is transitive by construction, as desired.
-\item asserts that $\sqsubseteq^\ominus$ is a partial order. To show
-  this, by the above all we have to show is that $\sqsubseteq^\ominus$ is anti-symmetric.  
-  We shall use that $\mathbb{M}$ makes true \ref{Mpantisym} and \ref{Mpreverse}. 
+ \item follows from the fact that $\mathbb{M}$ makes true \ref{Mptrans}, hence
+   $\sqsubseteq^\ominus$ is transitive by construction, as desired.
+% \item asserts that $\sqsubseteq^\ominus$ is a partial order. To show
+%   this, by the above all we have to show is that $\sqsubseteq^\ominus$ is anti-symmetric.  
+%   We shall use that $\mathbb{M}$ makes true \ref{Mpantisym} and \ref{Mpreverse}. 
   
-  Assume that $(a,b) \sqsubseteq^{\ominus} (c,d)$ and $(b,a)
-  \sqsubseteq^{\ominus} (d,c)$.  We want to show that $a =d$ and $b
-  =c$.    By construction it must be that $a = d$.  
-  We also have by construction that $b \sqsubseteq^{\mathbb{M}} c$, $c
-  \sqsubseteq^{\mathbb{M}} b$.  
-  As we noted, $\sqsubseteq^{\mathbb{M} }$ is anti-symmetric by \ref{Mpantisym} and \ref{Mpreverse}, 
-  hence $b = c$. 
+%   Assume that $(a,b) \sqsubseteq^{\ominus} (c,d)$ and $(b,a)
+%   \sqsubseteq^{\ominus} (d,c)$.  We want to show that $a =d$ and $b
+%   =c$.    By construction it must be that $a = d$.  
+%   We also have by construction that $b \sqsubseteq^{\mathbb{M}} c$, $c
+%   \sqsubseteq^{\mathbb{M}} b$.  
+%   As we noted, $\sqsubseteq^{\mathbb{M} }$ is anti-symmetric by \ref{Mpantisym} and \ref{Mpreverse}, 
+%   hence $b = c$. 
 \item asserts that $\sqsupseteq^\ominus$ is the reverse of
   $\sqsubseteq^\ominus$, which follows directly by construction
 \item asserts that ``if $w \sqsubseteq^\ominus v$ then ($w \in V (p)$
@@ -523,7 +523,7 @@ We may also note by \ref{MpI} that $w
 With the above, we have what we need to prove the central result
 regarding these subsystems:
 
-\begin{theorem}[$\BM/\BP$ Embedding, Soundness and
+\begin{theorem}[$\BM/\BP$ \textsc{EviL} Soundness and
   Completenesses]\label{lotsocompleteness}\ \\
 \begin{minipage}[b]{0.5\linewidth}
 Assume $\Gamma \cup \{\phi\} \subseteq \mathcal{L}^\boxminus(\Phi,\mathcal{A})$. The following are equivalent:
@@ -678,7 +678,7 @@ formalized to give multi-agent fragments of \textsc{EviL}.  On the
 other hand, we observe that while single agent intuition generalizes
 to multiple agents in a straightforward manner for the main
 \textsc{EviL} calculus, this is not so for the fragments of the calculus.
-It is for lack of logical parsimony that we have restricted ourselves
+It is for lack of logical parsimony that we have decided to restrict ourselves
 to single agent \textsc{EviL} for the fragments presented here.
 
 %%% Local Variables: 

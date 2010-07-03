@@ -12,6 +12,19 @@ axiom says.  As remarked in \S\ref{validities}, \textsc{EviL} is not
 Needless to say, these axioms shall be the focus of study for all of
 our future investigations in \S\ref{army-of-darkness}.
 
+As a final remark, we should mention that \textsc{EviL} trivially
+makes true the \emph{deduction} theorem. This is because we follow
+the convention set forth in \cite[Definition 4.4,
+pg. 192]{blackburn_modal_2001}, and make the subsequent stipulation:
+\begin{mydef}
+\[ \Gamma \vdash \phi \iff  \exists \Delta \subseteq_\omega
+\Gamma. \vdash \bigwedge \Delta \phi \]
+\end{mydef}
+While trivial, the deduction theorem plays a key role in the proof of
+the Theorem Theorem, Theorem \ref{theorem-theorem} from
+\S\ref{evil-grammar}.  Specifically, it is this definition that
+justifies equation \ref{eq:deduction-theorem2}.
+
 % We immediately have the following theorem:
 % \begin{theorem}[Soundness]
 % If $\vdash \phi$ then for any model $\mathfrak{M}$ and any 

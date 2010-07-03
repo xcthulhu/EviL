@@ -1,9 +1,13 @@
 In this section, we show how \textsc{EviL} may be extended with a
-universal modality.  Just as the previous section illustrated that
+universal modality $U$, as presented in \cite[chapter 7, pg
+79]{van_benthem_modal_2010}.  Just as the previous section illustrated that
 looking at fragments of \textsc{EviL} added complexity to the
 completeness theorem, so too do natural extensions to the calculus.
+We shall mention the relationship of the universal modality to
+traditional epistemic logic, and discuss an analogue of the Theorem
+Theorem that the universal modality obeys.
 
-In this section, we shall provide sketches rather than elaborate
+In this section, we shall provide sketches rather than the more extensive
 proofs as we have so far provided.  This is because we really intend
 for the results in this section to be minor modifications of our
 previous results.  Our intention is to indicate what modifications are
@@ -28,7 +32,26 @@ models:
 \[ \Omega, w \VDash U \phi \iff \Omega, v \VDash \phi\textup{
   for all $v \in \Omega$} \]
 
-As noted in \cite[pg. 67, Chapter 6]{van_benthem_modal_2010},
+Universal modality has its own associated analogue of the Theorem Theorem, which while
+rather trivial, nonetheless allows us to understand the connection of
+semantics of $U \phi$ to the logic of \textsc{EviL}:
+\begin{proposition}
+\[\Omega,(a,A) \VDash U \phi \iff Th(\Omega) \vdash \phi\]
+\end{proposition}
+Note that since $Th(\Omega)$ is necessarily closed under deduction,
+then the above means that $\phi \in Th(\Omega)$.
+
+Compare this with the original Theorem Theorem:
+\[ \Omega,(a,A) \VDash \Box_X \phi \iff 
+Th(\Omega) \cup A_X \vdash \phi \]
+
+Previously, the
+background knowledge $Th(\Omega)$ was implicit in the 
+Theorem Theorem
+reading of the semantics of $\Box_X \phi$; we can see now that $U$
+makes these semantics explicit.
+
+As mentioned in \cite[Chapter 7.4]{van_benthem_modal_2010},
 universal modality is closely related to the modal logic $S5$. Below,
 we state the axioms for the univesal modality in \textsc{EviL}, which
 are recognizably the axioms for $S5$, along with other axioms asserting
@@ -42,9 +65,11 @@ that the other relations are subrelations of $U$.
 \setcounter{rownum2}{0}
 \begin{tabular}{|ll|}
 \hline
-   (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash U \phi \rightarrow  \phi$\\
+  (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash U
+  (\phi \to \psi) \to U \phi \to U \psi$\\
+   (\refstepcounter{rownum}U\arabic{rownum})&\label{Urefl}$ \vdash U \phi \rightarrow  \phi$\\
   (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash U \phi \to U U \phi$\\
-  (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \neg U \phi \to U
+  (\refstepcounter{rownum}U\arabic{rownum})&\label{Uintro}$ \vdash \neg U \phi \to U
   \neg U \phi$\\
   (\refstepcounter{rownum}U\arabic{rownum})\label{BoxU}&$ \vdash U
   \phi \to \Box_X \phi$\\
@@ -52,10 +77,14 @@ that the other relations are subrelations of $U$.
   \phi \to \BM_X \phi$\\
   (\refstepcounter{rownum}U\arabic{rownum})\label{BPU}&$ \vdash U
   \phi \to \BP_X \phi$\\
+(\addtocounter{rownum2}{1}\Roman{rownum2}) &
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash U \phi$}
+\DisplayProof$  \\% [10pt]
 \hline
 \end{tabular}
-\caption{Axioms for Universal Modality}
-\label{table:axiomsII}
+\caption{Additional axiom and rules for the universal modality}
+\label{table:Uaxioms}
 \end{table}
 
 We can think of the universal modality axioms (appropriately
@@ -66,7 +95,7 @@ U\textsc{EviL},
 \textsc{EviL}$^\BP$ extends to U\textsc{EviL}$^\BP$.  Abstract completeness
 for all three systems is achieved in a similar manner.
 
-\begin{theorem}[Universal \textsc{EviL} Completeness]\ \\
+\begin{theorem}[Universal \textsc{EviL} Soundness and Completeness]\label{universal-completeness}\ \\
 \begin{align*}
 \Gamma \vdash_{U\textup{\textsc{EviL}}} \phi & \iff \Gamma\Vdash_{\textup{\textsc{EviL}}}
 \phi \\
@@ -80,19 +109,24 @@ for all three systems is achieved in a similar manner.
 Soundness in all cases is straightforward.
 
 For completeness, in each case we carry out the canonical model
-construction, 
-which will enforce that the accessibility relation associated with $U$ forms
+construction.
+Note that axioms \ref{Urefl}--\ref{Uintro} enforce 
+that the accessibility relation associated with $U$ forms
 a partition on the canonical model, and at every point within a
-given partition, the other relations are a subrelation of the
+given partition.  Axioms \ref{BoxU}--\ref{BPU} ensure the other relations are a subrelation of the
 candidate universal relation.  In each case the canonical model construction will
 provide a world $w$ which witnesses $\Gamma$ but does not witness
-$\phi$; to complete the construction, one need only take a \emph{point
-  generated submodel} around $w$ \cite[chapter 2]{blackburn_modal_2001}, which preserves the truth of all
-formulae at $w$ but establishes $U$ a universal modality.
+$\phi$.  To complete the construction, one need only take a \emph{point
+  generated submodel} around $w$; see \cite[chapter
+2, pg. 210]{blackburn_modal_2001} for a discussion on how ``A point
+generated submodel suffices.''
+This construction preserves the truth of all formulae at $w$ but 
+establishes $U$ as a universal modality.
 
 From there, it is straightforward to verify that all of the bisimilar
-model completions we have investigated preserve universal modality.
-In each case, these may be used just as before to establish the
+model completions we have investigated preserve the truth of $U \phi$
+and $\neg U \phi$ at every world.
+In each case, these bisimilar completions may be used just as before to establish the
 abstract completeness theorem desired.
 \end{proof}
 
@@ -101,22 +135,33 @@ theorems may be adapted, our finitary approaches may be modified to
 accommodate universal modality as well.
 
 \begin{theorem}[Small Model Property for Universal \textsc{EviL}]\ \\
-For any universal \textsc{EviL} formula $\phi$, if it satifiable then
+For any universal \textsc{EviL} formula $\phi$, if it satisfiable then
 it is satisfiable in an \textsc{EviL} model with $O(EXP2(|\phi|))$
 many worlds.
 \end{theorem}
 \begin{proof}
-To see this, simply adapt the finite canonical model construction
-$\invis$ we
-previously saw in \ref{small-model}.  An important modification to
-this construction is to define:
+By assumptions and soundness, we know that $\nvdash \neg
+\phi$, so we can make a finite model by using the finite canonical model construction
+$\Cross$ we
+previously saw in \S\ref{small-model}.  As with the abstract canonical
+model construction, we shall ultimately want to take a point-generated
+submodel around the world we constructed which witnesses $\phi$.
+
+Just as in the original definition of $\Cross$, our finite model
+construction needs a special definition for the universal modality.
+Define the relation associated with the universal
+modality as follows:
 \[ w U v \iff (U \phi \in w \iff U \phi \in v)\]
 
-This will enforce that $U$ forms an $S5$ modality; see \cite[chapter
-5, pgs. 81--82]{boolos_logic_1995} for details.  
+Where $\mathbb{M}, w \Vdash U \phi \iff $ for all $v \in W$. 
+
+Along with the axioms \ref{Urefl}--\ref{Uintro}, these will enforce
+that $U$ forms an $S5$ modality; see 
+\cite[chapter 5, pgs. 81--82]{boolos_logic_1995} for details.  
 
 To ensure that the other relations are subrelations of $U$, 
-one needs to ensure that $\Sigma$ is defined as follows:
+one needs to ensure that $\Sigma$ is extended so the definition
+includes the following:
 \begin{align*}
 \Sigma(\Delta,U \phi) := &   \{ U \phi, \neg U \phi \} \cup \\
 & \{ \Nec_X \phi,\neg \Nec_X \phi, \\
@@ -125,9 +170,97 @@ one needs to ensure that $\Sigma$ is defined as follows:
 \}
 \end{align*}
 Given $\Sigma$ constructed in this fashion, one may readily verify
-that the Universal
-\textsc{EviL} axioms enforce the other relations  
+that the Universal \textsc{EviL} axioms enforce the that other
+relations are subrelations of our candidate Universal relation.  One
+may then use the $\invis$ bisimulation to complete $\Cross$ from
+partly \textsc{EviL} Kripke structure to a fully \textsc{EviL} Kripke structure.
+
+Furthermore, we may note that the complexity of $\Sigma$ is unchanged by
+this modification, so our previous bound of $O(EXP2(|\phi|))$ we gave
+on the number of worlds in $\Cross$ and $\invis^\Cross$ do not change from what we
+provided in Theorem \ref{small-model-property}.
 \end{proof}
+
+The above small model property has two consequences:
+
+\begin{theorem}[$U\textup{\textsc{EviL}}$ Decidability]\label{uevil-decidability}\ 
+$U\textup{\textsc{EviL}}$, $U\textup{\textsc{EviL}$^\BM$}$, and
+$U\textup{\textsc{EviL}$^\BP$}$  are decidable and 
+the time complexity of their decision problems is bounded above by $O(EXP3(|\phi|))$
+\end{theorem}
+\begin{proof}
+The proof proceeds the same as the proof of Theorem
+\ref{evil-decidability}, the \textsc{EviL} decidability theorem 
+from \S\ref{small-model}.
+\end{proof}
+
+\begin{theorem}\label{UEviL-concrete}
+Assuming that $\Gamma$ is finite and the set of letters $\Phi$ is universal:
+\begin{align*}
+\Gamma \vdash_{U\textup{\textsc{EviL}}} \phi & \iff \Gamma\VDash \phi \\
+\Gamma \vdash_{U\textup{\textsc{EviL}$^\BM$}} \phi & \iff \Gamma\VDash \phi \\
+\Gamma \vdash_{U\textup{\textsc{EviL}}^\BP} \phi & \iff \Gamma\VDash \phi
+\end{align*}
+\end{theorem}
+\begin{proof}
+Since by Theorem \ref{universal-completeness}, we know that 
+$U\textup{\textsc{EviL}$^\BM$}$ and
+  $U\textup{\textsc{EviL}$^\BP$}$ are subsystems of 
+$U\textup{\textsc{EviL}}$, we need only prove that
+\begin{align*}
+\Gamma \vdash_{U\textup{\textsc{EviL}}} \phi & \iff \Gamma\VDash \phi 
+\end{align*}
+As usual, we only prove completeness.  Assume that $\Gamma
+\vdash_{U\textup{\textsc{EviL}}} \phi$, then we know there is some
+finite \textsc{EviL} Kripke structure $\mathbb{M}$ with a 
+world $w$ such that
+$\mathbb{M},w \nVdash \bigwedge \Gamma \to \phi$.  
+Next, we may employ
+induction to extend Lemma \ref{translation-lemma}, the \textsc{EviL}
+translation lemma from \S\ref{translation}, to include among
+other equivalences 
+\[ \mathbb{M}, w \Vdash U \psi \iff \ipent, \kl(w) \VDash U \psi. \]
+Here $U \psi $ is assumed to be a subformula of $\phi$.  This
+establishes that $\ipent, \kl(w) \nVDash \bigwedge \Gamma \to \phi$,
+giving the desired completeness result.
+\end{proof}
+
+As in the previous section, we admit that we have
+made certain design choices here for the sake of simplicity.
+Universal modality hints, however, at richer semantics one might
+choose to develop.
+
+For instance, we might imagine an our original concrete \textsc{EviL} models might
+have, associated with them, a family of indexed accessibility
+relations $R_X$ representing traditional epistemic logic 
+ accessibility relations.
+The semantics for $\Box_X \phi$ would then be characterized as:
+\[ \Omega, (a,A) \VDash \Box_X \phi \iff \forall a R_X
+b. \Omega,(b,B) \VDash A_X \textup{ implies } \Omega,(b,B) \VDash
+\phi \]
+It is straightforward to see that \textsc{EviL} is sound and complete
+for these semantics, given our previous results.  We could then extend
+\textsc{EviL} with traditional epistemic modalities corresponding to
+the accessibility relations postulated.  Our original Theorem Theorem
+would have to be relativized in the following manner:
+
+\[ \Omega, (a,A) \VDash \Box_X \phi \iff Th(R[a]) \cup A \vdash \phi \]
+
+Moreover, we could safely extend the grammar of the belief sets to include
+formulae containing old-fashioned epistemic modalities, governed by
+the accessibility relation. One could alternately investigate other extended
+modalities as well, such as the \emph{difference} modality presented
+in \cite[chapter 7.4]{van_benthem_modal_2010}.  Universal modality suggests that there
+are many modifications that could potentially be made to \textsc{EviL}, 
+
+However, a system where every agent is equipped with an accessibility
+relation is more complicated than the simple, universal
+modality semantics we have developed for \textsc{EviL}, 
+As in \S\ref{subsystems}, we did not choose to modify
+\textsc{EviL} in some of the more exotic ways one might imagine,
+precisely because we wanted \textsc{EviL} to conform to our original
+intuitions we developed in \S\ref{philosophy}.
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "evil_philosophy"

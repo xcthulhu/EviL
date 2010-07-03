@@ -11,19 +11,19 @@ all agents $\{X,Y\} \subseteq \mathcal{A}$:
   \begin{enumerate}[label=\textup{(\emph{\Roman*})$'$}, topsep=0.0in, parsep=0.075in]
     \item\label{ppI} $\sqsubseteq_X$ is reflexive
     \item \label{pptrans} $\sqsubseteq_X$ is transitive 
-    \item \label{ppantisym} $\sqsubseteq$ is a partial order
+%    \item \label{ppantisym} $\sqsubseteq$ is a partial order
     \item \label{ppreverse} $w \sqsubseteq_X v$ if and only if $v
     \sqsupseteq_X w$
     \item \label{islandiff} If $w \sqsubseteq_X v$ then ($w \in V (p)$ if and only if $v
     \in V (p)$)
+    \item\label{ppIX} If $w \in P_X$ and $w \sqsupseteq_X v$ then $v
+    \in P_X$
     \item \label{ppV} $(R_X \circ \sqsubseteq_X) \subseteq R_X$
     \item \label{ppVI} 
     $(\sqsubseteq_Y \circ R_X) \subseteq R_X$ and \\
     $(\sqsupseteq_Y \circ R_X) \subseteq R_X$
     \item\label{ppVII} If $w \in P_X$ then $w
     R_X w$
-    \item\label{ppIX} If $w \in P_X$ and $w \sqsupseteq_X v$ then $v
-    \in P_X$
   \end{enumerate}
 \end{definition}
 
@@ -40,7 +40,7 @@ We shall write
 \[ \Gamma \Vdash_{\textup{p\textsc{EviL}}} \phi \]
 to mean that for all partly \textsc{EviL} Kripke structures
 $\mathbb{M} = \langle W, R, \sqsubseteq, \sqsupseteq, V, P \rangle$,
-for all worlds $w \in W$ if $\mathbb{M},w \Vdash \Gamma$ then $\mathbb{M} \Vdash \phi$.
+for all worlds $w \in W$ if $\mathbb{M},w \Vdash \Gamma$ then $\mathbb{M},w \Vdash \phi$.
 \end{definition}
 
 \begin{theorem}[Partly \textsc{EviL} Strong Soundness and
@@ -58,7 +58,7 @@ use of \emph{correspondence} theory, namely the \emph{Sahlqvist
   Correspondence Theorem} \cite[Theorem 4.42,
 pg. 212]{blackburn_modal_2001}.  We note that the axioms
 \eqref{reflAx}, \eqref{transAx}, \eqref{downConceive}, \eqref{islandDown},
-\eqref{islandUp}, \eqref{soundness}, \eqref{downsound},
+\eqref{islandUp}, \eqref{soundnessax}, \eqref{downsound},
 \eqref{reverseAx1} and
 \eqref{reverseAx2} are all
 \emph{Sahlqvist formulae}.  When we say that a particular fact corresponds to an
@@ -129,28 +129,27 @@ corresponds to axiom \eqref{downConceive}
 % This is because axiom \eqref{downConceive} is a Sahlqvist
 % formula and together with \ref{ppreverse} it codes for exactly this assertion.
 
-    \item[\ref{ppIX}] ``If $w \in P_X$ and $w \sqsupseteq_X
-      v$ then $v \in P_X$'' corresponds to axiom \eqref{downsound}.
 
-     \item[\ref{ppantisym}] We have deferred the proof that
-      $\sqsubseteq$ is a partial order, since it depends on the above
-      results.  We know that it is reflexive and transitive by
-      \ref{ppI} and \ref{pptrans}.  All that is left is to show that
-      it is anti-symmetric.  Assume that $w \sqsubseteq v$ and $v
-      \sqsubseteq w$.  By the Truth Lemma it suffices to show that
-      $\mathscr{E}, w \Vdash \phi$ if and only if $\mathscr{E}, v
-      \Vdash \phi$, since then $\phi \in w$ if and only if $\phi \in v$.  We shall show this by induction on $\phi$.
-      \begin{description}
-        \item[$p \in \Phi$ --]  We have this step from the assumption
-          that $w \sqsubseteq v$ and \ref{islandiff}.
-        \item[$\bot$ --]  This case is trivially true.
-        \item[$\BP_X \phi$ and $\BM_X\phi$ --]  These steps follows from
-          \ref{pptrans}, \ref{ppreverse} and the assumption.
-        \item[$\Box_X \phi$ --]  This case follows from \ref{ppV} and
-          the assumption.
-        \item[$\PP_X$ --] This step follows from \ref{ppIX} and the assumption.
-        \item[$\phi \to \psi$ --]  The final step follows trivially from the inductive hypothesis.
-      \end{description}
+
+     % \item[\ref{ppantisym}] We have deferred the proof that
+     %  $\sqsubseteq$ is a partial order, since it depends on the above
+     %  results.  We know that it is reflexive and transitive by
+     %  \ref{ppI} and \ref{pptrans}.  All that is left is to show that
+     %  it is anti-symmetric.  Assume that $w \sqsubseteq v$ and $v
+     %  \sqsubseteq w$.  By the Truth Lemma it suffices to show that
+     %  $\mathscr{E}, w \Vdash \phi$ if and only if $\mathscr{E}, v
+     %  \Vdash \phi$, since then $\phi \in w$ if and only if $\phi \in v$.  We shall show this by induction on $\phi$.
+     %  \begin{description}
+     %    \item[$p \in \Phi$ --]  We have this step from the assumption
+     %      that $w \sqsubseteq v$ and \ref{islandiff}.
+     %    \item[$\bot$ --]  This case is trivially true.
+     %    \item[$\BP_X \phi$ and $\BM_X\phi$ --]  These steps follows from
+     %      \ref{pptrans}, \ref{ppreverse} and the assumption.
+     %    \item[$\Box_X \phi$ --]  This case follows from \ref{ppV} and
+     %      the assumption.
+     %    \item[$\PP_X$ --] This step follows from \ref{ppIX} and the assumption.
+     %    \item[$\phi \to \psi$ --]  The final step follows trivially from the inductive hypothesis.
+     %  \end{description}
 
     %   Assume that $x \sqsubseteq_X 
 
@@ -174,11 +173,13 @@ corresponds to axiom \eqref{downConceive}
 & (\sqsubseteq_Y \circ R_X) \subseteq R_X \\
 & \& \\
 &  (\sqsupseteq_Y \circ R_X) \subseteq R_X
+    \item[\ref{ppIX}] ``If $w \in P_X$ and $w \sqsupseteq_X
+      v$ then $v \in P_X$'' corresponds to axiom \eqref{downsound}.
 \end{eqnarray*}
 corresponds to axioms \eqref{islandDown} and \eqref{islandUp}.
 
     \item[\ref{ppVII}] ``If $w \in P (X)$ then $w R_X w$'' corresponds
-      to axiom \eqref{soundness}.
+      to axiom \eqref{soundnessax}.
 
   \end{description}
 

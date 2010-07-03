@@ -1,0 +1,438 @@
+\subsubsection{Introduction}
+In this section, we remark on the connection that single agent \textsc{EviL} bears
+to \emph{intuitionistic logic}.
+
+Informally, we may find inspiration in the following quote:
+\begin{quote}
+To be sure, intuitionistic logic, too, has its Kripke-style possible
+world semantics \ldots Worlds stand for information states,
+accessibility encodes possible informational growth, and truth at a
+world corresponds intuitively to epistemic `forcing' by the available
+evidence there.
+\cite{van_benthem_reflectionsepistemic_1991}
+\end{quote}
+
+This key observation is analogous to our perspective on agents we took
+up in \S\ref{quine}.  Recall that we thought of agents as
+\emph{posets}, where higher nodes represented the agent embracing more 
+evidence.  This can be regarded as the essentially the perspective as
+the epistemic reading of intuitionistic logic given above.  On the
+other hand, another \textsc{EviL} connection to traditional
+intuitionistic logic may be seen found. This corresponds to a
+well known proposal for constructive semantics extended by Hilary
+Putnam, who suggests ``To claim a statement is true is to claim it
+could be justified'' \cite{putnam_problem_1981}.  
+Since our proposed The Theorem Theorem (Theorem
+\ref{theorem-theorem} from \S\ref{evil-grammar}), equates $\Box$-boxed
+formulae with justification, shall see that this philosophical insight
+may be leveraged formal insight observation.
+
+The rest of this section is devoted to illustrating the \textsc{EviL}
+connection to intuitionistic logic.
+
+\subsubsection{Preliminaries}
+
+We first recall the Kripke semantics for intuitionistic logic may be given
+as follows:
+
+\begin{definition}[Intuitionistic Kripke Structures]
+Let $\mathbb{P} = \langle W, \sqsubseteq, V\rangle$ be a Kripke
+structure.  We say that $\mathbb{P}$ is \textbf{intuitionistic} if
+$\sqsubseteq$ is transitive and reflexive and $V$ is \textbf{monotone}, that is
+if $w \in V(p)$ and $v \sqsupseteq w$ then $v \in V(p)$ (here $v
+\sqsupseteq w$ is just shorthand for $w \sqsubseteq v$).
+\end{definition}
+
+The of intuitionistic language is similar to the basic grammar
+$\mathcal{L}_0$
+
+\begin{definition}
+Define the grammar $\mathcal{L}_I(\Phi)$ as follows:
+\begin{eqnarray*}
+& \phi\ {::=} \  p \in \Phi \ |\ \bot\ |\ \phi \to \psi \
+|\ \phi \wedge \phi \ |\ \phi \vee \psi &\label{LI}
+\end{eqnarray*}
+\end{definition}
+
+Likewise, the intuitionistic truth predicate $\Vvdash$ is similar to
+$\Vdash$, and can be seen as a function which takes as input:
+\begin{bul}
+  \item A Kripke structure $\mathbb{P}$
+  \item A world $w$
+  \item An $\mathcal{L}_I$ formula $\phi$
+\end{bul}
+And outputs something is \textsf{bool}.  This may be written
+technically as:
+\[ (\Vvdash) \colons \mathcal{K}_{\Phi, I} \to I \to
+\mathcal{L}_0(\Phi) \to \text{\textsf{bool}}\]
+It is defined recursively as follows:
+\begin{definition}
+  Let $\mathbbm{P} = \langle W, \sqsubseteq, V\rangle$ be a Kripke structure:
+  \begin{eqnarray*}
+    \mathbbm{P}, w \Vvdash p & \Longleftrightarrow & w \in V
+    (p)\\
+    \mathbbm{P}, w \Vvdash \phi \rightarrow \psi & \Longleftrightarrow &
+    \textup{for all $v \sqsupseteq w$: }\mathbbm{P}, v \Vvdash \phi \text{ implies } \mathbbm{P}, v \Vvdash \psi\\
+    \mathbbm{P}, w \Vvdash \bot & \Longleftrightarrow & \text{False}\\
+    \mathbbm{P}, w \Vvdash \phi \wedge \psi & \Longleftrightarrow & 
+\mathbbm{P}, w \Vvdash \phi  \textup{ \& } \mathbbm{P}, w \Vvdash \psi
+\\
+    \mathbbm{P}, w \Vvdash \phi \vee \psi & \Longleftrightarrow & 
+\mathbbm{P}, w \Vvdash \phi \textup{ or } \mathbbm{P}, w \Vvdash \psi
+  \end{eqnarray*}
+\end{definition}
+
+Next, we present an axiomatization of \emph{Intuitionistic Logic},
+which can be found in Table \ref{table:Iaxioms} below.  These axioms
+are taken from \cite[chapter 5, pgs. 104--107]{urzyczyn_lecturescurry-howard_2006}.
+\begin{table}
+\centering
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabular}{|ll|}
+\hline
+  (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \phi \to \psi \to \phi$\\
+   (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash (\phi \to \psi
+   \to \chi) \to (\phi \to \psi) \to \phi \to \chi$\\
+   (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \phi \wedge \psi \to
+   \phi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \phi \wedge \psi \to
+ \psi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash (\phi \to \psi)
+ \to (\phi \to \chi) \to (\phi \to \psi \wedge \chi)$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \phi \to \phi \vee \psi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \psi \to \phi \vee
+ \psi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash (\phi \to \chi)
+ \to (\psi \to \chi) \to (\phi \vee \psi) \to \chi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \bot \to \phi$\\
+(\refstepcounter{rownum2}\Roman{rownum2}) & \AxiomC{$\vdash \phi \to
+  \psi$} \AxiomC{$\vdash \phi$} \BinaryInfC{$\vdash \psi$}
+\DisplayProof \\ % & Modus Ponens\\%[10pt]
+\hline
+\end{tabular}
+\caption{Intuitionistic Logic}
+\label{table:Iaxioms}
+\end{table}
+Intuitionistic logic can be easily understood as the logic of
+intuitionistic Kripke structures:
+\begin{definition}
+We shall write
+\[ \Gamma \Vvdash_{Int} \phi \]
+to mean that for all intuitionistic Kripke structures
+$\mathbb{P} = \langle W, \sqsubseteq, V\rangle$,
+for all worlds $w \in W$ if $\mathbb{P},w \Vvdash \Gamma$ then
+$\mathbb{M},w \Vvdash \phi$.
+\end{definition}
+\begin{theorem}[Strong Intuitionistic Soundness and Completeness]\label{instroncomp}
+\[ \Gamma \vdash_{Int} \phi \iff \Gamma \Vvdash_{Int} \phi \]
+\end{theorem}
+\begin{proof}
+This is Proposition 5.1.10 from \cite[chapter 5, pg. 107]{urzyczyn_lecturescurry-howard_2006}.
+\end{proof}
+
+\subsubsection{The \textsc{EviL} G\"{o}del-Tarski-McKinsey Embedding}
+
+In order understand how intutionistic logic connects to \textsc{EviL},
+we shall first review the traditional G\"{o}del-Tarski-McKinsey
+embedding of intuitionistic logic into the modal logic $S4$.  We
+briefly review the grammar and axiomatics of $S4$ before proceeding:
+\begin{definition}
+Define the grammar $\mathcal{L}_{S4}(\Phi)$ as follows:
+\begin{eqnarray*}
+& \phi\ {::=} \  p \in \Phi \ |\ \bot\ |\ \phi \to \psi \
+|\ \BP \phi &\label{LI}
+\end{eqnarray*}
+\end{definition}
+
+The axiom systems $S4$ is listed in Table \ref{table:S4axioms}.  We
+next review the completeness theorem for $S4$:
+\begin{table}
+\centering
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabular}{|ll|}
+\hline
+  (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \phi \to \psi \to \phi$\\
+   (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash (\phi \to \psi
+   \to \chi) \to (\phi \to \psi) \to \phi \to \chi$\\
+   (\refstepcounter{rownum}U\arabic{rownum})&
+$ \vdash (\neg \psi \to \neg \phi) \to \phi \to \psi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \BP \phi \to \phi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \BP \phi \to \BP
+ \BP \phi$\\
+ (\refstepcounter{rownum}U\arabic{rownum})&$ \vdash \BP(\phi \to \psi)
+ \to \BP \phi \to \BP \psi$\\
+(\refstepcounter{rownum2}\Roman{rownum2}) & \AxiomC{$\vdash \phi \to
+  \psi$} \AxiomC{$\vdash \phi$} \BinaryInfC{$\vdash \psi$}
+\DisplayProof \\ % & Modus Ponens\\%[10pt]
+(\addtocounter{rownum2}{1}\Roman{rownum2}) &
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash \BP \phi$}
+\DisplayProof$  \\% [10pt]
+\hline
+\end{tabular}
+\caption{The Modal Logic $S4$}
+\label{table:S4axioms}
+\end{table}
+
+\begin{definition}
+We shall write
+\[ \Gamma \Vdash_{S4} \phi \]
+to mean that for all Kripke structures
+$\mathbb{P} = \langle W, \sqsubseteq, V\rangle$, where $\sqsubseteq$
+is transitive and reflexive, for all worlds $w \in W$,
+ if $\mathbb{P},w \Vdash \Gamma$ then
+$\mathbb{P},w \Vdash \phi$.
+\end{definition}
+
+\begin{theorem}[$S4$ Strong Soundness and Completeness]
+\[ \Gamma \vdash_{S4} \phi \iff \Vdash_{S4} \phi \]
+\end{theorem}
+\begin{proof}
+This is Theorem 4.29 of \cite[chapter 4.3, pg. 205]{blackburn_modal_2001}.
+\end{proof}
+
+With the above, we may now provide the traditional G\"{o}del-Tarski-McKinsey embedding:
+
+\begin{mydef}
+The  G\"{o}del-Tarski-McKinsey embedding $(\cdot)^\circ :
+\mathcal{L}_I \to \mathcal{L}_{S4}$ is a primitive recursively
+defined function that takes formulae in the language of intuitionistic
+logic to formulae in the language of $S4$.  It may given
+programmatically as follows: 
+\begin{align*}
+  p^\circ & := \BP p \\
+  \bot^\circ & := \bot \\
+  (\phi \to \psi)^\circ & := \BP(\phi^\circ \to \psi^\circ) \\
+  (\phi \wedge \psi)^\circ & := \phi^\circ \wedge \psi^\circ \\
+  (\phi \vee \psi)^\circ & := \phi^\circ \vee \psi^\circ \\
+\end{align*}
+\end{mydef}
+
+\begin{theorem}
+\[ \Gamma \vdash_{Int} \phi \iff \Gamma^\circ \vdash_{S4} \phi^\circ \]
+\end{theorem}
+\begin{proof}
+  This is Theorem 3.83 of \cite[chapter 3, pg. 97]{chagrov_modal_1997}.
+\end{proof}
+
+The \textsc{EviL} variation on the above embedding emanates from the
+following observation, which holds for all \textsc{EviL} $\mathbb{M}$:
+
+\[ \mathbb{M},w \Vdash \Box \phi\ \  \&\ \ w \subseteq v
+\Longrightarrow \mathbb{M},w \Vdash \Box \phi \]
+
+This is a consequence of the \textsc{EviL} property \ref{pV}.  Hence every \textsc{EviL} Kripke structure can be translated into an
+intuitionistic structure in the following manner:
+
+\begin{definition}
+For every Kripke structure$\mathbb{M} = \langle W, R, \sqsubseteq,
+\sqsupseteq, V, P \rangle$, define:
+\[ \rho\mathbb{M} := \langle W, \sqsubseteq, V'\rangle\]
+Where $V'(p) := \{ w \in W\ |\ \mathbb{M},v \Vdash \Box p$
+\end{definition}
+
+Since the Theorem Theorem asserts that we may interpret
+$\mathfrak{M},(a,A) \VDash \Box p$ as ``the \textsc{EviL} agent has
+can justify $p$ using her evidence $A$'', we may construe the above
+definition as associating ``Truth'' with ``could be justified'',
+following Hilary Putnam's suggestion in
+\cite{putnam_problem_1981}. Note that this intuition emanates from the
+special interpretation we gave concrete \textsc{EviL} models.  
+On the other hand, while our intuitions are grounded in our concrete
+semantics, we are unhindered by them.  All of our theorems take
+place in the abstract semantics, where we may obtain our results in
+a higher level of generality.
+
+\begin{lemma}\labe{companion-int}
+If $\mathbb{M}$ is \textsc{EviL} then $\rho \mathbb{M}$ is an intuitionistic Kripke structure.
+\end{lemma}
+\begin{proof}
+As we previously remarked, $\rho\mathbb{M}$ is intuitionistic as a
+consequence of the \textsc{EviL} property \ref{pV}.
+\end{proof}
+
+Thinking about this embedding, may arrive at our translation:
+
+\begin{mydef}
+The \textsc{EviL} G\"{o}del-Tarski-McKinsey embedding $(\cdot)^\skull:
+\mathcal{L}_I(\Phi) \to \mathcal{L}_{\textup{\textsc{EviL}}}(\Phi)$ is a primitive recursively
+defined function that takes formulae in the language of intuitionistic
+logic to formulae in the language of $S4$.  It may given
+programmatically as follows: 
+\begin{align*}
+  p^\skull & := \Box p \\
+  \bot^\skull & := \bot \\
+  (\phi \to \psi)^\skull & := \BP(\phi^\skull \to \psi^\skull) \\
+  (\phi \wedge \psi)^\skull & := \phi^\skull \wedge \psi^\skull \\
+  (\phi \vee \psi)^\skull & := \phi^\skull \vee \psi^\skull \\
+\end{align*}
+\end{mydef}
+
+\begin{lemma}\label{companion}If $\mathbb{M}$ is an \textsc{EviL} Kripke structure,
+  then for all worlds $w \in W$ and for all $\phi \in \mathcal{L}(\Phi)$:
+\[ \rho\mathbb{M},w\Vvdash \phi \iff \Mathbb{M},w\Vdash \phi^\skull 
+\] 
+\end{lemma}
+\begin{proof}
+The proof proceeds by a trivial induction on $\phi$.
+\end{proof}
+
+Hence, every \textsc{EviL} Kripke structure may be coerced into an
+intuitionistic Kripke structure which faithfully preserves the truth
+of all intuitionistic formulae up to translation.
+
+We may also observe that every intuitionistic Kripke structure may be
+coerced into a \textsc{EviL} Kripke structure in a similar manner:
+
+\begin{mydef}
+For every Kripke structure $\mathbb{P} = \langle W, \sqsubseteq,
+V\rangle$, and for every set of letters $\Phi$ define:
+\[ \partial\mathbb{P} := \langle W', R, \preccurlyeq, \succcurlyeq,
+V'\rangle, P\]
+Where 
+\begin{align*}
+W' & := W \uplus \powerset \Phi \\
+R & := \{(w,\Psi) \in W \times \powerset \Phi \ |\ \forall p \in
+\Phi. \mathbb{P},w \Vvdash
+p \Longrightarrow p \in \Psi \} \\
+\preccurlyeq & :=\ \sqsubseteq \cup \{(\Psi,\Psi) \in \Phi \times \Phi\ |\ \Psi \subseteq
+\Phi\} \\
+\succcurlyeq & := \{(w,v) \in W\times W\ |\ v \preccurlyeq w\} \\
+V'(p) & := \{ \Psi \subseteq \Phi\ | \ p \in \Psi\} \\
+P & := \varnothing
+\end{align*}
+\end{mydef}
+
+Before proceeding, the intuition behind the above construction is that
+the we will leave the accessibility of the original intuitionistic
+structure $\mathbb{P}$ intact, however we will commute local truth
+valuations to non-local truth valuations by adding new worlds. 
+The new worlds represent every possible extension of the truth values 
+for one of the original intuitionistic structure.  
+Moreover, each new world is an island unto itself.
+
+The above coercion is enough to turn any intuitionist Kripke structure
+into an \textsc{EviL} one:
+\begin{lemma}\label{turningevil}
+If $\mathbb{P}$ is an intuitionistic Kripke structure, then $\partial
+\mathbb{P}$ is \textsc{EviL}
+\end{lemma}
+\begin{proof}
+The \textsc{EviL} properties \ref{pI}, \ref{pII}, \ref{preverse} and
+\ref{pVII} follow immediately by construction and the fact that
+$\mathbb{P}$ is assumed to be intuitionistic. 
+ \begin{description}
+    % \item[\ref{pI}]
+    % \item[\ref{pII}]
+    % \item[\ref{preverse}]
+    \item[\ref{islandiff}]  Assume that $w\preccurlyeq u$.  We must
+      show that for all $p \in \Phi$, $w \in V(p) \iff u \in V(p)$.
+
+If $w \in W^{\partial\mathbb{P}}$, then either $w \in W^\mathbb{P}$ or
+$w \subseteq \Phi$.
+
+      If $w \in W^\mathbb{P}$, then we know by construction that $w
+      \preccurlyeq u \iff w \sqsubseteq^{\mathbb{P}} v$,  hence
+       $u \in W^\mathbb{P}$.  We also know by construction that
+       $\forall p \in \Phi. W^\mathbb{P} \cap V(p) = \varnothing$,
+       hence we have the desired result.
+
+     On the other hand, if $w \subseteq \Phi$ then by construction we
+     have $w \preccurlyeq u \iff w = v$, which suffices.
+
+    \item[\ref{pV}]  We must show $(R \circ \preccurlyeq) \subseteq
+      R$.  So assume that $w \preccurlyeq v$ and $v R u$.  By
+      construction it must be that 
+         \begin{bul}
+           \item $\{w,v\} \subseteq W^{\mathbb{P}}$ 
+           \item There is some $\Psi$ where $u = \Psi \subseteq \Phi$
+           \item If  $\mathbb{P},v \Vvdash p$ then $p \in \Psi$
+         \end{bul}
+      To show $w R u$ we must show $\mathbb{P},w \Vvdash p$ 
+      then $p \in \Psi$.  So fix $p$ and 
+       assume $\mathbb{P},w \Vvdash p$.  We 
+      know by hypothesis that $\mathbb{P}$ is intuitionistic, hence 
+        if $\mathbb{P},w \Vvdash p$
+      then $\mathbb{P},v \Vvdash p$, since $w \sqsubseteq v$.  Hence
+      $\mathbb{P},v \Vvdash p$.  However, we can conclude from above
+      that $p \in \Psi$, which suffices.
+    \item[\ref{pVI}]
+We must show:
+\begin{center}
+ $(\preccurlyeq \circ R)
+      \subseteq R$ \\
+and\\
+    $(\succurlyeq \circ R) \subseteq
+    R$
+\end{center}
+Assume that $w R v$ and $u \sqsubseteq v$ or $v \sqsubseteq u$.  In
+either case we must show $w R u$.  By construction
+      it must be that $w \in W^\mathbb{P}$ and $v \subseteq \Phi$.  
+However, we may
+      again reason by construction that in either of the cases 
+$u \sqsubseteq v$ or $v \sqsubseteq u$, we have $u = v$, whence $w R u$ as desired.
+    \item[\ref{pVII}]  
+
+ %   \item[]
+  \end{description}
+\end{proof}
+
+\begin{lemma}\label{evilcompanion}
+If $\mathbb{P}$ is an intuitionistic Kripke structure, then for all $w
+\in W^{\mathbb{P}}$, we have: 
+\[\mathbb{P},w\Vvdash \phi \iff \partial \mathbb{P},w \Vdash
+\phi^\skull \]
+\end{lemma}
+\begin{proof}
+This proceeds by routine induction on $\phi$.  The only case worth
+mentioning is the case of $p \in \Phi$.
+
+Assume that $\mathbb{P},w\Vvdash p$, then we know that if $w R \Psi$
+then $p \in \Psi$, whence by construction $\partial \mathbb{P}, \Psi
+\Vdash p$.  This means that $\partial \mathbb{P}, w\Vdash \Box p$, and
+since $p^\skull = \Box p$, we have the desired result.
+
+Next assume that $\partial \mathbb{P}, w\Vdash \Box p$, and let $\Xi
+:= \{ q\in \Phi \ |\ \mathbb{P},w\Vvdash q\}$.  Evidently $w R \Xi$.
+Moreover, by assumption we have that $\partial
+\mathbb{P}, \Xi \Vdash p$.  By construction this implies that $\mathbb{P},
+w\Vvdash p$, as desired.
+\end{proof}
+
+\begin{theorem}
+\[ \Gamma \vdash_I \phi \iff \Gamma^\skull \vdash_{\textsc{EviL} \phi^\skull\]
+\end{theorem}
+\begin{proof}
+$\Longrightarrow$: Assume that $\Gamma^\skull \nvdash_{\textsc{EviL}
+  \phi^\skull$, we must show that $\Gamma \nvdash_{Int} \phi$.  By
+  \textsc{EviL} completeness (Theorem \ref{evil-completeness}) we know
+  there is some \textsc{EviL} Kripke structure $\mathbb{M}$ with a
+  world $w$ such that
+$\mathbb{M},w\Vdash \Gamma^\skull$ and
+$\mathbb{M},w\nVdash \phi^\skull$.  By Lemma \ref{companion}, 
+we know that $\rho\mathbb{M},w\Vvdash \Gamma$ and
+$\rho\mathbb{M},w\nVvdash \phi$.  Since $\rho\mathbb{M}$ is
+intuitionistic by Lemma \ref{companion-int}, and $Int$ is sound for
+intuitionistic Kripke structures
+(Theorem \ref{instroncomp}), we have that $\Gamma\nvdash_{Int}\phi$.
+
+$\Longleftarrow$:  The proof proceeds as above, via contraposotion.
+Difference is that here one uses
+intuitionistic completeness (Theorem \ref{instroncomp}), Lemmas
+\ref{turningevil} and \ref{evilcompanion} to coerce intuitionistic
+structures to faithfully turn \textsc{EviL}, and finally \textsc{EviL}
+soundness (Theorem \ref{evil-completeness}).
+\end{proof}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 
+
+

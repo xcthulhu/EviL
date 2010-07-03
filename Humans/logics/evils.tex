@@ -15,16 +15,26 @@
 \begin{tikzpicture}
   \matrix (m) [matrix of math nodes, row sep=4em,
   column sep=3em, text height=1.5ex, text depth=0.25ex]
-  { 
- & |(EVIL)| \textup{\textsc{EviL}} & \\
-|(EVIL-)| \textup{\textsc{EviL}}^\boxminus &  & |(EVIL+)| \textup{\textsc{EviL}}^\boxplus \\
+  {  &  |(UEVIL)| U\textup{\textsc{EviL}} & \\
+ |(UEVIL-)| U\textup{\textsc{EviL}}^\boxminus & |(EVIL)|
+ \textup{\textsc{EviL}} &   |(UEVIL+)| U\textup{\textsc{EviL}}^\boxplus  \\
+|(EVIL-)| \textup{\textsc{EviL}}^\boxminus & |(UML)| UML &
+|(EVIL+)| \textup{\textsc{EviL}}^\boxplus \\
 & |(K)| K &\\
  };
   \path[>=latex,->>]
    (K) edge (EVIL+)
-(K) edge (EVIL-)
+         edge (EVIL-)
+         edge (UML)
 (EVIL-) edge (EVIL)
+           edge (UEVIL-)
 (EVIL+) edge (EVIL)
+           edge (UEVIL+)
+(UML) edge (UEVIL+)
+           edge (UEVIL-)
+(UEVIL-) edge (UEVIL)
+(UEVIL+) edge (UEVIL)
+(EVIL) edge (UEVIL)
 ;
 \end{tikzpicture}
 \end{center}

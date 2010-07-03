@@ -88,6 +88,9 @@
 
 %%%%%%% Symbols
 
+% This is the greatest package ever
+\usepackage{skull}
+
 % Hack to get bibtex to get page references right using zotero
 \usepackage[utf8]{inputenc}
 \DeclareUnicodeCharacter{2013}{--}
@@ -156,21 +159,38 @@
 % NOTE: THIS IS FUCKING FRAGILE
 % MAKE SURE TO COPY DIRECTLY FROM mathabx.sty
 % ~Matt, fucking stressed out of his mind
+
 \DeclareFontFamily{U}{matha}{\hyphenchar\font45}
 \DeclareFontShape{U}{matha}{m}{n}{
-      <5> <6> <7> <8> <9> <10> gen * matham
-      <10.95> matham10 <12> <14.4> <17.28> <20.74> <24.88> matham12
+      <5> <6> <7> <8> <9> <10> gen * matha
+      <10.95> matha10 <12> <14.4> <17.28> <20.74> <24.88> matha12
       }{}
 \DeclareSymbolFont{matha}{U}{matha}{m}{n}
 \DeclareFontSubstitution{U}{matha}{m}{n}
 
 \DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
 \DeclareFontShape{U}{mathb}{m}{n}{
-      <5> <6> <7> <8> <9> <10> gen * mathbm
-      <10.95> mathbm10 <12> <14.4> <17.28> <20.74> <24.88> mathbm12
+      <5> <6> <7> <8> <9> <10> gen * mathb
+      <10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12
       }{}
 \DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
 \DeclareFontSubstitution{U}{mathb}{m}{n}
+
+% \DeclareFontFamily{U}{matha}{\hyphenchar\font45}
+% \DeclareFontShape{U}{matha}{m}{n}{
+%       <5> <6> <7> <8> <9> <10> gen * matham
+%       <10.95> matham10 <12> <14.4> <17.28> <20.74> <24.88> matham12
+%       }{}
+% \DeclareSymbolFont{matha}{U}{matha}{m}{n}
+% \DeclareFontSubstitution{U}{matha}{m}{n}
+
+% \DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+% \DeclareFontShape{U}{mathb}{m}{n}{
+%       <5> <6> <7> <8> <9> <10> gen * mathbm
+%       <10.95> mathbm10 <12> <14.4> <17.28> <20.74> <24.88> mathbm12
+%       }{}
+% \DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+% \DeclareFontSubstitution{U}{mathb}{m}{n}
 
 % I only use a few of these crazy mathabx symbols
 \DeclareMathSymbol{\VDash}         {3}{mathb}{"28}
@@ -334,12 +354,24 @@ of these issues.  It shall conform to the following structure:
     philosophical issues that will be addressed, and sketch an epistemic
     logic framework which tackles them
     \item[\S\ref{evil-semantics}] Next, we give formal details of the
-      system we will develop.  This section climaxes in the exposition
-      of a completeness theorem.
-  \item[\S\ref{applications}]  Third, we shall look at philosophical
-    applications of the framework developed.  It shall be revealed that
+      system we will develop.  Single agent semantics for concrete
+      models is developed and an elimination theorem is derived.  
+     The semantics are then extended to a multi-agent setting, 
+      and finally Kripke semantics
+      as an abstraction on our previous concrete semantics.
+    \item[\S\ref{army-of-darkness}]In this section we present several
+      axiom systems for the abstract and concrete semantics.  We show
+      via our investigated completeness results that Kripke semantics
+      faithfully abstracts away from our concrete semantics.  We also
+      give derive the small model property for all of the axiom systems
+      we provide, and discuss their inter-relationships as a lattice
+      of conservative extensions.  Some complexity results are also derived. 
+  \item[\S\ref{applications}]  Finally. we shall look at philosophical
+    applications of the framework developed.  We show that imposing
+    certain popular axioms leads to collapse for concrete
+    \textsc{EviL} models and Kripke semantics. We also reveal that
     \emph{intuitionistic logic} is profoundly linked to the
-    perspective on epistemic logic we shall investigate here.
+    perspective on epistemic logic \textsc{EviL} affords.
   % \item[\S\ref{robots}]  Here, I discuss a side project I carried out
   %   where I formalized the weak completeness theorem of
   %   \S\ref{evil-semantics} in the computer proof
@@ -663,7 +695,7 @@ We may observe that the logic of these semantics is familiar:
 \begin{prop}[Translation]\label{translation-sketch}
 Assuming that the set of proposition letters $\Phi$ is infinite
 $$\vdash_{K} \phi\textup{ if and only if } \Omega, (a,A) \VDash \phi \textup{ for all finite $\Omega$ for all $(a,A) \in \Omega$}$$
-Here $K$ is basic modal logic.
+Here $K$ is basic modal logic, as defined in \cite[chapter 4, pg. 194]{blackburn_modal_2001}.
 \end{prop}
 \begin{proof}
  Left to right is trivial, so we shall focus on right to left.  Assume
@@ -730,15 +762,17 @@ If $\Gamma \vdash \phi$, we say that $\phi$ is \textbf{derivable from
 \end{mydef}
 
 The following theorem equates belief in at a world in a model with
-possession of a derivation:
+possession of a derivation.  We shall return to this in
+\S\ref{evil-grammar}, where it shall be formally referred to as the
+\emph{Theorem Theorem}, Theorem \ref{theorem-theorem} of \S\ref{evil-grammar}:
 \begin{prop}\label{central-prop}
  For all $A\subseteq_\omega \mathcal{L}_0(\Phi)$, then $\Omega, (a,A) \VDash \Box \phi$ if and only if $Th(\Omega) \cup A \vdash_K \phi$.
 \end{prop}
 \begin{proof}
 The proof of the above hinges on two basic facts.  The first is the
-\emph{deduction theorem} (provided that $B$ is finite):
+\emph{deduction theorem} (provided that $\Delta$ is finite):
 \begin{equation}
-A \cup B \vdash_K \phi \iff A \vdash_K \bigwedge B \to \phi \label{eq:deduction-theorem}
+\Gamma \cup \Delta \vdash_K \phi \iff \Gamma \vdash_K \bigwedge \Delta \to \phi \label{eq:deduction-theorem}
 \end{equation}
 The above follows from Definition
 \ref{basicdefs} part \ref{basicdefsIII}, and is one of the standard results in
@@ -1186,8 +1220,8 @@ developed ideas.  This shall be done in three movements:
  \item[\S\ref{dead-by-dawn}]  In the second section we develop several
    topics in the pure theory of \textsc{EviL} which are considered a bit
    beyond the bare essentials.
-  \item[\S\ref{army-of-darkness}]  In this final section, completeness for
-    \textsc{EviL} is investigated.
+  % \item[\S\ref{army-of-darkness}]  In this final section, completeness for
+  %   \textsc{EviL} is investigated.
 \end{description}
 
 % from that section provided by the previous section into a provide an outline
@@ -1215,21 +1249,37 @@ developed ideas.  This shall be done in three movements:
 \label{kripke} 
 \label{non-compactness}
 \input{semantics_partII.tex}
-\subsection{\textsc{EviL} Completeness}\label{army-of-darkness}
+\section{\textsc{EviL} Completeness}\label{army-of-darkness}
 \input{evil-formal-crap.tex}
 
 \section{Applications}\label{applications}
-\subsection{Collapse}
-\subsection{Epistemic Plurality}
-\subsubsection{Different Kinds of Knowledge}
-\subsubsection{Moore's Paradox}
-\subsubsection{Fitch's Paradox}
-\subsection{Intuitionistic Logic}
-\subsubsection{The G\"{o}del Tarski McKinsy Embedding}
+In this section, we will look at three applications of \textsc{EviL}
+to wider philosophical topics.  This section is organized roughly as
+follows:
+
+\begin{description}
+\item[\S\ref{collapse}] In this section, we investigate collapse issues
+  related to both doxastic and  epistemic introspection 
+\item[\S\ref{intuitionism}]  In this section, we present variations on
+  the G\"{o}del-Tarski-McKinsey translation of intuitionistic logic
+  into \textsc{EviL}.  This sheds a novel light on the relationship of
+  intuitionistic logic and the view on epistemic logic we have
+  extended here.
+\end{description}
+
+\subsection{Collapse}\label{collapse}
+\input{collapse.tex}
+% \subsection{Epistemic Plurality}
+% \subsubsection{Different Kinds of Knowledge}
+% \subsubsection{Moore's Paradox}
+% \subsubsection{Fitch's Paradox}
+\subsection{Intuitionistic Logic}\label{intuitionism}
+\input{intuitionism.tex}
+%\subsubsection{The G\"{o}del Tarski McKinsey Embedding}
+\subsubsection{van Benthem $S4$}
 \subsubsection{Knowledge}
 \subsubsection{Imagination}
-\subsubsection{van Benthem $S4$}
-\subsubsection{$ImK_\Box$}
+%\subsubsection{$ImK_\Box$}
 
 % \section{Mechanization}\label{robots}\label{formal}
 %\addcontentsline{toc}{subsection}{20 pgs}
