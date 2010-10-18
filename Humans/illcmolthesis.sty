@@ -1,0 +1,148 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{illcmolthesis}[2005/05/13 ILLC Master of Logic Thesis 
+Style, M. Vervoort, B. Loewe]
+
+% For more information, cf. 
+% http://www.illc.uva.nl/MScLogic/graduation/
+
+\RequirePackage{epsfig}
+
+\newcommand{\degree}[1]{%
+  \gdef\@degree{#1}
+}
+\newcommand{\@degree}[1]{%
+  MSc in Logic
+}
+\newcommand{\birthdate}[1]{%
+  \gdef\@birthdate{#1}
+}
+\newcommand{\@birthdate}{%
+  \@latex@warning@no@line{No \noexpand\birthdate given}
+}
+\newcommand{\birthplace}[1]{%
+  \gdef\@birthplace{#1}
+}
+\newcommand{\@birthplace}{%
+  \@latex@warning@no@line{No \noexpand\birthplace given}
+}
+\newcommand{\defensedate}[1]{%
+  \gdef\@defensedate{#1}
+}
+\newcommand{\@defensedate}{%
+  \@latex@warning@no@line{No \noexpand\defensedate given}
+}
+\newcount\@supervisorcnt
+\@supervisorcnt=1
+\newcommand{\supervisor}[1]{%
+  \advance\@supervisorcnt 1%
+  \ifnum\@supervisorcnt=1%
+  {\gdef\@supervisorA{#1}\gdef\@supervisorAA{\textbf{#1}}}
+  \else\ifnum\@supervisorcnt=2%
+  {\gdef\@supervisorB{#1}\gdef\@supervisorBB{ and \textbf{#1}}}
+  \fi\fi
+}
+\newcommand{\@supervisorA}{%
+  \@latex@warning@no@line{No \noexpand\supervisor given}
+}
+\newcommand{\@supervisorAA}{%
+  \@latex@warning@no@line{No \noexpand\supervisor given}
+}
+\newcommand{\@supervisorB}{}
+\newcommand{\@supervisorBB}{}
+
+
+
+\newcount\@committeemembercnt
+\@committeemembercnt=1
+\newcommand{\committeemember}[1]{%
+  \advance\@committeemembercnt 1%
+  \ifnum\@committeemembercnt=1%
+  \gdef\@committeememberA{#1}
+  \else\ifnum\@committeemembercnt=2%
+  \gdef\@committeememberB{#1}
+  \else\ifnum\@committeemembercnt=3%
+  \gdef\@committeememberC{#1}
+  \else\ifnum\@committeemembercnt=4%
+  \gdef\@committeememberD{#1}
+  \else\ifnum\@committeemembercnt=5%
+  \gdef\@committeememberE{#1}
+  \else\ifnum\@committeemembercnt=6%
+  \gdef\@committeememberF{#1}
+  \fi\fi\fi\fi\fi\fi
+}
+
+
+
+\newcommand{\@committeememberA}{%
+  \@latex@warning@no@line{No \noexpand\committeemember given}
+}
+\newcommand{\@committeememberB}{}
+\newcommand{\@committeememberC}{}
+\newcommand{\@committeememberD}{}
+\newcommand{\@committeememberE}{}
+\newcommand{\@committeememberF}{}
+\renewcommand{\maketitle}{%
+  \begin{titlepage}%
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \let\footnote\thanks
+    \null\vfil
+    \begin{center}%
+      {\Large \@title \par}%
+      \vskip2cm%
+      {\large \textbf{MSc Thesis} (\textsl{Afstudeerscriptie})}%
+      \vskip3mm%
+      written by%
+      \vskip3mm%
+      \textbf{\@author}\\
+      (born \@birthdate\ in \@birthplace)%
+      \vskip3mm%
+      under the supervision of 
+      {\@supervisorAA}{\@supervisorBB},
+      and submitted to the Board of Examiners
+      in partial fulfillment of the requirements for the degree of%
+      \vskip5mm%
+      {\large\textbf{\@degree}}%
+      \vskip5mm%
+      at the \textit{Universiteit van Amsterdam}.%
+      \vskip2cm%
+      \begin{tabular}{ll}%
+        \textbf{Date of the public defense:} & \textbf{Members of the Thesis Committee:}\\%
+        \textsl{\@defensedate}                  & \@committeememberA\\%
+                                       & \@committeememberB\\%
+                                       & \@committeememberC\\%
+                                       & \@committeememberD\\%
+                                       & \@committeememberE\\%
+                                       & \@committeememberF%
+      \end{tabular}%
+      \vfill%
+      \resizebox{10cm}{!}{\includegraphics{illclogo}}%
+    \end{center}\par%
+    \@thanks%
+    \vfil\null%
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\birthdate\relax
+  \global\let\birthplace\relax
+  \global\let\supervisor\relax
+  \global\let\committeemember\relax
+  \global\let\@thanks\@empty
+  \global\let\@title\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@birthdate\@empty
+  \global\let\@birthplace\@empty
+  \global\let\@supervisor\@empty
+  \global\let\@committeemember\@empty
+  \global\let\maketitle\relax
+  \global\let\and\relax
+}
+% added to allow working with amsbook
+\renewcommand{\author}[1]{%
+  \gdef\@author{#1}%
+}
+  

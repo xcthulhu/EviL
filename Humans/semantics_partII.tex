@@ -10,12 +10,16 @@ possess corresponding \textsc{EviL} models.
 
 In order to understand \textsc{EviL} models as
 Kripke models, we return to the visualization technique for
-\textsc{EviL} models we introduced in \S\ref{contradictions}.  This
-involved thinking of the \textsc{EviL} models as 
-\emph{posets} with arrows, as we first presented in 
-Fig. \ref{fig:example1} in \S\ref{contradictions}.  We also saw 
-additional examples of this visualization technique below in 
-Figs. \ref{fig:example2}  and \ref{fig:example3}.  Recall that these
+\textsc{EviL} models we introduced in \S\ref{quine}.  There
+we suggested that \textsc{EviL} models can be thought of as 
+\emph{posets}, with the partial ordering corresponding to set
+containment.  Here we make the added requirement that the worlds
+remain in this ordering.  In addition, doxastic accessibility will be
+visualized with arrows. We can see examples of this visualization
+technique below in 
+Figs. \ref{fig:example2}  and \ref{fig:example3}.  
+
+In the interest of being completely explicit, these
 figures should be read as follows:
 \begin{bul}
  \item if one point $(a,A)$ is above another point $(b,B)$ and
@@ -65,13 +69,13 @@ developments this section will assume multiple agents.
   \end{itemizedot}
   Let $\mathcal{K}_{\Phi, \mathcal{A}, I}$ denote the class of Kripke structures for letters $\Phi$, agents $\mathcal{A}$, and where $W \subseteq I$.
 \end{definition}
-\begin{definition}
-By a minor abuse of notation, 
-we shall write $w \sqsubseteq v$ to mean that $w
-\sqsubseteq_X v$ for all agents $X$.
-\end{definition}
+% \begin{definition}
+% By a minor abuse of notation, 
+% we shall write $w \sqsubseteq v$ to mean that $w
+% \sqsubseteq_X v$ for all agents $X$.
+% \end{definition}
 
-Kripke semantics given by $(\Vdash) \colons \mathcal{K}_{\Phi, \mathcal{A}, I} \to I
+The Kripke semantics given by $(\Vdash) \colons \mathcal{K}_{\Phi, \mathcal{A}, I} \to I
 \rightarrow \mathcal{L}(\Phi, \mathcal{A}) \to \text{\tmtextsf{bool}}$ for these models are defined recursively
 as usual, granting the exceptional behavior of $P$.
 \begin{definition}

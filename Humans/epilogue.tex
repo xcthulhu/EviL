@@ -1,0 +1,808 @@
+\subsection{Introduction}
+
+In this final section, we discuss how \textsc{EviL} compares to
+ two alternative logics of explicit
+knowledge, the approach to epistemic logic suggested in 
+\cite{van_benthem_reflectionsepistemic_1991}.
+The two other approaches are:
+\begin{bul}
+\item \emph{Vel\'{a}zquez-Quesada Logic} ($VQL$) from \cite{velzquez-quesada_inference_2009}
+\item \emph{Dynamic Awareness Logic} ($DAL$)  from \cite{van_benthem_inference_2009}
+%\item \emph{Justification Logic} ($JL$), introduced in
+%  \cite{fitting_logic_2005}
+\end{bul}
+
+Note that $VQL$ and $DAL$ are names we have introduced for the logics
+discussed above, for ease of reference.
+
+We will conclude with our final thoughts on \textsc{EviL}.
+
+\subsection{Vel\'{a}zquez-Quesada Logic}
+
+In this section we introduce Vel\'{a}zquez-Quesada Logic ($VQL$), the
+logic introduced in \cite{velzquez-quesada_inference_2009}.  The
+author originally called their logic \textbf{EI}, which stands for
+``explicit/implicit.''  We have chosen the name $VQL$, as there is
+more than one system that claims to model explicit and implicit
+knowledge.
+The idea behind the semantics of 
+$VQL$ is to equip Kripke structures with special 
+\emph{awareness} relations, as introduced in \cite{fagin_belief_1987}.
+In \cite{velzquez-quesada_inference_2009}, the author notes himself
+how his work compares to other awareness based approaches.  Notably,
+his work is related to Ho Ngoc Duc's logic
+\cite{duc_logical_1995,duc_reasoning_1997,duc_resource-bounded_2001},
+Jago's logic for agents with bounded resources
+\cite{jago_logics_2006}, and van Benthem's \emph{acts of
+realization} \cite{van_benthem_merging_2008}.
+
+$VQL$ Kripke structures have two awareness relations.  
+The first relation establishes whether the agent is aware of
+a particular fact, while the second establishes whether the agent is
+aware of a rule.  By imposing various properties on these enriched 
+Kripke structures, one can model inference via update modalities; this
+will be illustrated shortly.
+
+We note that early drafts of $VQL$ were presented employing 
+multiple agents, while the version presented in
+\cite{velzquez-quesada_inference_2009}
+limited itself to the single agent case.
+
+Formally, we can understand $VQL$ accordingly:
+\begin{definition}
+A \textbf{rule} $\rho \in \powerset_\omega \mathcal{L}_0(\Phi) \times
+\mathcal{L}_0(\Phi)$ is a pair $(\Gamma, \gamma)$ where $\Gamma$ is a
+finite set of propositional formulae and $\gamma$ is a single
+propositional formula.
+
+We shall abbreviate $\mathcal{R}(\Phi)$ as the set of rules over $\Phi$.
+\end{definition}
+
+\begin{definition}
+The grammar $\mathcal{VQL}(\Phi)$ is defined as:
+\[ \phi ::= p \in \Phi\ |\ \top\ |\ \phi \vee
+\psi \ |\ \neg \phi \ |\ \Pos \phi  \ |\ I\gamma\ |\ L \rho \]
+Here $\gamma \in \mathcal{L}_0(\Phi)$, while $\rho \in
+\mathcal{R}(\Phi)$.  The other connectives are assumed to be 
+defined as usual.
+\end{definition}
+
+\begin{definition}
+$TR : \mathcal{R}(\Phi) \to \mathcal{L}_0(\Phi)$ is a function that
+takes rules to first order formulae that codify them as follows:
+\[ TR(\rho) := \bigwedge \Gamma \to \gamma \]
+Where $\Gamma$ is the set of premises of $\rho$ and $\gamma$ is the conclusion.
+\end{definition}
+
+\begin{definition}
+A $VQL$ Kripke structure is a model $\mathbb{V} = \langle W, R, V, Y,
+Z\rangle$ where
+\begin{bul}
+  \item $W$ is a set of worlds
+  \item $R \subseteq W \times W$ is an accessibility relation
+  \item $V : W \to \powerset \Phi$ is valuation
+  \item $Y : W \to \powerset \mathcal{L}_0(\Phi)$ is a propositional
+    awareness function, relating worlds to sets of formulae the agent
+    is aware of at that world
+  \item $Z : W \to \mathcal{R}(\Phi)$ is a logical awareness function,
+    relating worlds to sets of rules that the agent is aware of at
+    those worlds
+\end{bul}
+
+Likewise, $VQL$ Kripke structures make true the following properties
+(along with intuitive readings):
+\begin{mynum}
+\item $R$ is an equivalence relation
+\item If $\gamma \in Y
+  (w)$ and $w R v$  then $\gamma \in Y (v)$
+\item If $\rho \in Z (w)$ 
+  and $w R v$  then $\rho \in Z (v)$ -- once the agent is aware of
+  some rule then that awareness persists
+\item If $\gamma \in Y (w)$ then
+  $\mathbbm{V}, w \Vdash_{VQL} \gamma$ -- the agent is only
+  aware of facts
+\item  If $\rho \in Z (w)$ then $\mathbbm{V}, w \Vdash_{VQL} \tmop{TR} (\rho)$
+\end{mynum}
+\end{definition}
+
+We may intuitively read the above properties in the following manner:
+\begin{mynum}
+  \item \emph{Information States} -- $R$ partitions the universe into
+    different information states, as one traditionally assumes in
+    epistemic logic
+  \item \emph{Assertoric Awareness Positive Introspection} -- Once the agent is
+  aware of some assertion, they know that they are aware of that rule
+    \item \emph{Logical Awareness Positive Introspection} -- Once the agent is
+  aware of some rule, they know that they are aware of that rule
+    \item \emph{Factiveness} -- If the agent is aware of proposition,
+      then it is a fact
+    \item \emph{Soundness} -- If the agent is aware of some rule, then
+      that rule is sound
+\end{mynum}
+
+The following provides semantics for the grammar in terms of the
+stipulated structures:
+\begin{definition}
+$VQL$'s truth predicate $\Vdash_{VQL}$ is defined such that:
+\begin{align*}
+  \mathbbm{V}, w \Vdash_{VQL} p & \Longleftrightarrow w \in V (p)\\
+  \mathbbm{V}, w \Vdash_{VQL} \top & \tmop{always}\\
+  \mathbbm{V}, w \Vdash_{VQL} \phi \vee \psi & \Longleftrightarrow
+  \mathbbm{V}, w \Vdash_{VQL} \phi \textup{ \  or
+  \  } \mathbbm{V}, w \Vdash_{VQL} \psi\\
+  \mathbbm{V}, w \Vdash_{VQL} \neg \phi & \Longleftrightarrow
+  \mathbbm{V}, w \nVdash_{VQL} \phi\\
+  \mathbbm{V}, w \Vdash_{VQL} \Pos \phi & \Longleftrightarrow
+  \exists v \in W.w R v\ \&\ \mathbbm{V}, v \Vdash_{VQL} \phi\\
+  \mathbbm{V}, w \Vdash_{VQL} I \gamma & \Longleftrightarrow \gamma \in
+  Y (w)\\
+  \mathbbm{V}, w \Vdash_{VQL} L \rho & \Longleftrightarrow \rho \in Z
+  (w)
+\end{align*}
+% \begin{equation*}
+% \mathbb{M},w \Vdash_{VQL} p & \iff & w \in V(p) \\
+% \mathbb{M},w \Vdash_{VQL} \top & \iff &  \\
+% \mathbb{M},w \Vdash_{VQL} \phi \vee \psi & \iff & \mathbb{M},w
+% \Vdash_{VQL} \phi \textup{ or }  \mathbb{M},w
+% \Vdash_{VQL} \psi \\
+% \mathbb{M},w \Vdash_{VQL} p & \iff & w \in V(p) \\
+% \end{equation*}
+\end{definition}
+
+Table \ref{table:VQLaxioms} expresses the axioms of $VQL$. Certain
+axioms impose certain structure on the models; soundness and
+completeness theorems are discussed in
+\cite{velzquez-quesada_inference_2009}. 
+
+The
+semantics for $VQL$ also supports modeling inference.  
+The author chose to model inference using model updates, in the style of
+dynamic epistemic logic as pioneered in \cite{gerbrandy_bisimulationsplanet_1998}.
+
+\begin{table}
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabularx}{\linewidth}{|cl>{\it}X|}
+\hline
+& & \\
+  (\refstepcounter{rownum}\arabic{rownum}) & All propositional
+  tautologies & 
+% \multirow{4}{8.5cm}{Axioms of classical
+%     propositional logic} 
+\\
+%   (\refstepcounter{rownum}\arabic{rownum}) & $\vdash (\phi \rightarrow \psi \rightarrow \chi) \rightarrow (\phi
+%   \rightarrow \psi) \rightarrow (\phi \rightarrow \chi)$ & \\
+%   (\refstepcounter{rownum}\arabic{rownum}) & $\vdash (\neg \phi \rightarrow \neg \psi) \rightarrow \psi \rightarrow
+%   \phi$ & \\
+%   (\refstepcounter{rownum}\arabic{rownum}) & $\vdash \phi \rightarrow \top$ & \\
+ & & \\
+  (\refstepcounter{rownum}\arabic{rownum}) & $\vdash \Box(\phi \rightarrow \psi) \rightarrow \Box \phi \rightarrow
+  \Box \psi$ & Axiom $K$\\
+& & \\
+  (\refstepcounter{rownum}\arabic{rownum}) & $\vdash \Box \phi \rightarrow \phi$ & \multirow{3}{8.5cm}{$R$
+    is an equivalence relation}\\
+  (\refstepcounter{rownum}\arabic{rownum}) & $\vdash \Box \phi \rightarrow \Box\Box \phi$ & \\
+  (\refstepcounter{rownum}\arabic{rownum}) & $\vdash \diamondsuit \phi
+  \rightarrow \Box \diamondsuit \phi$ & \\
+& & \\ 
+(\refstepcounter{rownum}\arabic{rownum}) &
+$\vdash I \gamma \rightarrow \Box I \gamma$ & If $\gamma \in Y
+  (w)$ and $w R v$ then $\gamma \in Y (v)$\\
+& & \\
+(\refstepcounter{rownum}\arabic{rownum}) &
+$\vdash L \rho \rightarrow \Box L \rho$ & If $\rho \in Z (w)$
+  and $w R v$ then $\rho \in Z (v)$ \\
+& & \\
+  (\refstepcounter{rownum}\arabic{rownum}) & $\vdash I \gamma
+  \rightarrow \gamma$ & If $\gamma \in Y (w)$ then
+  $\mathbbm{V}, w \Vdash_{VQL} \gamma$\\
+& & \\
+(\refstepcounter{rownum}\arabic{rownum}) &$\vdash L \rho
+  \rightarrow \tmop{TR} (\rho)$ &  If $\rho \in Z (w)$ then $\mathbbm{V}, w \Vdash_{VQL} \tmop{TR} (\rho)$\\
+% (\refstepcounter{rownum}\arabic{rownum}) & $\vdash \BBI_X (\phi \to \psi) \to \BBI_X \phi \to \BBI_X \psi$ & \\[6pt]
+& & \\
+(\refstepcounter{rownum2}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi \to \psi$}
+\AxiomC{$\vdash \phi$}
+\BinaryInfC{$\vdash \psi$}
+\DisplayProof$ & Modus Ponens\\[10pt]
+(\refstepcounter{rownum2}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash \Box \phi$}
+\DisplayProof$ & Necessitation\\
+& & \\
+% (\refstepcounter{rownum2}\Roman{rownum2}) \label{BMnec}& 
+%  $\AxiomC{$\vdash \phi$}
+% \UnaryInfC{$\vdash \BB_X \phi$}
+% \DisplayProof$ &  \\
+% (\refstepcounter{rownum2}\Roman{rownum2}) &
+%  $\AxiomC{$\vdash \phi$}
+% \UnaryInfC{$\vdash \BBI_X \phi$}
+% \DisplayProof$ & \\[10pt]
+\hline
+\end{tabularx}
+\caption{Axioms for $VQL$}
+\label{table:VQLaxioms}
+\end{table}
+
+\begin{definition}[Model Deduction Update]
+For a $VQL$ Kripke structure $\mathbb{V} = \langle W, R, V, Y,
+Z\rangle$, and let $\rho \in \mathcal{R}(\Phi)$ be a rule.  Let
+$\Gamma$ be the premises of $\rho$ and let $\gamma$ be the conclusion.
+ Define $\mathbb{V}_\rho:=\langle W, R, V, Y',
+Z\rangle$ where:
+\[ Y'(w) := \begin{cases} Y(w) \cup \{\gamma\} & \textup{if $\Gamma
+    \subseteq Y(w)$ and $\rho \in Z(w)$} \\
+Y(w) & \textup{o/w}
+\end{cases}\]
+\end{definition}
+
+\begin{lemma}
+If $\mathbb{V}$ is a $VQL$ Kripke structure then so is
+$\mathbb{V}_\rho$ where $\rho \in \mathcal{R}(\Phi)$
+\end{lemma}
+\begin{proof}
+This is Proposition 1 in \cite{velzquez-quesada_inference_2009}.
+\end{proof}
+
+The idea of the above operation is that at every world it adds in the
+conclusion of $\rho$ if the agent is aware of the premises of
+$\rho$. Furthermore, it preserves the various properties that are imposed on $VQL$ structures.  We may
+define syntax that corresponds with the above semantics in the
+following fashion, by introducing a deduction update modality:
+
+\begin{definition}
+Define $Pre : \mathcal{R}(\Phi) \to \mathcal{L}_0(\Phi)$ as follows:
+\[ Pre(\rho) := \bigwedge_{\psi \in \Gamma} I\psi \wedge L \rho \]
+Where $\Gamma$ is the set of premises of the rule $\rho$.
+\end{definition}
+
+\begin{definition}
+The grammar $\mathcal{VQLD}(\Phi)$ extends $\mathcal{VQL}(\Phi)$ and
+is given as follows:
+\[ \phi ::= p \in \Phi\ |\ \top\ |\ \phi \vee
+\psi \ |\ \neg \phi \ |\ \Pos \phi  \ |\ I\gamma\ |\ L \rho\ | \
+\langle D_\rho\rangle \phi \]
+As before, $\gamma \in \mathcal{L}_0(\Phi)$, while $\rho \in
+\mathcal{R}(\Phi)$.  Along with the usual abbreviations,  let $[D_\rho]
+\phi$ abbreviates $\neg\langle D_\rho\rangle \phi$.
+\end{definition}
+
+We have the following semantics of the above syntax:
+
+\begin{definition}
+We may extend $\Vdash_{VQL}$ to the full $\mathcal{VQLD}(\Phi)$
+grammar by stipulating:
+\[ \mathbb{V},w \Vdash_{VQL} \langle D_\rho\rangle \phi \iff
+\mathbb{V},w \Vdash_{VQL} Pre(\rho)\ \&\ \mathbb{V}_{\rho},w \Vdash_{VQL} \phi\]
+\end{definition}
+
+Every formula in $\mathcal{VQLD}(\Phi)$ is equivalent to a formula in
+$\mathcal{VQL}(\Phi)$.  This can be seen by observing a series of
+reduction axioms, exhibited in Table \ref{table:VQLredaxioms}.  
+
+\begin{table}
+\centering
+%\newcounter{rownum}
+\setcounter{rownum}{0}
+%\newcounter{rownum2}
+\setcounter{rownum2}{0}
+\begin{tabular}{|lll|}
+\hline
+& & \\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash \langle D_\rho
+  \rangle \top \IFF Pre(\rho)$ & \\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash \langle D_\rho
+  \rangle p \IFF Pre(\rho)\wedge p$ &\\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash \langle D_\rho
+  \rangle \neg \phi \IFF Pre(\rho)\wedge \neg\langle D_\rho \rangle
+  \phi$& \\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash \langle D_\rho
+  \rangle (\phi \vee \psi) \IFF \langle D_\rho
+  \rangle \phi \vee \langle D_\rho
+  \rangle \psi $& \\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash \langle D_\rho
+  \rangle \Pos \phi \IFF Pre(\rho) \wedge \Pos \langle D_\rho \rangle
+  \phi$& \\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash  \langle D_\rho
+  \rangle I \gamma \IFF Pre(\rho)$& if $\gamma$ is the conclusion of
+  $\rho$\\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash  \langle D_\rho
+  \rangle I \gamma \IFF Pre(\rho) \wedge I \gamma$& if $\gamma$ is
+  \textbf{not} the conclusion of $\rho$\\
+  (\refstepcounter{rownum}D\arabic{rownum})&$ \vdash  \langle D_\rho
+  \rangle L \sigma \IFF Pre(\rho) \wedge L \sigma$& \\
+(D\refstepcounter{rownum2}\Roman{rownum2}) & 
+ $\AxiomC{$\vdash \phi$}
+\UnaryInfC{$\vdash [D_\rho] \phi$}
+\DisplayProof$ & Necessitation\\
+& & \\
+\hline
+\end{tabular}
+\caption{Reduction Axioms for $\langle D_\rho \rangle \phi$}
+\label{table:VQLredaxioms}
+\end{table}
+
+Below is a central result present in
+\cite{velzquez-quesada_inference_2009}:
+\begin{definition}
+Let 
+\[ \Gamma \vdash_{VQL} \phi \]
+If and only if there is some $\Delta \subseteq_\omega \Gamma$ such
+that $\bigwedge \Gamma \to \phi$ is derivable using the axioms and
+rules present in
+Tables \ref{table:VQLaxioms} and \ref{table:VQLredaxioms}
+\end{definition}
+
+\begin{theorem}[$VQL$ Strong Soundness and Completeness]
+\[ \Gamma \vdash_{VQL} \phi \iff \Gamma \Vdash_{VQL} \phi \]
+\end{theorem}
+\begin{proof}
+This is Theorem 3 of \cite{velzquez-quesada_inference_2009}.
+\end{proof}
+
+In \cite{velzquez-quesada_inference_2009} extends the above to 
+discuss logical dynamics, where the agent can become aware of new rules.
+
+To summarize, $VQL$ is a logic where inference is modeled using update
+modalities, and where one is aware of a proposition only if it is a
+fact they implicitly know.  The only rules that an agent is permitted to
+be aware of are sound.  The agent can infer new things that they
+already implicitly knew only after an update.
+
+There is at least two points of commonality between $VQL$ and
+\textsc{EviL}.  Perhaps the most notable is that both frameworks
+assume that agents can only perform \emph{sound} reasoning.  Likewise,
+both present a notion of implicit knowledge: in \textsc{EviL},
+implicit or background knowledge can be interpreted as the 
+universal modality $U$ presented in \S\ref{supersystems}, which embodies the background theory of the
+model that the multiverse where we are modeling \textsc{EviL} agents
+to dwell; the $\Box$ modality plays an analogous
+r\^{o}le in $VQL$.
+
+On the other hand, there are more ways in which \textsc{EviL} is different from $VQL$ then
+there are ways the two are similar.  In $VQL$, agents can only be 
+aware of things which they already implicitly
+knew.  In \textsc{EviL}, agents can be fallible in their beliefs, and
+believe everything they implicitly know 
+(this follows from $\vdash U \phi \to \Box \phi$).
+Likewise, the notion of knowledge as ``the existence of a sound
+argument'' is very separate from \emph{implicit knowledge}.  In \textsc{EviL}, implicit knowledge $U\phi$ does not imply the existence of a sound
+argument, for perhaps the \textsc{EviL} agent has not one single true
+assumption to employ as a premise in any argument.  Neither is the
+converse true, since holding a sound argument for $\phi$ in a
+particular situation does not mean that it is true in every 
+conceivable universe.
+
+ In \textsc{EviL}, agents are assumed
+to be logically omniscient, with all of the deductive powers of
+\textsc{EviL} itself at their disposal.  In \textsc{EviL}, we the 
+modelers must surrender some of our control
+over how \textsc{EviL} agents are reasoning because of this.  In the
+case of $VQL$, the agent is modeled as making inferences using 
+very explicit syntax.  This allows $VQL$ far more fine grained control
+over the inferences agents make than \textsc{EviL}, which is
+\emph{laissez faire} in comparison.  It is herein that the key
+difference between the approaches is apparent: in \textsc{EviL} one
+can reason intuitively about what sort of conclusions agents must
+arrive at, while in $VQL$ we can only conclude that the agent will
+arrive at the sound conclusions we allow them to conclude.
+In $VQL$, the agent is at the mercy of the modeler, and in
+\textsc{EviL} it is more like the modeler is at the mercy of 
+the \textsc{EviL} agents themselves.
+
+
+Finally, $VQL$ and \textsc{EviL} draw from different philosophical
+foundations. In $VQL$, one takes a conservative perspective on what it means for an
+agent to know something in line with traditional epistemic logic.  As
+we first saw in \S\ref{explicit}, the \textsc{EviL} perspective is more
+closely related to foundationalism.
+
+% Moreover, the update perspective present in $VQL$ is at odds with the
+% inherently \textsc{EviL} structural perspective in \textsc{EviL}.  The
+% idea behind $VQL$ and is to afford the logical accessibility relation
+% as must freedom as possible, while the \textsc{EviL} approach is to
+% fundamentally reduce accessibility relations to definitions within
+% more concrete structures.  The next framework, $DAL$, makes this
+% difference clear.
+
+\subsection{Dynamic Awareness Logic}
+
+\emph{Dynamic Awareness Logic} $(DAL)$ is the logic introduced in
+\cite{van_benthem_inference_2009}.  As in the case of $VQL$, $DAL$ is
+an original name we offer; the authors do not offer a name for their
+work themselves.  It can be understood as modification on $VQL$ as we
+previously
+ discussed and  van Benthem's \emph{acts of realization}
+\cite{van_benthem_inference_2009}.  Unlike $VQL$, which is intended to
+model implicit and explicit knowledge, $DAL$ geared towards providing
+a framework with fewer restrictions and easy to describe dynamics. 
+
+We will focus on single agent $DAL$, however multi-agent $DAL$ is also
+introduced in \cite{van_benthem_inference_2009}.  Likewise, $DAL$ also
+accommodates \emph{action model} updates as introduced in
+\cite{baltag_logic_1998}.  Since our purpose in investigating this
+framework is to understand how it accommodates explicit inference, we
+have chosen not to pursue these topics here.
+
+We begin by reviewing the grammars employed in $DAL$:
+\begin{definition}
+Define the static awareness language $\mathcal{AL}(\Phi)$ as: 
+\[ \phi ::= p \in \Phi\ |\ \neg \phi \ |\ \phi \wedge \psi \ |\ \Nec \phi
+\ |\ I \phi \]
+
+The dynamic awareness language $\mathcal{DAL}(\Phi)$ is defined as follows:
+\[ \phi ::= p \in \Phi\ |\ \neg \phi \ |\ \phi \wedge \psi \ |\ \Nec \phi
+\ |\ I \phi\ |\ [+\chi] \phi \ |\ [-\chi] \phi \]
+\end{definition}
+
+Note that the syntax introduced in \cite{van_benthem_inference_2009}
+also contains \emph{public announcements}, as introduced in
+\cite{gerbrandy_bisimulationsplanet_1998}.  Public announcements
+correspond to factive updates a model can undergo.  Since this is the
+textbook example of dynamics for modal logic, discussed at length in
+\cite{ditmarsch_dynamic_2007} for instance, we have decided to eschew
+discussion of it in favor of the more novel dynamics embodied by the
+awareness update modalities $[+\chi]$ and $[-\chi]$. 
+
+The structures employed in this
+framework are similar to $VQL$ structures, but with less structure:
+\begin{definition}
+We call a structure $\mathbb{A} = \langle W, R, V, A\rangle$ is a
+\textbf{Kripke Awareness Structure} over a language $\mathcal{L}$ and set of
+proposition letters $\Phi$ when
+\begin{bul}
+  \item $W$ is a set of worlds
+  \item $R \subseteq W \times W$ is an accessibility relation
+  \item $V: \Phi \to \powerset W$ is a propositional valuation
+    function
+  \item $Y: \mathcal{L} \to \powerset W$ is a propositional awareness relation
+\end{bul}
+\end{definition}
+
+Along with the above semantics, we also have two update operations:
+\begin{definition}
+Let $\mathbb{A} = \langle W, R, V, Y\rangle$ be a Kripke awareness
+structure.
+
+Define $\mathbb{A}_{+\chi} := \langle W, R, V, Y'\rangle$ where
+\[ Y'(\phi) := \begin{cases} W & \textup{if $\phi = \chi$} \\
+Y(\phi) & \textup{o/w} \end{cases} \]
+
+Define $\mathbb{A}_{-\chi} := \langle W, R, V, Y'\rangle$ where
+\[ Y'(\phi) := \begin{cases} \varnothing & \textup{if $\phi = \chi$} \\
+Y(\phi) & \textup{o/w} \end{cases} \]
+\end{definition}
+
+These two operations correspond to adding and subtracting the awareness of
+$\chi$ at all worlds.
+This allows us to present semantics for the
+language $\mathcal{DAL}(\Phi)$ as follows:
+
+\begin{definition}
+$DAL$'s truth predicate $\Vdash_{DAL}$ is defined such that:
+\begin{eqnarray}
+  \mathbb{A}, w \Vdash_{DAL} p & \Longleftrightarrow & w \in V (p)
+  \nonumber\\
+  \mathbb{A}, w \Vdash_{DAL} \neg \phi & \Longleftrightarrow &
+  \mathbb{A}, w \nVdash_{DAL} \phi \nonumber\\
+  \mathbb{A}, w \Vdash_{DAL} \phi \wedge \psi & \Longleftrightarrow &
+  \mathbb{A}, w \Vdash_{DAL} \phi \hspace{1em} \& \hspace{1em}
+  \mathbb{A}, v \Vdash_{DAL} \phi \nonumber\\
+  \mathbb{A}, w \Vdash_{DAL} \Box \phi & \Longleftrightarrow & \forall
+  v \in W.w R v \Longrightarrow \mathbb{A}, v \Vdash_{DAL} \phi
+  \nonumber\\
+  \mathbb{A}, w \Vdash_{DAL} I \phi & \Longleftrightarrow & \phi \in Y
+  (w) \nonumber\\
+  \mathbb{A}, w \Vdash_{DAL} [+ \chi] \phi & \Longleftrightarrow &
+  \mathbb{A}_{+ \chi}, w \Vdash_{DAL} \phi \nonumber\\
+  \mathbb{A}, w \Vdash_{DAL} [- \chi] \phi & \Longleftrightarrow &
+  \mathbb{A}_{- \chi}, w \Vdash_{DAL} \phi \nonumber
+\end{eqnarray}
+\end{definition}
+
+In \cite{van_benthem_inference_2009}, the authors do not provide a
+calculus for $DAL$ and exhibit a completeness theorem.  Instead, they
+employ the observation that every formula in $\mathcal{DAL}(\Phi)$ is logically
+equivalent to a formula in $\mathcal{AL}(\Phi)$ for all $DAL$ Kripke
+structures, and provide reduction axioms.  Hence when reasoning about this system one can always
+reason about the static language without loss of generality to the
+dynamic language.
+
+\begin{theorem}
+The valid formulas of the dynamic-epistemic awareness
+language $\mathcal{DAL}(\Phi)$ are the valid
+formulae of the static base language $\mathcal{AL}(\Phi)$ plus the reduction
+axioms and modal inference rules listed in Table
+\ref{table:dalredaxioms}.
+\end{theorem}
+\begin{proof}
+This is Theorem 1 in \cite{van_benthem_inference_2009}.
+\end{proof}
+
+\begin{table}
+\framebox[\linewidth]{
+%\hspace{-0.5cm}
+%\vspace{-0.6cm}
+\begin{minipage}[h]{0.45\linewidth}
+$ \begin{array}{llll}
+     \vdash [+ \chi] p & \leftrightarrow & p \\
+     \vdash [+ \chi] I \chi & \leftrightarrow & \top \\
+     \vdash [+ \chi] I \phi & \leftrightarrow & I \phi \ \ \ \tmop{for} \phi \neq
+     \chi \\
+     \vdash [+ \chi] \neg \phi & \leftrightarrow & \neg [+ \chi] \phi \\
+     \vdash [+ \chi] (\phi \wedge \psi) & \leftrightarrow & [+ \chi] \phi
+     \wedge [+ \chi] \psi \\
+     \vdash [+ \chi]\Box \phi & \leftrightarrow & \Box[+ \chi] \phi \\
+     \vdash \phi & \Longrightarrow & \vdash [+\chi] \phi
+%      \\
+% & & &
+   \end{array} $
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[h]{0.45\linewidth}
+$ \begin{array}{llll}
+     \vdash [- \chi] p & \leftrightarrow & p \\
+     \vdash [- \chi] I \chi & \leftrightarrow & \bot \\
+     \vdash [- \chi] I \phi & \leftrightarrow & I \phi \ \ \ \tmop{for} \phi \neq
+     \chi \\
+     \vdash [- \chi] \neg \phi & \leftrightarrow & \neg [- \chi] \phi \\
+     \vdash [- \chi] (\phi \wedge \psi) & \leftrightarrow & [- \chi] \phi
+     \wedge [- \chi] \psi \\
+     \vdash [- \chi]\Box \phi & \leftrightarrow & \Box[- \chi] \phi \\
+     \vdash \phi & \Longrightarrow & \vdash [- \chi] \phi
+%      \\
+% & & &
+   \end{array} $
+\end{minipage}\\ 
+\\
+}
+\caption{Reduction Axioms for $DAL$}
+\label{table:dalredaxioms}
+\end{table}
+
+The authors in \cite{van_benthem_inference_2009}
+an intuitive motivation of how their framework is intended to model
+explicit knowledge.  Informally, we will in this setting we will want
+to employ the following readings 
+\begin{bul}
+\item  $\Box\phi$ asserts ``the agent \emph{implicitly} knows that
+$\phi$.''
+\item $K\phi$ asserts ``the agent \emph{explicitly} knows that
+$\phi$.''
+\end{bul}
+For an agent that is not logically omniscient, we
+want to enforce that the following is \textbf{not} valid:
+\begin{equation}
+ K(\phi \to \psi) \to K \phi \to K \psi \label{eq:not-valid}\end{equation}
+
+However, while the above does not hold for $DAL$, the authors in
+\cite{van_benthem_inference_2009} suggest that the following two
+expressions should hold:
+\begin{eqnarray*}  
+& \vdash K(\phi \to \psi) \to K \phi \to \Box \psi \\
+&  \vdash K(\phi \to \psi) \to K \phi \to [?] K \psi 
+\end{eqnarray*}
+Here $[]$ is an inference \emph{gap}.  The idea here is that agents
+are thought to implicitly know the logical conclusions of all of their
+explicit knowledge, while to explicitly draw a conclusion they need a nudge.
+
+The authors propose the following definitions, and illustrate that
+they are sufficient to ensure the above criteria:
+\begin{eqnarray*}  
+K \phi & := & \Box (\phi \wedge I \phi)  \\
+\ [?] K \psi & := & [+\psi] K \psi
+\end{eqnarray*}
+As a side remark, the gap $[?]$ is defined to be sensitive to the context in
+which is it employed.
+
+The proposed definition for explicit knowledge also renders
+\eqref{eq:not-valid} for $VQL$.  In addition, the proposed
+\textsc{EviL} formulation of knowledge $K_{\textup{\textsc{EviL}}} \phi :=
+\DM(\PP \wedge \Nec \phi)$ also invalidates \eqref{eq:not-valid},
+despite the fact that agents are modeled as logically omniscient.
+This is due to the fact that the \textsc{EviL} agent may have a sound
+argument for $\phi \to \psi$ and another, entirely different sound
+argument for $\phi$, but she might not be clever enough to join the
+bases for these two sound arguments together to argue that $\psi$.  It
+is straightforward to compose a 
+concrete \textsc{EviL} model that formalizes this intuition.  Failure
+of explicit logical omniscience is a unifying principle
+behind all formulations of explicit knowledge.
+% Formally, this sort of behavior is exhibited in the following concrete
+% \textsc{EviL} model:
+% \[ \mathfrak{M}:= \{(\varnothing,\varnothing), (\{p\},\varnothing), (\{p,q\},\{p }), (\{p,q\},\{p \to q}),\]
+
+While $VQL$ naturally accommodates $DAL$'s formulation of explicit
+knowledge, it cannot accommodate $DAL$'s gap $[?]$.   $DAL$ has a
+richer internal language that is unavailable to $VQL$.  While $VQL$ supports dynamics for adding awareness of
+formulae, the agent can only be aware of $\mathcal{L}_0(\Phi)$
+formulae.  This grammar restriction prohibits formulating the dynamics
+above.
+
+The gap $[?]$ is also incompatible with \textsc{EviL}.  As previously noted,
+\textsc{EviL} is restricted to $\mathcal{L}_0$ in a manner similar to
+$VQL$.  
+Another 
+issues is that the abstract \textsc{EviL} semantics makes no mention of 
+anything analogous to explicit awareness, and the concrete semantics,
+while superficially similar, is sensitive to dynamics in a way that
+awareness approaches are not.  For instance, in the concrete
+\textsc{EviL} semantics
+we evidently have that:
+$$(a,\{p\}) \not\sqsubseteq (a,\{q\}).$$  On the other hand, we have that
+$$(a,\{p\}\cup \{p\}) \sqsubseteq (a,\{q\}\cup \{p\}).$$
+This poses a problem for trying to formulate an \textsc{EviL}
+formulation of $[+\chi]$.  Updates conventionally do not \emph{add}
+accessibility, while in the concrete semantics they would have to in
+this situation.  Given this observation, it is straightforward to
+contrive a scenario in the concrete \textsc{EviL} semantics which
+invalidates the following candidate reduction axiom:
+\[ [+\chi] \BP \phi \IFF \BP [+\chi] \phi \]
+
+The above reveals a tension between the dynamic approach and the
+\textsc{EviL} framework.  In \textsc{EviL} concrete models, two worlds
+are related if their beliefs and truth conditions make true various
+logical relationships, while in a dynamic approach two worlds are related if
+they were initially related, and through various manipulations to the model
+this relationship has been preserved.
+
+As a final remark concerning $DAL$, when one writes $\mathbb{A},w
+\vdash K \phi$, it is not obvious what sort of reasons the agent might
+have for knowing $\phi$ in this circumstance.  The story in $VQL$ is
+that the agent used valid inference rules they were aware of, along
+with various model updates to arrive at $\phi$.  As we have already
+presented, \textsc{EviL} has its own way of analyzing the reasoning
+behind knowledge agents might or might not have. However, no such
+narrative appears to be evident in the case of $DAL$.  However, given
+the expressive power of $DAL$, perhaps $DAL$ will be able to
+embed other logics of explicit inference.  The character of $DAL$ is
+that it is general, and non-specific regarding the way that it models
+explicit knowledge, so understanding its precise connection to other
+approaches seems a promising subject for future research.
+
+\subsection{Final Thoughts}
+
+The purpose of all of the logics we have presented in this section is
+to model an agent making explicit inferences behind their deductions.
+Awareness based approaches tackle this by modeling the mental
+contents of the agent's mind.  At a glance, this appears superficially
+similar to the \textsc{EviL} approach.  However, at their core, these
+two approaches are essentially orthogonal.
+
+To summarize the \textsc{EviL} approach, it is to enforce that beliefs
+correspond to deductions, and then provide modalities for controlling 
+the bases upon which those deductions are made.  It accomplishes this
+by introducing concrete structures with modal syntax, and then
+abstracting on those concrete structures with abstract Kripke
+semantics.
+
+The cost of this approach, however, is that the intended semantics
+for controlling the bases for inference are not obviously compatible
+with the intended semantics for updates.
+
+However, there are benefits to the \textsc{EviL} approach that
+outweigh the costs.  \textsc{EviL} incorporates a clear
+foundationalist epistemology into its design, and naturally models 
+deliberative actions one may take in a foundationalist setting. 
+This foundationalist perspective on belief and knowledge clear intuitionistic readings, and
+this reflected in embedding.  However, via \emph{duality},
+\textsc{EviL} goes further and introduces its own reading of
+intuitionistic semantics, where instead imagination takes the place of
+knowledge as providing truth conditions.
+
+We hope that the future will allow for fruitful communication
+between the ideas in \textsc{EviL} and its allied approaches.
+
+% \subsection{Justification Logic}
+
+% \emph{Justification Logic} is perhaps the most advanced out of all of
+% the frameworks presented.  The logic evolved out of earlier work on
+% the \emph{Logic of Proofs} \cite{artemov_logic_1994}.  Historically
+% the \emph{Logic of Proofs} has been understood as follows:
+% \begin{quote}
+% The \emph{Logic of Proofs} ($LP$) bears the same relationship to explicit proofs in formal arithmetic that
+% \emph{G\"{o}del-L\"{o}b logic} (GL) bears to arithmetic provability.\cite{fitting_logic_2005}
+% \end{quote}
+
+% \begin{definition}
+% The syntax of $LP$ conforms to the following grammar, which we will
+% call $\mathcal{LP}(\Phi,\mathcal{C})$:
+% \[ \phi ::= p \in \Phi \ |\ \bot \ | \ \phi \to \psi\ | \ t: \phi  \]
+% Here $t$ is referred to as a \textbf{proof polynomial}, and has a
+% separate grammar which gives its own composition, over a set of
+% \textbf{constants} $\mathcal{C}$.  The grammar of proof polynomials
+% $\mathcal{PP}(\mathcal{C})$ is given as:
+% \[ t ::= c \in \mathcal{C} \ |\ t \cdot u \ |\ t + u \ |\ ! t \]
+% \end{definition}
+
+% The intuition behind $t:\phi$ is that $t$ is a structure that contains
+% the proofs of several propositions, and $\phi$ is one of the
+% propositions it proves.
+
+
+
+
+% We can see that the above Kripke structures can be understood from a
+% more \textsc{EviL} perspective, where we eschew the awareness function
+% in favor of having world/belief set pairs:
+
+% \begin{definition}
+% We call a structure $\mathfrak{A} = \langle U, R, V\rangle$ is a \textbf{\textsc{EviL}
+%   Awareness Kripke Structure} over a language $\mathcal{L}$, a set of
+% proposition letters $\Phi$ and a set of worlds $W$ when
+% \begin{bul}
+%   \item $U\subseteq W \times \powerset\mathcal{L}$ is a set of pairs
+%     of worlds and sets of formulae in the language $\mathcal{L}$
+%   \item $R \subseteq W \times W$ is an accessibility relation
+%   \item $V: \Phi \to \powerset W$ is a propositional valuation
+%     function
+% \end{bul}
+% \end{definition}
+
+% \subsection{Comparing Frameworks}
+% In this section, we introduce a series of philosophical and technical issues that
+% the disparate approaches address, and how their approaches differ.
+% Briefly, these issues are:
+
+% \begin{description}
+%   \item[Multiple Agents] -- Does the framework support multiple
+%     agents?
+%   \item[Basic Epistemic] -- How do the frameworks model: \emph{implicit
+%       belief}, \emph{explicit belief}, \emph{implicit knowledge},
+%     and \emph{explicit knowledge}?
+%   \item[Implicit/Explicit Knowledge Relationship] -- What is the
+%     relationship that implicit knowledge bares to explicit knowledge?
+%   \item[Dynamics] -- What kind of dynamics can the framework model?
+% %   \item[Inference Gap] --  For logics that model agents that are not
+% %     logically omniscient, there is an inference gap:
+% % \[ Ex (\phi \to \psi) \to Ex \phi \to [] Ex \psi \]
+% % How does the framework fill the gap?
+%   \item[Grammar Restrictions] -- If there are grammar restrictions,
+%     why are they imposed?
+%   \item[Semantics] -- What kind of semantics does the framework
+%     support?
+%   \item[Explicit Inference] -- How does the framework model explicit inference?
+%   \item[Intuitionistic Logic] -- Does the framework present a
+%     connection to intuitionistic logic?
+%   \item[Complexity] -- What are complexity results for the framework?
+% \end{description}
+
+% \begin{table}
+% \centering
+% %\newcounter{rownum}
+% \setcounter{rownum}{0}
+% %\newcounter{rownum2}
+% \setcounter{rownum2}{0}
+% \begin{tabular}{|ll|}
+% \hline
+%   (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \phi \to \psi \to \phi$\\
+%    (\refstepcounter{rownum}\arabic{rownum})&$ \vdash (\phi \to \psi
+%    \to \chi) \to (\phi \to \psi) \to \phi \to \chi$\\
+%    (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \phi \wedge \psi \to
+%    \phi$\\
+%  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \phi \wedge \psi \to
+%  \psi$\\
+%  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash (\phi \to \psi)
+%  \to (\phi \to \chi) \to (\phi \to \psi \wedge \chi)$\\
+%  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \phi \to \phi \vee \psi$\\
+%  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \psi \to \phi \vee
+%  \psi$\\
+%  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash (\phi \to \chi)
+%  \to (\psi \to \chi) \to (\phi \vee \psi) \to \chi$\\
+%  (\refstepcounter{rownum}\arabic{rownum})&$ \vdash \bot \to \phi$\\
+% (\refstepcounter{rownum2}\Roman{rownum2}) & \AxiomC{$\vdash \phi \to
+%   \psi$} \AxiomC{$\vdash \phi$} \BinaryInfC{$\vdash \psi$}
+% \DisplayProof \\ % & Modus Ponens\\%[10pt]
+% \hline
+% \end{tabular}
+% \caption{$VQL$ Systems}
+% \label{table:VQaxioms}
+% \end{table}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "evil_philosophy"
+%%% End: 

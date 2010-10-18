@@ -9,7 +9,7 @@ asserting ``The \tmtextsc{EviL} agent believes $\phi$''.  Because of Theorem
 take to be a kind of proof.
 
 The intuition for how to read $\DM \phi$ was first mentioned in
-\S\ref{Descartes} with respect to Descartes' Meditation II -- it means ``If the
+\S\ref{Descartes} with respect to Descartes' Meditation II. It means ``If the
 \tmtextsc{EviL} agent were to set aside some of her beliefs, or cast some of
 her beliefs into doubt, then $\phi$ would hold.''  Dually, we can read
 $\boxminus \phi$ as saying something like ``For all the ways that the
@@ -94,41 +94,52 @@ of belief} due to Quine, as presented in \S\ref{quine}, we would
 extend a position asserting that remembering factive data is the 
 same as embracing as much of one's evidence as possible.
 
-In terms of the semantics outlined, $\boxminus$ corresponds to a subsetset
-relation while $\boxplus$ corresponds to a superset relation.  Because of
-this, we shall sometimes read $\boxminus \phi$ closer to the formal semantics, as
-saying something like ``for all subsets of the agent's basic beliefs
-or premises, $\phi$ holds'' and dually for $\boxplus \phi$.  
-This is admittedly even less natural than
-the reading of remembering as the opposite of casting into doubt.
-So be it; we shall have to be comfortable with \tmtextsc{EviL} 
-agents being at best twisted cartoon versions of actual people.
-Is this so unnatural?  Logic, in general, only affords at best cartoon
-versions of whatever we are trying to model with it.  Consider, for
-instance, Peano arithmetic, which is in general not powerful enough to
-prove a basic number theoretic fact like Goodstein's theorem
-\citep{kirby_accessible_1982}.  Or consider the stronger system 
-of second order arithmetic, which is in turn not strong enough to prove 
-% No logical framework for 
-% reasoning about epistemics can hope to who actually have minds and engage in remembering,
-% imagining, and other similar activities.  
-% After all, according to the
-semantics stipulated in \S\ref{evil-grammar}, \tmtextsc{EviL} agents apparently have sets
-for brains, which makes an \tmtextsc{EviL} agent a strange effigy for a person
-indeed -- with the possible exception of set theorists, whose brains are
-typically constructed entirely of sets or urelements.
+% In terms of the semantics outlined, $\boxminus$ corresponds to a subsetset
+% relation while $\boxplus$ corresponds to a superset relation.  Because of
+% this, we shall sometimes read $\boxminus \phi$ closer to the formal semantics, as
+% saying something like ``for all subsets of the agent's basic beliefs
+% or premises, $\phi$ holds'' and dually for $\boxplus \phi$.  
+% This is admittedly even less natural than
+% the reading of remembering as the opposite of casting into doubt.
+% So be it; we shall have to be comfortable with \tmtextsc{EviL} 
+% agents being at best twisted cartoon versions of actual people.
+% Is this so unnatural?  Logic, in general, only affords at best cartoon
+% versions of whatever we are trying to model with it.  Consider, for
+% instance, Peano arithmetic, which is in general not powerful enough to
+% prove a basic number theoretic fact like Goodstein's theorem
+% \citep{kirby_accessible_1982}.  Or consider the stronger system 
+% of second order arithmetic, which is in turn not strong enough to prove 
+% % No logical framework for 
+% % reasoning about epistemics can hope to who actually have minds and engage in remembering,
+% % imagining, and other similar activities.  
+% % After all, according to the
+% semantics stipulated in \S\ref{evil-grammar}, \tmtextsc{EviL} agents apparently have sets
+% for brains, which makes an \tmtextsc{EviL} agent a strange effigy for a person
+% indeed -- with the possible exception of set theorists, whose brains are
+% typically constructed entirely of sets or urelements.
 
-Furthermore, it is under the set theoretical reading that $\PP$ makes
-the most sense.  We should read it as asserting something like ``the basis for
-the \textsc{EviL} agent's beliefs is sound'' or ``the \textsc{EviL}
-agent's arguments only use true premises.''  It further means that the
-actual state of affairs is compatible with what the agent believes -
-reality has not been ruled out by something that the agent is taking
-as evidence.  Moreover, sound premises intuitively exhibit the
-following property - any subset of them is also sound, since soundness
-isn't a phenomenon that is subject to synchronicity or other failures
-of compositionality.  A set of premises is sound if and only if all of
-its subsets are also sound.
+% Furthermore, it is under the set theoretical reading that $\PP$ makes
+% the most sense.  We should read it as asserting something like ``the basis for
+% the \textsc{EviL} agent's beliefs is sound'' or ``the \textsc{EviL}
+% agent's arguments only use true premises.''  It further means that the
+% actual state of affairs is compatible with what the agent believes -
+% reality has not been ruled out by something that the agent is taking
+% as evidence.  Moreover,
+
+Finally, reading considering the agent's web of beliefs as a network
+of related sets of premises, we may draw one final philosophical
+insight, which is reflective of a validity.
+A sound set of premises $A$ intuitively will ensure any subset of them
+is also sound.
+%   Indeed, we may conclude that a set of premises is sound if and only if all of
+% its subsets are also sound, which is expressed in \eqref{eq:PPiff}. 
+% \begin{equation} \label{eq:PPiff}
+% \PP \IFF \BM \PP
+% \end{equation}
+
+With this final intuition in mind, we turn to illustrating how
+the above philosophical intuitions give rise to an assortment of
+validities for \textsc{EviL}.
 
 %%% Local Variables: 
 %%% mode: latex

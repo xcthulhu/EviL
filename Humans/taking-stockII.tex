@@ -37,43 +37,56 @@ object of study of modal logic, however we found that while we could
 abstract to traditional Kripke structures, this was not symmetric --
 we could not abstract back.
 
-We argue that this particular relationship is common place in
+We argue that this particular relationship is commonplace in
 mathematics.  For instance, it is natural to think of the integers as
 a concrete object.  After all, every mathematics student at some point
-learns Kronicker's legendary quote ``God created the integers, all
+learns Kronicker's legendary mantra ``God created the integers, all
 else is the creation of man'' \cite[pg. 477]{bell_men_1986}.
 However, it is by these concrete origins, we may recognize the
-integers as concrete Noetherian ring.  Indeed, it is by understanding
-the integers that the theory of Noetherian rings proceeds.  For
-instance, the fact that every ideal in a Noetherian ring is equal to a finite
+integers as a concrete Noetherian ring, and carry on understanding
+mathematics on a more abstract and general fashion.
+%   Indeed, it is by understanding
+% the integers that the theory of Noetherian rings proceeds.
+  For instance, the fact that every ideal in a Noetherian ring is equal to a finite
 intersection of primary ideals is a pure abstraction of 
 Euclid's prime decomposition theorem\cite[Lemmas 7.11 and 7.12,
 pg. 83]{atiyah_introduction_1994}.  This is part of the character of
 mathematics; abstraction is guided by intuition drawn from more
-concrete objects.  In  the same manner we may regard Stone
-Representation Theorem as abstracting
-Birkoff's theorem \cite[chapters 11 and 5, respectively]{davey_introduction_2002}, and the Yoneda Lemma abstracting Cayley's
+concrete objects.  In  the same manner we may regard \emph{Stone
+Representation Theorem} as an infinitary abstraction of
+\emph{Birkoff's Theorem} \cite[chapters 11 and 5,
+respectively]{davey_introduction_2002}, and the \emph{Yoneda Lemma} as
+an abstraction of Cayley's
 theorem \cite[chapters 4 and 1, respectively]{smith_post-modern_1999}.
 
 Despite the order of presentation given here, we should make things
-clear - we did not derive the abstract completeness theorem in
+clear: we did not derive the abstract completeness theorem in
 \S\ref{abstraction} until we were convinced that \textsc{EviL} Kripke
 structures generalized our concrete structures.  The process by which
 \textsc{EviL} was developed involved finding the results in
-\S\ref{small-model} first, and letting those properties we deemed 
-necessary to coerce a Kripke structure into a \textsc{Evil} 
-model define the logic.  
+\S\ref{small-model} first, and letting the defining properties of
+concrete \textsc{Evil} models define the logic.  
 Abstract completeness was an afterthought.  Of course, just as in the
 case of complex analysis and trigonometry, our abstract formalism
 is far easier to manipulate than our original \textsc{EviL} models.
+Moreover, since the abstract completeness theorem is far simpler than
+the concrete completeness theorem, our presentation has followed suit.
 
-Since \textsc{EviL} Kripke structures really are abstract
+\textsc{EviL} Kripke structures really are abstract
 idealizations of concrete \textsc{EviL} models, as we have
-illustrated, we are granted a particularly comfortable situation.  
+illustrated.  This puts us in a powerful position. 
 On the one hand, we have concrete semantics by
 which we may sharpen our intuition. On the other hand, we 
 have well behaved abstract semantics which faithfully provide an 
 idealized domain for us to carry out formal work with relative ease.
+We feel the situation is analogous to the one in \emph{complex analysis}, where
+the easiest way to prove trigonometric theorems is to employ complex
+idealizations such as \emph{Euler's Formula} (the reader will recall this is
+the assertion $e^{i \theta} = \cos \theta + i \sin \theta$).  Perhaps
+more appropriately, we can think of the space of \textsc{EviL}
+Kripke structures as a \emph{compactification}, in a sense, of the
+concrete \textsc{EviL} models, since the logic is indeed compact over
+the Kripke structure abstraction.
 
 The subsequent sections shall go on to illustrate how we may use
 abstract Kripke semantics to easily understand properties of
