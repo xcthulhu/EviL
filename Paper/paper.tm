@@ -3,8 +3,8 @@
 <style|acmconf>
 
 <\body>
-  <doc-data|<doc-title|Epistemic Logics of
-  Argument>|<doc-author-data|<author-name|Matthew P. Wampler-Doty>>>
+  <doc-data|<doc-title|Epistemic Logics as Logics of
+  Argument>|<doc-author-data|<author-name|Matthew P. Wampler-DotY>>>
 
   <\abstract>
     In <cite|van_benthem_reflectionsepistemic_1991>, Johan van Benthem
@@ -1025,61 +1025,61 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|1|?>>
-    <associate|auto-10|<tuple|3|?>>
-    <associate|auto-11|<tuple|4|?>>
-    <associate|auto-12|<tuple|3.3|?>>
-    <associate|auto-13|<tuple|3.3|?>>
+    <associate|auto-1|<tuple|1|1>>
+    <associate|auto-10|<tuple|3|7>>
+    <associate|auto-11|<tuple|4|8>>
+    <associate|auto-12|<tuple|3.3|8>>
+    <associate|auto-13|<tuple|3.3|8>>
     <associate|auto-14|<tuple|3.4|?>>
-    <associate|auto-2|<tuple|2|?>>
-    <associate|auto-3|<tuple|2.1|?>>
-    <associate|auto-4|<tuple|1|?>>
-    <associate|auto-5|<tuple|2.2|?>>
-    <associate|auto-6|<tuple|2|?>>
-    <associate|auto-7|<tuple|3|?>>
-    <associate|auto-8|<tuple|3.1|?>>
-    <associate|auto-9|<tuple|3.2|?>>
-    <associate|awarenesslogic|<tuple|2.1|?>>
-    <associate|awarenessmodels|<tuple|2|?>>
+    <associate|auto-2|<tuple|2|2>>
+    <associate|auto-3|<tuple|2.1|2>>
+    <associate|auto-4|<tuple|1|2>>
+    <associate|auto-5|<tuple|2.2|4>>
+    <associate|auto-6|<tuple|2|4>>
+    <associate|auto-7|<tuple|3|5>>
+    <associate|auto-8|<tuple|3.1|5>>
+    <associate|auto-9|<tuple|3.2|6>>
+    <associate|awarenesslogic|<tuple|2.1|2>>
+    <associate|awarenessmodels|<tuple|2|2>>
     <associate|basic-modal|<tuple|2|?>>
-    <associate|bib-artemov_introducing_2005|<tuple|1|?>>
-    <associate|bib-artemov_logic_1994|<tuple|2|?>>
-    <associate|bib-basu_revealed_1980|<tuple|3|?>>
-    <associate|bib-blackburn_modal_2001|<tuple|4|?>>
-    <associate|bib-boolos_logic_1995|<tuple|5|?>>
-    <associate|bib-bull_approach_1970|<tuple|6|?>>
+    <associate|bib-artemov_introducing_2005|<tuple|1|8>>
+    <associate|bib-artemov_logic_1994|<tuple|2|8>>
+    <associate|bib-basu_revealed_1980|<tuple|3|8>>
+    <associate|bib-blackburn_modal_2001|<tuple|4|8>>
+    <associate|bib-boolos_logic_1995|<tuple|5|8>>
+    <associate|bib-bull_approach_1970|<tuple|6|8>>
     <associate|bib-castaneda_knowing_1970|<tuple|10|?>>
-    <associate|bib-davidson_could_1995|<tuple|7|?>>
-    <associate|bib-fagin_belief_1987|<tuple|8|?>>
-    <associate|bib-fitting_logic_2005|<tuple|9|?>>
+    <associate|bib-davidson_could_1995|<tuple|7|8>>
+    <associate|bib-fagin_belief_1987|<tuple|8|8>>
+    <associate|bib-fitting_logic_2005|<tuple|9|9>>
     <associate|bib-ginet_what_1970|<tuple|8|?>>
-    <associate|bib-halpern_set-theoretic_1999|<tuple|10|?>>
-    <associate|bib-hendricks_mainstream_2006|<tuple|11|?>>
-    <associate|bib-kornblith_beyond_1980|<tuple|12|?>>
-    <associate|bib-montague_universal_2008|<tuple|13|?>>
-    <associate|bib-prior_revised_1969|<tuple|14|?>>
-    <associate|bib-rubinstein_modeling_1998|<tuple|15|?>>
-    <associate|bib-scott_advice_1970|<tuple|16|?>>
-    <associate|bib-sen_behaviour_1973|<tuple|17|?>>
-    <associate|bib-van_benthem_inference_2009|<tuple|18|?>>
+    <associate|bib-halpern_set-theoretic_1999|<tuple|10|9>>
+    <associate|bib-hendricks_mainstream_2006|<tuple|11|9>>
+    <associate|bib-kornblith_beyond_1980|<tuple|12|9>>
+    <associate|bib-montague_universal_2008|<tuple|13|9>>
+    <associate|bib-prior_revised_1969|<tuple|14|9>>
+    <associate|bib-rubinstein_modeling_1998|<tuple|15|9>>
+    <associate|bib-scott_advice_1970|<tuple|16|9>>
+    <associate|bib-sen_behaviour_1973|<tuple|17|9>>
+    <associate|bib-van_benthem_inference_2009|<tuple|18|9>>
     <associate|bib-van_benthem_reflectionsepistemic_1991|<tuple|11|?>>
-    <associate|completeness1|<tuple|4|?>>
-    <associate|footnote-1|<tuple|1|?>>
-    <associate|footnote-2|<tuple|2|?>>
-    <associate|footnote-3|<tuple|3|?>>
-    <associate|footnr-1|<tuple|1|?>>
-    <associate|footnr-2|<tuple|2|?>>
-    <associate|footnr-3|<tuple|3|?>>
-    <associate|hybridsemantics|<tuple|7|?>>
-    <associate|intro|<tuple|1|?>>
-    <associate|justmodels|<tuple|11|?>>
+    <associate|completeness1|<tuple|4|3>>
+    <associate|footnote-1|<tuple|1|1>>
+    <associate|footnote-2|<tuple|2|1>>
+    <associate|footnote-3|<tuple|3|5>>
+    <associate|footnr-1|<tuple|1|1>>
+    <associate|footnr-2|<tuple|2|1>>
+    <associate|footnr-3|<tuple|3|5>>
+    <associate|hybridsemantics|<tuple|7|4>>
+    <associate|intro|<tuple|1|1>>
+    <associate|justmodels|<tuple|11|6>>
     <associate|logic|<tuple|1|?>>
-    <associate|logic1|<tuple|1|?>>
-    <associate|logic2|<tuple|2|?>>
-    <associate|logic3|<tuple|3|?>>
-    <associate|logic4|<tuple|4|?>>
-    <associate|neighborhoodmodels|<tuple|14|?>>
-    <associate|quantifying|<tuple|3.3|?>>
+    <associate|logic1|<tuple|1|2>>
+    <associate|logic2|<tuple|2|4>>
+    <associate|logic3|<tuple|3|7>>
+    <associate|logic4|<tuple|4|8>>
+    <associate|neighborhoodmodels|<tuple|14|6>>
+    <associate|quantifying|<tuple|3.3|8>>
     <associate|semdef1|<tuple|2|?>>
     <associate|simplyjustificationmodels|<tuple|11|?>>
     <associate|theorem-theorem|<tuple|4|?>>
@@ -1135,9 +1135,17 @@
 
       blackburn_modal_2001
 
+      artemov_logic_1994
+
+      artemov_introducing_2005
+
+      fitting_logic_2005
+
       montague_universal_2008
 
       scott_advice_1970
+
+      fagin_belief_1988
 
       hansen_bisimulation_2007
 
@@ -1153,11 +1161,11 @@
 
       <tuple|normal|<label|logic3>A neighborhood logic for
       <with|font-series|<quote|bold>|NCSQ> and
-      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-9>>
+      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-10>>
 
       <tuple|normal|<label|logic4>A knowledge-only neighborhood logic for
       <with|font-series|<quote|bold>|NCSQ> and
-      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-10>>
+      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-11>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Introduction<label|intro>>
@@ -1181,13 +1189,22 @@
       of Multiple Knowledge Bases> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-7><vspace|0.5fn>
 
-      <with|par-left|<quote|1.5fn>|3.1<space|2spc>Neighborhood Semantics
-      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <with|par-left|<quote|1.5fn>|3.1<space|2spc>Simplified Justification
+      Logic <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-8>>
+
+      <with|par-left|<quote|1.5fn>|3.2<space|2spc>Neighborhood Semantics
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-9>>
+
+      <with|par-left|<quote|1.5fn>|3.3<space|2spc><label|quantifying>Using
+      Modalities to Quantify over Knowledge Bases
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-12>>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-11><vspace|0.5fn>
+      <no-break><pageref|auto-13><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
