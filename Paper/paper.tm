@@ -3,8 +3,8 @@
 <style|acmconf>
 
 <\body>
-  <doc-data|<doc-title|Epistemic Logics as Logics of
-  Argument>|<doc-author-data|<author-name|Matthew P. Wampler-Doty>>>
+  <doc-data|<doc-title|Epistemic Logics For Knowledge
+  Bases>|<doc-author-data|<author-name|Matthew P. Wampler-Doty>>>
 
   <\abstract>
     In <cite|van_benthem_reflectionsepistemic_1991>, Johan van Benthem
@@ -14,11 +14,10 @@
     <cite|van_benthem_inference_2009> and
     <with|font-shape|italic|Justification Logic>
     <cite|artemov_introducing_2005>. \ The purpose of this paper is to
-    propose novel, argument based semantics for various modal logics related
-    to these previous efforts, for use in reasoning about knowledge bases.
-    \ We conclude with an application to naturalized epistemology. \ The
-    results in this paper are based on previous work carried out in (FIXME
-    citation to self).
+    repurpose various epistemic logics from these previous efforts for
+    reasoning about logical closures over knowledge bases. \ The results in
+    this paper are based on previous work carried out in
+    <cite|wampler-doty_evidentialist_2010>.
   </abstract>
 
   <section|Introduction<label|intro>>
@@ -1332,8 +1331,6 @@
     <label|quantifying>Using Modalities to Quantify over Knowledge Bases
   </subsection>
 
-  \;
-
   <section|Conclusions & Further Research>
 
   The logic presented in Table <reference|logic1> is a conservative extension
@@ -1354,7 +1351,7 @@
     <\bib-list|10>
       <bibitem*|1><label|bib-artemov_logic_1994>S.<nbsp>N Artemov.
       <newblock>Logic of proofs. <newblock><with|font-shape|italic|Annals of
-      Pure and Applied Logic>, 67(1):29–60, 1994.
+      Pure and Applied Logic>, 67(1):29--60, 1994.
 
       <bibitem*|2><label|bib-artemov_introducing_2005>S.<nbsp>N Artemov and
       E.<nbsp>Nogina. <newblock>Introducing justification into epistemic
@@ -1381,17 +1378,17 @@
       <bibitem*|7><label|bib-davidson_could_1995>Donald Davidson.
       <newblock>Could there be a science of rationality?
       <newblock><with|font-shape|italic|International Journal of
-      Philosophical Studies>, 3(1):1–16, 1995.
+      Philosophical Studies>, 3(1):1--16, 1995.
 
       <bibitem*|8><label|bib-fagin_belief_1988>R.<nbsp>Fagin and J.<nbsp>Y
       Halpern. <newblock>Belief, awareness, and limited reasoning.
       <newblock><with|font-shape|italic|Artificial Intelligence>,
-      34(1):39–76, 1988.
+      34(1):39--76, 1988.
 
       <bibitem*|9><label|bib-fitting_logic_2005>M.<nbsp>Fitting.
       <newblock>The logic of proofs, semantically.
       <newblock><with|font-shape|italic|Annals of Pure and Applied Logic>,
-      132(1):1–25, 2005.
+      132(1):1--25, 2005.
 
       <bibitem*|10><label|bib-halpern_set-theoretic_1999>Joseph<nbsp>Y.
       Halpern. <newblock>Set-theoretic completeness for epistemic and
@@ -1440,10 +1437,9 @@
       <newblock><with|font-shape|italic|Economica>, 40(159):241--259, August
       1973.
 
-      <bibitem*|20><label|bib-van_benthem_inference_2009>Johan van Benthem
-      and F.<nbsp>R Velázquez-Quesada. <newblock>Inference, promotion, and
-      the dynamics of awareness. <newblock><with|font-shape|italic|ILLC
-      Amsterdam. To appear in Knowledge, Rationality and Action>, 2009.
+      <bibitem*|20><label|bib-wampler-doty_evidentialist_2010>Matthew
+      Wampler-Doty. <newblock>Evidentialist logic. <newblock>MSc thesis,
+      Universiteit van Amsterdam, Amsterdam, North-Holland, September 2010.
     </bib-list>
   </bibliography>
 </body>
@@ -1505,6 +1501,7 @@
     <associate|bib-sen_behaviour_1973|<tuple|19|9>>
     <associate|bib-van_benthem_inference_2009|<tuple|20|9>>
     <associate|bib-van_benthem_reflectionsepistemic_1991|<tuple|11|?>>
+    <associate|bib-wampler-doty_evidentialist_2010|<tuple|20|?>>
     <associate|completeness1|<tuple|4|3>>
     <associate|completeness2|<tuple|8|?>>
     <associate|completeness5|<tuple|12|?>>
@@ -1539,7 +1536,7 @@
     <associate|logic2|<tuple|2|4>>
     <associate|logic3|<tuple|5|7>>
     <associate|logic4|<tuple|6|8>>
-    <associate|logic5|<tuple|4|?>>
+    <associate|logic5|<tuple|3|?>>
     <associate|logic6|<tuple|4|?>>
     <associate|neighborhoodmodels|<tuple|18|6>>
     <associate|quantifying|<tuple|3.4|8>>
@@ -1562,6 +1559,8 @@
       van_benthem_inference_2009
 
       artemov_introducing_2005
+
+      wampler-doty_evidentialist_2010
 
       halpern_set-theoretic_1999
 
@@ -1599,6 +1598,8 @@
 
       boolos_logic_1995
 
+      blackburn_modal_2001
+
       prior_revised_1969
 
       bull_approach_1970
@@ -1634,13 +1635,16 @@
       <tuple|normal|<label|logic5>Simple Justification
       Logic|<pageref|auto-9>>
 
+      <tuple|normal|<label|logic6>Lattice Justification
+      Logic|<pageref|auto-11>>
+
       <tuple|normal|<label|logic3>A Neighborhood Logic for
       <with|font-series|<quote|bold>|NCSQ> and
-      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-12>>
+      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-13>>
 
       <tuple|normal|<label|logic4>A knowledge-only neighborhood logic for
       <with|font-series|<quote|bold>|NCSQ> and
-      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-13>>
+      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-14>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Introduction<label|intro>>
@@ -1674,20 +1678,20 @@
 
       <with|par-left|<quote|1.5fn>|3.3<space|2spc>Neighborhood Semantics
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-11>>
+      <no-break><pageref|auto-12>>
 
       <with|par-left|<quote|1.5fn>|3.4<space|2spc><label|quantifying>Using
       Modalities to Quantify over Knowledge Bases
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-14>>
+      <no-break><pageref|auto-15>>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>Conclusions
       & Further Research> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-15><vspace|0.5fn>
+      <no-break><pageref|auto-16><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-16><vspace|0.5fn>
+      <no-break><pageref|auto-17><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
