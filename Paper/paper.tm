@@ -1,10 +1,10 @@
-<TeXmacs|1.0.7.2>
+<TeXmacs|1.0.7.4>
 
 <style|acmconf>
 
 <\body>
   <doc-data|<doc-title|Epistemic Logics as Logics of
-  Argument>|<doc-author-data|<author-name|Matthew P. Wampler-DotY>>>
+  Argument>|<doc-author-data|<author-name|Matthew P. Wampler-Doty>>>
 
   <\abstract>
     In <cite|van_benthem_reflectionsepistemic_1991>, Johan van Benthem
@@ -17,7 +17,8 @@
     propose novel, argument based semantics for various modal logics related
     to these previous efforts, for use in reasoning about knowledge bases.
     \ We conclude with an application to naturalized epistemology. \ The
-    results in this paper are based on previous work carried out in (FIXME).
+    results in this paper are based on previous work carried out in (FIXME
+    citation to self).
   </abstract>
 
   <section|Introduction<label|intro>>
@@ -27,9 +28,9 @@
   <cite|halpern_set-theoretic_1999|rubinstein_modeling_1998>, the semantics
   of <math|S5> knowledge correspond exactly to partitioning a collection of
   situations into <with|font-shape|italic|information sets>, which is the
-  tradition in game theory and decision theory. \ While it is not commonly
-  acknowledged in epistemic logic, economists and philosophers accept that
-  traditional decision theory is externalist and behaviourist in
+  traditional approach in game theory and decision theory. \ While it is not
+  commonly acknowledged in epistemic logic, economists and philosophers
+  accept that traditional decision theory is externalist and behaviourist in
   nature<\footnote>
     An early essay by Amartya Sen on the philosophical foundations of
     traditional decision theory makes the behaviorist reading of decision
@@ -61,16 +62,16 @@
 
   \;
 
-  In this essay we repurpose various modal logics to take on an internalist
-  reading. \ The concept of a <with|font-shape|italic|knowledge base>, from
-  which beliefs may be implicitly deduced, will play a crucial role in our
-  discussion. \ We propose this as an avenue for representing foundationalist
-  perspectives on epistemology in epistemic logic. \ Our philosophical
-  motivation is taken from two sources. \ The first is Vincent Hendricks in
-  <cite|hendricks_mainstream_2006>, where he characterizes the principal of
-  <em|logical omniscience> for implicit knowledge in epistemic
+  In this essay we repurpose various externalist logics to take on an
+  internalist reading. \ The concept of a <with|font-shape|italic|knowledge
+  base>, from which beliefs may be implicitly deduced, will play a crucial
+  role in our discussion. \ We propose this as an avenue for representing
+  foundationalist perspectives on epistemology in epistemic logic. \ Our
+  philosophical motivation is taken from two sources. \ The first is Vincent
+  Hendricks in <cite|hendricks_mainstream_2006>, where he characterizes the
+  principal of <em|logical omniscience> for implicit knowledge in epistemic
   logic<\footnote>
-    We have modified Hendricks notation here slightly to match our own.
+    We have modified Hendricks' notation here slightly to match our own.
   </footnote>:
 
   <\quote-env>
@@ -189,46 +190,50 @@
       <math|\<phi\>\<in\><with|math-font|cal|A><rsub|w>>
     </description-dash>
 
-    ere <math|\<vdash\>> is any sound logical consequence relation for
-    <math|\<vDash\>> with <with|font-series|bold|modus ponens> and
-    <with|font-series|bold|reflection> (ie, <math|\<Gamma\>\<vdash\>\<phi\>>
-    if <math|\<phi\>\<in\>\<Gamma\>>).
+    Here <math|\<vdash\>> is any logical consequence relation which is sound
+    for <math|\<vDash\>>, making true <with|font-series|bold|modus ponens>
+    and <with|font-series|bold|reflection> (ie,
+    <math|\<Gamma\>\<vdash\>\<phi\>> if <math|\<phi\>\<in\>\<Gamma\>>)
   </definition>
 
+  Neither <with|font-series|bold|CSQ> nor <with|font-series|bold|SND>
+  correspond to simple modally definable properties.
+
+  \;
+
   Intuitively, the <with|font-series|bold|CSQ> asserts that an agent believes
-  a formula <math|\<phi\>> if and only if it follows from their knowledge
-  base and their background knowledge, represented by <math|Th(\<bbb-M\>)>.
-  \ <with|font-series|bold|CSQ> is Vincent Hendrik's principle of logical
-  omniscience mentioned in Ÿ<reference|intro>.
+  a formula <math|\<phi\>> if and only if it follows logically from their
+  knowledge base and their background knowledge, represented by
+  <math|Th(\<bbb-M\>)>. \ <with|font-series|bold|CSQ> is Vincent Hendrik's
+  principle of logical omniscience mentioned in Ÿ<reference|intro>.
 
   \;
 
   <with|font-series|bold|SND> asserts that
   <with|mode|math|\<circlearrowleft\>> corresponds to the agent's knowledge
   base being sound. A sound knowledge base will only render true conclusions
-  when used in deductions. \ If one equates knowledge with ``The existance of
-  a sound deduction'' then <with|mode|math|\<circlearrowleft\>> is a
-  mechanism for investigating this notion. \ That is, if
-  <math|\<bbb-M\>,w\<vDash\>\<circlearrowleft\>\<wedge\>\<box\>\<phi\>>, this
-  is sufficient for the agent (implicitly) <em|knowing> <math|\<phi\>> on the
-  basis of <math|<with|math-font|cal|A><rsub|w>>, rather than merely
-  believing <math|\<phi\>> on the basis of
+  when used in deductions. \ If one considers ``the existance of a sound
+  deduction'' sufficient for a kind of knowledge, then
+  <with|mode|math|\<circlearrowleft\>> is suitable for investigating this
+  notion of epistemology. \ That is, if <math|\<bbb-M\>,w\<vDash\>\<circlearrowleft\>\<wedge\>\<box\>\<phi\>>,
+  then we may naturally say that the agent (implicitly) <em|knows>
+  <math|\<phi\>> on the basis of <math|<with|math-font|cal|A><rsub|w>>,
+  rather than merely <em|believing> <math|\<phi\>> on the basis of
   <math|<with|math-font|cal|A><rsub|w>>.
 
   \;
 
-  Neither <with|font-series|bold|CSQ> nor <with|font-series|bold|SND>
-  correspond to simple modally definable properties.
+  The logic of models making true <with|font-series|bold|CSQ> and
+  <with|font-series|bold|SND> is provided in Table <reference|logic1>.
 
-  <big-table|<tabular|<tformat|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<box\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<box\>\<phi\>\<rightarrow\>\<box\>\<psi\>>>>|<row|<cell|<math|\<vdash\>A:\<phi\>\<rightarrow\>\<box\>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\>\<rightarrow\>\<box\>\<phi\>\<rightarrow\>\<phi\>>>>|<row|<cell|>>|<row|<cell|<tabular|<tformat|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<box\>\<phi\>>>>>>>>>>>>>>|<label|logic1>An
-  awareness logic for <with|font-series|bold|CSQ><math|<rsub|\<vdash\>>> and
-  <with|font-series|bold|SND>>
+  <big-table|<tabular|<tformat|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<box\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<box\>\<phi\>\<rightarrow\>\<box\>\<psi\>>>>|<row|<cell|<math|\<vdash\>A:\<phi\>\<rightarrow\>\<box\>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\>\<rightarrow\>\<box\>\<phi\>\<rightarrow\>\<phi\>>>>|<row|<cell|>>|<row|<cell|<tabular|<tformat|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<box\>\<phi\>>>>>>>>>>>>>>|<label|logic1>Awareness
+  Logic for <with|font-series|bold|CSQ> and <with|font-series|bold|SND>>
 
   <\theorem>
     <label|completeness1>Assuming an infinite store of proposition letters
-    <math|\<Phi\>>, the logic in Table <reference|logic1> is sound and weakly
+    <math|\<Phi\>>, the awareness logic presented is sound and weakly
     complete for awareness models making true <with|font-series|bold|CSQ> and
-    <with|font-series|bold|SND>
+    <with|font-series|bold|SND>.
   </theorem>
 
   <\proof>
@@ -236,17 +241,31 @@
     \ Assume <math|\<nvdash\>\<psi\>>. \ Consider the finite canonical model
     <math|\<bbb-M\>=\<langle\>W,V,R,<with|math-font|cal|A>\<rangle\>> formed
     of maximally consistent sets of subformulae of <math|\<phi\>> (closed
-    under pseudo-negation), as per the modal completeness proofs suggested in
-    <cite-detail|boolos_logic_1995|chapter 5>. \ We have that
-    <math|\<bbb-M\>,w\<nvDash\>\<psi\>> for some world <math|w>. \ Moreover,
-    it is straightforward to verify that <math|\<bbb-M\>> makes true
+    under single negations<\footnote>
+      A discussion of this property may be found in
+      <cite-detail|blackburn_modal_2001|pg. 243>.
+    </footnote>), as per the finitary modal completeness proofs found in
+    <cite-detail|blackburn_modal_2001|chapter 4.8> and
+    <cite-detail|boolos_logic_1995|chapter 5>. \ Typical presentations do not
+    include awareness, however it is defined intuitively in this case:
+
+    <\equation*>
+      \<phi\>\<in\><with|math-font|cal|A><rsub|w>\<Longleftrightarrow\>A:\<phi\>\<in\>w
+    </equation*>
+
+    Since <math|\<psi\>> is a subformula of itself, we have
+    <math|\<bbb-M\>,w\<nvDash\>\<psi\>> for some world <math|w> by a finitary
+    <em|Lindenbaum Lemma> and <em|Truth Theorem>. \ Moreover, it is
+    straightforward to verify that <math|\<bbb-M\>> makes true the following
+    properties:
 
     <\enumerate-numeric>
-      <item><math|W> is finite and <math|<with|math-font|cal|A><rsub|v>> is
-      finite for all <math|v\<in\>W>
+      <item><math|W> and <math|<with|math-font|cal|A><rsub|v>> are finite,
+      and <math|\<psi\>\<in\><with|math-font|cal|A><rsub|v>> only if
+      <math|\<psi\>> is a (possibly negated) subformula of <math|\<phi\>>
 
-      <item>if <math|\<bbb-M\>,v\<vDash\>A:\<phi\>> then
-      <math|\<bbb-M\>,v\<vDash\>\<box\>\<phi\>>
+      <item>if <math|\<bbb-M\>,v\<vDash\>A:\<psi\>> then
+      <math|\<bbb-M\>,v\<vDash\>\<box\>\<psi\>>
 
       <item>if <math|\<bbb-M\>,v\<vDash\>\<circlearrowleft\>> then <math|v R
       v>
@@ -254,8 +273,14 @@
 
     \;
 
-    We next produce a finite bisimular model <math|\<bbb-M\><rprime|'>> which
-    makes true (1), (2) and a stronger from of (3):
+    We next produce a bisimular<\footnote>
+      The notion of bisimulation is discussed at length in
+      <cite-detail|blackburn_modal_2001|chapter 2.2>. \ We note that the
+      basic definition and all of the usual theorems (modal equivalence,
+      Henessy Milner, etc.) may be generalized to awareness models in a
+      straightforward fashion.\ 
+    </footnote> model <math|\<bbb-M\><rprime|'>> which makes true (1), (2)
+    and a stronger from of (3):
 
     \;
 
@@ -265,13 +290,15 @@
     \;
 
     To this end define <math|\<bbb-M\><rprime|'>\<assign\>\<langle\>W<rprime|'>,V<rprime|'>,R<rprime|'>,<with|math-font|cal|A><rprime|'>\<rangle\>>
-    such that<htab|5mm>
+    such that<\footnote>
+      Throughout this article, we use <math|l> and <math|r> to denote the two
+      canonical injections associated with the coproduct <math|W\<uplus\>W>.
+      We will use <math|v<rsub|l>> and <math|v<rsub|r>> as the shorthand for
+      <math|l(v)> and <math|r(v)> respectively.
+    </footnote>:<htab|5mm>
 
     <\itemize-dot>
-      <item><with|mode|math|W<rprime|'>\<assign\>W\<uplus\>W>; furthermore,
-      let <math|l,r> be the two canonical injections associated with the
-      coproduct <math|W\<uplus\>W>. We denote <math|l(v)> and <math|r(v)> as
-      <math|v<rsub|l>> and <math|v<rsub|r>> respectively
+      <item><with|mode|math|W<rprime|'>\<assign\>W\<uplus\>W>
 
       <item><math|V<rprime|'>(p)\<assign\>{v<rsub|l>,v<rsub|r><space|1spc>\|<space|1spc>v\<in\>V(p)}>
 
@@ -284,8 +311,7 @@
     \;
 
     It is straightforward to verify that <math|\<bbb-M\><rprime|'>> makes
-    true the desired properties. \ If we let
-    <math|Z\<assign\>{(v,v<rsub|l>),(v,v<rsub|r>)<space|1spc>\|<space|1spc>v\<in\>W}>,
+    true the desired properties. \ Let <math|Z\<assign\>{(v,v<rsub|l>),(v,v<rsub|r>)<space|1spc>\|<space|1spc>v\<in\>W}>;
     \ then <math|Z> is a bisimulation between <math|\<bbb-M\>> and
     <math|\<bbb-M\><rprime|'>>. \ Therefore we know there is some
     <math|w\<in\>W> such that <math|\<bbb-M\><rprime|'>,w<rsub|l>\<nvDash\>\<psi\>>
@@ -310,15 +336,14 @@
     \;
 
     <\with|par-mode|center>
-      <tabular|<tformat|<table|<row|<cell|<math|\<bullet\>>>|<cell|<math|W<rprime|''>\<assign\>W<rprime|'>>>|<cell|>|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-display|true|V<rprime|''>(p)\<assign\><choice|<tformat|<table|<row|<cell|V<rprime|'>(p)>|<cell|p\<in\>\<Lambda\>>>|<row|<cell|{v}>|<cell|p=\<iota\>(v)>>|<row|<cell|\<varnothing\>>|<cell|o/w>>>>>>>>>|<row|<cell|<math|\<bullet\>>>|<cell|<math|R<rprime|''>\<assign\>R<rprime|'>>>|<cell|<space|3spc>>|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-font|cal|A><rprime|''><rsub|v>\<assign\>{\<phi\><space|1spc>\|\<phi\>\<in\><with|math-font|cal|A><rprime|'><rsub|v><with|mode|text|
-      and <math|\<phi\>> is a subformula of <math|\<psi\>>>}
+      <tabular|<tformat|<table|<row|<cell|<math|\<bullet\>>>|<cell|<math|W<rprime|''>\<assign\>W<rprime|'>>>|<cell|>|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-display|true|V<rprime|''>(p)\<assign\><choice|<tformat|<table|<row|<cell|V<rprime|'>(p)>|<cell|p\<in\>\<Lambda\>>>|<row|<cell|{v}>|<cell|p=\<iota\>(v)>>|<row|<cell|\<varnothing\>>|<cell|o/w>>>>>>>>>|<row|<cell|<math|\<bullet\>>>|<cell|<math|R<rprime|''>\<assign\>R<rprime|'>>>|<cell|<space|3spc>>|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-font|cal|A><rprime|''><rsub|v>\<assign\>{\<phi\><space|1spc>\|\<phi\>\<in\><with|math-font|cal|A><rprime|'><rsub|v>}
       \<cup\>{\<neg\>\<iota\>(u)<space|1spc>\|<space|1spc>\<neg\>v
       R<rprime|'> u}>>>>>>
     </with>
 
     \;
 
-    It is easy to verify that for every subformula <math|\<phi\>> of
+    By induction we have that for every subformula <math|\<phi\>> of
     <math|\<psi\>> that <math|\<bbb-M\><rprime|'>,v\<vDash\>\<phi\>> if and
     only if <math|\<bbb-M\><rprime|''>,v\<vDash\>\<phi\>>, hence
     <math|\<bbb-M\><rprime|''>,w<rsub|l>\<nvDash\>\<psi\>>.
@@ -326,7 +351,7 @@
     \;
 
     All that is left to show is that <math|\<bbb-M\><rprime|''>> makes true
-    <with|font-series|bold|SND> and <with|font-series|bold|CSQ>.
+    <with|font-series|bold|CSQ> and <with|font-series|bold|SND>.
     \ <math|\<bbb-M\><rprime|''>> has three further properties:
 
     <\enumerate-roman>
@@ -362,22 +387,16 @@
     </align*>
   </proof>
 
-  <\remark>
-    The logic presented in Table <reference|logic1> is a conservative
-    extension of the basic modal logic <math|K>, which means that its
-    decision problem is <with|font-family|ss|PSPACE> hard (a lower bound).
-    \ Our finitary completeness proof establishes that its complexity is in
-    <with|font-family|ss|EXP2-TIME> (an upper bound).
-  </remark>
+  <subsection|Hybrid Awareness Logic>
 
-  <subsection|Hybrid Logic>
-
-  The method of the above completeness proof makes implicit use of hybrid
-  logic concepts. \ We adapt hybrid logic, first presented in
-  <cite|prior_revised_1969> and then formally developed in
-  <cite|bull_approach_1970>, and show that it is a complete for reasoning
-  about knowledge bases. \ We note that because of the increased expressive
-  power of hybrid logic, our completeness theorem is simpler.
+  The method of the above completeness proof makes implicit use of concepts
+  from hybrid logic<\footnote>
+    Hybrid logic was first presented in <cite|prior_revised_1969> and later
+    formally developed in <cite|bull_approach_1970>.
+  </footnote>. \ In this section we adapt hybrid logic and show that it is a
+  complete for reasoning about knowledge bases. \ We note that because of the
+  increased expressive power of hybrid logic, our completeness theorem is
+  simpler.
 
   <\definition>
     Let <math|\<Phi\>> be a set of letters and <math|\<Psi\>> a set of
@@ -429,13 +448,9 @@
   </equation*>
 
   This can be read as ``If the agent's knowledge base is sound at world
-  <math|i>, then if they can deduce something from it, it must be true at
-  world <math|i>.'' \ In a way, this relativises knowledge to a world
-  <math|i>. \ Worlds in epistemic logic might correspond to fantastic,
-  pretend scenarios; however, it may be desirable for some philosophers to
-  model knowledge about imaginary lands. \ After all, many children ``know''
-  a lot about Tolkien's <em|middle earth> or Rowling's <em|Hogwarts> (the
-  school Harry Potter attends).
+  <math|i>, then if they can deduce something from their knowledge base, what
+  they deduce must be true at world <math|i>.'' \ In a way, this may be
+  considered as <em|relativising> knowledge particular named situations.
 
   \;
 
@@ -446,13 +461,13 @@
   however. \ The following gives a logic for hybrid models making true
   <with|font-series|bold|CSQ>:
 
-  <big-table|<tabular|<tformat|<cwith|8|8|1|2|cell-row-span|1>|<cwith|8|8|1|2|cell-col-span|2>|<cwith|8|8|1|1|cell-halign|c>|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|<math|\<vdash\>\<forall\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<forall\>\<phi\>\<rightarrow\>\<forall\>\<psi\>>>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>|<cell|<math|\<vdash\>\<forall\>\<phi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|<math|\<vdash\>\<forall\>\<phi\>\<rightarrow\>\<forall\>\<forall\>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<box\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<box\>\<phi\>\<rightarrow\>\<box\>\<psi\>>>|<cell|<math|\<vdash\>\<exists\>\<phi\>\<rightarrow\>\<forall\>\<exists\>\<phi\>>>>|<row|<cell|<math|\<vdash\>A:\<phi\>\<rightarrow\>\<box\>\<phi\>>>|<cell|<math|\<vdash\>\<forall\>\<phi\>\<rightarrow\>\<box\>\<phi\>>>>|<row|<cell|>|<cell|<math|\<vdash\>i\<rightarrow\>\<phi\>\<rightarrow\><with|mode|text|<with|font-shape|right|@>><rsub|i>\<phi\>>>>|<row|<cell|>|<cell|>>|<row|<cell|<tabular|<tformat|<cwith|1|1|4|4|cell-halign|c>|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc><with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<box\>\<phi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<forall\>\<phi\>>>>>>>>>>|<cell|>>>>>|<label|logic2>A
-  hybrid logic for <with|font-series|bold|CSQ>>
+  <big-table|<tabular|<tformat|<cwith|8|8|1|2|cell-row-span|1>|<cwith|8|8|1|2|cell-col-span|2>|<cwith|8|8|1|1|cell-halign|c>|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|<math|\<vdash\>\<forall\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<forall\>\<phi\>\<rightarrow\>\<forall\>\<psi\>>>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>|<cell|<math|\<vdash\>\<forall\>\<phi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|<math|\<vdash\>\<forall\>\<phi\>\<rightarrow\>\<forall\>\<forall\>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<box\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<box\>\<phi\>\<rightarrow\>\<box\>\<psi\>>>|<cell|<math|\<vdash\>\<exists\>\<phi\>\<rightarrow\>\<forall\>\<exists\>\<phi\>>>>|<row|<cell|<math|\<vdash\>A:\<phi\>\<rightarrow\>\<box\>\<phi\>>>|<cell|<math|\<vdash\>\<forall\>\<phi\>\<rightarrow\>\<box\>\<phi\>>>>|<row|<cell|>|<cell|<math|\<vdash\>i\<rightarrow\>\<phi\>\<rightarrow\><with|mode|text|<with|font-shape|right|@>><rsub|i>\<phi\>>>>|<row|<cell|>|<cell|>>|<row|<cell|<tabular|<tformat|<cwith|1|1|4|4|cell-halign|c>|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc><with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<box\>\<phi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<forall\>\<phi\>>>>>>>>>>|<cell|>>>>>|<label|logic2>Hybrid
+  Awareness Logic for <with|font-series|bold|CSQ>>
 
   <\theorem>
-    Assuming an infinite store of nominals <math|\<Psi\>>, The logic in Table
-    <reference|logic2> is sound and weakly complete for all hybrid models
-    making true <with|font-series|bold|CSQ>
+    <label|completeness2>Assuming an infinite store of nominals
+    <math|\<Psi\>>, the hybrid awareness logic presented is sound and weakly
+    complete for all hybrid models making true <with|font-series|bold|CSQ>.
   </theorem>
 
   <\proof>
@@ -468,10 +483,11 @@
     </align*>
 
     It is easy to see that <math|\<Sigma\><rsub|3>> is finite and closed
-    under subformulae. Now let <with|mode|math|\<bbb-M\>=\<langle\>W,V,R<rsub|\<box\>>,\<sim\><rsub|\<forall\>>,<with|math-font|cal|A>\<rangle\>>
+    under subformulae and single negations. Let
+    <with|mode|math|\<bbb-M\>=\<langle\>W,V,R<rsub|\<box\>>,\<sim\><rsub|\<forall\>>,<with|math-font|cal|A>\<rangle\>>
     be the finite cannonical model formed of maximally consistent subsets of
     <math|\<Sigma\><rsub|3>>, where everything is defined as usual, except
-    <math|\<sim\><rsub|\<forall\>>>, which is specified as follows:
+    <math|\<sim\><rsub|\<forall\>>>, which obeys the following specification:
 
     <\align*>
       <tformat|<table|<row|<cell|w \<sim\><rsub|\<forall\>>v>|<cell|\<Longleftrightarrow\>((\<forall\>\<phi\>)\<in\>w
@@ -490,30 +506,29 @@
       <math|i> for all <math|i\<in\>\<Upsilon\>>
     </enumerate-roman>
 
-    The Truth Lemma for this structure is straightforward to prove. With the
-    finitary Lindenbaum Lemma we have that some world <math|w> where
-    <math|\<bbb-M\>,w\<nvDash\>\<psi\>>. \ Let
-    <math|\<bbb-M\><rprime|'>=\<langle\>W<rprime|'>,V<rprime|'>,R<rsub|\<box\>><rprime|'>,\<sim\><rsub|\<forall\>><rprime|'>,<with|math-font|cal|A><rprime|'>\<rangle\>>
+    As in our previous construction we have that there is some world <math|w>
+    where <math|\<bbb-M\>,w\<nvDash\>\<psi\>>. \ Let
+    <math|\<bbb-M\><rsup|1>=\<langle\>W<rprime|'>,V<rprime|'>,R<rsub|\<box\>><rprime|'>,\<sim\><rsub|\<forall\>><rprime|'>,<with|math-font|cal|A><rprime|'>\<rangle\>>
     be the submodel generated by <math|{w}>; we have that
-    <math|\<bbb-M\><rprime|'>,w\<nvDash\>\<psi\>>
-    <cite-detail|blackburn_modal_2001|see chapter 2.1 for details on
-    generated submodels>. \ In this model <math|\<forall\>> is a universal
-    modality and either <math|<left|llbracket>i<right|rrbracket><rsup|\<bbb-M\><rprime|'>>=\<varnothing\>>
+    <math|\<bbb-M\><rprime|'>,w\<nvDash\>\<psi\>> (see
+    <cite-detail|blackburn_modal_2001|chapter 2.1> for details on generated
+    submodels). \ In this model <math|\<forall\>> is a universal modality and
+    either <math|<left|llbracket>i<right|rrbracket><rsup|\<bbb-M\><rprime|'>>=\<varnothing\>>
     or <math|<left|llbracket>i<right|rrbracket><rsup|\<bbb-M\><rprime|'>>={v}><\footnote>
-      Here <math|<left|llbracket>\<phi\><right|rrbracket><rsup|\<bbb-M\>>>
-      denotes <math|{w\<in\>W<space|1spc>\|<space|1spc>\<bbb-M\>,w\<vDash\>\<phi\>}>
+      As per the usual convention, here <math|<left|llbracket>\<phi\><right|rrbracket><rsup|\<bbb-M\>>>
+      denotes <math|{w\<in\>W<space|1spc>\|<space|1spc>\<bbb-M\>,w\<vDash\>\<phi\>}>.
+      \ We will drop <math|\<bbb-M\>> where it is unambiguous.
     </footnote>. Since <math|>the store <math|\<Psi\>> of nominals is
     infinite and <math|\<Upsilon\>> is finite, we have that
     <math|\<Psi\>\<backslash\>\<Upsilon\>> is infinite, so there is some
-    <math|\<iota\>:W\<hookrightarrow\>\<Psi\>\<backslash\>\<Upsilon\>> which
-    assigns a fresh nominal ot every world. \ Let
+    injection <math|\<iota\>:W<rprime|'>\<hookrightarrow\>\<Psi\>\<backslash\>\<Upsilon\>>
+    which assigns a fresh nominal to every world. \ Let
     <math|\<bbb-M\><rprime|''>=\<langle\>W<rprime|''>,V<rprime|''>,R<rprime|''>,<with|math-font|cal|A><rprime|''>,\<ell\>\<rangle\>>,
     where:
 
     <\with|par-mode|center>
       <tabular|<tformat|<cwith|3|3|1|1|cell-row-span|1>|<cwith|3|3|1|1|cell-col-span|5>|<cwith|3|3|1|1|cell-halign|c>|<table|<row|<cell|<math|\<bullet\>>>|<cell|<math|W<rprime|''>\<assign\>W<rprime|'>>>|<cell|>|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-display|true|V<rprime|''>(p)\<assign\>V<rprime|'>(p)>>>>|<row|<cell|<math|\<bullet\>>>|<cell|<math|R<rprime|''>\<assign\>R<rprime|'><rsub|\<box\>>>>|<cell|<space|3spc>>|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-font|cal|A><rprime|''>(v)\<assign\>{\<phi\><space|1spc>\|<space|1spc>\<phi\>
-      \<in\><with|math-font|cal|A><rprime|'>(v)<with|mode|text| and
-      <math|\<phi\>> is a subformulae of <math|\<psi\>>>}\<cup\>{\<neg\>\<iota\>(u)<space|1spc>\|<space|1spc>\<neg\>v
+      \<in\><with|math-font|cal|A><rprime|'>(v)}\<cup\>{\<neg\>\<iota\>(u)<space|1spc>\|<space|1spc>\<neg\>v
       R<rprime|'> u}>>>|<row|<cell|<tabular|<tformat|<cwith|1|1|1|1|cell-halign|c>|<table|<row|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-display|true|\<ell\>(i)\<assign\><choice|<tformat|<table|<row|<cell|w>|<cell|i\<in\>\<Upsilon\><space|1spc>&<space|1spc>\<bbb-M\>,w\<vDash\>i>>|<row|<cell|\<iota\><rsup|-1>(i)>|<cell|i\<in\>\<iota\>[W]>>|<row|<cell|<with|mode|text|undefined>>|<cell|<with|mode|text|o/w>>>>>>>>>>>>>>|<cell|<math|R<rprime|''>\<assign\>R<rprime|'><rsub|\<box\>>>>|<cell|>|<cell|>|<cell|>>>>>
     </with>
 
@@ -532,7 +547,7 @@
   base. \ In this section, we present various logics for reasoning over
   multiple knowledge bases.
 
-  <subsection|Simplified Justification Logic>
+  <subsection|Simple Justification Logic>
 
   Justification Logic (JL) was originally developed by Artemov as the
   <with|font-shape|italic|Logic of Proofs> (LP) <cite|artemov_logic_1994>.
@@ -540,36 +555,48 @@
   explicit provability in Peano Arithmetic. \ The first introduction of
   Justification Logic can be found in <cite|artemov_introducing_2005>, where
   Artemov and Nogina propose LP as a logic for reasoning about evidence. \ In
-  <cite|fitting_logic_2005>, Melvin Fitting provided Justification Logic with
-  Kripke model based semantics.
+  <cite|fitting_logic_2005>, Melvin Fitting provided JL with Kripke model
+  based semantics.
 
   \;
 
-  The innovation of LP/JL is to extend awareness logic so that awareness
-  operations are <with|font-shape|italic|proof terms>. \ A proof term
-  <math|X> witnesses a proposition <math|\<phi\>>; the notation for this is
-  <math|X:\<phi\>>. \ Proof terms are thought be operating in a
+  The principle innovation of LP/JL is to extend awareness logic, such that
+  awareness operations are now <with|font-shape|italic|proof terms>.
+  \ Informally, we say that ``a proof term <math|X> witnesses proposition
+  <math|\<phi\>>'', denoted ``<math|X:\<phi\>>'', whenever <math|X>
+  represents a proof of <math|\<phi\>>. \ Proofs may have
+  <strong|multiple-conclusions> in this system, so it is possible that
+  <math|X:\<phi\>> and <math|X:\<psi\>> can be true where
+  <math|\<phi\>\<neq\>\<psi\>>. \ In Fitting's Kripke semantics,
+  <math|X:\<phi\>> means that <math|\<phi\>> is in awareness set
+  corresponding to <math|X>. \ Proof terms are thought be operating in a
   <with|font-shape|italic|multi-conclusion> proof system, so the same proof
-  term may witness many different propositions. Operators over proof terms
-  are also studied. \ One operation of particular interest is <em|choice>,
-  denoted <math|\<oplus\>>. \ The expression ``<math|X\<oplus\>Y:\<phi\>>''
-  denotes that either <math|X> or <math|Y> witness <math|\<phi\>>. \ There
-  are other operations which correspond to <with|font-shape|italic|modus
-  ponens> and <with|font-shape|italic|proof-theoretic reflection>, however we
-  do not consider these operations here.
+  term may witness many different propositions.
 
   \;
 
-  In this section we reinterpret a simplified form of JL as a logic of
-  multiple knowledge bases. \ This is in the spirit of JL as a logic of
-  evidence. However, instead of reasoning about proof terms as evidence, we
-  instead use the terms of JL for considering knowledge bases, which are
-  taken as as corpi of evidence. \ We will allow for the ``names'' of
-  different knowledge bases to be denoted by different terms, and terms may
-  not refer to the same knowledge base at different worlds. \ This is just as
-  how in awareness logic the agent need not be aware of the same formulae at
-  different worlds. \ Finally, we will make use of JL's <em|choice> operator
-  as a mechanism for forming unions of knowledge bases.
+  The logics LP/JL include operators over proofs terms, so that new proof
+  terms may be assembled. \ One operation of particular interest to us is
+  <em|choice>, denoted <math|\<oplus\>>. \ The expression
+  ``<math|X\<oplus\>Y:\<phi\>>'' denotes that either <math|X> or <math|Y> are
+  proofs witnessing <math|\<phi\>>. \ There are other operations which
+  correspond to <with|font-shape|italic|modus ponens> and
+  <with|font-shape|italic|proof-theoretic reflection>, however we do not
+  consider these operations here.
+
+  \;
+
+  In this section we consider a simplified form of JL suitable for reasoning
+  over multiple knowledge bases, which we call <with|font-shape|italic|simple
+  justification logic> (SJL). However, instead of thinking of terms as
+  representing proofs, we use them to represent knowledge bases. This is in
+  the spirit of JL as a logic of evidence: we consider each knowledge base to
+  be a corpus of evidence. \ Each term ``names'' a different knowledge base
+  at a particular world. \ Terms may not refer to the same knowledge base at
+  different worlds, just as in how in awareness logic the agent need not be
+  aware of the same formulae at different worlds. \ Finally, we will make use
+  of JL's <em|choice> operator as a mechanism for forming the union of
+  knowledge bases, creating new ones.
 
   <\definition>
     Let <math|\<Pi\>> be a set of primitive terms. \ Define
@@ -615,7 +642,7 @@
   </definition>
 
   <\definition>
-    The following defines properties a simply justification model may make
+    The following defines properties a simple justification model may make
     true:
 
     <\description-dash>
@@ -634,14 +661,391 @@
     <with|font-series|bold|reflection>
   </definition>
 
-  The above semantics are familiar. \ <with|font-series|bold|JCSQ> is the
-  same as <with|font-series|bold|CSQ> from Ÿ<reference|awarenesslogic>, only
-  we now consider the theory denoted by <math|X> at <math|w>, rather than
-  considering a single awareness function. \ Indeed, we may naturally see
-  that the logic simply justification logic is a conservative extension of
-  the awareness logic in Ÿ<reference|awarenesslogic>. The awareness logic of
-  knowledge bases is special case of simple justification logic where there
-  is only one term.
+  The above semantics are similar to the ones given in previous sections.
+  \ <with|font-series|bold|JCSQ> is the same as <with|font-series|bold|CSQ>
+  from Ÿ<reference|awarenesslogic>, only it is relativized to a knowledge
+  base denoted by <math|X> at <math|w>. \ The awareness logic of knowledge
+  bases is special case of simple justification logic where there is only one
+  term.
+
+  \;
+
+  Simplified justification logic is given in Table <reference|logic5>. \ We
+  assert without proof that this is a conservative extension of the awareness
+  logic in Ÿ<reference|awarenesslogic>.
+
+  \;
+
+  <big-table|<tabular|<tformat|<cwith|11|11|1|2|cell-row-span|1>|<cwith|11|11|1|2|cell-col-span|2>|<cwith|11|11|1|1|cell-halign|c>|<cwith|14|14|1|1|cell-row-span|1>|<cwith|14|14|1|1|cell-col-span|2>|<cwith|14|14|1|1|cell-halign|c>|<cwith|16|16|1|1|cell-row-span|1>|<cwith|16|16|1|1|cell-col-span|2>|<cwith|16|16|1|1|cell-halign|c>|<cwith|7|7|1|1|cell-row-span|1>|<cwith|7|7|1|1|cell-col-span|2>|<cwith|7|7|1|1|cell-halign|c>|<cwith|9|9|1|1|cell-row-span|1>|<cwith|9|9|1|1|cell-col-span|2>|<cwith|9|9|1|1|cell-halign|c>|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<box\><rsub|X>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<box\><rsub|X>\<phi\>\<rightarrow\>\<box\><rsub|X>\<psi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(X:\<phi\>)\<rightarrow\>\<box\><rsub|X>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\><rsub|X>\<rightarrow\>\<box\><rsub|X>\<phi\>\<rightarrow\>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(X:\<phi\>)\<rightarrow\>(Y:\<phi\>)\<rightarrow\>X\<oplus\>Y:\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(X\<oplus\>Y:\<phi\>)\<rightarrow\>X:\<phi\>>>|<cell|<math|\<vdash\>(X\<oplus\>Y:\<phi\>)\<rightarrow\>Y:\<phi\>>>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\><rsub|X>\<rightarrow\>\<circlearrowleft\><rsub|Y>\<rightarrow\>\<circlearrowleft\><rsub|X\<oplus\>Y>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\><rsub|X\<oplus\>Y>\<rightarrow\>\<circlearrowleft\><rsub|X>>>|<cell|<math|\<vdash\>\<circlearrowleft\><rsub|X\<oplus\>Y>\<rightarrow\>\<circlearrowleft\><rsub|Y>>>>|<row|<cell|<math|\<vdash\>\<box\><rsub|X>\<phi\>\<rightarrow\>\<box\><rsub|X\<oplus\>Y>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<box\><rsub|X\<oplus\>X>\<phi\>\<rightarrow\>\<box\><rsub|X>\<phi\>>>|<cell|<math|\<vdash\>\<box\><rsub|(X\<oplus\>X)\<oplus\>Y>\<phi\>\<rightarrow\>\<box\><rsub|X\<oplus\>Y>\<phi\>>
+  >>|<row|<cell|<math|\<vdash\>\<box\><rsub|X\<oplus\>Y>\<phi\>\<rightarrow\>\<box\><rsub|Y\<oplus\>X>\<phi\>>>|<cell|<math|\<vdash\>\<box\><rsub|(X\<oplus\>Y)\<oplus\>Z>\<phi\>\<rightarrow\>\<box\><rsub|(Y\<oplus\>X)\<oplus\>Z>\<phi\>>>>|<row|<cell|<math|\<vdash\>\<box\><rsub|(X\<oplus\>Y)\<oplus\>Z>\<phi\>\<rightarrow\>\<box\><rsub|X\<oplus\>(Y\<oplus\>Z)>\<phi\>>>|<cell|>>|<row|<cell|>|<cell|>>|<row|<cell|<tabular|<tformat|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<box\><rsub|X>\<phi\>>>>>>>>>>|<cell|>>>>>|<label|logic5>Simple
+  Justification Logic>
+
+  <\theorem>
+    <label|completeness5>Assuming an infinite store of proposition letters
+    <math|\<Phi\>>, SJL is sound and weakly complete for simple justification
+    models making true <with|font-series|bold|JCSQ>,
+    <with|font-series|bold|JSND> and <with|font-series|bold|CHOICE>
+  </theorem>
+
+  <\proof>
+    As in the previous proofs, we only show completeness. \ Assume that
+    <math|\<nvdash\>\<psi\>>. \ Let <math|\<Xi\>\<subseteq\>\<tau\>(\<Pi\>)>
+    be all of the subterms occurring in <math|\<psi\>>; we assume that
+    <math|\<Xi\>> is non-empty, since otherwise we may obtain the theorem via
+    the usual completeness theorem for classical propositional logic. Let
+    <math|\<Sigma\><rsub|0>> be the subformulae of <math|\<psi\>>. \ Define:\ 
+
+    <\align*>
+      <tformat|<table|<row|<cell|\<Sigma\><rsub|1>>|<cell|\<assign\>\<Sigma\><rsub|0>\<cup\>{\<box\><rsub|Y>\<phi\><space|1spc>\|<space|1spc>\<box\><rsub|X>\<phi\>\<in\>\<Sigma\><rsub|0><space|1spc>&<space|1spc>Y\<in\>\<Xi\>}>>|<row|<cell|\<Sigma\><rsub|2>>|<cell|\<assign\>\<Sigma\><rsub|1>\<cup\>{\<neg\>\<phi\><space|1spc>\|<space|1spc>\<phi\>\<in\>\<Sigma\><rsub|1>}>>>>
+    </align*>
+
+    As in the proof of Theorem <reference|completeness2>, it is simple to
+    verify that <math|\<Sigma\><rsub|2>> is closed under subformulae and
+    single negations. \ Let <with|mode|math|\<bbb-M\>\<assign\>\<langle\>W,V,R,<with|math-font|cal|A>\<rangle\>>
+    be the finite cannonical model formed of maximally consistent subsets of
+    <math|\<Sigma\><rsub|2>>, where <math|V> and
+    <math|<with|math-font|cal|A>> are defined as usual, and
+    <math|R:\<Xi\>\<rightarrow\>2<rsup|W\<times\>W>> is defined by:
+
+    <\equation*>
+      w R<rsub|X> v\<Longleftrightarrow\>{\<phi\><space|1spc>\|<space|1spc>\<box\><rsub|X>\<phi\>\<in\>w}\<subseteq\>v
+    </equation*>
+
+    As in previous constructions we may prove the usual Lindenbaum and Truth
+    Lemmas an use them obtain a world <math|w\<in\>W> where
+    <math|\<bbb-M\>,w\<nvDash\>\<psi\>>.
+
+    \;
+
+    Next, define an operator <math|\<twonotes\>:\<tau\>(\<Pi\>)\<rightarrow\>2<rsup|\<Pi\>>>
+    where:
+
+    <\equation*>
+      \<twonotes\>(X)\<assign\>{t\<in\>\<Pi\><space|1spc>\|<space|1spc>t
+      <with|mode|text| occurs in >X}
+    </equation*>
+
+    In other words, <math|\<twonotes\>(X)> is the set of atomic terms in
+    <math|X>. \ As in our construction for Theorem <reference|completeness1>,
+    <math|\<bbb-M\>> makes true certain properties, along with some new
+    properties:
+
+    <\enumerate-numeric>
+      <item><label|fin><math|W> and <math|<with|math-font|cal|A><rsub|v>(X)>
+      are finite, and <math|\<phi\>\<in\><with|math-font|cal|A><rsub|v>(X)>
+      only if <math|\<phi\>\<in\>\<Sigma\><rsub|2>>
+
+      <item>if <math|\<bbb-M\>,v\<vDash\>X:\<phi\>> then
+      <math|\<bbb-M\>,v\<vDash\>\<box\><rsub|X>\<phi\>>
+
+      <item><label|refl>if <math|\<bbb-M\>,v\<vDash\>\<circlearrowleft\><rsub|X>>
+      then <math|v R<rsub|X> v>
+
+      <item><label|sndness>For all <math|X\<oplus\>Y\<in\>\<Xi\>>,
+      <math|\<bbb-M\>,v\<vDash\>\<circlearrowleft\><rsub|X\<oplus\>Y>> if and
+      only if <math|\<bbb-M\>,v\<vDash\>\<circlearrowleft\><rsub|X>> and
+      <math|\<bbb-M\>,v\<vDash\>\<circlearrowleft\><rsub|Y>>
+
+      <item><label|union>For all <math|X\<oplus\>Y\<in\>\<Xi\>>,
+      <with|mode|math|<math|<with|math-font|cal|A><rsub|v>(X\<oplus\>Y)=<with|math-font|cal|A><rsub|v>(X)\<cup\><with|math-font|cal|A><rsub|v>(Y)>>
+
+      <item><label|sub>For all <math|X,Y\<in\>\<Xi\>>, if
+      <with|mode|math|\<twonotes\>(X)\<subseteq\>\<twonotes\>(Y)> then
+      <math|R<rsub|Y>\<subseteq\>R<rsub|X>>
+    </enumerate-numeric>
+
+    As in our previous constructions, it is necessary to refine this model
+    using bisimulations to achieve properties which are not modally
+    definable. \ In particular, we shall strengthen (<reference|refl>) to a
+    biconditional and (<reference|sub>) to:
+
+    <\with|par-mode|center>
+      <tabular|<tformat|<cwith|1|1|2|2|cell-halign|c>|<table|<row|<cell|<with|font-series|bold|6<math|<rprime|'>>.>>|<cell|For
+      all <math|X,Y\<in\>\<Xi\>>, <math|R<rsub|X\<oplus\>Y>=R<rsub|X>\<cap\>R<rsub|Y>>>>>>>
+    </with>
+
+    \;
+
+    We first strengthen (<reference|refl>) by constructing
+    <math|\<bbb-M\><rprime|'>\<assign\>\<langle\>W<rprime|'>,V<rprime|'>,R<rprime|'>,<with|math-font|cal|A><rprime|'>\<rangle\>>,
+    just as in Theorem <reference|completeness1>:<htab|5mm>
+
+    <\itemize-dot>
+      <item><with|mode|math|W<rprime|'>\<assign\>W\<uplus\>W>
+
+      <item><math|V<rprime|'>(p)\<assign\>{v<rsub|l>,v<rsub|r><space|1spc>\|<space|1spc>v\<in\>V(p)}>
+
+      <item><math|R<rprime|'><rsub|X> \<assign\>
+      {(v<rsub|l>,u<rsub|r>),(v<rsub|r>,u<rsub|l>)<space|1spc>\|<space|1spc>v
+      R<rsub|X> u}\<cup\>{(v<rsub|l>,v<rsub|l>),(v<rsub|r>,v<rsub|r>)<space|1spc>\|<space|1spc>\<bbb-M\>,v\<vDash\>\<circlearrowleft\><rsub|X>}>
+
+      <item><math|<with|math-font|cal|A><rprime|'>(v<rsub|l>,X)\<assign\><with|math-font|cal|A><rprime|'>(v<rsub|r>,X)\<assign\><with|math-font|cal|A>(v,X)><math|>
+    </itemize-dot>
+
+    The same bisimulation relation <math|Z> previously given suffices.
+
+    \;
+
+    We next make a strengthened the model where
+    (<reference|sub><math|<rprime|'>>) holds. \ Define
+    <math|\<bbb-M\><rprime|''>\<assign\>\<langle\>W<rprime|''>,V<rprime|''>,R<rprime|''>,<with|math-font|cal|A><rprime|''>\<rangle\>>
+    such that<\footnote>
+      Let <math|{i<rsub|X><space|1spc>\|<space|1spc>X\<in\>\<Xi\>}> be the
+      family of canonical injections into the coproduct
+      <math|<big|pluscup><rsub|\<Xi\>>W>. As per our previous convention, we
+      use <math|v<rsub|X>> as shorthand for <math|i<rsub|X>(v)>.
+    </footnote>:
+
+    <\itemize-dot>
+      <item><with|math-display|true|<with|mode|math|W<rprime|''>\<assign\><big|pluscup><rsub|\<Xi\>>W<rprime|'>>>
+
+      <item><math|V<rprime|''>(p)\<assign\>{v<rsub|X><space|1spc>\|<space|1spc>X\<in\>\<Xi\><space|1spc>&<space|1spc>v\<in\>V<rprime|'>(p)}>
+
+      <item><math|R<rprime|''><rsub|X> \<assign\>
+      {(v<rsub|Y>,u<rsub|Z>)<space|1spc>\|<space|1spc>Y,Z\<in\>\<Xi\><space|1spc>&<space|1spc>v
+      R<rprime|'><rsub|Z> u<space|1spc>&<space|1spc>\<twonotes\>(X)\<subseteq\>\<twonotes\>(Z)}>
+
+      <item><math|<with|math-font|cal|A><rprime|''>(v<rsub|Y>,X)\<assign\><with|math-font|cal|A><rprime|'>(v,X)>
+    </itemize-dot>
+
+    Note that this construction makes use of the assumption that
+    <math|\<Xi\>> is non-empty. \ Let <math|Z\<assign\>{(v,v<rsub|X>)<space|1spc>\|<space|1spc>X\<in\>\<Xi\><space|1spc>&<space|1spc>v\<in\>W<rprime|'>}>;
+    it is straightforward to prove that <math|Z> is a bisimulation between
+    <math|\<bbb-M\><rprime|'>> and <math|\<bbb-M\><rprime|''>>, for all
+    relations corresponding to terms <math|X\<in\>\<Xi\>>. Hence
+    <math|\<bbb-M\><rprime|''>,w<rsub|X>\<nvDash\>\<psi\>> for some
+    <math|w<rsub|X>\<in\>W<rprime|''>>. \ In addition,
+    <math|\<bbb-M\><rprime|''>> inherits (<reference|fin>) through
+    (<reference|sub>) from <math|\<bbb-M\><rprime|'>>, as well as the
+    converse of (<reference|refl>). \ Next observe, forall
+    <math|X\<oplus\>Y\<in\>\<Xi\>>:
+
+    <\eqnarray*>
+      <tformat|<table|<row|<cell|<with|mode|text|<math|(v<rsub|V>,u<rsub|Z>)\<in\>R<rprime|''><rsub|X>\<cap\>R<rprime|''><rsub|Y>>>>|<cell|\<Longleftrightarrow\>>|<cell|\<exists\>Z\<in\>\<Xi\>.
+      <with|mode|text|<math|v R<rprime|'><rsub|Z>
+      u<space|1spc>&<space|1spc>\<twonotes\>(X)\<subseteq\>\<twonotes\>(Z)<space|1spc>&<space|1spc>\<twonotes\>(Y)\<subseteq\>\<twonotes\>(Z)>>>>|<row|<cell|>|<cell|\<Longleftrightarrow\>>|<cell|\<exists\>Z\<in\>\<Xi\>.<with|mode|text|<math|v
+      R<rprime|'><rsub|Z> u<space|1spc>&<space|1spc>\<twonotes\>(X)\<cup\>\<twonotes\>(Y)\<subseteq\>\<twonotes\>(Z)>>>>|<row|<cell|>|<cell|\<Longleftrightarrow\>>|<cell|\<exists\>Z\<in\>\<Xi\>.<with|mode|text|<math|v
+      R<rprime|'><rsub|Z> u<space|1spc>&<space|1spc>\<twonotes\>(X\<oplus\>Y)\<subseteq\>\<twonotes\>(Z)>>>>|<row|<cell|>|<cell|\<Longleftrightarrow\>>|<cell|
+      <with|mode|text|<math|(v<rsub|V>,u<rsub|Z>)\<in\>R<rprime|''><rsub|X\<oplus\>Y>>>>>>>
+    </eqnarray*>
+
+    We now turn to our final construction. As in previous constructions, let
+    <math|\<iota\>:W<rprime|''>\<hookrightarrow\>\<Phi\>\<backslash\>\<Psi\>>
+    be an injection assigning fresh nominals to worlds. \ Define
+    <math|\<bbb-M\><rprime|'''>\<assign\>\<langle\>W<rprime|'''>,V<rprime|'''>,R<rprime|'''>,<with|math-font|cal|A><rprime|'''>\<rangle\>>
+    just as in the final construction in the proof of Theorem
+    <reference|completeness1>, except that <math|R<rprime|'''><rsub|X>> and
+    <math|<with|math-font|cal|A><rsub|v><rprime|'''>(X)> are defined
+    inductively as follows:\ 
+
+    \;
+
+    <\with|par-mode|center>
+      <tabular|<tformat|<table|<row|<cell|<math|\<bullet\>>>|<cell|<math|R<rprime|'''><rsub|t>\<assign\><with|math-display|true|<choice|<tformat|<table|<row|<cell|R<rprime|''><rsub|t>>|<cell|t\<in\>\<Xi\>>>|<row|<cell|W<rprime|'''>\<times\>W<rprime|'''>>|<cell|o/w>>>>>>>>|<cell|>>|<row|<cell|<math|\<bullet\>>>|<cell|<with|mode|math|R<rprime|'''><rsub|X\<oplus\>Y>\<assign\>R<rprime|'''><rsub|X>\<cap\>R<rprime|'''><rsub|Y>>>|<cell|>>|<row|<cell|>|<cell|>|<cell|>>|<row|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-font|cal|A><rprime|'''><rsub|v>(t)\<assign\>{\<phi\><space|1spc>\|\<phi\>\<in\><with|math-font|cal|A><rprime|''><rsub|v>}
+      \<cup\>{\<neg\>\<iota\>(u)<space|1spc>\|<space|1spc>\<neg\>v
+      R<rprime|'''><rsub|t> u}>>|<cell|where
+      <math|t\<in\>\<Pi\>>>>|<row|<cell|<math|\<bullet\>>>|<cell|<math|<with|math-font|cal|A><rprime|'''><rsub|v>(X\<oplus\>Y)\<assign\><with|math-font|cal|A><rprime|'''><rsub|v>(X)\<cup\><with|math-font|cal|A><rprime|'''><rsub|v>(Y)>>|<cell|>>>>>
+    </with>
+
+    \;
+
+    \;
+
+    Induction over complexity of subformulae <math|\<phi\>> of <math|\<psi\>>
+    yields <math|\<bbb-M\><rprime|''>,w\<vDash\>\<phi\>\<Longleftrightarrow\>\<bbb-M\><rprime|'''>,w\<vDash\>\<phi\>>,
+    so we know that there is some world <math|w\<in\>W<rprime|'''>> such that
+    <math|\<bbb-M\><rprime|'''>,w\<nvDash\>\<psi\>>. \ All that is left is to
+    illustrate that <math|\<bbb-M\><rprime|'''>> has the properties we
+    desire.
+
+    \;
+
+    First note that by definition, <math|\<bbb-M\><rprime|'''>> makes true
+    <with|font-series|bold|CHOICE>. \ Next, an induction argument on the
+    complexity of a terms <math|X>, making essential use of
+    (<reference|sub><math|<rprime|'>>), yields:
+
+    <\equation*>
+      u R<rsub|X><rprime|'''>v \<Longleftrightarrow\>\<bbb-M\><rprime|'''>,v\<vDash\><big|wedge><with|math-font|cal|A><rprime|'''><rsub|v>(X)
+    </equation*>
+
+    With this, <math|\<bbb-M\><rprime|'''>> makes true
+    <with|font-series|bold|JSND> since it inherits (<reference|refl>).
+    \ Finally, we note that we may repeat our previous arguments from Theorem
+    <reference|completeness1> to prove <with|font-series|bold|JCSQ>.
+  </proof>
+
+  <subsection|Lattice Justification Logic>
+
+  <with|color|red|NOTE: \ THIS SECTION HAS SOME SERIOUS PROBLEMS AND IT'S
+  PROBABLY WRONG...>
+
+  \;
+
+  Implicit in our previous presentation of SJL: \ <math|\<oplus\>> behaves
+  like a union operation for knowledge bases, and dually like an intersection
+  operation on accessibility relations. \ It is natural to think of
+  <math|\<oplus\>> as a join/meet operator over a <em|semi-lattice>. \ In
+  this section we make this explicit, by increasing the expressive power of
+  simple JL to express the order theory inherent in knowledge bases. \ We
+  call the novel logic presented in this section
+  <with|font-shape|italic|Lattice Justification Logic> (LJL)<footnote|We note
+  that ``Semi-Lattice Justification Logic'' may be a more appropriate name,
+  however we have decided to shorten semic-lattice to lattice in this article
+  for purposes of concision.>. \ Lattice JL may be considered a novel logic
+  for studying the dynamics of <with|font-shape|italic|theory change>, where
+  the logic employed by the changing theories could be LJL itself.
+
+  \;
+
+  <\definition>
+    <math|<with|math-font|cal|L><rsub|LJL>(\<Phi\>,\<Pi\>)> extends
+    <math|<with|math-font|cal|L><rsub|SJL>(\<Phi\>,\<Pi\>)> to:
+
+    <\equation*>
+      \<phi\> <space|1spc>: :=<space|1spc>p\<in\>\<Phi\><space|1spc>\|<space|1spc>\<circlearrowleft\><rsub|X><space|1spc>\|<space|1spc>\<bot\><space|1spc>\|<space|1spc>\<phi\>\<rightarrow\>\<psi\><space|1spc>\|<space|1spc>\<box\><rsub|X>\<phi\><space|1spc>\|<space|1spc>X:\<phi\><space|1spc>\|<space|1spc>X\<sqsubseteq\>Y
+    </equation*>
+
+    where <math|X,Y\<in\>\<tau\>(\<Pi\>)>
+  </definition>
+
+  <\definition>
+    <label|justmodels>A <strong|lattice justification model>
+    <math|\<bbb-M\>=\<langle\>W,V,R,<with|math-font|cal|A>,\<preccurlyeq\>\<rangle\>>
+    is a simple justification model with a new relation
+    <math|\<preccurlyeq\>:W\<rightarrow\>2<rsup|\<tau\>(\<Pi\>)\<times\>\<tau\>(\<Pi\>)>>
+    between terms, indexed by worlds. \ The semantics of
+    <math|\<sqsubseteq\>> correspond to <math|\<preccurlyeq\>> as follows:
+
+    <\equation*>
+      \<bbb-M\>,w\<vDash\>X\<sqsubseteq\>Y\<Longleftrightarrow\>X\<preccurlyeq\><rsub|w>Y
+    </equation*>
+  </definition>
+
+  <\definition>
+    A lattices justification model is said to make true
+    <with|font-series|bold|LATTICE> if and only if:
+
+    <\equation*>
+      \<bbb-M\>,w\<vDash\>X\<sqsubseteq\>Y\<Longleftrightarrow\><with|math-font|cal|A><rsub|w>*(X)\<subseteq\><with|math-font|cal|A><rsub|w>(Y)
+    </equation*>
+  </definition>
+
+  Table <reference|logic6> lists the axioms for the logic of lattice
+  justification models with the properties we have been investigating:
+
+  <big-table|<tabular|<tformat|<cwith|17|17|1|1|cell-row-span|1>|<cwith|17|17|1|1|cell-col-span|2>|<cwith|17|17|1|1|cell-halign|c>|<cwith|15|15|1|1|cell-row-span|1>|<cwith|15|15|1|1|cell-col-span|2>|<cwith|15|15|1|1|cell-halign|c>|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<box\><rsub|X>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<box\><rsub|X>\<phi\>\<rightarrow\>\<box\><rsub|X>\<psi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(X:\<phi\>)\<rightarrow\>\<box\><rsub|X>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\><rsub|X>\<rightarrow\>\<box\><rsub|X>\<phi\>\<rightarrow\>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>(X:\<phi\>)\<rightarrow\>(Y:\<phi\>)\<rightarrow\>X\<oplus\>Y:\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>X\<sqsubseteq\>Y\<rightarrow\>(X:\<phi\>)\<rightarrow\>Y:\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>\<circlearrowleft\><rsub|X>\<rightarrow\>\<circlearrowleft\><rsub|Y>\<rightarrow\>\<circlearrowleft\><rsub|X\<oplus\>Y>>>|<cell|>>|<row|<cell|<math|\<vdash\>X\<sqsubseteq\>Y\<rightarrow\>\<circlearrowleft\><rsub|Y>\<rightarrow\>\<circlearrowleft\><rsub|X>>>|<cell|>>|<row|<cell|<math|\<vdash\>X\<sqsubseteq\>Y\<rightarrow\>\<box\><rsub|X>\<phi\>\<rightarrow\>\<box\><rsub|Y>\<phi\>>>|<cell|>>|<row|<cell|<math|\<vdash\>X\<sqsubseteq\>X>>|<cell|>>|<row|<cell|<math|\<vdash\>X\<sqsubseteq\>Y\<rightarrow\>Y\<sqsubseteq\>Z\<rightarrow\>X\<sqsubseteq\>Z>>|<cell|>>|<row|<cell|<with|mode|math|\<vdash\>X\<sqsubseteq\>Y\<rightarrow\>X\<sqsubseteq\>Z\<oplus\>Y>>|<cell|<with|mode|math|\<vdash\>X\<sqsubseteq\>Y\<rightarrow\>X\<sqsubseteq\>Y\<oplus\>Z>>>|<row|<cell|<math|\<vdash\>X\<sqsubseteq\>Z\<rightarrow\>Y\<sqsubseteq\>Z\<rightarrow\>X\<oplus\>Y\<sqsubseteq\>Z>>|<cell|>>|<row|<cell|>|<cell|>>|<row|<cell|<tabular|<tformat|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>|\<vdash\>\<box\><rsub|X>\<phi\>>>>>>>>>>|<cell|>>>>>|<label|logic6>Lattice
+  Justification Logic>
+
+  <\theorem>
+    <label|completeness6>Assuming an infinite store of proposition letters
+    <math|\<Phi\>>, LJL is sound and weakly complete for lattice
+    justification models making true <with|font-series|bold|JCSQ>,
+    <with|font-series|bold|JSND>, <with|font-series|bold|CHOICE> and
+    <with|font-series|bold|LATTICE>
+  </theorem>
+
+  <\proof>
+    Assume <math|\<nvdash\>\<psi\>>. \ Let
+    <math|\<bbb-M\>\<assign\>\<langle\>W,V,R,<with|math-font|cal|A>,\<preccurlyeq\>\<rangle\>>
+    be the same as the finitary canonical model we initially constructed in
+    Theorem <reference|completeness5>, only <math|\<preccurlyeq\>> is defined
+    as:
+
+    <\equation*>
+      X\<preccurlyeq\><rsub|w>Y\<Longleftrightarrow\>w\<vdash\>X\<sqsubseteq\>Y
+    </equation*>
+
+    We may deduce that there is a world <math|w\<in\>W> such that
+    <math|\<bbb-M\>,w\<nvDash\>\<psi\>>. \ This canonical model makes true
+    properties (<reference|fin>) through (<reference|union>) we listed in
+    Theorem <reference|completeness5>, as well as a certain new properties:
+
+    <\description-compact>
+      <item*|6<math|\<preccurlyeq\>>>For all <math|X,Y\<in\>\<Xi\>>, if
+      <with|mode|math|X\<preccurlyeq\><rsub|v>Y> then
+      <math|R<rsub|Y>[v]\<subseteq\>R<rsub|X>[v]>
+
+      <item*|7>For all <math|X,Y\<in\>\<Xi\>>, if
+      <with|mode|math|X\<preccurlyeq\><rsub|v>Y> then
+      <math|<with|math-font|cal|A><rsub|v>(X)\<subseteq\><with|math-font|cal|A><rsub|v>(Y)>
+
+      <item*|8>If <math|X\<nin\>\<Xi\>>, then <math|R<rsub|X>=W\<times\>W>
+      and <math|<with|math-font|cal|A><rsub|v>(X)=\<varnothing\>> for all
+      <math|v\<in\>W>
+
+      <item*|9><math|\<langle\>\<preccurlyeq\><rsub|v>,\<oplus\>\<rangle\>>
+      is a join-semilattice over <math|\<tau\>(\<Pi\>)> for all
+      <math|v\<in\>W>
+    </description-compact>
+
+    As in previous constructions, completeness is achieved by through a
+    series of model refinements. \ Note that property 8 has been implicitly
+    true in all of our previous constructions, although we have not been
+    interested in enforcing it to be inherited by model refinements
+    previously.
+
+    \;
+
+    We first construct a model <math|\<bbb-M\><rprime|'>> which is bisimular
+    to <math|\<bbb-M\>>, where (<reference|refl>) is strengthened to a
+    biconditional. \ This is done exactly as we proceeded in previous
+    constructions. We note that the notion of ``bisimulation'' here includes
+    that two bisimular worlds <math|v> and <math|u> must have isomorphic
+    semi-lattices <math|\<preccurlyeq\><rsub|v>> and
+    <math|\<preccurlyeq\><rsub|w>>. \ This is achieved by enforcing that
+    <math|\<preccurlyeq\><rsub|v<rsub|l>>\<assign\>\<preccurlyeq\><rsub|v<rsub|r>>\<assign\>\<preccurlyeq\><rsub|v>>.
+    As before, we have that <math|\<bbb-M\><rprime|'>,w\<nvDash\>\<psi\>> for
+    some world <math|w\<in\>W<rprime|'>>.
+
+    \;
+
+    We next strengthen (6<math|\<preccurlyeq\>>) to a biconditional. \ Define
+    <math|\<bbb-M\><rprime|''>\<assign\>\<langle\>W<rprime|''>,V<rprime|''>,R<rprime|''>,<with|math-font|cal|A><rprime|''>\<rangle\>>
+    such that:
+
+    <\itemize-dot>
+      <item><with|math-display|true|<with|mode|math|W<rprime|''>\<assign\><big|pluscup><rsub|\<Xi\>>W<rprime|'>>>
+
+      <item><math|V<rprime|''>(p)\<assign\>{v<rsub|X><space|1spc>\|<space|1spc>X\<in\>\<Xi\><space|1spc>&<space|1spc>v\<in\>V<rprime|'>(p)}>
+
+      <item><math|R<rprime|''><rsub|X> \<assign\>
+      {(v<rsub|Y>,u<rsub|Z>)<space|1spc>\|<space|1spc>Y,Z\<in\>\<Xi\><space|1spc>&<space|1spc>v
+      R<rprime|'><rsub|Z> u<space|1spc>&<space|1spc>X\<preccurlyeq\><rsub|v>Z}>
+
+      <item><math|<with|math-font|cal|A><rprime|''>(v<rsub|Y>,X)\<assign\><with|math-font|cal|A><rprime|'>(v,X)>
+    </itemize-dot>
+
+    <math|\<bbb-M\><rprime|''>> is bisimular to <math|\<bbb-M\><rprime|'>> by
+    the same mechanism as the previous construction. \ The important feature
+    of this structure is to observe that the converse of
+    (6<math|\<preccurlyeq\>>) holds:
+
+    <\eqnarray*>
+      <tformat|<table|<row|<cell|R<rsub|Y>[v]\<subseteq\>R<rsub|X>[v]>|<cell|\<Longleftrightarrow\>>|<cell|\<forall\>Z\<in\>\<Xi\>
+      \<forall\>u<rsub|Z>\<in\>W<rprime|''>(v<rsub|Q>R<rprime|'><rsub|Z>u<rsub|Z>\<Longrightarrow\>v<rsub|Q>R<rsub|X><rprime|'>u<rsub|Z>)>>|<row|<cell|>|<cell|\<Longleftrightarrow\>>|<cell|\<forall\>Z\<in\>\<Xi\>
+      \<forall\>u<rsub|Z>\<in\>W<rprime|''>(v
+      R<rprime|'><rsub|Z>\<Longrightarrow\>v<rsub|Q>R<rsub|X>u<rsub|Z>)>>>>
+    </eqnarray*>
+
+    \;
+
+    Our first transformation strengthens (<reference|union>),
+    (6<math|\<preccurlyeq\>>a) and (6<math|\<preccurlyeq\>>b) so that they
+    hold for all terms in <math|\<tau\>(\<Pi\>)>, rather than being
+    restricted to <math|\<Xi\>>. \ To this end define
+    <math|\<bbb-M\><rprime|'>\<assign\>\<langle\>W<rprime|'>,V<rprime|'>,R<rprime|'>,<with|math-font|cal|A><rprime|'>,\<preccurlyeq\><rprime|'>\<rangle\>>
+    where <math|W<rprime|'>>, <math|R<rprime|'>> and
+    <math|\<preccurlyeq\><rprime|'>> are the same as in <math|\<bbb-M\>>, but
+    <math|R<rprime|'>> and <math|<with|math-font|cal|A><rprime|'>> have the
+    following modifications:
+
+    <\eqnarray>
+      <tformat|<table|<row|<cell|R<rprime|'><rsub|Y>[v]>|<cell|\<assign\>>|<cell|<big|cap><rsub|X\<preccurlyeq\><rsub|v>Y>R<rsub|X>[v]>>|<row|<cell|<with|math-font|cal|A><rprime|'><rsub|v>(Y)>|<cell|\<assign\>>|<cell|<big|cup><rsub|X\<preccurlyeq\><rsub|v>Y><with|math-font|cal|A><rprime|'><rsub|v>(X)>>>>
+    </eqnarray>
+
+    \;
+  </proof>
 
   <subsection|Neighborhood Semantics>
 
@@ -650,10 +1054,12 @@
   \ <cite|montague_universal_2008|scott_advice_1970>. \ In
   <cite|fagin_belief_1988>, Halpern and Fagin adapted neighborhood semantics
   for reasoning about epistemic agents without logical omniscience. \ In this
-  section will demonstrate how these semantics may be modified so that every
-  neighborhood corresponds to the logical consequences of a different
-  knowledge base. \ This allows for using logics with neighborhood semantics
-  for reasoning about multiple knowledge bases.
+  section will demonstrate how these semantics may be modified so that
+  neighborhoods corresponds to the logical consequences of a different
+  knowledge bases. \ This allows for using logics with neighborhood semantics
+  for reasoning about multiple knowledge bases. \ A point of distinction of
+  neighborhood semantics from JL is that it may be possible that two distinct
+  knowledge bases cannot be merged by the agent.
 
   <\definition>
     Let <math|\<Phi\>> be a set of letters and <math|\<Psi\>> a set of
@@ -721,7 +1127,7 @@
   </definition>
 
   <big-table|<tabular|<tformat|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>K\<phi\>\<rightarrow\>\<box\>\<phi\>>>>|<row|<cell|<math|\<vdash\>K\<phi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>A:\<phi\>\<rightarrow\>\<box\>\<phi\>>>>|<row|<cell|>>|<row|<cell|<tabular|<tformat|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|<space|6spc><with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\>|\<vdash\>\<box\>\<phi\>\<rightarrow\>\<box\>\<psi\>>>>>|<cell|<space|6spc>>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\>|\<vdash\>K\<phi\>\<rightarrow\>K\<psi\>>>>>>>>>>>>>>|<label|logic3>A
-  neighborhood logic for <with|font-series|bold|NCSQ> and <strong|NSND>>
+  Neighborhood Logic for <with|font-series|bold|NCSQ> and <strong|NSND>>
 
   <\theorem>
     Assuming an infinite store of letters <math|\<Phi\>>, the logic in Table
@@ -731,20 +1137,19 @@
   </theorem>
 
   <\proof>
-    As in previous proofs, we only establish completeness. \ Assume that
-    <math|\<nvdash\>\<psi\>>, and define the finitary canonical model
-    <math|\<bbb-M\>=\<langle\>W,V,<with|math-font|cal|K>,<with|math-font|cal|N>,<with|math-font|cal|A>\<rangle\>>
+    Assume that <math|\<nvdash\>\<psi\>>, and define the finitary canonical
+    model <math|\<bbb-M\>=\<langle\>W,V,<with|math-font|cal|K>,<with|math-font|cal|N>,<with|math-font|cal|A>\<rangle\>>
     where:
 
     <\itemize-dot>
       <item><math|W\<assign\><with|mode|text|the maximally consistent sets of
-      subformulae of <math|\<psi\>>, closed under pseudo-negation>>
+      subformulae of <math|\<psi\>>, closed under single negation>>
 
       <item><math|V(p)\<assign\>{v\<in\>W<space|1spc>\|<space|1spc>p\<in\>v}>
 
-      <item><with|mode|math|<with|math-font|cal|K><rsub|w>\<assign\>{S\<in\>\<wp\>W<space|1spc>\|<space|1spc>{v\<in\>W<space|1spc>\|<space|1spc>\<phi\>\<in\>v}\<subseteq\>S<space|1spc>&<space|1spc>K\<phi\>\<in\>w}>
+      <item><with|mode|math|<with|math-font|cal|K><rsub|w>\<assign\>{S\<in\>2<rsup|W><space|1spc>\|<space|1spc>{v\<in\>W<space|1spc>\|<space|1spc>\<phi\>\<in\>v}\<subseteq\>S<space|1spc>&<space|1spc>K\<phi\>\<in\>w}>
 
-      <item><with|mode|math|<math|<with|math-font|cal|N><rsub|w>\<assign\>{S\<in\>\<wp\>W<space|1spc>\|<space|1spc>{v\<in\>W<space|1spc>\|<space|1spc>\<phi\>\<in\>v}\<subseteq\>S<space|1spc>&<space|1spc>\<box\>\<phi\>\<in\>w}>>
+      <item><with|mode|math|<math|<with|math-font|cal|N><rsub|w>\<assign\>{S\<in\>2<rsup|W><space|1spc>\|<space|1spc>{v\<in\>W<space|1spc>\|<space|1spc>\<phi\>\<in\>v}\<subseteq\>S<space|1spc>&<space|1spc>\<box\>\<phi\>\<in\>w}>>
 
       <item><with|mode|math|<math|<with|math-font|cal|A><rsub|w>\<assign\>{{\<phi\>}<space|1spc>\|<space|1spc>A:\<phi\>\<in\>w}>>
     </itemize-dot>
@@ -783,8 +1188,9 @@
     number of properties:
 
     <\enumerate-numeric>
-      <item><math|W> is finite and <math|<with|math-font|cal|A><rsub|v>> is
-      finite for all <math|v\<in\>W>
+      <item><math|W> and <math|<with|math-font|cal|A><rsub|v>> are finite for
+      all <math|v\<in\>W>, and <math|\<psi\>\<in\><big|cup><with|math-font|cal|A<rsub|w>>>
+      only if <math|\<psi\>> is a subformula of <math|\<phi\>>
 
       <item><math|<with|math-font|cal|K><rsub|w>\<subseteq\><with|math-font|cal|N><rsub|w>>
 
@@ -868,13 +1274,13 @@
     \;
 
     All that is left is to show <with|font-series|bold|NCSQ> and
-    <with|font-series|bold|NSND> three new properties:
+    <with|font-series|bold|NSND> from three new properties:
 
     <\enumerate-roman>
       <item>For all words <math|v> and all
-      <math|X\<in\><with|math-font|cal|A><rsub|v><rprime|''>>, then <math|X>
-      is finite and \ <math|X=\<partial\><rsub|v>S> for some
-      <math|S\<in\><with|math-font|cal|N><rsub|v>>
+      <math|X\<in\><with|math-font|cal|A><rsub|v><rprime|''>>, <math|X> is
+      finite and \ <math|X=\<partial\><rsub|v>S> for some
+      <math|S\<in\><with|math-font|cal|N><rsub|v><rprime|''>>
 
       <item>For all <math|v> and all <math|S\<in\><with|math-font|cal|N><rsub|v>>,
       <math|u\<in\>S> if and only if <math|\<bbb-M\><rprime|''>,u\<vDash\><big|wedge>\<partial\><rsub|v>S>
@@ -906,15 +1312,16 @@
   </proof>
 
   It is not too hard to identify the fragment of this logic that governs
-  knowledge alone. \ This fragment has special importance, since it governs
-  the notion of knowledge presented in Ÿ<reference|quantifying>.
+  knowledge alone. \ The fragment given in Table <reference|logic4> has
+  special significance to us, since it governs the notion of knowledge
+  presented in Ÿ<reference|quantifying>.
 
   <big-table|<tabular|<tformat|<table|<row|<cell|<math|\<vdash\>\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>(\<phi\>\<rightarrow\>\<psi\>\<rightarrow\>\<chi\>)\<rightarrow\>(\<phi\>\<rightarrow\>\<psi\>)\<rightarrow\>\<phi\>\<rightarrow\>\<chi\>>>>|<row|<cell|<math|\<vdash\>((\<phi\>\<rightarrow\>\<bot\>)\<rightarrow\>(\<psi\>\<rightarrow\>\<bot\>))\<rightarrow\>\<psi\>\<rightarrow\>\<phi\>>>>|<row|<cell|<math|\<vdash\>K\<phi\>\<rightarrow\>\<phi\>>>>|<row|<cell|>>|<row|<cell|<tabular|<tformat|<table|<row|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\><space|4spc>\<vdash\>\<phi\>|\<vdash\>\<psi\>>>>>|<cell|>|<cell|>|<cell|<with|math-display|true|<math|<frac|\<vdash\>\<phi\>\<rightarrow\>\<psi\>|\<vdash\>K\<phi\>\<rightarrow\>K\<psi\>>>>>>>>>>>>>>|<label|logic4>A
   knowledge-only neighborhood logic for <with|font-series|bold|NCSQ> and
   <strong|NSND>>
 
   <\proposition>
-    The logic in Table <reference|logic4> governs the <math|\<box\>>-free
+    The knowledge-only logic presented governs the <math|\<box\>>-free
     fragment of the logic in Table <reference|logic3>
   </proposition>
 
@@ -925,16 +1332,34 @@
     <label|quantifying>Using Modalities to Quantify over Knowledge Bases
   </subsection>
 
+  \;
+
+  <section|Conclusions & Further Research>
+
+  The logic presented in Table <reference|logic1> is a conservative extension
+  of the basic modal logic <math|K>, which means that its decision problem is
+  <with|font-family|ss|PSPACE> hard (a lower bound). \ Our finitary
+  completeness proof establishes that its complexity is in
+  <with|font-family|ss|EXP2-TIME> (an upper bound).
+
+  \;
+
+  Worlds in epistemic logic might correspond to fantastic, pretend scenarios;
+  however, it may be desirable for some philosophers to model knowledge about
+  imaginary lands. \ After all, many children ``know'' a lot about Tolkien's
+  <em|middle earth> or Rowling's <em|Hogwarts> (the school Harry Potter
+  attends).
+
   <\bibliography|bib|plain|~/Documents/EviL/Paper/zotero.bib>
     <\bib-list|10>
-      <bibitem*|1><label|bib-artemov_introducing_2005>S.<nbsp>Artemov and
+      <bibitem*|1><label|bib-artemov_logic_1994>S.<nbsp>N Artemov.
+      <newblock>Logic of proofs. <newblock><with|font-shape|italic|Annals of
+      Pure and Applied Logic>, 67(1):29â€“60, 1994.
+
+      <bibitem*|2><label|bib-artemov_introducing_2005>S.<nbsp>N Artemov and
       E.<nbsp>Nogina. <newblock>Introducing justification into epistemic
       logic. <newblock><with|font-shape|italic|Journal of Logic and
       Computation>, 15(6):1059, 2005.
-
-      <bibitem*|2><label|bib-artemov_logic_1994>S.<nbsp>N Artemov.
-      <newblock>Logic of proofs. <newblock><with|font-shape|italic|Annals of
-      Pure and Applied Logic>, 67(1):29â€“60, 1994.
 
       <bibitem*|3><label|bib-basu_revealed_1980>Kaushik Basu.
       <newblock><with|font-shape|italic|Revealed preference of government>.
@@ -958,10 +1383,10 @@
       <newblock><with|font-shape|italic|International Journal of
       Philosophical Studies>, 3(1):1â€“16, 1995.
 
-      <bibitem*|8><label|bib-fagin_belief_1987>R.<nbsp>Fagin and J.<nbsp>Y
-      Halpern. <newblock>Belief, awareness, and limited reasoning* 1.
+      <bibitem*|8><label|bib-fagin_belief_1988>R.<nbsp>Fagin and J.<nbsp>Y
+      Halpern. <newblock>Belief, awareness, and limited reasoning.
       <newblock><with|font-shape|italic|Artificial Intelligence>,
-      34(1):39â€“76, 1987.
+      34(1):39â€“76, 1988.
 
       <bibitem*|9><label|bib-fitting_logic_2005>M.<nbsp>Fitting.
       <newblock>The logic of proofs, semantically.
@@ -973,38 +1398,49 @@
       conditional logic. <newblock><with|font-shape|italic|Annals of
       Mathematics and Artificial Intelligence>, 26(1-4):1--27, 1999.
 
-      <bibitem*|11><label|bib-hendricks_mainstream_2006>V.<nbsp>F Hendricks.
+      <bibitem*|11><label|bib-hansen_bisimulation_2007>Helle<nbsp>Hvid
+      Hansen, Clemens Kupke, and Eric Pacuit. <newblock>Bisimulation for
+      neighbourhood structures. <newblock>In
+      <with|font-shape|italic|Proceedings of the 2nd international conference
+      on Algebra and coalgebra in computer science>, pages 279--293, Bergen,
+      Norway, 2007. Springer-Verlag.
+
+      <bibitem*|12><label|bib-hendricks_mainstream_2006>V.<nbsp>F Hendricks.
       <newblock><with|font-shape|italic|Mainstream and formal epistemology>.
       <newblock>Cambridge Univ Pr, 2006.
 
-      <bibitem*|12><label|bib-kornblith_beyond_1980>Hilary Kornblith.
+      <bibitem*|13><label|bib-kornblith_beyond_1980>Hilary Kornblith.
       <newblock>Beyond foundationalism and the coherence theory.
       <newblock><with|font-shape|italic|The Journal of Philosophy>,
       77(10):597--612, October 1980.
 
-      <bibitem*|13><label|bib-montague_universal_2008>Richard Montague.
+      <bibitem*|14><label|bib-montague_universal_2008>Richard Montague.
       <newblock>Universal grammar. <newblock><with|font-shape|italic|Theoria>,
       36(3):373--398, 2008.
 
-      <bibitem*|14><label|bib-prior_revised_1969>Arthur<nbsp>N. Prior.
+      <bibitem*|15><label|bib-pauly_bisimulation_1999>M.<nbsp>Pauly.
+      <newblock>Bisimulation for general non-normal modal logic.
+      <newblock><with|font-shape|italic|Manuscript>, 1999.
+
+      <bibitem*|16><label|bib-prior_revised_1969>Arthur<nbsp>N. Prior.
       <newblock><with|font-shape|italic|Revised and Expanded Edition of
       Arthur N. Prior: Papers on Time and Tense>. <newblock>Oxford University
       Press, 1969. <newblock>reprinted in 2003.
 
-      <bibitem*|15><label|bib-rubinstein_modeling_1998>Ariel Rubinstein.
+      <bibitem*|17><label|bib-rubinstein_modeling_1998>Ariel Rubinstein.
       <newblock><with|font-shape|italic|Modeling Bounded Rationality>.
       <newblock>MIT Press, 1998.
 
-      <bibitem*|16><label|bib-scott_advice_1970>D.<nbsp>Scott.
+      <bibitem*|18><label|bib-scott_advice_1970>D.<nbsp>Scott.
       <newblock>Advice on modal logic. <newblock><with|font-shape|italic|Philosophical
       problems in Logic>, 143:74, 1970.
 
-      <bibitem*|17><label|bib-sen_behaviour_1973>Amartya Sen.
+      <bibitem*|19><label|bib-sen_behaviour_1973>Amartya Sen.
       <newblock>Behaviour and the concept of preference.
       <newblock><with|font-shape|italic|Economica>, 40(159):241--259, August
       1973.
 
-      <bibitem*|18><label|bib-van_benthem_inference_2009>Johan van Benthem
+      <bibitem*|20><label|bib-van_benthem_inference_2009>Johan van Benthem
       and F.<nbsp>R VelÃ¡zquez-Quesada. <newblock>Inference, promotion, and
       the dynamics of awareness. <newblock><with|font-shape|italic|ILLC
       Amsterdam. To appear in Knowledge, Rationality and Action>, 2009.
@@ -1026,11 +1462,14 @@
 <\references>
   <\collection>
     <associate|auto-1|<tuple|1|1>>
-    <associate|auto-10|<tuple|3|7>>
+    <associate|auto-10|<tuple|3.2|7>>
     <associate|auto-11|<tuple|4|8>>
     <associate|auto-12|<tuple|3.3|8>>
-    <associate|auto-13|<tuple|3.3|8>>
-    <associate|auto-14|<tuple|3.4|?>>
+    <associate|auto-13|<tuple|5|8>>
+    <associate|auto-14|<tuple|6|?>>
+    <associate|auto-15|<tuple|3.4|?>>
+    <associate|auto-16|<tuple|4|?>>
+    <associate|auto-17|<tuple|4|?>>
     <associate|auto-2|<tuple|2|2>>
     <associate|auto-3|<tuple|2.1|2>>
     <associate|auto-4|<tuple|1|2>>
@@ -1038,12 +1477,12 @@
     <associate|auto-6|<tuple|2|4>>
     <associate|auto-7|<tuple|3|5>>
     <associate|auto-8|<tuple|3.1|5>>
-    <associate|auto-9|<tuple|3.2|6>>
+    <associate|auto-9|<tuple|3|6>>
     <associate|awarenesslogic|<tuple|2.1|2>>
     <associate|awarenessmodels|<tuple|2|2>>
     <associate|basic-modal|<tuple|2|?>>
-    <associate|bib-artemov_introducing_2005|<tuple|1|8>>
-    <associate|bib-artemov_logic_1994|<tuple|2|8>>
+    <associate|bib-artemov_introducing_2005|<tuple|2|8>>
+    <associate|bib-artemov_logic_1994|<tuple|1|8>>
     <associate|bib-basu_revealed_1980|<tuple|3|8>>
     <associate|bib-blackburn_modal_2001|<tuple|4|8>>
     <associate|bib-boolos_logic_1995|<tuple|5|8>>
@@ -1051,38 +1490,67 @@
     <associate|bib-castaneda_knowing_1970|<tuple|10|?>>
     <associate|bib-davidson_could_1995|<tuple|7|8>>
     <associate|bib-fagin_belief_1987|<tuple|8|8>>
+    <associate|bib-fagin_belief_1988|<tuple|8|?>>
     <associate|bib-fitting_logic_2005|<tuple|9|9>>
     <associate|bib-ginet_what_1970|<tuple|8|?>>
     <associate|bib-halpern_set-theoretic_1999|<tuple|10|9>>
-    <associate|bib-hendricks_mainstream_2006|<tuple|11|9>>
-    <associate|bib-kornblith_beyond_1980|<tuple|12|9>>
-    <associate|bib-montague_universal_2008|<tuple|13|9>>
-    <associate|bib-prior_revised_1969|<tuple|14|9>>
-    <associate|bib-rubinstein_modeling_1998|<tuple|15|9>>
-    <associate|bib-scott_advice_1970|<tuple|16|9>>
-    <associate|bib-sen_behaviour_1973|<tuple|17|9>>
-    <associate|bib-van_benthem_inference_2009|<tuple|18|9>>
+    <associate|bib-hansen_bisimulation_2007|<tuple|11|?>>
+    <associate|bib-hendricks_mainstream_2006|<tuple|12|9>>
+    <associate|bib-kornblith_beyond_1980|<tuple|13|9>>
+    <associate|bib-montague_universal_2008|<tuple|14|9>>
+    <associate|bib-pauly_bisimulation_1999|<tuple|15|?>>
+    <associate|bib-prior_revised_1969|<tuple|16|9>>
+    <associate|bib-rubinstein_modeling_1998|<tuple|17|9>>
+    <associate|bib-scott_advice_1970|<tuple|18|9>>
+    <associate|bib-sen_behaviour_1973|<tuple|19|9>>
+    <associate|bib-van_benthem_inference_2009|<tuple|20|9>>
     <associate|bib-van_benthem_reflectionsepistemic_1991|<tuple|11|?>>
     <associate|completeness1|<tuple|4|3>>
+    <associate|completeness2|<tuple|8|?>>
+    <associate|completeness5|<tuple|12|?>>
+    <associate|completeness6|<tuple|16|?>>
+    <associate|fin|<tuple|1|?>>
     <associate|footnote-1|<tuple|1|1>>
+    <associate|footnote-10|<tuple|10|?>>
     <associate|footnote-2|<tuple|2|1>>
     <associate|footnote-3|<tuple|3|5>>
+    <associate|footnote-4|<tuple|4|?>>
+    <associate|footnote-5|<tuple|5|?>>
+    <associate|footnote-6|<tuple|6|?>>
+    <associate|footnote-7|<tuple|7|?>>
+    <associate|footnote-8|<tuple|8|?>>
+    <associate|footnote-9|<tuple|9|?>>
     <associate|footnr-1|<tuple|1|1>>
+    <associate|footnr-10|<tuple|10|?>>
     <associate|footnr-2|<tuple|2|1>>
     <associate|footnr-3|<tuple|3|5>>
-    <associate|hybridsemantics|<tuple|7|4>>
+    <associate|footnr-4|<tuple|4|?>>
+    <associate|footnr-5|<tuple|5|?>>
+    <associate|footnr-6|<tuple|6|?>>
+    <associate|footnr-7|<tuple|7|?>>
+    <associate|footnr-8|<tuple|8|?>>
+    <associate|footnr-9|<tuple|9|?>>
+    <associate|hybridsemantics|<tuple|6|4>>
+    <associate|inter|<tuple|6|?>>
     <associate|intro|<tuple|1|1>>
-    <associate|justmodels|<tuple|11|6>>
+    <associate|justmodels|<tuple|14|6>>
     <associate|logic|<tuple|1|?>>
     <associate|logic1|<tuple|1|2>>
     <associate|logic2|<tuple|2|4>>
-    <associate|logic3|<tuple|3|7>>
-    <associate|logic4|<tuple|4|8>>
-    <associate|neighborhoodmodels|<tuple|14|6>>
-    <associate|quantifying|<tuple|3.3|8>>
+    <associate|logic3|<tuple|5|7>>
+    <associate|logic4|<tuple|6|8>>
+    <associate|logic5|<tuple|4|?>>
+    <associate|logic6|<tuple|4|?>>
+    <associate|neighborhoodmodels|<tuple|18|6>>
+    <associate|quantifying|<tuple|3.4|8>>
+    <associate|refl|<tuple|3|?>>
     <associate|semdef1|<tuple|2|?>>
     <associate|simplyjustificationmodels|<tuple|11|?>>
+    <associate|sndneess|<tuple|4|?>>
+    <associate|sndness|<tuple|4|?>>
+    <associate|sub|<tuple|6|?>>
     <associate|theorem-theorem|<tuple|4|?>>
+    <associate|union|<tuple|5|?>>
   </collection>
 </references>
 
@@ -1125,6 +1593,10 @@
 
       van_benthem_inference_2009
 
+      blackburn_modal_2001
+
+      blackburn_modal_2001
+
       boolos_logic_1995
 
       prior_revised_1969
@@ -1152,20 +1624,23 @@
       pauly_bisimulation_1999
     </associate>
     <\associate|table>
-      <tuple|normal|<label|logic1>An awareness logic for
-      <with|font-series|<quote|bold>|CSQ><with|mode|<quote|math>|<rsub|\<vdash\>>>
-      and <with|font-series|<quote|bold>|SND>|<pageref|auto-4>>
+      <tuple|normal|<label|logic1>Awareness Logic for
+      <with|font-series|<quote|bold>|CSQ> and
+      <with|font-series|<quote|bold>|SND>|<pageref|auto-4>>
 
-      <tuple|normal|<label|logic2>A hybrid logic for
+      <tuple|normal|<label|logic2>Hybrid Awareness Logic for
       <with|font-series|<quote|bold>|CSQ>|<pageref|auto-6>>
 
-      <tuple|normal|<label|logic3>A neighborhood logic for
+      <tuple|normal|<label|logic5>Simple Justification
+      Logic|<pageref|auto-9>>
+
+      <tuple|normal|<label|logic3>A Neighborhood Logic for
       <with|font-series|<quote|bold>|NCSQ> and
-      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-10>>
+      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-12>>
 
       <tuple|normal|<label|logic4>A knowledge-only neighborhood logic for
       <with|font-series|<quote|bold>|NCSQ> and
-      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-11>>
+      <with|font-series|<quote|bold>|math-font-series|<quote|bold>|NSND>|<pageref|auto-13>>
     </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Introduction<label|intro>>
@@ -1181,7 +1656,7 @@
       Logic<label|awarenesslogic> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-3>>
 
-      <with|par-left|<quote|1.5fn>|2.2<space|2spc>Hybrid Logic
+      <with|par-left|<quote|1.5fn>|2.2<space|2spc>Hybrid Awareness Logic
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-5>>
 
@@ -1189,22 +1664,30 @@
       of Multiple Knowledge Bases> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-7><vspace|0.5fn>
 
-      <with|par-left|<quote|1.5fn>|3.1<space|2spc>Simplified Justification
-      Logic <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <with|par-left|<quote|1.5fn>|3.1<space|2spc>Simple Justification Logic
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
       <no-break><pageref|auto-8>>
 
-      <with|par-left|<quote|1.5fn>|3.2<space|2spc>Neighborhood Semantics
+      <with|par-left|<quote|1.5fn>|3.2<space|2spc>Lattice Justification Logic
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-9>>
+      <no-break><pageref|auto-10>>
 
-      <with|par-left|<quote|1.5fn>|3.3<space|2spc><label|quantifying>Using
+      <with|par-left|<quote|1.5fn>|3.3<space|2spc>Neighborhood Semantics
+      <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-11>>
+
+      <with|par-left|<quote|1.5fn>|3.4<space|2spc><label|quantifying>Using
       Modalities to Quantify over Knowledge Bases
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-12>>
+      <no-break><pageref|auto-14>>
+
+      <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|4<space|2spc>Conclusions
+      & Further Research> <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
+      <no-break><pageref|auto-15><vspace|0.5fn>
 
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|Bibliography>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-13><vspace|0.5fn>
+      <no-break><pageref|auto-16><vspace|0.5fn>
     </associate>
   </collection>
 </auxiliary>
